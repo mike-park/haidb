@@ -29,3 +29,15 @@ li.error {
 form.formtastic fieldset > ol > li p.inline-errors {
    clear: both;
 }
+
+.public_signup #lang p {
+   font-weight: bold;
+   font-size: 15px;
+   font-family: Verdana, sans-serif;
+   color: #9c3;
+   margin: 1em 0;
+}
+
+.public_signup #lang p a {
+    color: #e84f2f;
+}
