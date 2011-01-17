@@ -14,4 +14,4 @@
         %td= compact_address(a)
         %td= compact_phones(a)
         %td= link_to_show(office_angel_path(a))
-= render 'office/shared/table_options', :table => angels, :search => :first_name_or_last_name_or_email_or_city_or_country_contains
+= render 'office/shared/table_options', :table => angels, :search => :first_name_or_last_name_or_email_or_city_or_country_or_postal_code_contains
