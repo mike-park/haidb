@@ -1,0 +1,64 @@
+body {
+   margin: 0 0;
+   max-width: 940px;
+   min-width: 460px;
+}
+
+.search {
+  width: 165px;
+}
+
+.search_box {
+  width: 133px;
+}
+
+.search_submit {
+  left: 137px;
+}
+
+.row_count {
+   position: relative;
+   float: left;
+   margin: 5px;
+}
+
+/* ====================== tables */
+
+.model table {
+    border-collapse: collapse;
+}
+
+#angels td {
+    vertical-align: text-top;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+.totals {
+    font-size: 110%;
+    border-top: 2px solid black;
+}
+
+.link {
+    width: 16px;
+    padding: 1px 5px;
+    margin: 0;
+    vertical-align: middle;
+}
+
+.link img:hover {
+    background: #ddd;
+}
+
+
+
+
+/* my stuff 
+.secondary-navigation ul li a:hover {
+   background-color: #ADCC70;
+}
+.secondary-navigation ul li.active, .secondary-navigation ul li.active a:hover {
+   background-color: #9c3;
+}
+
+*/

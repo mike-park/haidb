@@ -1,0 +1,12 @@
+.block
+  = block_navigation([['Summary', :summary], ['Phones', :phones], ['Addresses',:addresses]])
+
+  .content
+    = controls do |c|
+      - add_button_to(c, :new)
+
+    %h2 Phone Numbers
+
+    .inner
+      = render 'list', :angels => angels, :columns_in_use => @columns_in_use
+

@@ -1,0 +1,14 @@
+.block
+  = block_navigation(['Edit Registration'])
+
+  .content
+    = controls do |c|
+      - add_button_to(c, :delete)
+
+    %h2
+      #{registration.event_name}: edit registration of #{registration.full_name}
+
+    .inner
+      = render 'form'
+
+  = block_footer(registration_breadcrumbs)

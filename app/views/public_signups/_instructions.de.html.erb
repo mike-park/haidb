@@ -1,0 +1,31 @@
+<div class="instructions">
+
+  <% if instructions=='intro' %>
+<p>Bitte geben Sie Ihre Anmeldedaten weiter unten ein. Felder mit * zeigen Pflichtfelder. Nach Überprüfung Ihrer Anmeldung erhalten Sie eine Bestätigungs-Email.</p>
+
+  <% elsif instructions=='summary' %>
+<strong>Teilnahmevereinbarung:</strong> Bei Rücktritt bis zu 4 Wochen vor Seminarbeginn wird eine Bearbeitungsgebühr von 15% der Seminargebühr erhoben, danach wird die volle Summe fällig. Bei der Bereitstellung von Ersatzteilnehmern entfällt dies.  Bei vorzeitigem Abbruch des Seminars besteht kein Anspruch auf Erstattung der Seminargebühren.<br><br>Die Teilnahme an diesem Seminar dient der persönlichen Selbsterfahrung und ersetzt keine psychotherapeutische Behandlung. Dem Teilnehmer ist bekannt, dass die Teilnahme an dieser Veranstaltung der eigenen Verantwortlichkeit unterliegt und stellt hiermit Veranstalter, Seminarleiter, Team und Seminarhaus von allen Haftungsansprüchen frei.
+<% elsif instructions=='options' %>
+Workshop Information
+<% elsif instructions=='note' %>
+Alle sonstigen Angaben, die wir wissen sollten, können Sie in der Spalte Anmerkungen an uns senden. Wir werden unser Bestes tun, um Ihre Bedürfnisse oder Wünsche zu erfüllen.
+<% elsif instructions=='payment' %>
+Die Bezahlung des Workshops erfolgt &uuml;ber Lastschrifteinzug. Sie k&ouml;nnen den Auftrag zum Lastschrifteinzug hier abgeben oder &uuml;ber das Anmeldeformular per Post zur&uuml;cksenden. Die Workshopgeb&uuml;hren betragen 225 EUR bei Level 1, bei Level 2-8 255 EUR. In den Geb&uuml;hren sind die 92 EUR f&uuml;r Unterkunft und Verpflegung NICHT miteingeschlossen. Diese sind bei Workshopbeginn direkt als Bargeld an das Seminarhaus Sch&ouml;ppingen zu entrichten.<br />
+<br />
+<span name="plain1" type="plaintext">Bei Anmeldungen aus dem deutschsprachigen Ausland: Bitte &uuml;berweisen Sie die Workshopgeb&uuml;hr selber an </span><span name="plain3" type="plaintext"><br />
+<br />
+Bank Account: HAND ON HEART e.V. in Hamburg, Wohlwillstrasse 1, Germany<br />
+Bank: HASPA in Hamburg, Wohlwillstrasse 49-50, Germany (BIC HASPDEHHXXX)<br />
+International Account Number (IBAN) DE93 2005 0550 1251 1238 55<br />
+</span>
+
+<% elsif instructions=='payment1' %>
+Download der druckbaren Anmeldeformular aus <a href="http://www.liebstduschon.de/anmeldeformular.doc">www.liebstduschon.de/anmeldeformular.doc</a><br>
+<br>
+Senden an: <br>
+<blockquote>Hand on Heart e.V.<br>
+c/o M.Kitz, Wohlwillstr.1 <br>
+20359 Hamburg, Deutschland<br>
+</blockquote>
+  <% end -%>
+</div>

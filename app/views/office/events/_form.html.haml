@@ -1,0 +1,10 @@
+= semantic_form_for([:office, event]) do |f|
+  = f.semantic_errors
+  = f.inputs :class => :column_left do
+    = f.input :display_name
+    = f.input :start_date, :as => :date_picker, :format => '%d.%m.%Y'
+    = f.input :category, options_for_event_categories(f)
+    = f.input :level
+  .wat-cf
+  = f.buttons
+.wat-cf

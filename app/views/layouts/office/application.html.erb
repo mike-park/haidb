@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title><%= @title || "HAI Database" %></title>
+  
+  <%= stylesheet_link_tag "jquery-ui.css", :media => "screen" %>
+  <%= stylesheet_link_tag "base.css", :media => "screen" %>
+  <%= stylesheet_link_tag "jquery.tipsy.css", :media => "screen" %>
+  <%= stylesheet_link_tag "activo/activo.css", :media => "screen", :id => "current-theme" %>
+  <!--[if IE]>
+    <%= stylesheet_link_tag "activo/activo-ie.css", :media => "screen" %>
+  <![endif]-->
+  <%= stylesheet_link_tag "activo-attrtastic/attrtastic_changes.css", :media => "screen" %>
+  <%= stylesheet_link_tag "activo-formtastic/formtastic.css", :media => "screen" %>
+  <%= stylesheet_link_tag "activo-formtastic/formtastic_changes.css", :media => "screen" %>
+  <%= stylesheet_link_tag "application.css", :media => "screen" %>
+  <%= stylesheet_link_tag "custom.css", :media => "screen" %>
+  
+  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" %>
+  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js" %>
+  <%= javascript_include_tag "jquery.scrollTo.js" %>
+  <%= javascript_include_tag "jquery.localscroll.js" %>
+  <%= javascript_include_tag "application.js" %>
+  <%= javascript_include_tag "jquery.tipsy.js" %>
+  <%= javascript_include_tag "rails.js" %>
+  
+  <%= csrf_meta_tag %>
+
+  <%= yield :head %>
+</head>
+
+<body>
+  <div id="container">
+    <div id="header">
+      <% if respond_to? :status_menu -%>
+        <div id='status'>
+          <%= status_menu %>
+        </div>
+      <%- end %>
+      <h1><a href="/office">HAI Registration Database</a></h1>
+      <% if respond_to? :user_navigation -%>
+        <div id="user-navigation">
+          <ul class="wat-cf">
+            <%= user_navigation %>
+          </ul>
+        </div>
+      <%- end %>
+      <% if respond_to? :main_navigation -%>
+        <div id="main-navigation">
+          <ul class="wat-cf">
+            <%= main_navigation %>
+          </ul>
+        </div>
+      <%- end %>
+    </div>
+    <div id="wrapper" class="wat-cf">
+      <div id="<%= @full_width ? 'full-main' : 'main' %>">
+        <div class="flash">
+          <% [ :alert, :warning, :notice, :error ].each do |f| -%>
+            <%= content_tag("div", "<p>#{flash[f]}</p>".html_safe, :class => "message #{f}") unless flash[f].nil? %>
+          <% end %>
+        </div>
+        <%= yield %>
+        <%= debug(params) if Rails.env.development? %>
+        <%= debug(request.path) if Rails.env.development? %>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

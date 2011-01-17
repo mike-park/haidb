@@ -1,0 +1,10 @@
+= semantic_form_for([:office, angel]) do |f|
+  = f.semantic_errors
+  = render 'fields', :f => f
+  .wat-cf
+  = f.inputs :class => :column_left do 
+    = f.input :highest_level, :as => :numeric
+  .wat-cf
+  = f.inputs do
+    = f.input :notes, :input_html => {:cols => 25, :rows => 3} 
+  = f.buttons

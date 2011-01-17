@@ -1,0 +1,2 @@
+module PublicSignupsHelper
+end

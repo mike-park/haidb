@@ -1,0 +1,18 @@
+.block
+  = block_navigation("Show Angel #{angel.full_name}")
+
+  .content
+    = controls do |c|
+      - add_button_to(c, :edit, angel)
+      - add_button_to(c, :delete, angel)
+
+    %h2 Details for #{angel.display_name}
+
+    .inner
+      = render 'angel', :angel => angel
+      - if angel.registrations.count > 0
+        = render 'registrations', :registrations => angel.registrations
+      - else
+        %h3 Not registered for any workshops.
+
+  = block_footer(angel_breadcrumbs)

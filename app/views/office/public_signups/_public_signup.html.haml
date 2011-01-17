@@ -1,0 +1,9 @@
+- r = public_signup.registration
+= render 'office/angels/angel', :angel => r.angel
+
+= semantic_attributes_for r do |attr|
+  = attr.attributes do
+    = attr.attribute :special_requests, :value => registration_requests(r)
+    = attr.attribute :payment_method, :value => registration_payment_details(r)
+    = attr.attribute :notes
+.wat-cf

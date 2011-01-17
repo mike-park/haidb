@@ -1,0 +1,13 @@
+.block
+  = block_navigation([['Angels List', :index]])
+
+  .content
+    = controls do |c|
+      - add_button_to(c, :new)
+
+    %h2 Angels List
+
+    .inner
+      = render 'list', :angels => angels, :columns_in_use => @columns_in_use
+
+  = block_footer(angel_breadcrumbs)

@@ -1,0 +1,30 @@
+%table.checklist
+  %caption= "Registrations for Workshop #{@event.display_name}"
+  %thead
+    %tr.person
+      %th.checkin Da?
+      %th.count Nbrs
+      %th.name Name
+      %th.backjack BJ
+      %th.sundaydinner SD
+      %th.sundaystayover SS
+      %th.paymentmethod Pay.Meth.
+      %th.payments Payments
+      %th.notes Notes
+  %tbody
+    - count = 0
+    - yes= "✓"
+    - @event.registrations.by_first_name.each do |reg|
+      - angel = reg.angel
+      %tr.person
+        %td.checkin &nbsp;
+        %td.count= count=count+1
+        %td.name= "#{angel.first_name} #{angel.last_name}"
+        %td.backjack= checkmark_if(reg.backjack_rental)
+        %td.sundaydinner= checkmark_if(reg.sunday_meal)
+        %td.sundaystayover= checkmark_if(reg.sunday_stayover)
+        %td.paymentmethod= reg.payment_method
+        %td.payments &nbsp;
+        %td.notes &nbsp;
+.footer
+  Created at #{Time.now}

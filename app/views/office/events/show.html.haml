@@ -1,0 +1,22 @@
+.block
+  = block_navigation("#{event.display_name} summary")
+
+  .content
+    = controls do |c|
+      - add_button_to(c, :edit, event)
+      - add_button_to(c, :delete, event)
+
+    %h2 #{event.display_name} summary
+
+    .inner
+      = render 'event', :event => event
+
+    = controls do |c|
+      - c.item 'Show Registrations', office_event_registrations_path(event), :icon => :group_go
+
+    .inner
+      %h3 Registration counts
+      = render 'office/registrations/counts', :registrations => event.registrations
+      
+
+  = block_footer(event_breadcrumbs)

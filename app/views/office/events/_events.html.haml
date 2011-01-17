@@ -1,0 +1,21 @@
+%table.table
+  %thead
+    %th= sort_link @search, :display_name
+    %th= sort_link @search, :start_date
+    %th.qty Total Registered
+    %th.qty Participants
+    %th.qty Team
+    %th
+  %tbody
+    - events.each do |e|
+      %tr{:class => cycle(:odd, :even)}
+        %td= e.display_name
+        %td= l e.start_date
+        %td.qty= e.registrations.count
+        %td.qty= e.registrations.participants.count
+        %td.qty= e.registrations.team.count
+        %td
+          = link_to_show(office_event_path(e))
+          = link_to(icon(:group_go, :small, :alt => 'Show registrations'), office_event_registrations_path(e))
+= render 'office/shared/table_options', :table => events, :search => :display_name_contains
+.wat-cf

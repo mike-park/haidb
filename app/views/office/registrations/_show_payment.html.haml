@@ -1,0 +1,10 @@
+%span= registration.payment_method
+- if registration.payment_method == Registration::INTERNET
+  %br
+  %div
+    %span Account Name & Number:
+    %span #{registration.bank_account_name} / #{registration.bank_account_nr}
+    %br
+    %span Bank Name & BLZ:
+    %span #{registration.bank_name} / #{registration.bank_sort_code}
+

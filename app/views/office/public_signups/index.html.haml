@@ -1,0 +1,19 @@
+.block
+  = block_navigation([['Pending Approval', :index], ['Approved', :approved]])
+
+  .content
+    = controls do |c|
+      - add_button_to(c, :new, :controller => '/public_signups', :action => :new)
+
+    %h2
+      #{pluralize(public_signups.count, 'signup is', 'signups are')} 
+      pending approval
+
+    .inner
+      - if public_signups.count > 0
+        = render 'pending', :pending => public_signups
+      - else
+        No pending signups at this time.
+
+  = block_footer(public_signup_breadcrumbs)
+

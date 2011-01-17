@@ -1,0 +1,14 @@
+.block
+  = block_navigation(registration_navigation)
+
+  .content
+    = controls do |c|
+      - add_button_to(c, "Print #{layout}", :format => :pdf)
+
+    %h2
+      #{layout.capitalize} for #{event.display_name}
+
+    .inner
+      = render "#{layout}", :registrations => registrations
+
+  = block_footer(registration_breadcrumbs)

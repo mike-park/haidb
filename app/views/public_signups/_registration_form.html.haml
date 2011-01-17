@@ -1,0 +1,65 @@
+= r.inputs do
+  = r.input :event, options_for_signup_events_select(r)
+
+  = r.semantic_fields_for :angel do |a|
+    = a.input :first_name,  :input_html => {:size => 20}
+    = a.input :last_name,   :input_html => {:size => 20}
+    = a.input :gender, options_for_gender(a)
+    = a.input :email,   :input_html => {:size => 30}
+    = a.input :address,   :input_html => {:size => 30}
+    = a.input :postal_code,  :input_html => {:size => 10}
+    = a.input :city,   :input_html => {:size => 20}
+    = a.input :country, :as => :string,  :input_html => {:size => 20}
+    = a.input :home_phone,  :input_html => {:size => 20}
+    = a.input :mobile_phone,  :input_html => {:size => 20}
+    = a.input :work_phone,  :input_html => {:size => 20}
+
+  = render 'instructions', :instructions => 'options'
+  = r.input :special_diet, options_for_special_diet(r)
+  = r.input :backjack_rental, options_for_backjack_rental(r)
+  = r.input :sunday_choice, options_for_sunday_choice(r)
+  = r.input :lift, options_for_lift(r)
+
+  - if german?
+    = render 'instructions', :instructions => 'payment'
+    = r.input :payment_method, options_for_payment_method(r)
+    #post
+      = render 'instructions', :instructions => 'payment1'
+    = r.inputs :id => 'internet' do
+      = r.input :bank_account_name,  :input_html => {:size => 30}
+      = r.input :bank_account_nr,  :input_html => {:size => 10}
+      = r.input :bank_name,  :input_html => {:size => 30}
+      = r.input :bank_sort_code,  :input_html => {:size => 10}
+
+  = render 'instructions', :instructions => 'note'
+  = r.input :notes, options_for_note(r)
+
+- content_for :javascript do
+  <script type="text/javascript">
+  var pm = function() {
+  var val = $("input[name='public_signup[registration_attributes][payment_method]']:checked").val();
+  var val1 = $(this).val();
+  //alert("clicked: " + val + ", " + val1);
+  if (val == 'Post') {
+  $('#internet').hide();
+  $('#post').fadeIn();
+  } else if (val == 'Internet') {
+  $('#internet').fadeIn();
+  $('#post').hide();
+  } else {
+  $('#internet').hide();
+  $('#post').hide();
+  }
+  }
+  $("input[name='public_signup[registration_attributes][payment_method]']").click(pm);
+  pm();
+  (function(){
+  var err = $('.error').first();
+  if (err.length==0) return;
+  var f = $('select', err)
+  if (f.length==0) {
+  f = $('input', err);
+  }
+  if (f) f.focus();
+  })();
+  </script>

@@ -1,0 +1,13 @@
+.block
+  = block_navigation("Edit Signup #{public_signup.full_name}")
+
+  .content
+    = controls do |c|
+      - add_button_to(c, :delete, public_signup)
+
+    %h2 Editing registration request
+
+    .inner
+      = render 'form'
+
+  = block_footer(public_signup_breadcrumbs)

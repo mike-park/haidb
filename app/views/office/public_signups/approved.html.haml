@@ -1,0 +1,12 @@
+.block
+  = block_navigation([['Pending Approval', :index], ['Approved', :approved]])
+
+  .content
+
+    %h2 #{public_signups.count} approved signups
+
+    .inner
+      - if public_signups.count > 0
+        = render 'approved', :approved => public_signups
+
+  = block_footer(public_signup_breadcrumbs)

@@ -1,0 +1,8 @@
+= semantic_attributes_for event do |attr|
+  = attr.attributes :html => {:class => :column} do
+    = attr.attribute :display_name
+    = attr.attribute :category
+  = attr.attributes :html => {:class => :column} do
+    = attr.attribute :start_date, :value => l(event.start_date)
+    = attr.attribute :level
+.wat-cf

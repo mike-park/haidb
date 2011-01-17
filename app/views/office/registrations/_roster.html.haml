@@ -1,0 +1,17 @@
+%table.roster
+  %caption= "Liste für Workshop #{@event.display_name}"
+  %thead
+    %tr.person
+      %th.name Name & Email
+      %th.address Addresse
+      %th.city Ort
+      %th.plz Plz
+      %th.country Land
+      %th.phone Haustelefon
+      %th.phone Handy
+      %th.phone Arbeitstelefon
+  %tbody
+    - regs = @event.registrations
+    = render 'roster_role', :role => 'Teilnehmer', :regs => regs.participants
+    = render 'roster_role', :role => 'Team', :regs => regs.team
+    = render 'roster_role', :role => 'Leiter', :regs => regs.facilitators

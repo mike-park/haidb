@@ -1,0 +1,10 @@
+.block
+  = block_navigation(["New Event"])
+
+  .content
+    %h2 New Event
+
+    .inner
+      = render 'form'
+
+  = block_footer(event_breadcrumbs)

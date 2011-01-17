@@ -1,0 +1,184 @@
+/*============= table cell alignments */
+.table .center {
+  text-align: center; }
+.table .qty {
+  text-align: right; }
+
+/*=============== roster html table */
+.roster {
+  font-size: 10pt;
+  page-break-inside: avoid;
+  border-collapse: collapse;
+  page-break-after: always; }
+  .roster caption {
+    font-size: 1.3em;
+    margin-bottom: 1ex; }
+  .roster thead {
+    display: table-header-group; }
+  .roster tfoot {
+    display: table-footer-group; }
+  .roster tr {
+    page-break-inside: avoid; }
+  .roster tr:nth-child(even) td {
+    background-color: #eeeeee; }
+  .roster td, .roster th {
+    border-style: solid;
+    border-width: thin;
+    padding: 0.8ex; }
+  .roster th {
+    background-color: #c8c8c8; }
+  .roster .role {
+    font-size: 1.2em;
+    font-weight: bold;
+    background-color: white;
+    text-align: center;
+    border-style: solid;
+    border-width: thin;
+    border-bottom: 1px; }
+
+/*=============== checklist for check-ins html table */
+.checklist {
+  font-size: 10pt;
+  page-break-inside: avoid;
+  border-collapse: collapse;
+  page-break-after: always; }
+  .checklist .footer {
+    font-size: 0.8em; }
+  .checklist caption {
+    font-size: 1.3em; }
+  .checklist thead {
+    display: table-header-group; }
+  .checklist tfoot {
+    display: table-footer-group; }
+  .checklist tr {
+    page-break-inside: avoid; }
+  .checklist tr:nth-child(even) td {
+    background-color: #eeeeee; }
+  .checklist td, .checklist th {
+    border-style: solid;
+    border-width: thin;
+    padding: 0 2px; }
+  .checklist .name {
+    font-size: 1.2em;
+    text-overflow: ellipsis;
+    width: 200pt; }
+  .checklist .count {
+    text-align: center;
+    width: 15pt; }
+  .checklist .paymentmethod {
+    text-align: center;
+    width: 13pt; }
+  .checklist .notes {
+    text-overflow: ellipsis;
+    width: 600pt; }
+  .checklist .backjack, .checklist .sundaydinner, .checklist .sundaystayover {
+    text-align: center; }
+
+/*=============== registration counts */
+.left {
+  float: left; }
+
+.bold {
+  font-weight: bold; }
+
+.big_button {
+  margin: 0.5em;
+  padding: 1em;
+  display: inline-block;
+  float: left;
+  border: 1px inset black; }
+  .big_button:hover {
+    background: #cccccc; }
+
+#registration-counts .highlights {
+  display: inline;
+  position: relative;
+  float: left; }
+  #registration-counts .highlights .count {
+    float: left;
+    padding: 5px;
+    margin-right: 4px;
+    border: 2px solid black; }
+    #registration-counts .highlights .count:hover {
+      background: #cccccc; }
+    #registration-counts .highlights .count h1 {
+      font-size: 36px;
+      margin: 0 10px;
+      padding: 0;
+      text-align: center; }
+    #registration-counts .highlights .count h2 {
+      font-size: 110%;
+      margin: 0;
+      padding: 0;
+      text-align: center; }
+#registration-counts table {
+  border-collapse: collapse;
+  border: 2px solid black; }
+  #registration-counts table .even {
+    background-color: #e5ecf9; }
+  #registration-counts table td, #registration-counts table th {
+    border: 1px solid black;
+    padding: 2px 5px;
+    text-align: center; }
+  #registration-counts table th {
+    background-color: #cccccc; }
+  #registration-counts table td {
+    font-size: 110%; }
+  #registration-counts table .boldvline {
+    border-right: 3px solid black; }
+
+/*=============== attrtastic additions/changes */
+.attrtastic .column {
+  float: left;
+  width: 20%;
+  margin-left: 0; }
+
+/*=============== formtastic additions/changes */
+form.formtastic fieldset > ol > li.string input,
+form.formtastic fieldset > ol > li.password input,
+form.formtastic fieldset > ol > li.numeric input,
+form.formtastic fieldset > ol > li.text textarea,
+form.formtastic fieldset > ol > li.datepicker input,
+form.formtastic fieldset > ol > li.phone input,
+form.formtastic fieldset > ol > li.email input {
+  border: 1px solid #888888;
+  width: 74%;
+  max-width: 100%;
+  padding: 2px; }
+  form.formtastic fieldset > ol > li.string input:hover,
+  form.formtastic fieldset > ol > li.password input:hover,
+  form.formtastic fieldset > ol > li.numeric input:hover,
+  form.formtastic fieldset > ol > li.text textarea:hover,
+  form.formtastic fieldset > ol > li.datepicker input:hover,
+  form.formtastic fieldset > ol > li.phone input:hover,
+  form.formtastic fieldset > ol > li.email input:hover {
+    border: 1px solid #333333;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0 3px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.6) 0 0 3px; }
+  form.formtastic fieldset > ol > li.string input:focus,
+  form.formtastic fieldset > ol > li.password input:focus,
+  form.formtastic fieldset > ol > li.numeric input:focus,
+  form.formtastic fieldset > ol > li.text textarea:focus,
+  form.formtastic fieldset > ol > li.datepicker input:focus,
+  form.formtastic fieldset > ol > li.phone input:focus,
+  form.formtastic fieldset > ol > li.email input:focus {
+    border: 1px solid #a2a294; }
+
+form.formtastic fieldset > ol > li.phone input {
+  width: 10em; }
+
+form.formtastic fieldset > ol > li.select select,
+form.formtastic fieldset > ol > li.file input {
+  width: auto; }
+
+form.formtastic fieldset.column {
+  float: left;
+  width: 20%;
+  margin-left: 0; }
+
+form.formtastic fieldset.buttons {
+  padding-left: 25%;
+  width: auto; }
+
+form.formtastic fieldset > ol > li p.inline-errors {
+  clear: both; }

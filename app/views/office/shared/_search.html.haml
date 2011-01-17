@@ -1,0 +1,4 @@
+= form_tag url_for, :method => :get, :class => :form do
+  = hidden_field_tag :rows, params[:rows]
+  = search_field_tag :q, nil, :class => 'xsearch_box'
+  <input type="submit" value="" class="search_submit">

@@ -1,0 +1,16 @@
+.block
+  = block_navigation(registration_navigation)
+
+  .content
+    = controls do |c|
+      - add_button_to(c, 'Add registration')
+
+    %h2
+      #{pluralize(registrations.count, 'registration')}
+      for #{parent.display_name}
+
+    .inner
+      = render 'counts', :registrations => registrations
+      = render 'registrations', :registrations => registrations
+
+  = block_footer(registration_breadcrumbs)

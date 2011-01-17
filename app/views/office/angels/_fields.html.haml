@@ -1,0 +1,15 @@
+= f.inputs :class => :column_left do 
+  = f.input :first_name
+= f.inputs :class => :column_right do 
+  = f.input :last_name, :input_html => {:min => 3} 
+= f.inputs :class => :column_left do 
+  = f.input :gender, options_for_gender(f) 
+  = f.input :address
+  = f.input :postal_code
+  = f.input :city
+  = f.input :country, :as => :string
+= f.inputs :class => :column_right do 
+  = f.input :email
+  = f.input :home_phone
+  = f.input :mobile_phone
+  = f.input :work_phone

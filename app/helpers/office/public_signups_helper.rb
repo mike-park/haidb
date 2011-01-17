@@ -1,0 +1,2 @@
+module Office::PublicSignupsHelper
+end

@@ -1,0 +1,18 @@
+= semantic_form_for @public_signup do |f|
+
+  -if @public_signup.errors.any?
+    #error_explanation
+      %h2= t('enums.error')
+      = debug(@public_signup.errors) if Rails.env.development?
+
+  = render 'title'
+  = render 'instructions', :instructions => 'intro'
+  = f.semantic_fields_for :registration do |r|
+    = render 'registration_form', :r => r
+
+  = f.inputs do
+    = render 'instructions', :instructions => 'summary'
+    = f.input :terms_and_conditions, options_for_terms_and_conditions(f)
+
+  = f.buttons
+

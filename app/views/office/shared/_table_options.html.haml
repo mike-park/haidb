@@ -1,0 +1,17 @@
+= will_paginate table, :class => 'pagination', :page_links => false, :inner_window => 1
+
+.row_count
+  = form_tag url_for, :method => :get, :class => :xrow_count do
+    = select_tag :rows, options_for_row_count, :onchange => 'this.form.submit()'
+
+.row_count
+  = pluralize table.total_entries, 'record'
+
+= form_for [:office, @search], :url => url_for, :html => { :method => :get, :class => :search} do|f|
+  .columns.wat-cf
+    .column.left
+      = hidden_field_tag :rows, params[:rows]
+      <input type="submit" value="" class="search_submit">
+      = f.text_field search, :placeholder => 'Search', :class => 'search_box'
+
+.wat-cf

@@ -1,0 +1,31 @@
+<div class="instructions">
+
+  <% if instructions=='intro' %>
+
+  Please enter your registration information below. Fields showing the * are required. After we review your registration you will receive a confirmation email.
+  <% elsif instructions=='summary' %>
+
+To pay for the workshop please transfer 225.00 &euro; (Level 1) or 255.00 &euro; (Level 2-8) at least 4 weeks prior to the WS to the following:<br />
+<br />
+Bank Account:             HAND ON HEART e.V.<br />
+Bank: HASPA in Hamburg, Wohlwillstrasse, Germany (BIC HASPDEHHXXX) <br />
+International Account Number (IBAN) DE93 2005 0550 1251 1238 55<br />
+<br />
+The amount of 92 &euro; for Accommodation and Food is NOT included and must be paid directly to the venue prior to the workshop.<br />
+<br />
+<strong>Participation Conditions:</strong> If you need to cancel up to 4 weeks prior to the workshop, we will charge 15% handling fee. If you cancel less than 4 weeks before the workshop, the full amount will be charged. But if you find someone to take your place, there is no handling fee for changing the booking to the new name. If you need to leave during the weekend itself, we will not be able to make any refund whatsoever.  <br />
+<br />
+The workshop is about personal growth and NOT PSYCHOTHERAPY!  <br />
+<br />
+The participants agree to take part in this workshop on their own responsibility and understand that the facilitators, producers, team or venue can accept no liability whatsoever.
+
+<% elsif instructions=='options' %>
+Workshop Information
+<% elsif instructions=='note' %>
+Any other things we should know? We will do our best to accommodate your needs.
+<% elsif instructions=='payment' %>
+Payment Details
+<% elsif instructions=='payment1' %>
+Bank Details
+  <% end -%>
+</div>

@@ -1,0 +1,32 @@
+.block
+  = block_navigation("Registration Request of #{public_signup.full_name}")
+
+  .content
+    - if public_signup.approved?
+      = controls do |c|
+        - add_button_to(c, 'Show event registrations', :event_id => public_signup.registration.event, :controller => :registrations)
+
+    - else
+      = controls do |c|
+        - add_button_to(c, :edit, public_signup)
+        - add_button_to(c, :delete, public_signup)
+
+      = controls do |c|
+        - c.item 'Approve', url_for(:action => :approve), :icon => :tick, :method => :put
+
+
+    .inner
+      %h3
+        Registration request for #{public_signup.event_name}
+
+      - if public_signup.approved?
+        %p Request approved #{time_ago_in_words(public_signup.approved_at)} ago.
+      - else
+        %p
+          #{public_signup.registration.role} request by
+          #{public_signup.full_name} for
+          #{public_signup.event_name}.  Do you approved?
+
+      = render 'public_signup', :public_signup => public_signup
+
+  = block_footer(public_signup_breadcrumbs)
