@@ -9,16 +9,28 @@ class Office::ApplicationController < ApplicationController
   def build_main_navigation
     tabs = [{ :display => 'Dashboard',
               :link => office_dashboards_path,
-              :paths => [['/office'],['/office/dashboards*']] },
+              :paths => ['/office',['/office/dashboards*'],
+                         '/en/office',['/en/office/dashboards*'],
+                         '/de/office',['/de/office/dashboards*']
+                        ] },
             { :display => 'Angels',
               :link => office_angels_path,
-              :paths => [['/office/angels*']] },
+              :paths => [['/office/angels*'],
+                         ['/en/office/angels*'],
+                         ['/de/office/angels*']
+                        ] },
             { :display => 'Events',
               :link => office_events_path,
-              :paths => [['/office/events*']] },
+              :paths => [['/office/events*'],
+                         ['/en/office/events*'],
+                         ['/de/office/events*']
+                        ] },
             { :display => 'Public Signups',
               :link => office_public_signups_path,
-              :paths => [['/office/public_signups*']] }
+              :paths => [['/office/public_signups*'],
+                         ['/en/office/public_signups*'],
+                         ['/de/office/public_signups*']
+                        ] }
             ]
     @main_navigation = Mmmenu.new(:request => request) do |m|
       tabs.each do |tab|

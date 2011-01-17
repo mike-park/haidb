@@ -1,4 +1,11 @@
 = semantic_form_for @public_signup do |f|
+  #lang
+    %p
+      - if german?
+        If you prefer you may #{link_to('register in English.', :locale => :en)}
+      - else
+        Bitte melden Sie sich in #{link_to('Deutsch hier an.', :locale => :de)}
+
 
   -if @public_signup.errors.any?
     #error_explanation
