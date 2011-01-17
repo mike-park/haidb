@@ -12,7 +12,7 @@ module Office::ApplicationHelper
       path = url_for(options.merge(:action => :edit))
       icon = {:icon => :pencil}
     when /^delete\b/
-      path = url_for(options)
+      path = url_for(options.merge(:action => :destroy))
       icon = {:icon => :delete, :method => :delete}
     when /^show\b/
       path = url_for(options)
