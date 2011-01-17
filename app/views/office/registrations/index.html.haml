@@ -11,6 +11,14 @@
 
     .inner
       = render 'counts', :registrations => registrations
-      = render 'registrations', :registrations => registrations
+
+      %h3 Participant Registrations
+      = render 'registrations', :registrations => registrations.participants
+
+      %h3 Team Registrations
+      = render 'registrations', :registrations => registrations.team
+
+      %h3 Facilitator Registrations
+      = render 'registrations', :registrations => registrations.facilitators
 
   = block_footer(registration_breadcrumbs)

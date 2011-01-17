@@ -2,7 +2,6 @@
   %thead
     %tr
       %th Name
-      %th Role
       %th Gender
       %th Pay. Meth
       %th Veg.
@@ -17,7 +16,6 @@
     - registrations.by_first_name.each do |r|
       %tr{:class => cycle(:odd, :even)}
         %td= r.full_name
-        %td.center= r.role.first
         %td.center= r.angel.gender.first
         %td= r.payment_method
         %td.center= checkmark_if(r.special_diet)
