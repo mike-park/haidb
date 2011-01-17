@@ -10,15 +10,6 @@
       for #{parent.display_name}
 
     .inner
-      = render 'counts', :registrations => registrations
-
-      %h3 Participant Registrations
-      = render 'registrations', :registrations => registrations.participants
-
-      %h3 Team Registrations
-      = render 'registrations', :registrations => registrations.team
-
-      %h3 Facilitator Registrations
-      = render 'registrations', :registrations => registrations.facilitators
+      = render 'registrations', :registrations => registrations
 
   = block_footer(registration_breadcrumbs)

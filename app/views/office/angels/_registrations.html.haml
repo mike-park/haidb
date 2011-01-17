@@ -1,18 +1,17 @@
-%h3 Registered for #{pluralize(registrations.count, 'workshop')}
 %table.table
   %thead
     %tr
       %th Title
-      %th Role
+      %th Level
       %th{:width => '60%'} Notes
       %th
       %th
   %tbody
-    - registrations.by_start_date.each do |registration|
+    - registrations.by_start_date.each do |r|
       %tr{:class => cycle(:odd, :even)}
-        %td= registration.event.display_name
-        %td= registration.role
-        %td= registration.notes
-        %td.link= link_to_edit edit_office_angel_registration_path(registration.angel, registration)
-        %td.link= link_to_destroy [:office, registration.angel, registration]
-
+        %td= r.event_name
+        %td= r.level
+        %td= r.notes
+        %td.link= link_to_edit edit_office_angel_registration_path(r.angel, r)
+        %td.link= link_to_destroy office_angel_registration_path(r.angel, r)
+.wat-cf
