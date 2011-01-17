@@ -4,4 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-Haidb1::Application.load_tasks
+Haidb::Application.load_tasks
