@@ -56,4 +56,10 @@ class Office::AngelsController < Office::ApplicationController
   helper_method :angels
   hide_action :angels
 
+  def registrations
+    @registrations ||= angel.registrations.ok
+  end
+  helper_method :registrations
+  hide_action :registrations
+  
 end

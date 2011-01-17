@@ -64,4 +64,10 @@ class Office::EventsController < Office::ApplicationController
   helper_method :events
   hide_action :events
   
+  def registrations
+    @registrations ||= event.registrations.ok
+  end
+  helper_method :registrations
+  hide_action :registrations
+  
 end

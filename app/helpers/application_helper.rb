@@ -49,7 +49,10 @@ module ApplicationHelper
     :confirm => 'Are you sure?', :method => :delete
   end
 
-
+  # return object model name. ie Angel object => 'angel'
+  def model_name(model)
+    model.class.to_s.downcase
+  end
 
   private
 
