@@ -16,7 +16,7 @@ class Office::RegistrationsController < Office::ApplicationController
     @registration = registrations.new(params[:registration])
     @registration.approved = true
     if @registration.save
-      redirect_to([:office, parent],
+      redirect_to([:office, parent, :registrations],
                   :notice => 'Registration was successfully created.')
     else
       render :new
@@ -25,7 +25,7 @@ class Office::RegistrationsController < Office::ApplicationController
 
   def update
     if registration.update_attributes(params[:registration])
-      redirect_to([:office, parent],
+      redirect_to([:office, parent, :registrations],
                   :notice => 'Registration was successfully updated.')
     else
       render :edit
@@ -34,7 +34,7 @@ class Office::RegistrationsController < Office::ApplicationController
 
   def destroy
     registration.destroy
-    redirect_to([:office, parent],
+    redirect_to([:office, parent, :registrations],
                 :notice => 'Registration was successfully deleted.')
   end
   
@@ -67,7 +67,7 @@ class Office::RegistrationsController < Office::ApplicationController
   hide_action :angel
   
   def registrations
-    @registrations ||= (event || angel).registrations
+    @registrations ||= parent.registrations.ok
   end
   helper_method :registrations
   hide_action :registrations
