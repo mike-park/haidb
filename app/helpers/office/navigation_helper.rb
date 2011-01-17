@@ -56,7 +56,11 @@ module Office::NavigationHelper
   end
 
   def registration_breadcrumbs
-    crumbs =  build_breadcrumbs(build_event_breadcrumbs(event), :show)
+    if parent.is_a?(Event)
+      crumbs =  build_breadcrumbs(build_event_breadcrumbs(parent), :show)
+    else
+      crumbs =  build_breadcrumbs(build_angel_breadcrumbs(parent), :show)
+    end
     crumbs << build_breadcrumbs(build_registration_breadcrumbs(registration))
     crumbs
   end
