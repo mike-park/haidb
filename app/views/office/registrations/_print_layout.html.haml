@@ -9,6 +9,6 @@
       #{layout.capitalize} for #{event.display_name}
 
     .inner
-      = render "#{layout}", :registrations => registrations
+      = render "#{layout}", :registrations => registrations.attend
 
   = block_footer(registration_breadcrumbs)

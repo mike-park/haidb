@@ -1,5 +1,6 @@
+- regs = registrations.attend
 %table.roster
-  %caption= "Liste für Workshop #{@event.display_name}"
+  %caption= "Liste für Workshop #{event.display_name}"
   %thead
     %tr.person
       %th.name Name & Email
@@ -11,7 +12,6 @@
       %th.phone Handy
       %th.phone Arbeitstelefon
   %tbody
-    - regs = @event.registrations
     = render 'roster_role', :role => 'Teilnehmer', :regs => regs.participants
     = render 'roster_role', :role => 'Team', :regs => regs.team
     = render 'roster_role', :role => 'Leiter', :regs => regs.facilitators

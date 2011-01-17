@@ -1,4 +1,4 @@
-- regs = registrations
+- regs = registrations.attend
 #registration-counts
   .highlights
     .count
@@ -31,8 +31,8 @@
     %tbody
       %tr
         %td.boldvline= regs.count
-        %td= regs.males.count
-        %td.boldvline= regs.females.count
+        %td= regs.participants.males.count
+        %td.boldvline= regs.participants.females.count
         %td= regs.team.males.count
         %td.boldvline= regs.team.females.count
         %td= regs.special_diets.count

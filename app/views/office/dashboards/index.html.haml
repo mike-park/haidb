@@ -20,4 +20,4 @@
         #{event.display_name} in #{time_ago_in_words(event.start_date)}
 
       .inner
-        = render 'office/registrations/counts', :registrations => event.registrations
+        = render 'office/registrations/counts', :registrations => event.registrations.attend
