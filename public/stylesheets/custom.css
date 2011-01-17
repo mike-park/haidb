@@ -182,3 +182,6 @@ form.formtastic fieldset.buttons {
 
 form.formtastic fieldset > ol > li p.inline-errors {
   clear: both; }
+
+form.formtastic ul.errors {
+  margin: 0.5em 0 1.5em 2em; }

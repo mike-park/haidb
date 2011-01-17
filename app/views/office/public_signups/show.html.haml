@@ -8,8 +8,8 @@
 
     - else
       = controls do |c|
-        - add_button_to(c, :edit, public_signup)
-        - add_button_to(c, :delete, public_signup)
+        - add_button_to(c, :edit)
+        - add_button_to(c, :delete)
 
       = controls do |c|
         - c.item 'Approve', url_for(:action => :approve), :icon => :tick, :method => :put

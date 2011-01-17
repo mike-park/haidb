@@ -14,10 +14,10 @@
   .block
     .content
       = controls do |c|
-        - add_button_to(c, 'Show registrations', :controller => :registrations, :action => :index, :event_id => event)
+        - add_button_to(c, 'Show registrations', :controller => :registrations, :event_id => event)
 
       %h2 
         #{event.display_name} in #{time_ago_in_words(event.start_date)}
 
       .inner
-        = render 'office/registrations/counts', :registrations => event.registrations.attend
+        = render 'office/events/counts', :registrations => event.registrations.ok

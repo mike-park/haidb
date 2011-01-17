@@ -3,16 +3,25 @@
 
   .content
     = controls do |c|
-      - add_button_to(c, :edit, angel)
-      - add_button_to(c, :delete, angel)
+      - add_button_to(c, :edit)
+      - add_button_to(c, :delete)
 
     %h2 Details for #{angel.display_name}
 
     .inner
       = render 'angel', :angel => angel
-      - if angel.registrations.count > 0
-        = render 'registrations', :registrations => angel.registrations
+
+  .content
+    = controls do |c|
+      - add_button_to(c, 'Add registration', :angel_id => angel, :controller => :registrations)
+
+    %h2
+
+    .inner
+      - if registrations.count > 0
+        %h3 Registered for #{pluralize(registrations.count, 'event')}
+        = render 'registrations', :registrations => registrations
       - else
-        %h3 Not registered for any workshops.
+        %h3 Not registered for any events.
 
   = block_footer(angel_breadcrumbs)

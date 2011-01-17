@@ -3,8 +3,8 @@
 
   .content
     = controls do |c|
-      - add_button_to(c, :edit, event)
-      - add_button_to(c, :delete, event)
+      - add_button_to(c, :edit)
+      - add_button_to(c, :delete)
 
     %h2 #{event.display_name} summary
 
@@ -16,7 +16,7 @@
 
     .inner
       %h3 Registration counts
-      = render 'office/registrations/counts', :registrations => event.registrations
+      = render 'counts', :registrations => registrations
       
 
   = block_footer(event_breadcrumbs)
