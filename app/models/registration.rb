@@ -56,22 +56,22 @@ class Registration < ActiveRecord::Base
   # XXX verify we need angel and action
   #attr_accessor :angel, :action
 
-  scope :attend, includes([:angel, :event]).where(:approved => true)
+  scope :ok, includes([:angel, :event]).where(:approved => true)
   scope :pending, where(:approved => false)
 
-  scope :team, attend.where(:role => TEAM)
-  scope :participants, attend.where(:role => PARTICIPANT)
-  scope :facilitators, attend.where(:role => FACILITATOR)
+  scope :team, where(:role => TEAM)
+  scope :participants, where(:role => PARTICIPANT)
+  scope :facilitators, where(:role => FACILITATOR)
   
-  scope :special_diets, attend.where(:special_diet => true)
-  scope :backjack_rentals, attend.where(:backjack_rental => true)
-  scope :sunday_stayovers, attend.where(:sunday_stayover => true)
-  scope :sunday_meals, attend.where(:sunday_meal => true)
-  scope :females, attend.where(:angels => {:gender => Angel::FEMALE})
-  scope :males, attend.where(:angels => {:gender => Angel::MALE})
-  scope :by_first_name, attend.order('LOWER(angels.first_name) asc')
-  scope :by_start_date, attend.order('events.start_date desc')
-  scope :completed, attend.where(:completed => true)
+  scope :special_diets, where(:special_diet => true)
+  scope :backjack_rentals, where(:backjack_rental => true)
+  scope :sunday_stayovers, where(:sunday_stayover => true)
+  scope :sunday_meals, where(:sunday_meal => true)
+  scope :females, where(:angels => {:gender => Angel::FEMALE})
+  scope :males, where(:angels => {:gender => Angel::MALE})
+  scope :by_first_name, order('LOWER(angels.first_name) asc')
+  scope :by_start_date, order('events.start_date desc')
+  scope :completed, where(:completed => true)
 
   validates_uniqueness_of :angel_id, {
     :scope => :event_id,
