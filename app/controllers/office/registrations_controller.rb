@@ -1,6 +1,18 @@
 class Office::RegistrationsController < Office::ApplicationController
   before_filter :event_or_angel
   
+  def index
+    respond_to do |format|
+      format.html
+      format.vcard do
+        send_data Angel.to_vcard(registrations.all.map(&:angel)), {
+          :filename => 'contacts.vcf',
+          :type => :vcard
+        }
+      end
+    end
+  end
+  
   def roster
     respond_to do |format|
       format.html # roster.html.haml

@@ -5,6 +5,9 @@
     = controls do |c|
       - add_button_to(c, 'Add registration')
 
+    = controls do |c|
+      - add_button_to(c, "Download VCards", params.merge(:format => :vcard, :icon => 'vcard'))
+
     %h2
       #{pluralize(registrations.count, 'registration')}
       for #{parent.display_name}
