@@ -22,8 +22,8 @@ module Office::ApplicationHelper
       icon = {:icon => :printer}
     else
       display = action.to_s
-      path = url_for(options)
       icon = options.extract!(:icon)
+      path = url_for(options)
     end
     display = action.kind_of?(Symbol) ? action.to_s.capitalize : action.to_s
     nav.item(display, path, icon)
