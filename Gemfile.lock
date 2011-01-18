@@ -202,6 +202,7 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.23)
+    vcard (0.1.1)
     warden (1.0.3)
       rack (>= 1.0.0)
     will_paginate (3.0.pre2)
@@ -249,4 +250,5 @@ DEPENDENCIES
   tabs_on_rails
   thin
   timecop
+  vcard
   will_paginate (~> 3.0.pre2)

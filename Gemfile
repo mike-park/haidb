@@ -17,6 +17,7 @@ gem "devise", ">= 1.1.3"
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 
 gem "meta_search"
+gem 'vcard'
 
 # these add generators that help
 gem 'haml-rails'

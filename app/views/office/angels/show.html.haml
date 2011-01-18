@@ -6,6 +6,9 @@
       - add_button_to(c, :edit)
       - add_button_to(c, :delete)
 
+    = controls do |c|
+      - add_button_to(c, "Download VCard", params.merge(:format => :vcard, :icon => 'vcard'))
+
     %h2 Details for #{angel.display_name}
 
     .inner

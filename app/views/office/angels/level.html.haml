@@ -3,7 +3,7 @@
 
   .content
     = controls do |c|
-      - add_button_to(c, :new)
+      - add_button_to(c, "Download #{pluralize(angels.total_entries, 'VCard')}", params.merge(:format => :vcard, :icon => 'vcard'))
 
     %h2 Angels List
 

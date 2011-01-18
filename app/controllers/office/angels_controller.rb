@@ -2,21 +2,11 @@ class Office::AngelsController < Office::ApplicationController
   before_filter :find_angel, :except => [:index, :level, :past, :new, :create]
 
   def index
-    params[:rows] ||= 5
-    params[:search] ||= {}
-    params[:search][:meta_sort] ||= 'updated_at.desc'
-    @search = Angel.search(params[:search])
-    @angels = @search.paginate(:page => params[:page],
-                               :per_page => params[:rows])
+    find_angels(5, 'updated_at.desc')
   end
 
   def level
-    params[:rows] ||= 10
-    params[:search] ||= {}
-    params[:search][:meta_sort] ||= 'first_name.asc'
-    @search = Angel.search(params[:search])
-    @angels = @search.paginate(:page => params[:page],
-                               :per_page => params[:rows])
+    find_angels(10, 'first_name.asc')
   end
 
   def new
@@ -40,6 +30,13 @@ class Office::AngelsController < Office::ApplicationController
     end
   end
 
+  def show
+    respond_to do |format|
+      format.html
+      format.vcard { send_data angel.to_vcard, :filename => 'contact.vcf', :type => :vcard }
+    end
+  end
+
   def destroy
     angel.destroy
     redirect_to(office_angels_url, :notice => 'Angel was successfully deleted.')
@@ -50,6 +47,25 @@ class Office::AngelsController < Office::ApplicationController
   def find_angel
     unless angel
       redirect_to(office_angels_url, :alert => 'You must select an angel first.')
+    end
+  end
+
+  def find_angels(rows, sort)
+    params[:rows] ||= rows
+    params[:search] ||= {}
+    params[:search][:meta_sort] ||= sort
+    @search = Angel.search(params[:search])
+    @angels = @search.paginate(:page => params[:page],
+                               :per_page => params[:rows])
+
+    respond_to do |format|
+      format.html
+      format.vcard do
+        send_data Angel.to_vcard(@search.all), {
+          :filename => 'contacts.vcf',
+          :type => :vcard
+        }
+      end
     end
   end
 
