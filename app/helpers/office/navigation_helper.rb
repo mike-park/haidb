@@ -20,7 +20,8 @@ module Office::NavigationHelper
       
   def build_angel_breadcrumbs(angel)
     BreadCrumbBuilder.new(angel) do |b|
-      b.add :index, 'Angels', office_angels_path
+      b.add :index, 'Angel Contacts', office_angels_path
+      b.add :level, 'Angel Levels', office_angels_path
       b.add :show, angel, [:office, angel]
     end
   end

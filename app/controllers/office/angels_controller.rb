@@ -1,10 +1,19 @@
 class Office::AngelsController < Office::ApplicationController
-  before_filter :find_angel, :except => [:index, :past, :new, :create]
+  before_filter :find_angel, :except => [:index, :level, :past, :new, :create]
 
   def index
     params[:rows] ||= 5
     params[:search] ||= {}
     params[:search][:meta_sort] ||= 'updated_at.desc'
+    @search = Angel.search(params[:search])
+    @angels = @search.paginate(:page => params[:page],
+                               :per_page => params[:rows])
+  end
+
+  def level
+    params[:rows] ||= 10
+    params[:search] ||= {}
+    params[:search][:meta_sort] ||= 'first_name.asc'
     @search = Angel.search(params[:search])
     @angels = @search.paginate(:page => params[:page],
                                :per_page => params[:rows])
