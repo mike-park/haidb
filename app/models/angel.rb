@@ -27,6 +27,7 @@ class Angel < ActiveRecord::Base
   geocoded_by :full_address, :latitude  => :lat, :longitude => :lng
   
   before_save :update_display_name
+  after_validation :fetch_coordinates
 
   FEMALE = 'Female'
   MALE = 'Male'

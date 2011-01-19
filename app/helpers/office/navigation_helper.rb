@@ -18,10 +18,15 @@ module Office::NavigationHelper
     build_breadcrumbs(build_public_signup_breadcrumbs(public_signup))
   end
       
+  def angel_navigation
+    [['Contacts', :index], ['Levels', :level]]
+  end
+
   def build_angel_breadcrumbs(angel)
     BreadCrumbBuilder.new(angel) do |b|
       b.add :index, 'Angel Contacts', office_angels_path
-      b.add :level, 'Angel Levels', office_angels_path
+      b.add :level, 'Angel Levels', level_office_angels_path
+      b.add :map, 'Angel Map', map_office_angels_path
       b.add :show, angel, [:office, angel]
     end
   end
