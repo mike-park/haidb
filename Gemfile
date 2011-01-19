@@ -18,6 +18,7 @@ gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 
 gem "meta_search"
 gem 'vcard'
+gem "rails-geocoder", :require => "geocoder", :git => 'git://github.com/alexreisner/geocoder.git'
 
 # these add generators that help
 gem 'haml-rails'

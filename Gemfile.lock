@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/alexreisner/geocoder.git
+  revision: 424a2927160c4d449579fabfe30b44ee27471c36
+  specs:
+    rails-geocoder (0.9.5)
+
+GIT
   remote: git://github.com/mikepinde/activo-rails.git
   revision: 42dca5864d4ed7d1ecdd512c6d8831341363b2ae
   specs:
@@ -240,6 +246,7 @@ DEPENDENCIES
   mocha
   pickle
   rails (~> 3.0.0)
+  rails-geocoder!
   rails3-generators
   rails_admin!
   routing-filter
