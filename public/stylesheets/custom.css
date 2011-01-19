@@ -4,6 +4,19 @@
 .table .qty {
   text-align: right; }
 
+/*=============== completed table */
+#completed {
+  position: relative;
+  width: 40em; }
+  #completed .name {
+    width: 20em; }
+  #completed .true, #completed .false {
+    width: 10px; }
+  #completed .true {
+    background-color: #99cc33; }
+  #completed .false {
+    background-color: #db3737; }
+
 /*=============== roster html table */
 .roster {
   font-size: 10pt;

@@ -80,6 +80,12 @@ module Office::NavigationHelper
     tabs
   end
 
+  def completed_registration_breadcrumbs
+    crumbs = registration_breadcrumbs
+    crumbs << ['Completed', office_event_completed_registrations_path(event)]
+    crumbs
+  end
+  
   def display_name_or_id(something)
     if something.respond_to?(:display_name)
       result = something.display_name 
