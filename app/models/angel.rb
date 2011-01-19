@@ -24,7 +24,10 @@
 #
 
 class Angel < ActiveRecord::Base
+  geocoded_by :full_address, :latitude  => :lat, :longitude => :lng
+  
   before_save :update_display_name
+  after_validation :fetch_coordinates
 
   FEMALE = 'Female'
   MALE = 'Male'
@@ -44,6 +47,10 @@ class Angel < ActiveRecord::Base
     [first_name, last_name].compact.join(" ")
   end
 
+  def full_address
+    [address, postal_code, city, country].compact.join(", ")
+  end
+  
   def display_phones
     phones = []
     phones << "H: #{home_phone}" unless home_phone.blank?

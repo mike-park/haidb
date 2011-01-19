@@ -131,7 +131,8 @@
 .attrtastic .column {
   float: left;
   width: 20%;
-  margin-left: 0; }
+  min-width: 140px;
+  margin: 0 14px 4px 0; }
 
 /*=============== formtastic additions/changes */
 form.formtastic fieldset > ol > li.string input,

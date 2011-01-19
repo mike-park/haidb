@@ -1,12 +1,11 @@
 .block
-  = block_navigation([['Contacts', :index], ['Levels', :level]])
+  = block_navigation(angel_navigation)
 
   .content
     = controls do |c|
       - add_button_to(c, :new)
 
-    = controls do |c|
-      - add_button_to(c, "Download #{pluralize(angels.total_entries, 'VCard')}", params.merge(:format => :vcard, :icon => 'vcard'))
+    = angel_controls
 
     %h2 Contact List
 

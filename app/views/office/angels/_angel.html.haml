@@ -6,7 +6,7 @@
     = attr.attribute :gender
     = attr.attribute :address, :value => compact_address(angel)
   = attr.attributes :html => {:class => :column} do
-    = attr.attribute :email
+    = attr.attribute :email, :value => auto_link(angel.email)
     = attr.attribute :highest_level
   = attr.attributes do
     = attr.attribute :notes

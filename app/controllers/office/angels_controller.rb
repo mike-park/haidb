@@ -1,5 +1,5 @@
 class Office::AngelsController < Office::ApplicationController
-  before_filter :find_angel, :except => [:index, :level, :past, :new, :create]
+  before_filter :find_angel, :except => [:index, :level, :map, :new, :create]
 
   def index
     find_angels(5, 'updated_at.desc')
@@ -7,6 +7,35 @@ class Office::AngelsController < Office::ApplicationController
 
   def level
     find_angels(10, 'first_name.asc')
+  end
+
+  def map
+    params[:search] ||= {}
+    @search = Angel.geocoded.search(params[:search])
+
+    @map = Cartographer::Gmap.new( 'map', :debug => true )
+    @map.zoom = :bound
+    
+    icon = Cartographer::Gicon.new
+    @map.icons << icon
+
+    @search.all.each do |angel|
+      @map.markers << Cartographer::Gmarker.new(:name => "id#{angel.id}",
+           :marker_type => "Person",
+           :position => [angel.lat,angel.lng],
+           :info_window_url => office_angel_url(angel, :format => :map),
+           :icon => icon)
+    end
+
+    respond_to do |format|
+      format.html
+      format.vcard do
+        send_data Angel.to_vcard(@search.all), {
+          :filename => 'contacts.vcf',
+          :type => :vcard
+        }
+      end
+    end
   end
 
   def new
@@ -32,6 +61,7 @@ class Office::AngelsController < Office::ApplicationController
 
   def show
     respond_to do |format|
+      format.map { render :layout => false }
       format.html
       format.vcard { send_data angel.to_vcard, :filename => 'contact.vcf', :type => :vcard }
     end

@@ -53,4 +53,11 @@ module Office::AngelsHelper
     phones.join(separator).html_safe
   end
 
+  def angel_controls
+    controls do |c|
+      add_button_to(c, "Map", params.merge(:action => :map, :icon => 'map_magnify'))
+      add_button_to(c, "VCard", params.merge(:format => :vcard, :icon => 'vcard'))
+      yield c if block_given?
+    end
+  end
 end
