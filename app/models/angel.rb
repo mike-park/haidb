@@ -63,7 +63,8 @@ class Angel < ActiveRecord::Base
   # if our calculated level is < highest_level we keep the higher value
   # this assumes higher level was set by staff
   def update_highest_level
-    level = registrations.completed.collect(&:level).compact.max || 0
+    #level = registrations.ok.completed.collect(&:level).compact.max || 0
+    level = Registration.highest_level(self) || 0
     level = [level, highest_level].compact.max
     update_attribute(:highest_level, level) if level != highest_level
   end

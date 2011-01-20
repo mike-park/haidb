@@ -115,6 +115,14 @@ class Registration < ActiveRecord::Base
     event.level
   end
   
+  def self.highest_level(angel)
+    maximum('events.level', :include => :event, :conditions => {
+              :approved => true,
+              :completed => true,
+              :angel_id => angel.id
+            })
+  end
+
   def full_name
     angel.full_name
   end
