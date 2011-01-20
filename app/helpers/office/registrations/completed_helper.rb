@@ -8,5 +8,14 @@ module Office::Registrations::CompletedHelper
     html << content_tag(:td, '', second)
     html.html_safe
   end
-  
+
+  def completed_toggle(registration)
+    form_tag({ :action => "update",
+               :controller => "office/registrations/completed",
+               :event_id => event,
+               :id => registration },
+             { :method => :put }) do
+      submit_tag('Toggle')
+    end
+  end
 end

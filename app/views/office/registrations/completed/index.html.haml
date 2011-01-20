@@ -1,14 +1,15 @@
 .block
-  = block_navigation do |nav|
-    - nav.item "#{event.display_name} Registrations", office_event_registrations_path(event)
-    - nav.item "Mark completed", url_for, :active => true
+  = block_navigation(post_event_navigation)
 
   .content
 
-    %h2
-      Completed list of #{event.display_name}
+    %h2 Angels who have completed #{event.display_name}
 
     .inner
+      %p
+        Click the header links to mark all angels, or click the toggle button
+        to change the status of a single angel.
+
       = render 'registrations', :registrations => registrations
 
   = block_footer(completed_registration_breadcrumbs)

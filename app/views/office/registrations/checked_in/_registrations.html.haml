@@ -1,0 +1,14 @@
+%table.table
+  %thead
+    %tr
+      %th.name Name
+      %th= render 'header_th', :label => 'Not Checked In', :value => 'nc'
+      %th= render 'header_th', :label => 'Checked In', :value => 'checked_in'
+      %th Toggle
+  %tbody
+    - registrations.each do |r|
+      %tr
+        %td.name= r.full_name
+        = checked_in_registration_tds(r)
+        %td= checked_in_toggle(r)
+.wat-cf

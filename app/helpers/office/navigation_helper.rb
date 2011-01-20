@@ -73,10 +73,42 @@ module Office::NavigationHelper
       
   def registration_navigation
     tabs = [["#{parent.display_name} Registrations", :index]]
-    if parent.kind_of?(Event) && false
-      tabs << ['Checklist', :checklist]
-      tabs << ['Roster', :roster]
+    if parent.kind_of?(Event)
+      tabs << ['Pre-Event Actions',
+               :controller => '/office/registrations/pre',
+               :action=>:index]
+      tabs << ['Post-Event Actions',
+               :controller => '/office/registrations/post',
+               :action=>:index]
     end
+    tabs
+  end
+
+  def pre_event_navigation
+    tabs = []
+    tabs << ["Pre-Event Summary",
+             :controller => 'pre',
+             :action => :index]
+    tabs << ['Mark Checked In',
+             :controller => 'checked_in',
+             :action =>:index]
+    tabs << ['Checklist',
+             :controller => 'checklist',
+             :action =>:index]
+    tabs
+  end
+
+  def post_event_navigation
+    tabs = []
+    tabs << ["Post-Event Summary",
+             :controller => 'post',
+             :action => :index]
+    tabs << ['Mark Completed',
+             :controller => 'completed',
+             :action =>:index]
+    tabs << ['Roster',
+             :controller => 'roster',
+             :action =>:index]
     tabs
   end
 
@@ -112,14 +144,17 @@ module Office::NavigationHelper
   def block_navigation(routes = nil)
     routes = [routes] unless routes.kind_of?(Array)
     secondary_navigation do |nav|
-      routes.compact.each do |display, action, object|
-        if action.nil?
+      routes.compact.each do |display, *args|
+        options = args.extract_options!
+        action = args.first
+        if action.nil? && options.empty?
           active = true
           path = url_for
         else
-          active = controller.action_name == action.to_s
-          options = { :action => action }
-          options.merge!({ :id => object }) unless object.nil?
+          options.reverse_merge!(:action => action,
+                                 :controller => controller.controller_name)
+          active = controller.action_name == options[:action].to_s &&
+            controller.controller_name == options[:controller].to_s
           path = url_for(options)
         end
         display = display.to_s.capitalize if display.kind_of?(Symbol)

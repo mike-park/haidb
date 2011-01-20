@@ -1,1 +1,13 @@
-= render 'office/registrations/print_layout', :layout => :registrations
+.block
+  = block_navigation(post_event_navigation)
+
+  .content
+    = controls do |c|
+      - add_button_to(c, "Print roster", :format => :pdf)
+
+    %h2 Roster preview of #{event.display_name}
+
+    .inner
+      = render "registrations", :registrations => registrations
+
+  = block_footer(registration_breadcrumbs)

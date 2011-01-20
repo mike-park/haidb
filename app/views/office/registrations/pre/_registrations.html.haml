@@ -1,0 +1,11 @@
+- path = "/office/#{model_name(parent)}s"
+= render "#{path}/counts", :registrations => registrations
+
+%h3= pluralize(registrations.participants.count, "Participant Registration")
+= render "role", :registrations => registrations.participants
+
+%h3= pluralize(registrations.team.count, "Team Registration")
+= render "role", :registrations => registrations.team
+
+%h3= pluralize(registrations.facilitators.count, "Facilitator Registration")
+= render "role", :registrations => registrations.facilitators

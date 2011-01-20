@@ -1,15 +1,13 @@
 %table.table.color_dots
   %thead
     %tr
-      %th.name Name
-      %th Notes
-      %th.center= "Checked&nbsp;In".html_safe
+      %th Name
+      %th.center Checked In
       %th.center Completed
   %tbody
     - registrations.each do |r|
-      %tr{:class => cycle(:odd, :even)}
-        %td.name= link_to(r.full_name, [:office, r.angel])
-        %td= r.notes
+      %tr
+        %td= link_to(r.full_name, office_angel_path(r.angel))
         %td.center= color_dot(r.checked_in?)
         %td.center= color_dot(r.completed?)
 .wat-cf
