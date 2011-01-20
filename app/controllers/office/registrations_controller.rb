@@ -79,7 +79,7 @@ class Office::RegistrationsController < Office::ApplicationController
   hide_action :angel
   
   def registrations
-    @registrations ||= parent.registrations.ok
+    @registrations ||= parent.registrations.ok.by_first_name
   end
   helper_method :registrations
   hide_action :registrations
