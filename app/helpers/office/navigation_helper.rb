@@ -81,8 +81,9 @@ module Office::NavigationHelper
   end
 
   def completed_registration_breadcrumbs
-    crumbs = registration_breadcrumbs
-    crumbs << ['Completed', office_event_completed_registrations_path(event)]
+    crumbs =  build_breadcrumbs(build_event_breadcrumbs(parent), :show)
+    crumbs << build_breadcrumbs(build_registration_breadcrumbs(nil), :index)
+    crumbs << ['Completed', office_event_completed_index_path(event)]
     crumbs
   end
   

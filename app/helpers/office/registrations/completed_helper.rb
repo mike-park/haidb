@@ -1,4 +1,4 @@
-module Office::CompletedRegistrationsHelper
+module Office::Registrations::CompletedHelper
 
   def completed_registration_tds(registration)
     first = {:class => :false} unless registration.completed?
