@@ -1,0 +1,14 @@
+.block
+  = block_navigation do |nav|
+    - nav.item "#{event.display_name} Registrations", office_event_registrations_path(event)
+    - nav.item "Mark completed", url_for, :active => true
+
+  .content
+
+    %h2
+      Completed list of #{event.display_name}
+
+    .inner
+      = render 'registrations', :registrations => registrations
+
+  = block_footer(completed_registration_breadcrumbs)
