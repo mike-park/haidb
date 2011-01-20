@@ -13,13 +13,6 @@ class Office::RegistrationsController < Office::ApplicationController
     end
   end
   
-  def roster
-    respond_to do |format|
-      format.html # roster.html.haml
-      #format.pdf  { render :layout => false }
-    end
-  end
-
   def new
     @registration = registrations.new(params[:registration])
   end

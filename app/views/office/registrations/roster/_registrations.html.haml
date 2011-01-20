@@ -12,6 +12,6 @@
       %th.phone Handy
       %th.phone Arbeitstelefon
   %tbody
-    = render 'roster_role', :role => 'Teilnehmer', :regs => regs.participants
-    = render 'roster_role', :role => 'Team', :regs => regs.team
-    = render 'roster_role', :role => 'Leiter', :regs => regs.facilitators
+    = render 'role', :role => 'Teilnehmer', :regs => regs.participants
+    = render 'role', :role => 'Team', :regs => regs.team
+    = render 'role', :role => 'Leiter', :regs => regs.facilitators

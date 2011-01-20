@@ -73,7 +73,7 @@ module Office::NavigationHelper
       
   def registration_navigation
     tabs = [["#{parent.display_name} Registrations", :index]]
-    if parent.kind_of?(Event)
+    if parent.kind_of?(Event) && false
       tabs << ['Checklist', :checklist]
       tabs << ['Roster', :roster]
     end
