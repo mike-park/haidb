@@ -9,7 +9,7 @@
   %tbody
     - registrations.by_start_date.each do |r|
       %tr{:class => cycle(:odd, :even)}
-        %td= r.event_name
+        %td= link_to(r.event_name, office_event_registrations_path(r.event))
         %td= r.level
         %td= r.notes
         %td.link= link_to_edit edit_office_angel_registration_path(r.angel, r)
