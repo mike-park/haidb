@@ -46,28 +46,8 @@ class Office::EventsController < Office::ApplicationController
     @events = @search.paginate(:page => params[:page], :per_page => params[:rows])
   end
 
-  def find_event
-    unless event
-      redirect_to(office_events_url, :alert => 'You must select an event first.')
-    end
+  def parent
+    @parent ||= event
   end
-  
-  def event
-    @event ||= Event.find_by_id(params[:id])
-  end
-  helper_method :event
-  hide_action :event
-  
-  def events
-    @events
-  end
-  helper_method :events
-  hide_action :events
-  
-  def registrations
-    @registrations ||= event.registrations.ok
-  end
-  helper_method :registrations
-  hide_action :registrations
   
 end

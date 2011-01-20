@@ -48,4 +48,68 @@ class Office::ApplicationController < ApplicationController
     session[:return_to] = nil
   end
 
+  # controller & helper routines to handle angels, events & registrations
+  
+  def find_event_or_angel
+    unless parent
+      redirect_to(office_events_url, :alert => 'You must select an event first')
+    end
+  end
+
+  def find_angel
+    unless parent
+      redirect_to(office_angels_url, :alert => 'You must select an angel first.')
+    end
+  end
+
+  def find_event
+    unless parent
+      redirect_to(office_events_url, :alert => 'You must select an event first.')
+    end
+  end
+
+  def parent
+    raise "Parent must be redefined by subclass"
+  end
+  helper_method :parent
+  hide_action :parent
+  
+  def events
+    @events
+  end
+  helper_method :events
+  hide_action :events
+  
+  def event
+    @event ||= Event.find_by_id(params[:event_id] || params[:id])
+  end
+  helper_method :event
+  hide_action :event
+  
+  def angels
+    @angels
+  end
+  helper_method :angels
+  hide_action :angels
+
+  def angel
+    @angel ||= Angel.find_by_id(params[:angel_id] || params[:id])
+  end
+  helper_method :angel
+  hide_action :angel
+  
+  def registrations
+    @registrations ||= parent.registrations.ok.by_first_name
+  end
+  helper_method :registrations
+  hide_action :registrations
+  
+  # return current registration, its ok to return nil
+  def registration
+    @registration ||= registrations.find_by_id(params[:id])
+  end
+  helper_method :registration
+  hide_action :registration
+  
+  
 end
