@@ -11,6 +11,4 @@
     .inner
       = render "registrations", :registrations => registrations
 
-  = block_footer(registration_breadcrumbs)
-= debug(controller.controller_name)
-= debug(controller.action_name)
+  = block_footer(registration_submodule_breadcrumbs << ['Checklist'])

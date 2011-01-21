@@ -112,10 +112,9 @@ module Office::NavigationHelper
     tabs
   end
 
-  def completed_registration_breadcrumbs
+  def registration_submodule_breadcrumbs
     crumbs =  build_breadcrumbs(build_event_breadcrumbs(parent), :show)
     crumbs << build_breadcrumbs(build_registration_breadcrumbs(nil), :index)
-    crumbs << ['Completed', office_event_completed_index_path(event)]
     crumbs
   end
   
@@ -168,7 +167,7 @@ module Office::NavigationHelper
   def block_footer(*routes)
     breadcrumbs do |b|
       routes.flatten.each_slice(2) do |display, path|
-        b.item display, path
+        b.item display, path.present?? path : url_for
       end
       yield b if block_given?
     end
