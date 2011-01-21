@@ -93,12 +93,22 @@ class Office::AngelsController < Office::ApplicationController
     end
   end
 
-  def parent
-    @parent ||= angel
+  def find_angel
+    unless angel
+      redirect_to(office_angels_url, :alert => 'You must select an angel first.')
+    end
   end
-  
+
+  def angels
+    @angels
+  end
+  helper_method :angels
+  hide_action :angels
+
   def registrations
-    @registrations ||= parent.registrations.ok.by_start_date
+    @registrations ||= angel.registrations.ok.by_start_date
   end
+  helper_method :registrations
+  hide_action :registrations
   
 end
