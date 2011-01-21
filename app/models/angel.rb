@@ -39,7 +39,7 @@ class Angel < ActiveRecord::Base
   #default_scope order('LOWER(first_name) asc')
   scope :by_last_name, order('LOWER(last_name) asc')
 
-  validates_presence_of :last_name, :email
+  validates_presence_of :first_name, :last_name, :email
   validates_inclusion_of :gender, { :in => GENDERS,
     :message => :select }
 
