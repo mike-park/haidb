@@ -120,7 +120,7 @@ class Registration < ActiveRecord::Base
               :approved => true,
               :completed => true,
               :angel_id => angel.id
-            })
+            }).to_i
   end
 
   def full_name
