@@ -1,6 +1,7 @@
 class Notifier < ActionMailer::Base
   default :from => "HAI Registrations <registrations@haidb.info>",
-          :bcc => 'registrationshaidb@t.quake.net'
+          :bcc => 'registrations@haidb.info'
+  
 
   def public_signup_received(public_signup)
     @full_name = public_signup.registration.full_name
