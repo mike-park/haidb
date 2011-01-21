@@ -29,7 +29,6 @@ class PublicSignup < ActiveRecord::Base
     self.approved_at = Time.now
     registration.approved = true
     save!
-    logger.debug "#{registration.id} approved.  send email to #{registration.angel.email}"
   end
 
   def full_name

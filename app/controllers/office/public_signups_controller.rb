@@ -23,6 +23,7 @@ class Office::PublicSignupsController < Office::ApplicationController
 
   def approve
     public_signup.set_approved!
+    send_confirmation_email
     redirect_to(office_public_signups_url, :notice => "#{public_signup.full_name} has been successfully added to #{public_signup.event_name}.")
   end
 
@@ -33,6 +34,12 @@ class Office::PublicSignupsController < Office::ApplicationController
   
   protected
 
+  def send_confirmation_email
+    with_language(public_signup.registration.lang) do
+      Notifier.registration_confirmed(public_signup.registration).deliver
+    end
+  end
+  
   def find_signup
     unless public_signup
       redirect_to(office_public_signups_url, :alert => 'You must select a signup first.')
