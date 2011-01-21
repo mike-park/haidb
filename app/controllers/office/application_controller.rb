@@ -69,6 +69,13 @@ class Office::ApplicationController < ApplicationController
   end
   helper_method :registration
   hide_action :registration
-  
+
+  # wrap block call with language set
+  def with_language(language = :en)
+    locale = I18n.locale
+    I18n.locale = language
+    yield
+    I18n.locale = locale
+  end
   
 end

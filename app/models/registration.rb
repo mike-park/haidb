@@ -107,24 +107,19 @@ class Registration < ActiveRecord::Base
     :unless => "lift.blank?"
   }
 
+  delegate :level, :to => :event
+  delegate :full_name, :lang, :email, :to => :angel
+  
   def event_name
     event.display_name
   end
 
-  def level
-    event.level
-  end
-  
   def self.highest_level(angel)
     maximum('events.level', :include => :event, :conditions => {
               :approved => true,
               :completed => true,
               :angel_id => angel.id
             }).to_i
-  end
-
-  def full_name
-    angel.full_name
   end
 
   def display_name

@@ -21,6 +21,7 @@ class PublicSignupsController < ApplicationController
 
     if @public_signup.save
       redirect_to thankyou_url
+      Notifier.public_signup_received(@public_signup).deliver
     else
       # fixes bug where "0" (unchecked box value) gets rerendered as checked state
       unless @public_signup.terms_and_conditions == '1'
