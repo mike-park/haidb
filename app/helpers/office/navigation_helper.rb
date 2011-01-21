@@ -62,7 +62,7 @@ module Office::NavigationHelper
   end
 
   def registration_breadcrumbs
-    if parent.is_a?(Event)
+    if have_event?
       crumbs =  build_breadcrumbs(build_event_breadcrumbs(parent), :show)
     else
       crumbs =  build_breadcrumbs(build_angel_breadcrumbs(parent), :show)
@@ -72,8 +72,9 @@ module Office::NavigationHelper
   end
       
   def registration_navigation
-    tabs = [["#{parent.display_name} Registrations", :index]]
-    if parent.kind_of?(Event)
+    tabs = []
+    tabs << ["#{parent.display_name} Registrations", :index]
+    if have_event?
       tabs << ['Pre-Event Actions',
                :controller => '/office/registrations/pre',
                :action=>:index]
