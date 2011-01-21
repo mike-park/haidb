@@ -9,7 +9,7 @@ gem 'delocalize'
 gem 'tabletastic', '~> 0.2.0.pre6'
 gem 'formtastic'
 gem 'attrtastic'
-gem "tabs_on_rails"
+#gem "tabs_on_rails"
 gem "activo-rails", :git => 'git://github.com/mikepinde/activo-rails.git'
 gem "formtastic_datepicker_inputs"
 
