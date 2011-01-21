@@ -1,0 +1,14 @@
+.block
+  = block_navigation(pre_event_navigation)
+
+  .content
+    = controls do |c|
+      - add_button_to(c, "Print checklist", :format => :pdf)
+
+    %h2
+      Checklist for #{event.display_name}
+
+    .inner
+      = render "registrations", :registrations => registrations
+
+  = block_footer(registration_submodule_breadcrumbs << ['Checklist'])

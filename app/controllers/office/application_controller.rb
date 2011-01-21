@@ -48,4 +48,27 @@ class Office::ApplicationController < ApplicationController
     session[:return_to] = nil
   end
 
+  # controller & helper routines to handle angels, events & registrations
+  
+  def event
+    @event ||= Event.find_by_id(params[:event_id] || params[:id])
+  end
+  helper_method :event
+  hide_action :event
+  
+  def angel
+    @angel ||= Angel.find_by_id(params[:angel_id] || params[:id])
+  end
+  helper_method :angel
+  hide_action :angel
+  
+  
+  # return current registration, its ok to return nil
+  def registration
+    @registration ||= registrations.find_by_id(params[:id])
+  end
+  helper_method :registration
+  hide_action :registration
+  
+  
 end

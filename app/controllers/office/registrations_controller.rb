@@ -1,5 +1,5 @@
 class Office::RegistrationsController < Office::ApplicationController
-  before_filter :event_or_angel
+  before_filter :find_event_or_angel
   
   def index
     respond_to do |format|
@@ -13,13 +13,6 @@ class Office::RegistrationsController < Office::ApplicationController
     end
   end
   
-  def roster
-    respond_to do |format|
-      format.html # roster.html.haml
-      #format.pdf  { render :layout => false }
-    end
-  end
-
   def new
     @registration = registrations.new(params[:registration])
   end
@@ -28,7 +21,7 @@ class Office::RegistrationsController < Office::ApplicationController
     @registration = registrations.new(params[:registration])
     @registration.approved = true
     if @registration.save
-      redirect_to([:office, parent, :registrations],
+      redirect_to(back_url,
                   :notice => 'Registration was successfully created.')
     else
       render :new
@@ -37,7 +30,7 @@ class Office::RegistrationsController < Office::ApplicationController
 
   def update
     if registration.update_attributes(params[:registration])
-      redirect_to([:office, parent, :registrations],
+      redirect_to(back_url,
                   :notice => 'Registration was successfully updated.')
     else
       render :edit
@@ -46,16 +39,23 @@ class Office::RegistrationsController < Office::ApplicationController
 
   def destroy
     registration.destroy
-    redirect_to([:office, parent, :registrations],
+    redirect_to(back_url,
                 :notice => 'Registration was successfully deleted.')
   end
   
 
   protected
 
-  def event_or_angel
+  def back_url
+    if have_event?
+      office_event_pre_index_url(parent)
+    else
+      office_angel_url(parent)
+    end
+  end
+  
+  def find_event_or_angel
     unless parent
-      logger.warn "registrations_controller without event or angel: #{params}"
       redirect_to(office_events_url, :alert => 'You must select an event first')
     end
   end
@@ -65,30 +65,20 @@ class Office::RegistrationsController < Office::ApplicationController
   end
   helper_method :parent
   hide_action :parent
-  
-  def event
-    @event ||= Event.find_by_id(params[:event_id])
+
+  def have_event?
+    parent.is_a?(Event)
   end
-  helper_method :event
-  hide_action :event
-  
-  def angel
-    @angel ||= Angel.find_by_id(params[:angel_id])
-  end
-  helper_method :angel
-  hide_action :angel
-  
+  helper_method :have_event?
+  hide_action :have_event?
+
   def registrations
-    @registrations ||= parent.registrations.ok.by_first_name
+    if have_event?
+      @registrations ||= parent.registrations.ok.by_first_name
+    else
+      @registrations ||= parent.registrations.ok.by_start_date
+    end
   end
   helper_method :registrations
   hide_action :registrations
-  
-  # return current registration, its ok to return nil
-  def registration
-    @registration ||= registrations.find_by_id(params[:id])
-  end
-  helper_method :registration
-  hide_action :registration
-  
 end

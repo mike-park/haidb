@@ -1,0 +1,18 @@
+.block
+  = block_navigation(pre_event_navigation)
+
+  .content
+    = controls do |c|
+      - add_button_to(c, 'Add registration', :controller => '/office/registrations', :action => :new)
+
+    = controls do |c|
+      - add_button_to(c, "Download VCards", params.merge(:format => :vcard, :icon => 'vcard', :controller => '/office/registrations', :action => :index))
+
+    %h2
+      #{pluralize(registrations.count, 'registration')}
+      for #{parent.display_name}
+
+    .inner
+      = render 'registrations', :registrations => registrations
+
+  = block_footer(registration_submodule_breadcrumbs << ['Pre Event'])

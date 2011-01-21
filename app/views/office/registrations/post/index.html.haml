@@ -1,0 +1,15 @@
+.block
+  = block_navigation(post_event_navigation)
+
+  .content
+    = controls do |c|
+      - add_button_to(c, "Download VCards", params.merge(:format => :vcard, :icon => 'vcard', :controller => '/office/registrations', :action => :index))
+
+    %h2= parent.display_name
+
+    .inner
+
+      #post_event
+        = render 'registrations', :registrations => registrations
+
+  = block_footer(registration_submodule_breadcrumbs << ['Post Event'])

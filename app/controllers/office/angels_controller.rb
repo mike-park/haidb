@@ -74,12 +74,6 @@ class Office::AngelsController < Office::ApplicationController
 
   protected
 
-  def find_angel
-    unless angel
-      redirect_to(office_angels_url, :alert => 'You must select an angel first.')
-    end
-  end
-
   def find_angels(rows, sort)
     params[:rows] ||= rows
     params[:search] ||= {}
@@ -99,11 +93,11 @@ class Office::AngelsController < Office::ApplicationController
     end
   end
 
-  def angel
-    @angel ||= Angel.find_by_id(params[:id])
+  def find_angel
+    unless angel
+      redirect_to(office_angels_url, :alert => 'You must select an angel first.')
+    end
   end
-  helper_method :angel
-  hide_action :angel
 
   def angels
     @angels
@@ -112,7 +106,7 @@ class Office::AngelsController < Office::ApplicationController
   hide_action :angels
 
   def registrations
-    @registrations ||= angel.registrations.ok
+    @registrations ||= angel.registrations.ok.by_start_date
   end
   helper_method :registrations
   hide_action :registrations

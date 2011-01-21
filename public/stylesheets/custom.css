@@ -3,19 +3,22 @@
   text-align: center; }
 .table .qty {
   text-align: right; }
+.table .name {
+  width: 25ex; }
+.table .true {
+  background-color: #99cc33; }
+.table .false {
+  background-color: #db3737; }
 
-/*=============== completed table */
-#completed {
+.color_dots .true, .color_dots .false {
+  width: 14px;
+  height: 14px;
+  display: inline-block; }
+
+/*=============== completed/checked_in/post_event table */
+#completed, #checked_in, #post_event {
   position: relative;
   width: 40em; }
-  #completed .name {
-    width: 20em; }
-  #completed .true, #completed .false {
-    width: 10px; }
-  #completed .true {
-    background-color: #99cc33; }
-  #completed .false {
-    background-color: #db3737; }
 
 /*=============== roster html table */
 .roster {

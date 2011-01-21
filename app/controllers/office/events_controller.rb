@@ -51,13 +51,7 @@ class Office::EventsController < Office::ApplicationController
       redirect_to(office_events_url, :alert => 'You must select an event first.')
     end
   end
-  
-  def event
-    @event ||= Event.find_by_id(params[:id])
-  end
-  helper_method :event
-  hide_action :event
-  
+
   def events
     @events
   end
@@ -65,9 +59,9 @@ class Office::EventsController < Office::ApplicationController
   hide_action :events
   
   def registrations
-    @registrations ||= event.registrations.ok
+    @registrations ||= event.registrations.ok.by_first_name
   end
   helper_method :registrations
   hide_action :registrations
-  
+
 end

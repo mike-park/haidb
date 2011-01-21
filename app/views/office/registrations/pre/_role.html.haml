@@ -1,0 +1,29 @@
+%table.table
+  %thead
+    %tr
+      %th.name Name
+      %th Gender
+      %th Pay. Meth
+      %th Veg.
+      %th Backjk
+      %th Lift
+      %th Stayover
+      %th Meal
+      %th Notes
+      %th
+      %th
+  %tbody
+    - registrations.by_first_name.each do |r|
+      %tr{:class => cycle(:odd, :even)}
+        %td.name= link_to(r.full_name, [:office, r.angel])
+        %td.center= r.angel.gender.first
+        %td= r.payment_method
+        %td.center= checkmark_if(r.special_diet)
+        %td.center= checkmark_if(r.backjack_rental)
+        %td= r.lift
+        %td.center= checkmark_if(r.sunday_stayover)
+        %td.center= checkmark_if(r.sunday_meal)
+        %td= r.notes
+        %td.link= link_to_edit edit_office_event_registration_path(r.event, r)
+        %td.link= link_to_destroy office_event_registration_path(r.event, r)
+.wat-cf

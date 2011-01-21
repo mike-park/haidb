@@ -5,7 +5,7 @@
 
   = r.semantic_errors(:angel_id, :event_id)
   = r.inputs :class => 'column_left' do
-    - if parent.kind_of?(Event)
+    - if have_event?
       = r.input :angel, options_for_angel_select(r)
     - else
       = r.input :event, options_for_signup_events_select(r)
