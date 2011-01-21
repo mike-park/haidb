@@ -2,9 +2,9 @@
   #lang
     %p
       - if german?
-        If you prefer you may #{link_to('register in English.', :locale => :en)}
+        If you prefer you may #{link_to('register in English.', :action => :new, :locale => :en)}
       - else
-        Bitte melden Sie sich in #{link_to('Deutsch hier an.', :locale => :de)}
+        Bitte melden Sie sich in #{link_to('Deutsch hier an.', :action => :new, :locale => :de)}
 
 
   -if @public_signup.errors.any?
