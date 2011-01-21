@@ -27,7 +27,7 @@ gem 'jquery-rails'
 
 # prologue standards
 #gem "cancan"
-gem "hoptoad_notifier"
+#gem "hoptoad_notifier"
 #gem "jammit"
 #gem "friendly_id", "~> 3.1"
 gem "will_paginate", "~> 3.0.pre2"
