@@ -109,7 +109,7 @@ class Registration < ActiveRecord::Base
   }
 
   delegate :level, :to => :event
-  delegate :full_name, :lang, :email, :to => :angel
+  delegate :full_name, :gender, :lang, :email, :to => :angel
   
   def event_name
     event.display_name
