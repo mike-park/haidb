@@ -24,6 +24,8 @@ class PublicSignup < ActiveRecord::Base
 
   validates_acceptance_of :terms_and_conditions, { :on => :create }
 
+  delegate :full_name, :event_name, :gender, :approved?, :to => :registration
+  
   # marks this signup as approved and sends confirmation email to person
   def set_approved!
     self.approved_at = Time.now
@@ -31,20 +33,7 @@ class PublicSignup < ActiveRecord::Base
     save!
   end
 
-  def full_name
-    registration.angel.full_name
-  end
-  alias :display_name :full_name
-
-  def event_name
-    registration.event.display_name
-  end
-
-  def gender
-    registration.angel.gender
-  end
-
-  def approved?
-    registration.approved?
+  def display_name
+    registration.full_name
   end
 end

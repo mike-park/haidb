@@ -29,6 +29,7 @@
 
 class Registration < ActiveRecord::Base
   before_save SundayChoiceCallbacks
+  after_destroy :destroy_public_signup
 
   # role types
   PARTICIPANT = 'Participant'
@@ -36,12 +37,15 @@ class Registration < ActiveRecord::Base
   TEAM = 'Team'
   ROLES = [PARTICIPANT, FACILITATOR, TEAM]
 
-  LIFTS = %w(Offered Requested)
+  OFFERED = 'Offered'
+  REQUESTED = 'Requested'
+  LIFTS = [OFFERED, REQUESTED]
 
   # payment methods. if internet the bank fields are required
   INTERNET = 'Internet'
   POST = 'Post'
-  PAYMENT_METHODS = [INTERNET, POST]
+  DIRECT = 'Direct'
+  PAYMENT_METHODS = [INTERNET, POST, DIRECT]
   
   MEAL = "Meal"
   STAYOVER = "Stayover"
@@ -108,7 +112,7 @@ class Registration < ActiveRecord::Base
   }
 
   delegate :level, :to => :event
-  delegate :full_name, :lang, :email, :to => :angel
+  delegate :full_name, :gender, :lang, :email, :to => :angel
   
   def event_name
     event.display_name
@@ -125,4 +129,9 @@ class Registration < ActiveRecord::Base
   def display_name
     "#{event_name} registration of #{full_name}"
   end
+
+  def destroy_public_signup
+    public_signup.destroy if public_signup
+  end
+  
 end

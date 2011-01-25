@@ -7,7 +7,10 @@
     = attr.attribute :address, :value => compact_address(angel)
   = attr.attributes :html => {:class => :column} do
     = attr.attribute :email, :value => auto_link(angel.email)
-    = attr.attribute :highest_level
-  = attr.attributes do
+  = attr.attributes :html => {:class => :column3} do
     = attr.attribute :notes
+  - if local_assigns.has_key? :show_highest_level
+    .wat-cf
+    = attr.attributes :html => {:class => :column} do
+      = attr.attribute :highest_level
 .wat-cf

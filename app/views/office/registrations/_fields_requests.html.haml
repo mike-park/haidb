@@ -1,8 +1,8 @@
 = form.inputs :class => :column do
   = form.input :special_diet, options_for_special_diet(form)
 = form.inputs :class => :column do
-  = form.input :backjack_rental, options_for_backjack_rental(form)
+  = form.input :backjack_rental, options_for_backjack_rental(form, :translate => false)
 = form.inputs :class => :column do
-  = form.input :sunday_choice, options_for_sunday_choice(form)
+  = form.input :sunday_choice, options_for_sunday_choice(form, :translate => false)
 = form.inputs :class => :column do
   = form.input :lift, options_for_lift(form)

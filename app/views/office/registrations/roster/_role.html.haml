@@ -1,7 +1,7 @@
 %tr.rolerow
   %td.role{ :colspan => 8}= role
 
-- regs.each do |reg|
+- regs.by_first_name.each do |reg|
   - angel = reg.angel
   %tr.person
     %td.name

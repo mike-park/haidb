@@ -6,7 +6,7 @@
       %th.center Completed
   %tbody
     - registrations.each do |r|
-      %tr
+      %tr{:class => cycle(:odd, :even)}
         %td= link_to(r.full_name, office_angel_path(r.angel))
         %td.center= color_dot(r.checked_in?)
         %td.center= color_dot(r.completed?)

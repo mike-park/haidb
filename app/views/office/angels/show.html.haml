@@ -13,7 +13,7 @@
     %h2 Details for #{angel.display_name}
 
     .inner
-      = render 'angel', :angel => angel
+      = render 'angel', :angel => angel, :show_highest_level => true
 
   .content
     = controls do |c|

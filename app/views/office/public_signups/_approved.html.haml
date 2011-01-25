@@ -9,7 +9,7 @@
   
   %tbody
     - approved.each do |p|
-      %tr
+      %tr{:class => cycle(:odd, :even)}
         %td= p.full_name
         %td= p.gender
         %td= p.event_name
