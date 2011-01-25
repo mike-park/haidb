@@ -1,10 +1,13 @@
-%span= registration.payment_method
-- if registration.payment_method == Registration::INTERNET
-  %br
-  %div
-    %span Account Name & Number:
-    %span #{registration.bank_account_name} / #{registration.bank_account_nr}
-    %br
-    %span Bank Name & BLZ:
-    %span #{registration.bank_name} / #{registration.bank_sort_code}
-
+- r = registration
+- if r.payment_method.present?
+  = semantic_attributes_for r do |attr|
+    = attr.attributes :html => {:class => :column} do
+      = attr.attribute :payment_method
+    - if r.payment_method == Registration::INTERNET
+      = attr.attributes :html => {:class => :column} do
+        = attr.attribute :label => 'Account Name & Number' do
+          = "#{r.bank_account_name} / #{r.bank_account_nr}"
+      = attr.attributes :html => {:class => :column} do
+        = attr.attribute :label => 'Bank Name & BLZ' do
+          = "#{r.bank_name} / #{r.bank_sort_code}"
+.wat-cf

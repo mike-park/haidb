@@ -74,9 +74,4 @@ module Office::RegistrationsHelper
     requests.join(delimiter).html_safe
   end
 
-  def registration_payment_details(registration)
-    return if registration.payment_method.blank?
-    render 'office/registrations/show_payment', :registration => registration
-  end
-
 end
