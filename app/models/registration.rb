@@ -29,7 +29,7 @@
 
 class Registration < ActiveRecord::Base
   before_save SundayChoiceCallbacks
-  after_destroy :destroy_public_signup
+  after_destroy :delete_public_signup
 
   # role types
   PARTICIPANT = 'Participant'
@@ -130,8 +130,8 @@ class Registration < ActiveRecord::Base
     "#{event_name} registration of #{full_name}"
   end
 
-  def destroy_public_signup
-    public_signup.destroy if public_signup
+  def delete_public_signup
+    PublicSignup.delete(public_signup_id) if public_signup_id
   end
   
 end
