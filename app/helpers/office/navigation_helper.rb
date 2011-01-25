@@ -90,6 +90,9 @@ module Office::NavigationHelper
     tabs << ["Pre-Event Summary",
              :controller => 'pre',
              :action => :index]
+    tabs << ['Payment List',
+             :controller => 'payment',
+             :action =>:index]
     tabs << ['Mark Checked In',
              :controller => 'checked_in',
              :action =>:index]

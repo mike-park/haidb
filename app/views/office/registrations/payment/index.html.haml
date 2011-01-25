@@ -1,0 +1,12 @@
+.block
+  = block_navigation(pre_event_navigation)
+
+  .content
+
+    %h2
+      Payment list for #{event.display_name}
+
+    .inner
+      = render "registrations", :registrations => registrations
+
+  = block_footer(registration_submodule_breadcrumbs << ['Payment'])
