@@ -7,7 +7,7 @@
       %th Toggle
   %tbody
     - registrations.each do |r|
-      %tr
+      %tr{:class => cycle(:odd, :even)}
         %td.name= r.full_name
         = checked_in_registration_tds(r)
         %td= checked_in_toggle(r)
