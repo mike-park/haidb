@@ -1,5 +1,5 @@
 = form.inputs do
-  = form.input :payment_method, options_for_payment_method(form)
+  = form.input :payment_method, options_for_payment_method(form, :translate => false)
 = form.inputs :class => :column_left do
   = form.input :bank_account_name,  :input_html => {:size => 30}
   = form.input :bank_account_nr,  :input_html => {:size => 10}

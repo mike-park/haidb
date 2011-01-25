@@ -23,9 +23,14 @@ module Office::RegistrationsHelper
     { :as => :radio, :collection => choices }
   end
 
-  def options_for_payment_method(form)
-    choices = Registration::PAYMENT_METHODS.map do |method|
-      [I18n.t("enums.registration.payment_method.#{method.downcase}"), method]
+  def options_for_payment_method(form, options = {})
+    options.reverse_merge! :translate => true
+    if options[:translate]
+      choices = Registration::PAYMENT_METHODS.map do |method|
+        [I18n.t("enums.registration.payment_method.#{method.downcase}"), method]
+      end
+    else
+      choices = Registration::PAYMENT_METHODS
     end
     { :as => :radio, :collection => choices }
   end
@@ -38,28 +43,40 @@ module Office::RegistrationsHelper
     { :as => :radio, :collection => Registration::STATUSES }
   end
 
-  def options_for_backjack_rental(form)
-    choices = [[I18n.t('enums.registration.backjack_rental.none'), false],
-               [I18n.t('enums.registration.backjack_rental.rent'), true]]
+  def options_for_backjack_rental(form, options = {})
+    options.reverse_merge! :translate => true
+    if options[:translate]
+      choices = [[I18n.t('enums.registration.backjack_rental.none'), false],
+                 [I18n.t('enums.registration.backjack_rental.rent'), true]]
+    else
+      choices = [['No', false], ['Yes', true]]
+    end
     { :as => :radio, :collection => choices }
   end
 
   def options_for_lift(form)
     choices = [[I18n.t(:'enums.registration.lift.na'), ''],
                [I18n.t(:'enums.registration.lift.offered'),
-                Registration::LIFTS.first],
+                Registration::OFFERED],
                [I18n.t(:'enums.registration.lift.requested'),
-                Registration::LIFTS.last]]
+                Registration::REQUESTED]]
     { :as => :radio, :collection => choices}
   end
 
-  def options_for_sunday_choice(form)
-    choices = [[I18n.t('enums.registration.sunday_choice.none'),
-                ''],
-               [I18n.t(:'enums.registration.sunday_choice.meal'),
-                Registration::SUNDAY_CHOICES.first],
-               [I18n.t(:'enums.registration.sunday_choice.stayover'),
-                Registration::SUNDAY_CHOICES.last]]
+  def options_for_sunday_choice(form, options = {})
+    options.reverse_merge! :translate => true
+    if options[:translate]
+      choices = [[I18n.t('enums.registration.sunday_choice.none'),
+                  ''],
+                 [I18n.t(:'enums.registration.sunday_choice.meal'),
+                  Registration::MEAL],
+                 [I18n.t(:'enums.registration.sunday_choice.stayover'),
+                  Registration::STAYOVER]]
+    else
+      choices = [['No', ''],
+                 ['Yes', Registration::MEAL],
+                 ['incl Stayover', Registration::STAYOVER]]
+    end
     { :as => :radio, :collection => choices }
   end
 
