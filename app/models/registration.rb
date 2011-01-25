@@ -41,7 +41,8 @@ class Registration < ActiveRecord::Base
   # payment methods. if internet the bank fields are required
   INTERNET = 'Internet'
   POST = 'Post'
-  PAYMENT_METHODS = [INTERNET, POST]
+  DIRECT = 'Direct'
+  PAYMENT_METHODS = [INTERNET, POST, DIRECT]
   
   MEAL = "Meal"
   STAYOVER = "Stayover"
