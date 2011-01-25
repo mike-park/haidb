@@ -37,7 +37,9 @@ class Registration < ActiveRecord::Base
   TEAM = 'Team'
   ROLES = [PARTICIPANT, FACILITATOR, TEAM]
 
-  LIFTS = %w(Offered Requested)
+  OFFERED = 'Offered'
+  REQUESTED = 'Requested'
+  LIFTS = [OFFERED, REQUESTED]
 
   # payment methods. if internet the bank fields are required
   INTERNET = 'Internet'
