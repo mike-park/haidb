@@ -17,8 +17,9 @@ class Event < ActiveRecord::Base
   TEAM = 'Team Workshop'
   COMMUNITYWEEKEND = 'Community Weekend'
   HANDONHEART = 'Hand-on-Heart Workshop'
+  OTHER = 'Other'
   CATEGORIES = [LIS, TEAM,
-                COMMUNITYWEEKEND, HANDONHEART]
+                COMMUNITYWEEKEND, HANDONHEART, OTHER]
 
   has_many :registrations, :inverse_of => :event, :dependent => :destroy
   has_many :angels, :through => :registrations
