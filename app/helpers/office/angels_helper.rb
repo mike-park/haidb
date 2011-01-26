@@ -7,6 +7,16 @@ module Office::AngelsHelper
       :collection => choices}
   end
 
+  def options_for_country(form)
+    Carmen.default_locale = I18n.locale
+    defaults = if I18n.locale.to_s == 'de'
+                 %w(DE AT NL GB)
+               else
+                 %w(GB)
+               end
+    { :priority_countries => defaults }
+  end
+  
   def options_for_lang(form)
     choices = [%w(Deutsch de), %w(English en)]
     { :as => :radio, :label => 'Language', :collection => choices}

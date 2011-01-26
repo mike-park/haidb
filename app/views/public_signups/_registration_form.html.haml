@@ -9,7 +9,7 @@
     = a.input :address,   :input_html => {:size => 30}
     = a.input :postal_code,  :input_html => {:size => 10}
     = a.input :city,   :input_html => {:size => 20}
-    = a.input :country, :as => :string,  :input_html => {:size => 20}
+    = a.input :country, options_for_country(a)
     = a.input :home_phone,  :input_html => {:size => 20}
     = a.input :mobile_phone,  :input_html => {:size => 20}
     = a.input :work_phone,  :input_html => {:size => 20}

@@ -7,7 +7,7 @@
   = f.input :address
   = f.input :postal_code
   = f.input :city
-  = f.input :country, :as => :string
+  = f.input :country, options_for_country(f)
 = f.inputs :class => :column_right do 
   = f.input :email
   = f.input :home_phone
