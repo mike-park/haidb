@@ -70,6 +70,7 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (>= 0.0.27)
       xpath (~> 0.1.2)
+    carmen (0.2.4)
     celerity (0.8.6)
     childprocess (0.1.6)
       ffi (~> 0.6.3)
@@ -223,6 +224,7 @@ DEPENDENCIES
   autotest-rails
   awesome_print
   capybara (= 0.4.0)
+  carmen
   cucumber
   cucumber-rails
   database_cleaner
