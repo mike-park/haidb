@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
-  default :from => "HAI Registrations <registrations@haidb.info>",
-          :bcc => 'registrations@haidb.info'
+  default :from => "HAI Registrations <#{ActionMailer::Base.smtp_settings[:user_name]}>",
+          :bcc => ActionMailer::Base.smtp_settings[:user_name]
   
 
   def public_signup_received(public_signup)
