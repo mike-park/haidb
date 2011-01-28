@@ -20,10 +20,26 @@ module ApplicationHelper
                 :rows => params[:rows])
     link_to(new_label(label, curr_order), url_for(args))
   end
-  
+
+  def map_address(addr, options = {})
+    q = addr.gsub("\n", ",")
+    options[:tag] ||= :a
+    if (I18n.locale.to_s || '').downcase == 'de'
+      options[:lang] ||= 'de'
+      options[:url] ||= 'de'
+    else
+      options[:lang] ||= 'en'
+      options[:url] ||= 'co.uk'
+    end
+    params = { :f => 'q', :hl => options[:lang], :z => 10, :q => q }.to_param
+    url = "http://maps.google.#{options[:url]}/maps?#{params}"
+    content_tag(options[:tag], addr, {:href => url}, false)
+  end
+
+
   # return positive tick if field is considered true
-  def checkmark_if(field)
-    '&#10003;'.html_safe if !!field
+  def checkmark_if(field, code = '&#10003;')
+    code.html_safe if !!field
   end
 
   ICON_SIZE='16x16'
