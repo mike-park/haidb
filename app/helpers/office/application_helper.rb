@@ -17,9 +17,9 @@ module Office::ApplicationHelper
     when /^show\b/
       path = url_for(options)
       icon = {:icon => :magnifier}
-    when /^print\b/
+    when /^pdf\b/
       path = url_for(options)
-      icon = {:icon => :printer}
+      icon = {:icon => :page_white_acrobat}
     else
       display = action.to_s
       icon = options.extract!(:icon)
