@@ -5,9 +5,15 @@
     = controls do |c|
       - add_button_to(c, "PDF Format", :format => :pdf)
 
-    %h2 Roster preview of #{event.display_name}
+    %h2 Roster preview for #{event.display_name}
 
     .inner
+      %p
+        Click PDF Format to generate a printable version.
+        - if @password
+          The PDF file will have a password of
+          %em#password= @password
+
       = render "registrations", :registrations => registrations
 
   = block_footer(registration_submodule_breadcrumbs << ['Roster'])

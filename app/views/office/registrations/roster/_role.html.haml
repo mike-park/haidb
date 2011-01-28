@@ -1,17 +1,11 @@
 %tr.rolerow
-  %td.role{ :colspan => 8}= role
+  %td.role{ :colspan => 3}= role
 
-- regs.by_first_name.each do |reg|
-  - angel = reg.angel
+- regs.by_first_name.each do |r|
   %tr.person
     %td.name
-      #{angel.full_name}
+      #{r.full_name}
       %br
-      #{angel.email}
-    %td.address= angel.address
-    %td.city= angel.city
-    %td.plz= angel.postal_code
-    %td.country= angel.country
-    %td.phone= angel.home_phone
-    %td.phone= angel.mobile_phone
-    %td.phone= angel.work_phone
+      #{r.email}
+    %td.address= compact_address(r.angel)
+    %td.phone= compact_phones(r.angel)
