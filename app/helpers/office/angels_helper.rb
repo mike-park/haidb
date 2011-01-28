@@ -33,36 +33,33 @@ module Office::AngelsHelper
   end
 
   # return address in html display format
-  def compact_address(angel, separator = tag(:br))
-    country = (angel.country || "").strip.downcase
-    layout = 'UK' if ['uk','england','gb','great britain'].include?(country)
-    address = case layout
-              when 'UK'
-                h(angel.address) + "\n" +
-                  h(angel.city) + "\n" +
-                  h(angel.postal_code) + "\n" +
-                  h(angel.country)
+  def compact_address(a, separator = tag(:br))
+    code = (a.country || Carmen.default_country || '').strip.upcase
+    address = if %w(US GB).include?(code)
+                h("#{a.address}\n#{a.city}\n#{a.postal_code}")
+              elsif %w(AU CA).include?(code)
+                h("#{a.address}\n#{a.city} #{a.postal_code}")
               else
-                h(angel.address) + "\n" +
-                  h("#{angel.postal_code} #{angel.city}") + "\n" +
-                  h(angel.country)
+                h("#{a.address}\n#{a.postal_code} #{a.city}")
               end
-    return '' if address.blank?
+    if code != Carmen.default_country
+      address << "\n" + Carmen.country_name(code, :locale => I18n.locale)
+    end
     address.gsub("\n", separator).html_safe
   end
-  
- 
+
   def compact_phones(angel, separator = tag(:br))
     phones = []
     %w(home mobile work).each do |ph|
       number = angel.read_attribute("#{ph}_phone")
       unless number.blank?
-        phones << h("#{ph[0].capitalize}: #{number}")
+        label = t("enums.registration.roster.#{ph}")
+        phones << h("#{label}: #{number}")
       end
     end
     phones.join(separator).html_safe
   end
-
+    
   def angel_controls
     controls do |c|
       add_button_to(c, "Map", params.merge(:action => :map, :icon => 'map_magnify'))

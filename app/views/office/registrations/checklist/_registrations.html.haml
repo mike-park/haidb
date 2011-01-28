@@ -1,5 +1,5 @@
 %table.checklist
-  %caption= "Registrations for Workshop #{event.display_name}"
+  %caption= "#{event.display_name} CheckList"
   %thead
     %tr.person
       %th.checkin Da?
@@ -15,11 +15,10 @@
     - count = 0
     - yes= "✓"
     - registrations.by_first_name.each do |r|
-      - angel = r.angel
       %tr.person
         %td.checkin &nbsp;
         %td.count= count=count+1
-        %td.name= angel.full_name
+        %td.name= r.full_name
         %td.backjack= checkmark_if(r.backjack_rental)
         %td.sundaydinner= checkmark_if(r.sunday_meal)
         %td.sundaystayover= checkmark_if(r.sunday_stayover)

@@ -1,17 +1,14 @@
 - regs = registrations
 %table.roster
-  %caption= "Liste für Workshop #{event.display_name}"
   %thead
     %tr.person
       %th.name Name & Email
-      %th.address Addresse
-      %th.city Ort
-      %th.plz Plz
-      %th.country Land
-      %th.phone Haustelefon
-      %th.phone Handy
-      %th.phone Arbeitstelefon
+      %th.address= t('enums.registration.roster.address')
+      %th.phone= t('enums.registration.roster.phones')
   %tbody
-    = render 'role', :role => 'Teilnehmer', :regs => regs.participants
-    = render 'role', :role => 'Team', :regs => regs.team
-    = render 'role', :role => 'Leiter', :regs => regs.facilitators
+    - if regs.participants.size > 0
+      = render 'role', :role => t('enums.registration.roster.participant'), :regs => regs.participants
+    - if regs.team.size > 0
+      = render 'role', :role => t('enums.registration.roster.team'), :regs => regs.team
+    - if regs.facilitators.size > 0
+      = render 'role', :role => t('enums.registration.roster.facilitator'), :regs => regs.facilitators

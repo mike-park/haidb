@@ -11,6 +11,20 @@ GIT
     activo-rails (1.0)
 
 GIT
+  remote: git://github.com/mikepinde/carmen.git
+  revision: c55dd56e7e86e817c96001d34dd0bbc73318e04f
+  specs:
+    carmen (0.2.4)
+
+GIT
+  remote: git://github.com/sandal/prawn.git
+  revision: 5e59fa7829129f3c1ccc87ba1ac332c284bb9fa6
+  submodules: true
+  specs:
+    prawn (0.11.1.pre)
+      pdf-reader (>= 0.9.0)
+
+GIT
   remote: git://github.com/sferik/rails_admin.git
   revision: 2452e8a988f0fc81c91a9ec03833d2fef9a56d12
   specs:
@@ -21,6 +35,7 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
+    Ascii85 (1.0.0)
     ZenTest (4.4.2)
     abstract (1.0.0)
     actionmailer (3.0.3)
@@ -70,7 +85,6 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (>= 0.0.27)
       xpath (~> 0.1.2)
-    carmen (0.2.4)
     celerity (0.8.6)
     childprocess (0.1.6)
       ffi (~> 0.6.3)
@@ -142,6 +156,8 @@ GEM
     mocha (0.9.10)
       rake
     nokogiri (1.4.4)
+    pdf-reader (0.9.1)
+      Ascii85 (>= 0.9)
     pickle (0.4.4)
       cucumber (>= 0.8)
       rake
@@ -224,7 +240,7 @@ DEPENDENCIES
   autotest-rails
   awesome_print
   capybara (= 0.4.0)
-  carmen
+  carmen!
   cucumber
   cucumber-rails
   database_cleaner
@@ -242,6 +258,7 @@ DEPENDENCIES
   meta_search
   mocha
   pickle
+  prawn!
   rails (~> 3.0.0)
   rails-geocoder!
   rails3-generators

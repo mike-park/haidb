@@ -3,10 +3,9 @@
 
   .content
     = controls do |c|
-      - add_button_to(c, "Print checklist", :format => :pdf)
+      - add_button_to(c, "PDF Format", :format => :pdf)
 
-    %h2
-      Checklist for #{event.display_name}
+    %h2 Checklist
 
     .inner
       = render "registrations", :registrations => registrations
