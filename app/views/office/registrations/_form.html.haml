@@ -11,6 +11,7 @@
       = r.input :event, options_for_signup_events_select(r)
   = r.inputs :class => :column_right do
     = r.input :role, options_for_role(r)
+  .wat-cf
 
   = render 'office/registrations/fields_payment', :form => r
   = render 'office/registrations/fields_requests', :form => r
