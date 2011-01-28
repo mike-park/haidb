@@ -63,9 +63,10 @@ class Registration < ActiveRecord::Base
   scope :ok, includes([:angel, :event]).where(:approved => true)
   scope :pending, where(:approved => false)
 
-  scope :team, where(:role => TEAM)
-  scope :participants, where(:role => PARTICIPANT)
-  scope :facilitators, where(:role => FACILITATOR)
+  scope :team, ok.where(:role => TEAM)
+  scope :participants, ok.where(:role => PARTICIPANT)
+  scope :facilitators, ok.where(:role => FACILITATOR)
+  scope :where_role, lambda { |role| ok.where(:role => role) }
   
   scope :special_diets, where(:special_diet => true)
   scope :backjack_rentals, where(:backjack_rental => true)
@@ -73,8 +74,8 @@ class Registration < ActiveRecord::Base
   scope :sunday_meals, where(:sunday_meal => true)
   scope :females, where(:angels => {:gender => Angel::FEMALE})
   scope :males, where(:angels => {:gender => Angel::MALE})
-  scope :by_first_name, order('LOWER(angels.first_name) asc')
-  scope :by_start_date, order('events.start_date desc')
+  scope :by_first_name, includes(:angel).order('LOWER(angels.first_name) asc')
+  scope :by_start_date, includes(:event).order('events.start_date desc')
   scope :completed, where(:completed => true)
 
   validates_uniqueness_of :angel_id, {
