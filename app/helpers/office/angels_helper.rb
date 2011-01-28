@@ -42,8 +42,9 @@ module Office::AngelsHelper
               else
                 h("#{a.address}\n#{a.postal_code} #{a.city}")
               end
-    if code != Carmen.default_country
-      address << "\n" + Carmen.country_name(code, :locale => I18n.locale)
+    if (code != Carmen.default_country) &&
+        (country = Carmen.country_name(code, :locale => I18n.locale))
+      address << "\n#{country}"
     end
     address.gsub("\n", separator).html_safe
   end
