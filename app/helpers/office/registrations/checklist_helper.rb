@@ -4,13 +4,23 @@ module Office::Registrations::ChecklistHelper
     content_for_prawn(:page_layout => :landscape) do |pdf|
       pdf.font "Times-Roman"
       pdf.font_size(10)
-        
-      pdf.table(checklist_data,
-                :width => pdf.bounds.width,
-                :header => true) do
-        cells.padding = 3
-        columns(3..5).align = :center
-        column(8).width = 13.cm
+
+      tables = {
+        'Participants' => registrations.participants,
+        'Team & Facilitators' => registrations.non_participants}
+
+      tables.each do |title, regs|
+        pdf.pad_top(10) do
+          pdf.text title, :align => :center, :size => 14
+        end
+
+        pdf.table(checklist_data(regs),
+                  :width => pdf.bounds.width,
+                  :header => true,
+                  :column_widths => [25, 30, 7.cm, 20, 20, 20, 2.cm, 2.cm]) do
+          cells.padding = 3
+          columns(3..5).align = :center
+        end
       end
 
       pdf.text "\nCreated at #{Time.now}", :size => 8
@@ -19,11 +29,11 @@ module Office::Registrations::ChecklistHelper
 
   private
   
-  def checklist_data
+  def checklist_data(regs)
     t = []
     t << %w(Da? Nbrs Name BJ SD SS Pay.Meth. Payments Notes)
     code = 'X'
-    registrations.each_with_index do |r, index|
+    regs.by_first_name.each_with_index do |r, index|
       t << ['',
             index+1,
             r.full_name,

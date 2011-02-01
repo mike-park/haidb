@@ -65,6 +65,7 @@ class Registration < ActiveRecord::Base
 
   scope :team, ok.where(:role => TEAM)
   scope :participants, ok.where(:role => PARTICIPANT)
+  scope :non_participants, ok.where("role != ?", PARTICIPANT)
   scope :facilitators, ok.where(:role => FACILITATOR)
   scope :where_role, lambda { |role| ok.where(:role => role) }
   
