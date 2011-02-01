@@ -37,20 +37,20 @@ gem "haml", ">= 3.0.21"
 gem "rails3-generators", :group => :development
 gem "hpricot", :group => :development
 gem "ruby_parser", :group => :development
-gem "rspec-rails", "~> 2.0.0", :group => [:test, :development]
-gem "mocha", :group => [:test]
-gem "factory_girl_rails", :group => [:test, :cucumber]
-gem "faker", "= 0.3.1", :group => [:development, :test]
-gem "autotest", :group => [:test]
-gem "autotest-rails", :group => [:test]
-gem "thin", :group => [:test, :cucumber, :development]
-gem "cucumber", :group => [:cucumber]
-gem "database_cleaner", :group => [:test, :cucumber]
-gem "cucumber-rails", :group => [:cucumber]
-gem "capybara", "0.4.0", :group => [:cucumber]
-gem "launchy", :group => [:cucumber]
-gem "timecop", :group => [:test, :cucumber]
-gem "pickle", :group => [:test, :cucumber]
+#gem "rspec-rails", "~> 2.0.0", :group => [:test, :development]
+#gem "mocha", :group => [:test]
+#gem "factory_girl_rails", :group => [:test, :cucumber]
+#gem "faker", "= 0.3.1", :group => [:development, :test]
+#gem "autotest", :group => [:test]
+#gem "autotest-rails", :group => [:test]
+#gem "thin", :group => [:test, :cucumber, :development]
+#gem "cucumber", :group => [:cucumber]
+#gem "database_cleaner", :group => [:test, :cucumber]
+#gem "cucumber-rails", :group => [:cucumber]
+#gem "capybara", "0.4.0", :group => [:cucumber]
+#gem "launchy", :group => [:cucumber]
+#gem "timecop", :group => [:test, :cucumber]
+#gem "pickle", :group => [:test, :cucumber]
 
 # Deploy with Capistrano
 # gem 'capistrano'
@@ -59,9 +59,19 @@ gem "pickle", :group => [:test, :cucumber]
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
+  # newer version fails for me.
+  gem "faker", "= 0.3.1", :group => [:development, :test]
   gem 'annotate-models'
   gem 'awesome_print'
   
-   # To use debugger
-   #   gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'rspec-rails', '>= 2.4.1'
+  gem 'factory_girl_rails', '>= 1.1.beta1', :require => false
+
+  gem 'webrat', '>= 0.7.3'
+
+  gem 'spork', '>= 0.9.0.rc2'
+  gem 'metric_fu', '>= 2.0.1'
+
+  # To use debugger
+  #   gem 'ruby-debug19', :require => 'ruby-debug'
 end
