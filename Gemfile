@@ -21,6 +21,7 @@ gem 'vcard'
 gem "rails-geocoder", :require => "geocoder", :git => 'git://github.com/alexreisner/geocoder.git'
 gem 'carmen', :git => 'git://github.com/mikepinde/carmen.git'
 gem 'prawn', :git => 'git://github.com/sandal/prawn.git', :submodules => true
+gem "ekuseru"
 
 # these add generators that help
 gem 'haml-rails'
