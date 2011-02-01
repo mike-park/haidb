@@ -4,6 +4,7 @@ class Office::RegistrationsController < Office::ApplicationController
   def index
     respond_to do |format|
       format.html
+      format.xls
       format.vcard do
         send_data Angel.to_vcard(registrations.all.map(&:angel)), {
           :filename => 'contacts.vcf',
@@ -81,4 +82,14 @@ class Office::RegistrationsController < Office::ApplicationController
   end
   helper_method :registrations
   hide_action :registrations
+
+  def angels
+    if have_event?
+      @angels ||= parent.registrations.ok.by_first_name.map(&:angel)
+    else
+      @angels ||= [parent]
+    end
+  end
+  helper_method :angels
+  hide_action :angels
 end

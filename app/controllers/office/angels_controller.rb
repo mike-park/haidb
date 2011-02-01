@@ -26,16 +26,6 @@ class Office::AngelsController < Office::ApplicationController
            :info_window_url => office_angel_url(angel, :format => :map),
            :icon => icon)
     end
-
-    respond_to do |format|
-      format.html
-      format.vcard do
-        send_data Angel.to_vcard(@search.all), {
-          :filename => 'contacts.vcf',
-          :type => :vcard
-        }
-      end
-    end
   end
 
   def new
@@ -84,6 +74,7 @@ class Office::AngelsController < Office::ApplicationController
 
     respond_to do |format|
       format.html
+      format.xls { @angels = @search.all; render :index }
       format.vcard do
         send_data Angel.to_vcard(@search.all), {
           :filename => 'contacts.vcf',
