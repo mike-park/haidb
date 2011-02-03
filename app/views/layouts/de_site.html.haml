@@ -1,0 +1,83 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    %title Liebst Du schon?
+    %meta{:content => "de", "http-equiv" => "content-language"}
+    %meta{:content => "Mikki Kitz", :name => "author"}
+    %meta{:content => "Begegnungen in Liebe und Toleranz", :name => "description"}
+    %meta{:content => "Liebe, Nähe, Sexualität, Workshops, Veranstaltungen, HAI, Human Awareness Institute, Hand on Heart , Verein, Partnerschaft, Paare, Singles, Selbsterfahrung, Bewußtheit, Therapie, Intimität, Netzwerk, gemeinnützig, Information, Berührung, Stan Dale, Tantra, Selbsterfahrungsworkshops, Paarworkshops, Singleworkshops, Kommunikation, Kommunikationstraining, Life Coaching, sexuelle Probleme, Beziehungsprobleme, Beziehungen, Einsamkeit, Toleranz, Lust, Frauen, Männer, Homosexualität, Bisexualität, Polyamorie, Polyamory, Sinnlichkeit, Wissen, Forschung, Achtsamkeit, Begegnungen, Beratung, Körperkontakt, Herz, Wegweiser, international, Erotik, Leidenschaft, Kontakt, Körper, Körperarbeit, Gefühle", :name => "keywords"}
+    %link{:href => "http://www.liebstduschon.de/lds/tpl/lds.css", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "http://www.liebstduschon.de/lds/tpl/lds.ico", :rel => "shortcut icon"}
+    :javascript
+      window["_GOOG_TRANS_EXT_VER"] = "1"
+    = javascript_include_tag :defaults
+    = formtastic_stylesheet_link_tag
+    = stylesheet_link_tag 'public_signup', :media => 'all'
+    = csrf_meta_tag
+  %body
+    %div{:style => "position: fixed; left:20px; top:27px;z-index:2"}
+      %img{:alt => "blume", :src => "http://www.liebstduschon.de/lds/tpl/blume.png"}
+    #header
+      #titel www.liebstduschon.de
+    #navmenu
+      %br
+      %table#tablemenu
+        %tbody
+          %tr
+            %td.tdmenu{:colspan => "2"}
+              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=1x0"} Home
+          %tr
+            %td.tdmenu{:colspan => "2"}
+              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=2x0"} HAI&gt;&gt;
+          %tr
+            %td.tdmenu{:colspan => "2"}
+              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=3x0"} Wissen&gt;&gt;
+          %tr
+            %td.tdmenu{:colspan => "2"}
+              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=4x0"} Beratung&gt;&gt;
+          %tr
+            %td.tdmenu{:colspan => "2"}
+              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=5x0"} Die lieben Sinne&gt;&gt;
+          %tr
+            %td.tdmenu{:colspan => "2"}
+              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=6x0"}
+                Kontakt
+          %tr
+            %td.tdmenu{:colspan => "2"}
+              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=7x0"} Impressum
+          %tr
+            %td.tdmenu{:colspan => "2"}
+              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=8x0"} Disclaimer
+          %tr
+            %td.tdmenu{:colspan => "2"}
+              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=9x0"}
+                %img{:alt => "liebay", :border => "0", :src => "http://www.liebstduschon.de/lds/tpl/liebay.png"}/
+          %tr
+            %td.tdopen{:colspan => "2"}
+              %a.amenuactiv{:href => "https://haidb.heroku.com/de/public_signups/new"} Anmeldung / Signup
+          %tr
+            %td.bull •
+            %td.tdsub
+              %a.amenusub{:href => "https://haidb.heroku.com/en/public_signups/new"} English
+          %tr
+            %td.tdmenu{:colspan => "2"}
+      %br/
+      %center
+        %form{:action => "http://www.liebstduschon.de/lds/index.php?id=search", :method => "POST", :name => "gs"}
+          %input{:name => "suchtext", :size => "17", :type => "text", :value => ""}/
+          %input.search{:name => "senden", :style => "position:relative;top:5px;", :type => "submit", :value => "Stichwortsuche"}/
+    #main
+      #container
+        #flash{ :'padding-left' => '60px' }
+          - flash.each do |key, value|
+            %div{ :class => "flash #{key}" }
+              = value
+              
+        #content
+          = yield
+        .clear
+
+        = debug(params) if Rails.env.development?
+
+  = yield :javascript

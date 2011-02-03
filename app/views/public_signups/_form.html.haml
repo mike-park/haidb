@@ -1,16 +1,15 @@
 = semantic_form_for @public_signup do |f|
-  #lang
-    %p
+  -if @public_signup.errors.any?
+    #error_explanation
+      %h2= t('enums.error')
+      = debug(@public_signup.errors) if Rails.env.development?
+  - else
+    %p#lang
       - if german?
         If you prefer you may #{link_to('register in English.', :action => :new, :locale => :en)}
       - else
         Bitte melden Sie sich in #{link_to('Deutsch hier an.', :action => :new, :locale => :de)}
 
-
-  -if @public_signup.errors.any?
-    #error_explanation
-      %h2= t('enums.error')
-      = debug(@public_signup.errors) if Rails.env.development?
 
   = render 'title'
   = render 'instructions', :instructions => 'intro'

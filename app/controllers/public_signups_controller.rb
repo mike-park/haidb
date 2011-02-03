@@ -1,4 +1,10 @@
 class PublicSignupsController < ApplicationController
+  layout 'de_site'
+  @@thankyou_url = {
+    :de => "http://www.liebstduschon.de/lds/index.php?id=20x0",
+    :en => "http://www.liebstduschon.de/lds/index.php?id=20x1"
+  }
+
   def new
     @public_signup = PublicSignup.new
     @public_signup.build_registration
@@ -20,7 +26,7 @@ class PublicSignupsController < ApplicationController
     #return
 
     if @public_signup.save
-      redirect_to thankyou_url
+      redirect_to @@thankyou_url[german?? :de : :en]
       Notifier.public_signup_received(@public_signup).deliver
     else
       # fixes bug where "0" (unchecked box value) gets rerendered as checked state
