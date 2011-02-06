@@ -13,7 +13,7 @@ module Office::RegistrationsHelper
   def options_for_signup_events_select(form)
     { :as => :select, :prompt => I18n.t(:'enums.select'),
       :collection => form.object.new_record? ? Event.upcoming :
-      Event.reverse_date_order
+      Event.with_oldest_last
     }
   end
 
