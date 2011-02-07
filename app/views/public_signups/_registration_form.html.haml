@@ -16,8 +16,9 @@
 
   = render 'instructions', :instructions => 'options'
   = r.input :special_diet, options_for_special_diet(r)
-  = r.input :backjack_rental, options_for_backjack_rental(r)
-  = r.input :sunday_choice, options_for_sunday_choice(r)
+  - if Site.de?
+    = r.input :backjack_rental, options_for_backjack_rental(r)
+    = r.input :sunday_choice, options_for_sunday_choice(r)
   = r.input :lift, options_for_lift(r)
 
   - if german?

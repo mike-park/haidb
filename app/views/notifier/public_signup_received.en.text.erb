@@ -5,4 +5,8 @@ We have received your registration for <%= @event %>.
 You will receive a confirmation email when we review your signup.
 
 Kind regards
+<% if Site.de? %>
 Mikki Kitz, the producer of the HAI WS in Germany
+<% elsif Site.uk? %>
+UK Producer of the HAI Workshops
+<% end %>
