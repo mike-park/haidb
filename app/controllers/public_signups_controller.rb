@@ -6,6 +6,7 @@ class PublicSignupsController < ApplicationController
   }
 
   def new
+    @title = translate('public_signups.new.title')
     @public_signup = PublicSignup.new
     @public_signup.build_registration
     @public_signup.registration.build_angel

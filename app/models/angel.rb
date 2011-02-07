@@ -26,8 +26,8 @@
 class Angel < ActiveRecord::Base
   geocoded_by :full_address, :latitude  => :lat, :longitude => :lng
   
-  before_save :update_display_name
-  after_validation :fetch_coordinates
+  before_validation :update_display_name
+  before_save :fetch_coordinates
 
   FEMALE = 'Female'
   MALE = 'Male'
@@ -47,26 +47,13 @@ class Angel < ActiveRecord::Base
     [first_name, last_name].compact.join(" ")
   end
 
-  def full_address
-    [address, postal_code, city, country].compact.join(", ")
-  end
-  
-  def display_phones
-    phones = []
-    phones << "H: #{home_phone}" unless home_phone.blank?
-    phones << "M: #{mobile_phone}" unless mobile_phone.blank?
-    phones << "W: #{work_phone}" unless work_phone.blank?
-    phones.join(", ")
-  end
-
   # this gets auto-called when registrations or events change.
-  # if our calculated level is < highest_level we keep the higher value
-  # this assumes higher level was set by staff
-  def update_highest_level
-    #level = registrations.ok.completed.collect(&:level).compact.max || 0
-    level = Registration.highest_level(self) || 0
-    level = [level, highest_level].compact.max
-    update_attribute(:highest_level, level) if level != highest_level
+  def cache_highest_level
+    level = registrations.highest_completed_level || 0
+    if level != highest_level
+      update_attribute(:highest_level, level)
+    end
+    level
   end
   
   def self.to_vcard(array)
@@ -94,7 +81,7 @@ class Angel < ActiveRecord::Base
       end
 
       %w(home mobile work).each do |ptype|
-        if (value = read_attribute(ptype)).present?
+        if (value = read_attribute("#{ptype}_phone")).present?
           maker.add_tel(value) { |p| p.location = ptype }
         end
       end
@@ -105,6 +92,10 @@ class Angel < ActiveRecord::Base
   
   private
 
+  def full_address
+    [address, postal_code, city, country].compact.join(", ")
+  end
+  
   # only update if necessary, to avoid extra database traffic
   def update_display_name
     name = [last_name, first_name].reject { |i| i.blank? }.join(", ")

@@ -4,7 +4,7 @@ class EventObserver < ActiveRecord::Observer
   def after_save(event)
     event.logger.info("#{self}: after_save #{event.display_name}")
     if event.changed.include?('level')
-      event.angels.map(&:update_highest_level)
+      event.angels.map(&:cache_highest_level)
     end
   end
 
