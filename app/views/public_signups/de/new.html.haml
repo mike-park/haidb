@@ -1,0 +1,31 @@
+= semantic_form_for @public_signup do |f|
+  -if @public_signup.errors.any?
+    #error_explanation
+      %h2= t('enums.error')
+      = debug(@public_signup.errors) if Rails.env.development?
+  - else
+    %p#lang
+      - if language?(:de)
+        If you prefer you may 
+        = link_to('register in English.', new_public_signup_path(:locale => :en))
+      - else
+        Bitte melden Sie sich in 
+        = link_to('Deutsch hier an.', new_public_signup_path(:locale => :de))
+
+
+  %p.title
+    - if language?(:de)
+      Anmeldung für unsere HAI/Hand-on-Heart Workshops
+    - else
+      Registration for HAI/Hand-on-Heart Workshop
+
+  = render_instructions('intro')
+  = f.semantic_fields_for :registration do |r|
+    = render "#{@basedir}/registration_form", :r => r
+
+  = f.inputs do
+    = render_instructions('summary')
+    = f.input :terms_and_conditions, options_for_terms_and_conditions(f)
+
+  = f.buttons
+

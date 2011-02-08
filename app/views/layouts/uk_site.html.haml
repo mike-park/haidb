@@ -1,0 +1,62 @@
+!!!
+%html{:lang => "en", "xml:lang" => "en", :xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=iso-8859-1", :name => "Content-Type"}
+    %meta{:content => "text/html; charset=US-ASCII", "http-equiv" => "Content-Type"}
+    %title
+      HAI UK Home - Love, Intimacy and Sexuality Workshops in the UK
+    %link{:href => "http://www.hai-uk.org.uk/style.css", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "http://www.hai-uk.org.uk/colour.css", :rel => "stylesheet", :type => "text/css"}
+    %meta{:content => "HAI UK, love, intimacy, sexuality, workshops, hugging, hugs, closeness, community, togetherness", :name => "keywords"}
+    %meta{:content => "The Human Awareness Institute (HAI) empowers individuals to be potent, loving, contributing human beings. HAI promotes personal growth and social evolution by replacing ignorance and fear with awareness and love.", :name => "description"}
+  %body
+    #main
+      #logo
+        %h1
+          HAI UK
+      #content
+        #menu
+          %ul
+            %li
+              %a{:href => "http://www.hai-uk.org.uk/index.asp"} home
+            %li
+              %a{:href => "http://www.hai-uk.org.uk/about-love-intimacy-sexuality.asp"} about
+            %li
+              %a#selected{:href => "http://www.hai-uk.org.uk/workshops-about-creating-a-loving-world.asp", :name => "selected"} workshops
+            %li
+              %a{:href => "http://www.hai-uk.org.uk/singles_with_heart.asp"}
+                singles
+                %br
+                events
+            %li
+              %a{:href => "http://www.hai-uk.org.uk/community-of-sharing-love.asp"} community
+            %li
+              %a{:href => "http://www.hai-uk.org.uk/testimonials-of-a-loving-experience.asp"} testimonials
+            %li
+              %a{:href => "http://www.hai-uk.org.uk/links-to-other-spiritual-sites.asp"} links
+            %li
+              %a{:href => "http://www.hai-uk.org.uk/contact-human-awareness-institute.asp"} contact
+        #column1
+          .sidebaritem
+            .sbihead
+              %h1
+                want to know more?
+            .sbicontent
+              %p
+                Give us a ring on:
+                %br
+                0845 555 1200
+                %br
+                %br
+                Or email us at:
+                %br
+                %a{:href => "mailto:uk-office@hai.org"} uk-office@hai.org
+                %br
+              %p
+                HAI-UK is a not-for-profit organisation
+              %p
+                Charity registration number 1128261
+        #column2
+          = yield
+      #footer
+        creating a world where everyone wins

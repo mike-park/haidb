@@ -1,0 +1,21 @@
+= semantic_form_for @public_signup do |f|
+  -if @public_signup.errors.any?
+    #error_explanation
+      %h2= t('enums.error')
+      = debug(@public_signup.errors) if Rails.env.development?
+
+  %p.title Registration for HAI Workshop
+
+  .instructions
+    Please enter your registration information below. 
+    Fields showing the * are required. 
+    After we review your registration you will receive a confirmation email.
+
+  = f.semantic_fields_for :registration do |r|
+    = render 'public_signups/uk/registration_form', :r => r
+
+  = f.inputs do
+    = f.input :terms_and_conditions, options_for_terms_and_conditions(f)
+
+  = f.buttons
+

@@ -26,6 +26,7 @@
 class Angel < ActiveRecord::Base
   geocoded_by :full_address, :latitude  => :lat, :longitude => :lng
   
+  after_initialize :set_default_values
   before_validation :update_display_name
   before_save :fetch_coordinates
 
@@ -91,6 +92,10 @@ class Angel < ActiveRecord::Base
   end
   
   private
+
+  def set_default_values
+    self.lang ||= I18n.locale.to_s
+  end
 
   def full_address
     [address, postal_code, city, country].compact.join(", ")

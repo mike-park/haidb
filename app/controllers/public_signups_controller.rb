@@ -1,46 +1,26 @@
 class PublicSignupsController < ApplicationController
-  layout 'de_site'
-  @@thankyou_url = {
-    :de => "http://www.liebstduschon.de/lds/index.php?id=20x0",
-    :en => "http://www.liebstduschon.de/lds/index.php?id=20x1"
-  }
-
   def new
-    @title = translate('public_signups.new.title')
     @public_signup = PublicSignup.new
-    @public_signup.build_registration
-    @public_signup.registration.build_angel
+    render_site_new_template
   end
 
   def create
     @public_signup = PublicSignup.new(params[:public_signup])
-    @public_signup.registration.role = Registration::PARTICIPANT
-    @public_signup.registration.approved = false
-    @public_signup.registration.angel.lang = I18n.locale
-    unless german?
-      @public_signup.registration.payment_method = Registration::POST
-    end
-
-    # testing code
-    #@public_signup.valid?
-    #render :new
-    #return
-
     if @public_signup.save
-      redirect_to @@thankyou_url[german?? :de : :en]
+      redirect_to Site.thankyou_url
       Notifier.public_signup_received(@public_signup).deliver
     else
       # fixes bug where "0" (unchecked box value) gets rerendered as checked state
       unless @public_signup.terms_and_conditions == '1'
         @public_signup.terms_and_conditions = nil
       end
-      render :new
+      render_site_new_template
     end
   end
 
   protected
-  def german?
-    I18n.locale.to_s == 'de'
+  def render_site_new_template
+    @basedir = "public_signups/#{Site.name}"
+    render "#{@basedir}/new", :layout => "#{Site.name}_site"
   end
-  helper_method :german?
 end

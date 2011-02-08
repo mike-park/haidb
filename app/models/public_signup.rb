@@ -11,6 +11,8 @@
 #
 
 class PublicSignup < ActiveRecord::Base
+  after_initialize :setup_registration
+  
   has_one :registration, :inverse_of => :public_signup, :dependent => :destroy
   
   attr_accessor :terms_and_conditions
@@ -37,4 +39,15 @@ class PublicSignup < ActiveRecord::Base
   def display_name
     registration.full_name
   end
+
+  private
+
+  # ensure we have necessary sub objects
+  def setup_registration
+    unless registration
+      build_registration
+      registration.build_angel
+    end
+  end
+  
 end
