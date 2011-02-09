@@ -16,11 +16,17 @@ gem "formtastic_datepicker_inputs"
 gem "devise", ">= 1.1.3"
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 
+# simple model searching
 gem "meta_search"
+# vcard export
 gem 'vcard'
+# geocoding angel
 gem "rails-geocoder", :require => "geocoder", :git => 'git://github.com/alexreisner/geocoder.git'
+# country select list
 gem 'carmen', :git => 'git://github.com/mikepinde/carmen.git'
+# pdf export
 gem 'prawn', :git => 'git://github.com/sandal/prawn.git', :submodules => true
+# xls export
 gem "ekuseru"
 
 # these add generators that help
@@ -71,7 +77,7 @@ group :development, :test do
   gem 'webrat', '>= 0.7.3'
 
   gem 'spork', '>= 0.9.0.rc2'
-  gem 'metric_fu', '>= 2.0.1'
+  #gem 'metric_fu', '>= 2.0.1'
 
   # To use debugger
   #   gem 'ruby-debug19', :require => 'ruby-debug'
