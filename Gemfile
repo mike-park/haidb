@@ -77,7 +77,7 @@ group :development, :test do
   gem 'webrat', '>= 0.7.3'
 
   gem 'spork', '>= 0.9.0.rc2'
-  #gem 'metric_fu', '>= 2.0.1'
+  gem 'metric_fu', '>= 2.0.1'
 
   # To use debugger
   #   gem 'ruby-debug19', :require => 'ruby-debug'
