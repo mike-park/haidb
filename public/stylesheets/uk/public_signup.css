@@ -1,0 +1,14 @@
+/* special changes need to merge with original hai uk style & color.css */
+
+/* override forced width */
+form.formtastic fieldset > ol > li.radio fieldset ol li label input,
+form.formtastic fieldset > ol > li.check_boxes fieldset ol li label input,
+form.formtastic fieldset > ol > li.boolean label input { 
+   width: auto;
+ }
+
+/* hai uk color & style complete override submit buttons, at least get the
+   pointer back */
+.commit input {
+   cursor: pointer;
+}

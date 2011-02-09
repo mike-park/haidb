@@ -1,32 +1,32 @@
-#main {
+#haidbcontainer {
    font-family: Georgia, serif;
    font-size: 12px;
    line-height: 16px;
 }
 
-#main .instructions {
+#haidbcontainer .instructions {
    border: 1px solid red;
    padding: 4px;
    background-color: #fc9;
    margin: 5px 0;
 }
 
-#main .title {
+#haidbcontainer .title {
    font-size: 15px;
    font-weight: bold;
    color: #c33021;
    padding-bottom: 10px;
 }
 
-#main label {
+#haidbcontainer label {
    font-weight: bold;
 }
 
-#main li.error {
+#haidbcontainer li.error {
    background-color: #FFE6CC;
 }
 
-#main #error_explanation h2 {
+#haidbcontainer #error_explanation h2 {
    color: red;
 }
 

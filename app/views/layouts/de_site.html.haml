@@ -68,13 +68,13 @@
           %input{:name => "suchtext", :size => "17", :type => "text", :value => ""}/
           %input.search{:name => "senden", :style => "position:relative;top:5px;", :type => "submit", :value => "Stichwortsuche"}/
     #main
-      #container
+      #haidbcontainer
         #flash{ :'padding-left' => '60px' }
           - flash.each do |key, value|
             %div{ :class => "flash #{key}" }
               = value
               
-        #content
+        #haidbcontent
           = yield
         .clear
 
