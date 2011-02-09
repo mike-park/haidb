@@ -1,16 +1,24 @@
 #!/usr/bin/env ruby
 def app
-  app_name = ENV['app'] || ENV['app'] || ARGV.first
-  raise "Please specify a APP=(name)" unless app_name
-  app_name
+  name = ENV['app'] || ARGV.first
+  raise "Please specify an APP=(name)" unless name
+  name
+end
+def site
+  name = ENV['SITE_NAME']
+  raise "Please specify a SITE_NAME=(name)" unless name
+  name
 end
 
 #echo = "echo "
 echo=""
 
-system("#{echo} heroku create #{app} --stack bamboo-mri-1.9.2")
-system("#{echo} heroku config:add BUNDLE_WITHOUT=development:test:cucumber")
-system("#{echo} heroku addons:add exceptional:basic")
-system("#{echo} heroku addons:add newrelic:bronze")
-system("#{echo} heroku addons:add ssl:piggyback")
-puts "ready for code push.."
+if app && site
+  system("#{echo} heroku create #{app} --stack bamboo-mri-1.9.2")
+  system("#{echo} heroku config:add SITE_NAME=#{site}")
+  system("#{echo} heroku config:add BUNDLE_WITHOUT=development:test:cucumber")
+  system("#{echo} heroku addons:add exceptional:basic")
+  system("#{echo} heroku addons:add newrelic:bronze")
+  system("#{echo} heroku addons:add ssl:piggyback")
+  puts "ready for code push.."
+end
