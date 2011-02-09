@@ -6,6 +6,9 @@ form.formtastic fieldset > ol > li.check_boxes fieldset ol li label input,
 form.formtastic fieldset > ol > li.boolean label input { 
    width: auto;
  }
+/* ensure radio button & checklist labels have the same color has normal
+   input labels */
+form.formtastic legend { color:#70695A; }
 
 /* hai uk color & style complete override submit buttons, at least get the
    pointer back */
