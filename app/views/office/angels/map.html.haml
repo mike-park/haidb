@@ -1,7 +1,7 @@
 .block
   = block_navigation(angel_navigation << ['Map', :map])
 
-  = render 'map', :angels => angels
+  = render '/office/shared/map', :map => @map, :height => '400px'
   = render '/office/shared/search', :search => :first_name_or_last_name_or_email_or_city_or_country_or_postal_code_contains
 
   = block_footer(angel_breadcrumbs)

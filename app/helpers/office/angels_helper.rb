@@ -69,4 +69,12 @@ module Office::AngelsHelper
       yield c if block_given?
     end
   end
+
+  def no_angels_on_map(height = '400px')
+    content_tag(:div, :style => "width: 100%; line-height: #{height};") do
+      content_tag(:h2, :style => 'text-align: center; font-size: 30px; background: white; color: white; text-shadow: black 0px 0px 2px;') do
+        "No angels match your search criteria"
+      end
+    end
+  end
 end
