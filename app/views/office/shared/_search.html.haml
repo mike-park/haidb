@@ -1,6 +1,6 @@
-= form_for [:office, @search], :url => url_for, :html => { :method => :get, :class => :search} do|f|
-  .columns.wat-cf
-    .column.left
-      = hidden_field_tag :rows, params[:rows]
-      <input type="submit" value="" class="search_submit">
+#search
+  = form_for [:office, @search], :url => url_for, :html => {:method => :get} do|f|
+    = hidden_field_tag :rows, params[:rows]
+    .search_field.and_submit
       = f.text_field search, :placeholder => 'Search', :class => 'search_box'
+      <input type="submit" value="" class="search_submit">

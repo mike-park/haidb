@@ -4,18 +4,6 @@ body {
    min-width: 460px;
 }
 
-.search {
-  width: 165px;
-}
-
-.search_box {
-  width: 133px;
-}
-
-.search_submit {
-  left: 137px;
-}
-
 .row_count {
    position: relative;
    float: left;

@@ -363,46 +363,6 @@ hr {
 .form .navform a {
   color: #cc0000; }
 
-.search {
-  border: 1px solid #c1c1c1;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  padding: 0px;
-  margin: 0px;
-  position: relative;
-  float: right;
-  width: 300px;
-  height: 25px; }
-  .search:hover {
-    border: 1px solid #a2a294;
-    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); }
-  .search form {
-    display: inline; }
-
-.search_box {
-  font-family: helvetica, arial, sans-serif;
-  font-size: 13px;
-  border: 0px;
-  border-right: 1px solid #c1c1c1;
-  background-color: white;
-  position: absolute;
-  left: 0px;
-  width: 266px;
-  height: 25px;
-  padding-left: 6px; }
-
-.search_submit {
-  border: 0px;
-  background: url("../../images/search-button.png") no-repeat;
-  position: absolute;
-  left: 273px;
-  height: 25px;
-  width: 27px;
-  cursor: pointer; }
-
 .flash .message {
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
