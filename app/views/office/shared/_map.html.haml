@@ -1,0 +1,6 @@
+- if map.markers.any?
+  #map{:style => "width: 100%; height: #{height};"}
+  = raw Cartographer::Header.new.to_s
+  = raw map.to_html
+- else
+  = no_angels_on_map(height)

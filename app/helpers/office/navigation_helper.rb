@@ -99,6 +99,9 @@ module Office::NavigationHelper
     tabs << ['Checklist',
              :controller => 'checklist',
              :action =>:index]
+    tabs << ['Map',
+             :controller => 'map',
+             :action =>:index]
     tabs
   end
 

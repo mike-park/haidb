@@ -1,3 +1,5 @@
+@import 'activo/mixins.sass'
+
 /*============= table cell alignments */
 .table
   .center
@@ -214,3 +216,59 @@ form.formtastic fieldset > ol > li p.inline-errors
 
 form.formtastic ul.errors
   margin: 0.5em 0 1.5em 2em
+
+// SEARCH
+
+#search
+  form
+    height: 35px
+    float: right
+
+  select
+    float: left
+    position: relative
+    top: 25%
+    margin-right: 2px
+
+  .search_field
+    border: 1px solid #c1c1c1
+    @include rounded-corners(2px)
+    padding: 0px
+    margin: 4px 2px 4px 0
+    position: relative
+    float: left
+    width: 139px
+    height: 25px
+    &:hover
+      border: 1px solid #a2a294
+      @include box-shadow(0, 0, 4px, rgba(0, 0, 0, 0.3))
+    form
+      display: inline
+  .and_submit
+    width: 166px
+    margin-right: 4px
+
+#search .search_box
+  font-family: helvetica, arial, sans-serif
+  font-size: 13px
+  border: 0px
+  background-color: white
+  position: absolute
+  left: 0px
+  width: 133px
+  height: 25px
+  padding-left: 6px
+  margin: 0
+
+#search .search_submit
+  border: 0px
+  border-left: 1px solid #c1c1c1
+  background: url('../../images/search-button.png') no-repeat
+  position: absolute
+  left: 139px
+  height: 25px
+  width: 27px
+  cursor: pointer
+  margin: 0
+
+
