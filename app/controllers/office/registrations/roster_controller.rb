@@ -1,5 +1,11 @@
 class Office::Registrations::RosterController < Office::RegistrationsController
   def index
+    # HACK ALERT! 
+    if Site.de?
+      I18n.locale = :de
+    else
+      I18n.locale = :en
+    end
     @title = translate('enums.registration.roster.title', :event => event.display_name)
     # @password = translate('enums.registration.roster.password')
     respond_to do |format|
