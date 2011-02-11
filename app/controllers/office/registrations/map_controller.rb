@@ -55,7 +55,7 @@ class Office::Registrations::MapController < Office::RegistrationsController
            :info_window_url => office_angel_url(angel, :format => :map),
            :icon => choosen_icon)
     end
-    if @map.markers.any?
+    if @map.markers.any? && Site.de?
       @map.markers << Cartographer::Gmarker.new(:name => 'site',
            :marker_type => "Site",
            :position => [52.066864,7.211409],
