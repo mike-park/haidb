@@ -15,11 +15,16 @@ module Office::PrawnHelper
   protected
 
   def default_layout(pdf, &block)
-    header_height = 1.cm
+    title_height = 1.cm
+    warning_height = 0.8.cm
+    header_height = title_height + warning_height
     footer_height = 1.cm
     gap = 10
 
+    # HACK ALERT! two globals here. better to pass in a parameters
     title = @title
+    warning = @warning
+    
     pdf.instance_eval do
       repeat :all do
         mask :fill_color, :line_width, :stroke_color do
@@ -31,7 +36,7 @@ module Office::PrawnHelper
           #stroke_bounds
           bounding_box([bounds.left, bounds.top],
                        :width  => bounds.width,
-                       :height => header_height) do
+                       :height => title_height) do
             #stroke_color "ff0000"
             #stroke_bounds
             #stroke_color '000000'
@@ -49,10 +54,18 @@ module Office::PrawnHelper
             text title.to_s, :align => :center, :valign => :center, :size => 20 if title
           
             # action template may put some additional header stuff
-            #yield :header
+            #yield :pdf_header
           
             #stroke_horizontal_line(bounds.left, bounds.right,
             #                       :at => bounds.bottom - 3.mm)
+          end
+          
+          bounding_box([bounds.left, bounds.top - title_height],
+                       :width  => bounds.width,
+                       :height => warning_height) do
+            warning.each do |line|
+              text line, :align => :center, :size => 10
+            end
           end
           
           # footer
