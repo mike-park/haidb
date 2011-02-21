@@ -1,5 +1,5 @@
 %table.checklist
-  %caption= "#{event.display_name} CheckList"
+  %caption= "#{event.display_name} #{role.capitalize} CheckList"
   %thead
     %tr.person
       %th.checkin Da?
@@ -25,5 +25,3 @@
         %td.paymentmethod= r.payment_method
         %td.payments &nbsp;
         %td.notes &nbsp;
-.footer
-  Created at #{Time.now}

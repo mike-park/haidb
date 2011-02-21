@@ -8,6 +8,7 @@
     %h2 Checklist
 
     .inner
-      = render "registrations", :registrations => registrations
+      - [:participants, :team, :facilitators].each do |role|
+        = render "registrations", :registrations => registrations.send(role).by_first_name, :role => role
 
   = block_footer(registration_submodule_breadcrumbs << ['Checklist'])

@@ -22,8 +22,8 @@ module Office::PrawnHelper
     gap = 10
 
     # HACK ALERT! two globals here. better to pass in a parameters
-    title = @title
-    warning = @warning
+    title = @title || []
+    warning = @warning || []
     
     pdf.instance_eval do
       repeat :all do

@@ -6,8 +6,8 @@ module Office::Registrations::ChecklistHelper
       pdf.font_size(10)
 
       tables = {
-        'Participants' => registrations.participants,
-        'Team & Facilitators' => registrations.non_participants}
+        'Participants' => registrations.participants.by_first_name,
+        'Team & Facilitators' => registrations.non_participants.by_first_name}
 
       tables.each do |title, regs|
         pdf.pad_top(10) do
