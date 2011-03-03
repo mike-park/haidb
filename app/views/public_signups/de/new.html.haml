@@ -14,17 +14,15 @@
 
 
   %p.title
-    - if language?(:de)
-      Anmeldung für unsere HAI/Hand-on-Heart Workshops
-    - else
-      Registration for HAI/Hand-on-Heart Workshop
+    = _('public_signup.form.title')
 
-  = render_instructions('intro')
+  .instructions= _('public_signup.form.introduction')
+
   = f.semantic_fields_for :registration do |r|
     = render "#{@basedir}/registration_form", :r => r
 
   = f.inputs do
-    = render_instructions('summary')
+    .instructions= _('public_signup.form.conditions')
     = f.input :terms_and_conditions, options_for_terms_and_conditions(f)
 
   = f.buttons

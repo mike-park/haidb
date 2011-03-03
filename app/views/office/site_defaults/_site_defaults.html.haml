@@ -1,0 +1,16 @@
+%table.table
+  %thead
+    %tr
+      %th Key
+      %th Locales
+      %th Description
+      %th
+  %tbody
+    - site_defaults.each do |d|
+      %tr{:class => cycle(:odd, :even)}
+        %td= d.display_name
+        %td= d.translations.map(&:locale).join(", ")
+        %td= d.description.split('.').first
+        %td= link_to_show(office_site_default_path(d))
+= render 'office/shared/table_options', :table => site_defaults, :search => :translation_key_key_contains
+.wat-cf

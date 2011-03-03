@@ -1,4 +1,9 @@
 module Office::ApplicationHelper
+
+  def super_user?
+    current_staff && current_staff.super_user?
+  end
+
   def add_button_to(nav, action, *object)
     options = object.extract_options!
     object = object.first
