@@ -1,5 +1,16 @@
 module Office::NavigationHelper
 
+  def build_site_default_breadcrumbs(site_default)
+    BreadCrumbBuilder.new(site_default) do |b|
+      b.add :index, 'Site Defaults', office_site_defaults_path
+      b.add :show, site_default, [:office, site_default]
+    end
+  end
+
+  def site_default_breadcrumbs
+    build_breadcrumbs(build_site_default_breadcrumbs(site_default))
+  end
+  
   def build_public_signup_breadcrumbs(public_signup)
     BreadCrumbBuilder.new(public_signup) do |b|
       b.add :index, 'Pending Public Signups', office_public_signups_path

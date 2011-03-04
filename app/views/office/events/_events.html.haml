@@ -1,12 +1,13 @@
 %table.table
   %thead
-    %th= sort_link @search, :display_name
-    %th= sort_link @search, :start_date
-    %th.qty Total Registered
-    %th.qty Participants
-    %th.qty Team
-    %th
-    %th
+    %tr
+      %th= sort_link @search, :display_name
+      %th= sort_link @search, :start_date
+      %th.qty Total Registered
+      %th.qty Participants
+      %th.qty Team
+      %th
+      %th
   %tbody
     - events.each do |e|
       %tr{:class => cycle(:odd, :even)}

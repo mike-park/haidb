@@ -33,6 +33,9 @@ gem "ekuseru"
 gem 'haml-rails'
 gem 'jquery-rails'
 
+# replacement/alternative I18n
+gem 'fast_gettext', :git => 'git://github.com/grosser/fast_gettext.git'
+gem 'gettext_i18n_rails', :git => 'git://github.com/grosser/gettext_i18n_rails.git'
 
 # prologue standards
 #gem "cancan"

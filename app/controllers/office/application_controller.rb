@@ -30,6 +30,12 @@ class Office::ApplicationController < ApplicationController
               :paths => [['/office/public_signups*'],
                          ['/en/office/public_signups*'],
                          ['/de/office/public_signups*']
+                        ] },
+            { :display => 'Site Defaults',
+              :link => office_site_defaults_path,
+              :paths => [['/office/site_defaults*'],
+                         ['/en/office/site_defaults*'],
+                         ['/de/office/site_defaults*']
                         ] }
             ]
     @main_navigation = Mmmenu.new(:request => request) do |m|

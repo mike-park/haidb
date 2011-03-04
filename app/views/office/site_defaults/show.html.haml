@@ -1,0 +1,15 @@
+.block
+  = block_navigation("Key #{site_default.display_name}")
+
+  .content
+    = controls do |c|
+      - add_button_to(c, :edit)
+      - add_button_to(c, :delete) if super_user?
+      - add_button_to(c, 'Add Key') if super_user?
+
+    %h2 Key #{site_default.display_name}
+
+    .inner
+      = render 'site_default', :site_default => site_default
+
+  = block_footer(site_default_breadcrumbs)
