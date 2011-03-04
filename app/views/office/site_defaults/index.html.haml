@@ -1,0 +1,14 @@
+.block
+  = block_navigation([['Site Defaults', :index]])
+
+  .content
+    - if super_user?
+      = controls do |c|
+        - add_button_to(c, 'Add Key')
+
+    %h2= pluralize(site_defaults.count, 'default')
+
+    .inner
+      = render 'site_defaults', :site_defaults => site_defaults
+
+  = block_footer(site_default_breadcrumbs)

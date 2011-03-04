@@ -1,0 +1,22 @@
+= semantic_form_for([:office, site_default]) do |f|
+  = f.semantic_errors
+  - if super_user?
+    = f.semantic_fields_for :translation_key do |k|
+      = k.inputs :key
+    = f.inputs :description
+  - else
+    = semantic_attributes_for site_default do |attr|
+      = attr.attributes :description
+    .wat-cf
+
+  = f.semantic_fields_for :translation_key do |k|
+    = k.semantic_fields_for :translations do |t|
+      = t.inputs do
+        - if super_user?
+          = t.input :locale
+          = t.input :text
+        - else
+          = t.input :text, :label => "Language: #{t.object.locale}"
+
+  = f.buttons
+.wat-cf

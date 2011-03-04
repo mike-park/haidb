@@ -1,0 +1,15 @@
+= semantic_attributes_for site_default do |attr|
+  = attr.attributes do
+    = attr.attribute :description do
+      = site_default.description.html_safe
+    %table.table
+      %thead
+        %tr
+          %th Language
+          %th Text
+      %tbody
+        - site_default.translations.each do |translation|
+          %tr
+            %td= translation.locale
+            %td= translation.text
+.wat-cf

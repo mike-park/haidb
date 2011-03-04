@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
   
   def set_user_language
     if locale = params[:locale]
-      if I18n.available_locales.include?(locale.to_sym)
+      if I18n.available_locales.include?(locale.to_sym) ||
+          I18n.available_locales.include?(locale)
         I18n.locale = locale.to_sym
       end
     end
