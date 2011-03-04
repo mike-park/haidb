@@ -1,4 +1,5 @@
 class SiteDefault < ActiveRecord::Base
+  before_destroy :destroy_translations
   after_initialize :setup_nested_models
   before_validation :remove_empty_translations
 
@@ -42,7 +43,6 @@ class SiteDefault < ActiveRecord::Base
   
   def self.load(filename)
     attr = JSON::parse(File.read(Rails.root.join(filename)))
-    SiteDefault.all.map(&:translations).map(&:all).flatten.map(&:destroy)
     SiteDefault.destroy_all
     attr.each do |a|
       SiteDefault.create!(a)
@@ -50,6 +50,10 @@ class SiteDefault < ActiveRecord::Base
   end
 
   private
+  def destroy_translations
+    translations.all.map(&:destroy)
+  end
+  
   def remove_empty_translations
     translations.delete_if { |t| t.locale.blank? && t.text.blank? }
   end
