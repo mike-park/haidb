@@ -19,47 +19,7 @@
         %h1
           HAI UK
       #content
-        #menu
-          %ul
-            %li
-              %a{:href => "http://www.hai-uk.org.uk/index.asp"} home
-            %li
-              %a{:href => "http://www.hai-uk.org.uk/about-love-intimacy-sexuality.asp"} about
-            %li
-              %a#selected{:href => "http://www.hai-uk.org.uk/workshops-about-creating-a-loving-world.asp", :name => "selected"} workshops
-            %li
-              %a{:href => "http://www.hai-uk.org.uk/singles_with_heart.asp"}
-                singles
-                %br
-                events
-            %li
-              %a{:href => "http://www.hai-uk.org.uk/community-of-sharing-love.asp"} community
-            %li
-              %a{:href => "http://www.hai-uk.org.uk/testimonials-of-a-loving-experience.asp"} testimonials
-            %li
-              %a{:href => "http://www.hai-uk.org.uk/links-to-other-spiritual-sites.asp"} links
-            %li
-              %a{:href => "http://www.hai-uk.org.uk/contact-human-awareness-institute.asp"} contact
-        #column1
-          .sidebaritem
-            .sbihead
-              %h1
-                want to know more?
-            .sbicontent
-              %p
-                Give us a ring on:
-                %br
-                0845 555 1200
-                %br
-                %br
-                Or email us at:
-                %br
-                %a{:href => "mailto:uk-office@hai.org"} uk-office@hai.org
-                %br
-              %p
-                HAI-UK is a not-for-profit organisation
-              %p
-                Charity registration number 1128261
+        = _('uk.layout.content_top')
         #column2
           #haidbcontainer
             #flash{ :'padding-left' => '60px' }
