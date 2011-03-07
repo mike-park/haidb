@@ -8,7 +8,7 @@ module Office::Registrations::RosterHelper
        Registration::TEAM,
        Registration::FACILITATOR].each do |role|
 
-        next unless registrations.where_role(role).size > 0
+        next unless registrations.completed.where_role(role).size > 0
         
         label = t("enums.registration.roster.#{role.downcase}")
         pdf.pad_top(10) do
@@ -40,7 +40,7 @@ module Office::Registrations::RosterHelper
     t << ['Name & Email',
           t('enums.registration.roster.address'),
           t('enums.registration.roster.phones')]
-    registrations.where_role(role).by_first_name.each do |r|
+    registrations.completed.where_role(role).by_first_name.each do |r|
       t << ["#{r.full_name}\n" +
             auto_link(r.email),
             map_address(compact_address(r.angel, "\n")),
