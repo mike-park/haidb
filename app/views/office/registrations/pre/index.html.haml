@@ -7,7 +7,7 @@
 
     = controls do |c|
       - add_button_to(c, "VCards", params.merge(:format => :vcard, :icon => 'vcard', :controller => '/office/registrations', :action => :index))
-      - add_button_to(c, "XLS", params.merge(:format => :xls, :icon => 'page_excel', :controller => '/office/registrations', :action => :index))
+      - add_button_to(c, "CSV", params.merge(:format => :csv, :icon => 'page_excel', :controller => '/office/registrations', :action => :index))
 
     %h2
       #{pluralize(registrations.count, 'registration')}

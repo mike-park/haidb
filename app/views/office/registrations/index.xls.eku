@@ -1,9 +1,0 @@
-if have_event?
-   __filename = "#{event.display_name}.xls"
-end
-sheet = xls.create_worksheet
-headers = %w(full_name email highest_level gender address postal_code city country home_phone mobile_phone work_phone)
-sheet.row(0).concat(headers.map {|h| h.humanize})
-angels.each_with_index do |a, i|
-  sheet.row(i+1).concat(headers.map { |h| a.send h })
-end

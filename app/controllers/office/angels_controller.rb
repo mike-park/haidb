@@ -74,7 +74,12 @@ class Office::AngelsController < Office::ApplicationController
 
     respond_to do |format|
       format.html
-      format.xls { @angels = @search.all; render :index }
+      format.csv do
+        send_data Angel.to_csv(@search.all), {
+          :filename => 'contacts.csv',
+          :type => :csv
+        }
+      end
       format.vcard do
         send_data Angel.to_vcard(@search.all), {
           :filename => 'contacts.vcf',

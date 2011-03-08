@@ -65,7 +65,7 @@ module Office::AngelsHelper
     controls do |c|
       add_button_to(c, "Map", params.merge(:action => :map, :icon => 'map_magnify'))
       add_button_to(c, "VCard", params.merge(:format => :vcard, :icon => 'vcard'))
-      add_button_to(c, "XLS", params.merge(:format => :xls, :icon => 'page_excel'))
+      add_button_to(c, "CSV", params.merge(:format => :csv, :icon => 'page_excel'))
       yield c if block_given?
     end
   end
