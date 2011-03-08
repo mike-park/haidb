@@ -26,8 +26,11 @@ gem "rails-geocoder", :require => "geocoder", :git => 'git://github.com/alexreis
 gem 'carmen', :git => 'git://github.com/mikepinde/carmen.git'
 # pdf export
 gem 'prawn', :git => 'git://github.com/sandal/prawn.git', :submodules => true
+
 # xls export
-gem "ekuseru"
+# dont use
+# Office::RegistrationsController# (ActionView::Template::Error) "incompatible character encodings: ASCII-8BIT and US-ASCII"
+#gem "ekuseru"
 
 # these add generators that help
 gem 'haml-rails'

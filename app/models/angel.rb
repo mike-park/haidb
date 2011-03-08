@@ -23,6 +23,8 @@
 #  highest_level :integer         default(0)
 #
 
+require 'csv'
+
 class Angel < ActiveRecord::Base
   geocoded_by :full_address, :latitude  => :lat, :longitude => :lng
   
@@ -44,6 +46,8 @@ class Angel < ActiveRecord::Base
   validates_inclusion_of :gender, { :in => GENDERS,
     :message => :select }
 
+  CSV_FIELDS = %w(full_name email highest_level gender address postal_code city country home_phone mobile_phone work_phone)
+
   def full_name
     [first_name, last_name].compact.join(" ")
   end
@@ -56,7 +60,24 @@ class Angel < ActiveRecord::Base
     end
     level
   end
+
+  def self.csv_header
+    CSV_FIELDS.map { |f| f.humanize }
+  end
   
+  def self.to_csv(array)
+    CSV.generate(:force_quotes => true, :encoding => 'utf-8') do |csv|
+      csv << csv_header
+      array.each do |a|
+        csv << a.get_fields(CSV_FIELDS)
+      end
+    end
+  end
+  
+  def get_fields(fields)
+    fields.map { |f| self.send(f) }
+  end
+
   def self.to_vcard(array)
     array.map(&:to_vcard).join
   end
