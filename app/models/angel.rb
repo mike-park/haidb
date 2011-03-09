@@ -30,7 +30,7 @@ class Angel < ActiveRecord::Base
   
   after_initialize :set_default_values
   before_validation :update_display_name
-  before_save :fetch_coordinates
+  before_save :geocode
 
   FEMALE = 'Female'
   MALE = 'Male'
