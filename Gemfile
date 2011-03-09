@@ -21,7 +21,7 @@ gem "meta_search"
 # vcard export
 gem 'vcard'
 # geocoding angel
-gem "geocoder", :git => 'git://github.com/alexreisner/geocoder.git'
+gem "geocoder", :git => 'git://github.com/mikepinde/geocoder.git'
 # country select list
 gem 'carmen', :git => 'git://github.com/mikepinde/carmen.git'
 # pdf export

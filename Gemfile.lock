@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/alexreisner/geocoder.git
-  revision: 53fdf15e888d4426294fdf131a9a10b7b90cb292
-  specs:
-    geocoder (0.9.9)
-      json (>= 1.0.0)
-
-GIT
   remote: git://github.com/grosser/fast_gettext.git
   revision: 7bcfa54f35e96073f6c47c464aeaa9995c86cb77
   specs:
@@ -29,6 +22,13 @@ GIT
   revision: c55dd56e7e86e817c96001d34dd0bbc73318e04f
   specs:
     carmen (0.2.4)
+
+GIT
+  remote: git://github.com/mikepinde/geocoder.git
+  revision: bf911edd4357b54d483383b1a79bfc5332c6ed9f
+  specs:
+    geocoder (0.9.9)
+      json (>= 1.0.0)
 
 GIT
   remote: git://github.com/sandal/prawn.git
