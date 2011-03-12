@@ -19,6 +19,17 @@
     height: 14px
     display: inline-block
 
+/*=============== collapsible blocks */
+*[data-collapsible]
+  cursor: pointer
+  &:before
+    content: '►'
+  &:hover
+    background-color: #eee
+  &.active
+    &:before
+      content: '▼'
+
 /*=============== completed/checked_in/post_event table */
 #completed, #checked_in, #post_event
   position: relative

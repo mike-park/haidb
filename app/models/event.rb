@@ -13,6 +13,7 @@
 #
 
 class Event < ActiveRecord::Base
+  acts_as_audited
   LIS = 'HAI LIS Workshop'
   TEAM = 'Team Workshop'
   COMMUNITYWEEKEND = 'Community Weekend'

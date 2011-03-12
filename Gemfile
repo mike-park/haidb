@@ -5,7 +5,9 @@ gem "sqlite3-ruby", :require => "sqlite3"
 
 # my specials
 gem 'routing-filter'
-gem 'delocalize'
+# handles I18n for dates and times, has bug in fields_changed? which makes fields
+# seem to change when they have not
+#gem 'delocalize'
 gem 'tabletastic', '~> 0.2.0.pre6'
 gem 'formtastic'
 gem 'attrtastic'
@@ -22,6 +24,7 @@ gem "meta_search"
 gem 'vcard'
 # geocoding angel
 gem "geocoder", :git => 'git://github.com/mikepinde/geocoder.git'
+#gem "geocoder", :path => "~/src/ruby/git/geocoder"
 # country select list
 gem 'carmen', :git => 'git://github.com/mikepinde/carmen.git'
 # pdf export
@@ -31,6 +34,9 @@ gem 'prawn', :git => 'git://github.com/sandal/prawn.git', :submodules => true
 # dont use
 # Office::RegistrationsController# (ActionView::Template::Error) "incompatible character encodings: ASCII-8BIT and US-ASCII"
 #gem "ekuseru"
+
+# audit tracking of model changes
+gem 'acts_as_audited', :git => 'git://github.com/collectiveidea/acts_as_audited.git'
 
 # these add generators that help
 gem 'haml-rails'
@@ -86,5 +92,5 @@ group :development, :test do
   gem 'metric_fu', '>= 2.0.1'
 
   # To use debugger
-  #   gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'ruby-debug19', :require => 'ruby-debug'
 end

@@ -11,6 +11,7 @@
 #
 
 class PublicSignup < ActiveRecord::Base
+  acts_as_audited
   after_initialize :setup_registration
   
   has_one :registration, :inverse_of => :public_signup, :dependent => :destroy
@@ -27,17 +28,18 @@ class PublicSignup < ActiveRecord::Base
   validates_acceptance_of :terms_and_conditions, { :on => :create }
 
   delegate :full_name, :event_name, :gender, :approved?, :email, :lang,
-  :to => :registration
+  :angel, :to => :registration
   
   # marks this signup and the embedded registration as approved
   def set_approved!
     self.approved_at = Time.now
     registration.approved = true
     save!
+    Angel.merge_and_delete_duplicates_of(angel)
   end
 
   def display_name
-    registration.full_name
+    full_name
   end
 
   private

@@ -14,6 +14,8 @@
 
     .inner
       = render 'angel', :angel => angel, :show_highest_level => true
+      - if angel.audits.any?
+        = render 'office/shared/audits', :audits => angel.audits.descending
 
   .content
     = controls do |c|

@@ -6,3 +6,5 @@ tmp/**/*
 *~
 TAGS
 .sass-cache
+db/de/backup/*
+db/uk/backup/*
