@@ -30,7 +30,8 @@ class Angel < ActiveRecord::Base
   geocoded_by :full_address, :latitude  => :lat, :longitude => :lng
   
   after_initialize :set_default_values
-  before_save :sanitize_fields, :update_display_name, :geocode
+  before_save :sanitize_fields, :update_display_name
+  before_save :geocode, :if => :geocode_required?
 
   FEMALE = 'Female'
   MALE = 'Male'
@@ -47,7 +48,8 @@ class Angel < ActiveRecord::Base
     :message => :select }
 
   CSV_FIELDS = %w(full_name email highest_level gender address postal_code city country home_phone mobile_phone work_phone)
-
+  ADDRESS_FIELDS = [:address, :postal_code, :city, :country]
+  
   def full_name
     [first_name, last_name].compact.join(" ")
   end
@@ -113,11 +115,8 @@ class Angel < ActiveRecord::Base
   end
 
   def self.merge_and_delete_duplicates
-    Angel.order('updated_at desc').each do |a|
-      # find again as angels are delete and a might be stale
-      if angel = find_by_id(a)
-        angel.merge_and_delete_duplicates
-      end
+    Angel.group(:email).having('count(*) > 1').each do |possible|
+      merge_and_delete_duplicates_of(possible)
     end
   end
   
@@ -126,16 +125,18 @@ class Angel < ActiveRecord::Base
     base = matched_angels.shift
     if matched_angels.any?
       matched_angels.each do |angel|
-        base.attributes = angel.attributes
+        base.attributes = angel.attributes.except(:highest_level)
         # iterate as the same person (in two different angel records)
         # might be registered for the same event. this ignores registrations
         # that can't be transfered, they will be destroyed when the dup angel
         # is destroyed below
-        angel.registrations.each { |r| base.registrations << r }
+        angel.registrations.each do |r|
+          base.registrations << r
+        end
+        base.save!
       end
       Angel.destroy(matched_angels)
       base.cache_highest_level
-      base.save!
     end
     matched_angels.count
   end
@@ -160,7 +161,12 @@ class Angel < ActiveRecord::Base
   end
 
   def full_address
-    [address, postal_code, city, country].compact.join(", ")
+    ADDRESS_FIELDS.map {|field| read_attribute(field)}.compact.join(", ")
+  end
+
+  def geocode_required?
+    fields_changed = ADDRESS_FIELDS.select { |f| changed_attributes[f.to_s] }
+    fields_changed.any? || lat.nil? || lng.nil?
   end
   
   # only update if necessary, to avoid extra database traffic
