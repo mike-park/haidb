@@ -1,4 +1,5 @@
 class SiteDefault < ActiveRecord::Base
+  acts_as_audited
   before_destroy :destroy_translations
   after_initialize :setup_nested_models
   before_validation :remove_empty_translations

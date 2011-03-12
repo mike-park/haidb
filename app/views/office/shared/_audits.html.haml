@@ -1,0 +1,24 @@
+%h4{'data-collapsible' => true}  Revisions
+%table.table
+  %thead
+    %tr
+      %th When
+      %th Who
+      %th Field
+      %th From
+      %th To
+  %tbody
+    - audits.each do |audit|
+      - if audit.action == 'create'
+        %tr
+          %td= distance_of_time_in_words(audit.created_at, Time.current)
+          %td= audit.user && audit.user.email
+          %td{'colspan' => 3} created
+      - elsif audit.action == 'update'
+        - audit.audited_changes.select{|k,v| v[0].present? || v[1].present? }.each do |key, value|
+          %tr
+            %td= distance_of_time_in_words(audit.created_at, Time.current)
+            %td= audit.user && audit.user.email
+            %td= key
+            %td= value[0]
+            %td= value[1]

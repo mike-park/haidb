@@ -11,6 +11,7 @@
 #
 
 class PublicSignup < ActiveRecord::Base
+  acts_as_audited
   after_initialize :setup_registration
   
   has_one :registration, :inverse_of => :public_signup, :dependent => :destroy
@@ -34,6 +35,7 @@ class PublicSignup < ActiveRecord::Base
     self.approved_at = Time.now
     registration.approved = true
     save!
+    registration.angel.merge_and_delete_duplicates
   end
 
   def display_name

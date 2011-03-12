@@ -23,6 +23,16 @@
   height: 14px;
   display: inline-block; }
 
+/*=============== collapsible blocks */
+*[data-collapsible] {
+  cursor: pointer; }
+  *[data-collapsible]:before {
+    content: "►"; }
+  *[data-collapsible]:hover {
+    background-color: #eeeeee; }
+  *[data-collapsible].active:before {
+    content: "▼"; }
+
 /*=============== completed/checked_in/post_event table */
 #completed, #checked_in, #post_event {
   position: relative;

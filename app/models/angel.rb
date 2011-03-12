@@ -26,11 +26,11 @@
 require 'csv'
 
 class Angel < ActiveRecord::Base
+  acts_as_audited
   geocoded_by :full_address, :latitude  => :lat, :longitude => :lng
   
   after_initialize :set_default_values
-  before_validation :update_display_name
-  before_save :geocode
+  before_save :sanitize_fields, :update_display_name, :geocode
 
   FEMALE = 'Female'
   MALE = 'Male'
@@ -111,11 +111,43 @@ class Angel < ActiveRecord::Base
       maker.add_note(notes) if notes.present?
     end.to_s
   end
+
+  def self.merge_and_delete_duplicates
+    Angel.order('updated_at desc').each do |a|
+      # find again as angels are delete and a might be stale
+      if angel = find_by_id(a)
+        angel.merge_and_delete_duplicates
+      end
+    end
+  end
   
+  def merge_and_delete_duplicates
+    angel_dups = find_duplicate_angels
+    if angel_dups.any?
+      registrations << angel_dups.map(&:registrations)
+      Angel.delete(angel_dups)
+      cache_highest_level
+    end
+    angel_dups.count
+  end
+
   private
+
+  def find_duplicate_angels
+    Angel.where("LOWER(email) = ?", email.downcase).
+      where("LOWER(last_name) = ?", last_name.downcase).
+      where("LOWER(first_name) = ?", first_name.downcase).
+      where('id != ?', id).all
+  end
 
   def set_default_values
     self.lang ||= I18n.locale.to_s
+  end
+
+  def sanitize_fields
+    self.first_name = first_name.strip
+    self.last_name = last_name.strip
+    self.email = email.downcase.strip
   end
 
   def full_address

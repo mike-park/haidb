@@ -28,6 +28,7 @@
 #
 
 class Registration < ActiveRecord::Base
+  acts_as_audited
   before_save SundayChoiceCallbacks
   after_destroy :delete_public_signup
 

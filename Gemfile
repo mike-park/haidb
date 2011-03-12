@@ -22,6 +22,7 @@ gem "meta_search"
 gem 'vcard'
 # geocoding angel
 gem "geocoder", :git => 'git://github.com/mikepinde/geocoder.git'
+#gem "geocoder", :path => "~/src/ruby/git/geocoder"
 # country select list
 gem 'carmen', :git => 'git://github.com/mikepinde/carmen.git'
 # pdf export
@@ -31,6 +32,9 @@ gem 'prawn', :git => 'git://github.com/sandal/prawn.git', :submodules => true
 # dont use
 # Office::RegistrationsController# (ActionView::Template::Error) "incompatible character encodings: ASCII-8BIT and US-ASCII"
 #gem "ekuseru"
+
+# audit tracking of model changes
+gem 'acts_as_audited', :git => 'git://github.com/collectiveidea/acts_as_audited.git'
 
 # these add generators that help
 gem 'haml-rails'

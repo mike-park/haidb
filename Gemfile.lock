@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/collectiveidea/acts_as_audited.git
+  revision: aab76bc9414e3240b3e2d1761cb03b9192397b4b
+  specs:
+    acts_as_audited (2.0.0.rc7)
+      rails (>= 3.0.3)
+
+GIT
   remote: git://github.com/grosser/fast_gettext.git
   revision: 7bcfa54f35e96073f6c47c464aeaa9995c86cb77
   specs:
@@ -25,7 +32,7 @@ GIT
 
 GIT
   remote: git://github.com/mikepinde/geocoder.git
-  revision: bf911edd4357b54d483383b1a79bfc5332c6ed9f
+  revision: 52a81dc80bfa3d45fa64ad73225656a4332f7f20
   specs:
     geocoder (0.9.9)
       json (>= 1.0.0)
@@ -250,6 +257,7 @@ PLATFORMS
 
 DEPENDENCIES
   activo-rails!
+  acts_as_audited!
   annotate-models
   attrtastic
   awesome_print
