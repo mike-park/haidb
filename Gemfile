@@ -5,7 +5,9 @@ gem "sqlite3-ruby", :require => "sqlite3"
 
 # my specials
 gem 'routing-filter'
-gem 'delocalize'
+# handles I18n for dates and times, has bug in fields_changed? which makes fields
+# seem to change when they have not
+#gem 'delocalize'
 gem 'tabletastic', '~> 0.2.0.pre6'
 gem 'formtastic'
 gem 'attrtastic'
@@ -90,5 +92,5 @@ group :development, :test do
   gem 'metric_fu', '>= 2.0.1'
 
   # To use debugger
-  #   gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'ruby-debug19', :require => 'ruby-debug'
 end

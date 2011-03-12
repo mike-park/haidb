@@ -121,23 +121,32 @@ class Angel < ActiveRecord::Base
     end
   end
   
-  def merge_and_delete_duplicates
-    angel_dups = find_duplicate_angels
-    if angel_dups.any?
-      registrations << angel_dups.map(&:registrations)
-      Angel.delete(angel_dups)
-      cache_highest_level
+  def self.merge_and_delete_duplicates_of(angel)
+    matched_angels = find_duplicates_of(angel)
+    base = matched_angels.shift
+    if matched_angels.any?
+      matched_angels.each do |angel|
+        base.attributes = angel.attributes
+        # iterate as the same person (in two different angel records)
+        # might be registered for the same event. this ignores registrations
+        # that can't be transfered, they will be destroyed when the dup angel
+        # is destroyed below
+        angel.registrations.each { |r| base.registrations << r }
+      end
+      Angel.destroy(matched_angels)
+      base.cache_highest_level
+      base.save!
     end
-    angel_dups.count
+    matched_angels.count
   end
 
   private
 
-  def find_duplicate_angels
-    Angel.where("LOWER(email) = ?", email.downcase).
-      where("LOWER(last_name) = ?", last_name.downcase).
-      where("LOWER(first_name) = ?", first_name.downcase).
-      where('id != ?', id).all
+  def self.find_duplicates_of(angel)
+    Angel.where("LOWER(email) = ?", angel.email.downcase).
+      where("LOWER(last_name) = ?", angel.last_name.downcase).
+      where("LOWER(first_name) = ?", angel.first_name.downcase).
+      order('id').all
   end
 
   def set_default_values
