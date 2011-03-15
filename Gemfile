@@ -38,6 +38,9 @@ gem 'prawn', :git => 'git://github.com/sandal/prawn.git', :submodules => true
 # audit tracking of model changes
 gem 'acts_as_audited', :git => 'git://github.com/collectiveidea/acts_as_audited.git'
 
+# hoptoad error reporting
+gem 'hoptoad_notifier'
+
 # these add generators that help
 gem 'haml-rails'
 gem 'jquery-rails'
