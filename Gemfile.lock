@@ -142,6 +142,9 @@ GEM
     hirb (0.3.6)
     hoe (2.8.0)
       rake (>= 0.8.7)
+    hoptoad_notifier (2.4.6)
+      activesupport
+      builder
     hpricot (0.8.3)
     i18n (0.5.0)
     jquery-rails (0.2.6)
@@ -285,6 +288,7 @@ DEPENDENCIES
   gettext_i18n_rails!
   haml (>= 3.0.21)
   haml-rails
+  hoptoad_notifier
   hpricot
   jquery-rails
   meta_search
