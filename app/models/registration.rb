@@ -1,19 +1,19 @@
 # == Schema Information
-# Schema version: 20110114122352
+# Schema version: 20110320131630
 #
 # Table name: registrations
 #
-#  id                :integer         not null, primary key
+#  id                :integer         primary key
 #  angel_id          :integer         not null
 #  event_id          :integer         not null
-#  role              :string(255)     not null
+#  role              :string(255)     default("Participant"), not null
 #  special_diet      :boolean
 #  backjack_rental   :boolean
 #  sunday_stayover   :boolean
 #  sunday_meal       :boolean
 #  sunday_choice     :string(255)
 #  lift              :string(255)
-#  payment_method    :string(255)
+#  payment_method    :string(255)     default("Direct")
 #  bank_account_nr   :string(255)
 #  bank_account_name :string(255)
 #  bank_name         :string(255)
@@ -21,10 +21,12 @@
 #  notes             :text
 #  completed         :boolean
 #  checked_in        :boolean
-#  created_at        :datetime
-#  updated_at        :datetime
+#  created_at        :timestamp
+#  updated_at        :timestamp
 #  public_signup_id  :integer
 #  approved          :boolean
+#  how_hear          :string(255)
+#  previous_event    :string(255)
 #
 
 class Registration < ActiveRecord::Base
