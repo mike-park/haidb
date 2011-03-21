@@ -15,6 +15,6 @@
       for #{parent.display_name}
 
     .inner
-      = render 'registrations', :registrations => registrations
+      = render 'registrations', :registrations => registrations if registrations.any?
 
   = block_footer(registration_breadcrumbs)
