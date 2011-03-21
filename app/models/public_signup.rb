@@ -1,13 +1,13 @@
 # == Schema Information
-# Schema version: 20110114122352
+# Schema version: 20110320131630
 #
 # Table name: public_signups
 #
-#  id          :integer         not null, primary key
+#  id          :integer         primary key
 #  ip_addr     :string(255)
-#  created_at  :datetime
-#  updated_at  :datetime
-#  approved_at :datetime
+#  created_at  :timestamp
+#  updated_at  :timestamp
+#  approved_at :timestamp
 #
 
 class PublicSignup < ActiveRecord::Base

@@ -1,0 +1,17 @@
+.block
+  = block_navigation("Showing Registration of #{registration.full_name}")
+
+  .content
+    = controls do |c|
+      - add_button_to(c, :edit)
+      - add_button_to(c, :delete)
+
+    %h2
+      #{registration.event_name}: registration of #{registration.full_name}
+
+    .inner
+      = render 'registration', :registration => registration
+      - if registration.audits.any?
+        = render 'office/shared/audits', :audits => registration.audits.descending
+
+  = block_footer(registration_breadcrumbs)

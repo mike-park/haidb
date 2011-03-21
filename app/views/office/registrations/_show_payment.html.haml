@@ -1,5 +1,5 @@
 - r = registration
-- if r.payment_method.present?
+- if r.payment_method.present? && Site.de?
   = semantic_attributes_for r do |attr|
     = attr.attributes :html => {:class => :column} do
       = attr.attribute :payment_method

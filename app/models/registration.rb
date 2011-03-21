@@ -1,35 +1,39 @@
 # == Schema Information
-# Schema version: 20110114122352
+# Schema version: 20110321122622
 #
 # Table name: registrations
 #
-#  id                :integer         not null, primary key
-#  angel_id          :integer         not null
-#  event_id          :integer         not null
-#  role              :string(255)     not null
-#  special_diet      :boolean
-#  backjack_rental   :boolean
-#  sunday_stayover   :boolean
-#  sunday_meal       :boolean
-#  sunday_choice     :string(255)
-#  lift              :string(255)
-#  payment_method    :string(255)
-#  bank_account_nr   :string(255)
-#  bank_account_name :string(255)
-#  bank_name         :string(255)
-#  bank_sort_code    :string(255)
-#  notes             :text
-#  completed         :boolean
-#  checked_in        :boolean
-#  created_at        :datetime
-#  updated_at        :datetime
-#  public_signup_id  :integer
-#  approved          :boolean
+#  id                    :integer         primary key
+#  angel_id              :integer         not null
+#  event_id              :integer         not null
+#  role                  :string(255)     default("Participant"), not null
+#  special_diet          :boolean
+#  backjack_rental       :boolean
+#  sunday_stayover       :boolean
+#  sunday_meal           :boolean
+#  sunday_choice         :string(255)
+#  lift                  :string(255)
+#  payment_method        :string(255)     default("Direct")
+#  bank_account_nr       :string(255)
+#  bank_account_name     :string(255)
+#  bank_name             :string(255)
+#  bank_sort_code        :string(255)
+#  notes                 :text
+#  completed             :boolean
+#  checked_in            :boolean
+#  created_at            :timestamp
+#  updated_at            :timestamp
+#  public_signup_id      :integer
+#  approved              :boolean
+#  how_hear              :string(255)
+#  previous_event        :string(255)
+#  reg_fee_received      :boolean
+#  clothing_conversation :boolean
 #
 
 class Registration < ActiveRecord::Base
   acts_as_audited
-  before_save SundayChoiceCallbacks
+  before_save SundayChoiceCallbacks, :update_previous_event
   after_destroy :delete_public_signup
 
   # role types
@@ -52,14 +56,16 @@ class Registration < ActiveRecord::Base
   STAYOVER = "Stayover"
   SUNDAY_CHOICES = [MEAL, STAYOVER]
 
+  HOW_HEAR = ['Friend', 'Advertisement', 'Web Search']
+  PREVIOUS_EVENT = ['Intro/Mini-workshop', 'Open Community Day', 'Weekend Workshop']
+
   belongs_to :angel, :inverse_of => :registrations
   belongs_to :event, :inverse_of => :registrations
   belongs_to :public_signup, :inverse_of => :registration
 
   accepts_nested_attributes_for :angel
 
-  # XXX verify we need angel and action
-  #attr_accessor :angel, :action
+  attr_accessor :previous_event_what
 
   scope :ok, includes([:angel, :event]).where(:approved => true)
   scope :pending, where(:approved => false)
@@ -74,6 +80,8 @@ class Registration < ActiveRecord::Base
   scope :backjack_rentals, where(:backjack_rental => true)
   scope :sunday_stayovers, where(:sunday_stayover => true)
   scope :sunday_meals, where(:sunday_meal => true)
+  scope :clothing_conversations, where(:clothing_conversation => true)
+  scope :reg_fee_receiveds, where(:reg_fee_received => true)
   scope :females, where(:angels => {:gender => Angel::FEMALE})
   scope :males, where(:angels => {:gender => Angel::MALE})
   scope :by_first_name, includes(:angel).order('LOWER(angels.first_name) asc')
@@ -131,6 +139,15 @@ class Registration < ActiveRecord::Base
     "#{event_name} registration of #{full_name}"
   end
 
+  private
+
+  def update_previous_event
+    if previous_event_what.present?
+      self.previous_event = "Unknown type" if previous_event.blank?
+      self.previous_event << ": #{previous_event_what}"
+    end
+  end
+  
   def delete_public_signup
     PublicSignup.delete(public_signup_id) if public_signup_id
   end

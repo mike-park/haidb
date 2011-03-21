@@ -91,4 +91,17 @@ module Office::RegistrationsHelper
     requests.join(delimiter).html_safe
   end
 
+  def options_for_how_hear(form)
+    { :label => 'How did you hear of HAI?',
+      :as => :select,
+      :prompt => 'Select ...',
+      :collection => Registration::HOW_HEAR }
+  end
+
+  def options_for_previous_event(form)
+    { :label => 'Have you attended a HAI event before?',
+      :as => :select,
+      :prompt => 'Select ...',
+      :collection => Registration::PREVIOUS_EVENT }
+  end
 end

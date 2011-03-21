@@ -1,9 +1,9 @@
 # == Schema Information
-# Schema version: 20110114122352
+# Schema version: 20110320131630
 #
 # Table name: angels
 #
-#  id            :integer         not null, primary key
+#  id            :integer         primary key
 #  display_name  :string(255)     not null
 #  first_name    :string(255)
 #  last_name     :string(255)     not null
@@ -16,11 +16,13 @@
 #  home_phone    :string(255)
 #  mobile_phone  :string(255)
 #  work_phone    :string(255)
-#  lang          :string(255)     default("en")
+#  lang          :string(255)
 #  notes         :text
-#  created_at    :datetime
-#  updated_at    :datetime
+#  created_at    :timestamp
+#  updated_at    :timestamp
 #  highest_level :integer         default(0)
+#  lat           :float
+#  lng           :float
 #
 
 require 'csv'

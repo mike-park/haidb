@@ -1,3 +1,15 @@
+# == Schema Information
+# Schema version: 20110320131630
+#
+# Table name: site_defaults
+#
+#  id                 :integer         primary key
+#  translation_key_id :integer
+#  description        :text
+#  created_at         :timestamp
+#  updated_at         :timestamp
+#
+
 class SiteDefault < ActiveRecord::Base
   acts_as_audited
   before_destroy :destroy_translations

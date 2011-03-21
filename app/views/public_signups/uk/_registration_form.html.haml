@@ -20,3 +20,7 @@
 
   .instructions= _('public_signup.form.note')
   = r.input :notes, options_for_note(r)
+
+  = r.input :how_hear, options_for_how_hear(r)
+  = r.input :previous_event, options_for_previous_event(r)
+  = r.input :previous_event_what, :label => 'If so, which one', :input_html => {:size => 30}

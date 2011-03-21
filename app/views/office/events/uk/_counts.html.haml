@@ -1,0 +1,41 @@
+- regs = registrations
+#registration-counts
+  .highlights
+    .count
+      %h2 Participants
+      .clear
+      %h1= regs.participants.count
+    .count
+      %h2 Team
+      .clear
+      %h1= regs.team.count
+
+  %table
+    %thead
+      %tr
+        %th.boldvline Total
+        %th.boldvline{:colspan => "2"} Participants
+        %th.boldvline{:colspan => "2"} Team
+        %th Vegetarians
+        %th Clothing Conv.
+        %th Reg Fee Rec.
+      %tr
+        %th.boldvline
+        %th Males
+        %th.boldvline Females
+        %th Males
+        %th.boldvline Females
+        %th
+        %th
+        %th
+    %tbody
+      %tr
+        %td.boldvline= regs.count
+        %td= regs.participants.males.count
+        %td.boldvline= regs.participants.females.count
+        %td= regs.team.males.count
+        %td.boldvline= regs.team.females.count
+        %td= regs.special_diets.count
+        %td= regs.clothing_conversations.count
+        %td= regs.reg_fee_receiveds.count
+.wat-cf
