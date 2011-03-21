@@ -46,7 +46,11 @@ module Office::AngelsHelper
         (country = Carmen.country_name(code, :locale => I18n.locale))
       address << "\n#{country}"
     end
-    address.gsub("\n", separator).html_safe
+    if address.present?
+      address.gsub("\n", separator).html_safe
+    else
+      ""
+    end
   end
 
   def compact_phones(angel, separator = tag(:br))
