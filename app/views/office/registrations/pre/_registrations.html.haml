@@ -2,10 +2,10 @@
 = render "#{path}/counts", :registrations => registrations
 
 %h3= pluralize(registrations.participants.count, "Participant Registration")
-= render "role", :registrations => registrations.participants
+= render "role", :registrations => registrations.participants if registrations.participants.any?
 
 %h3= pluralize(registrations.team.count, "Team Registration")
-= render "role", :registrations => registrations.team
+= render "role", :registrations => registrations.team if registrations.team.any?
 
 %h3= pluralize(registrations.facilitators.count, "Facilitator Registration")
-= render "role", :registrations => registrations.facilitators
+= render "role", :registrations => registrations.facilitators if registrations.facilitators.any?

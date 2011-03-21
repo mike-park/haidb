@@ -103,7 +103,7 @@ module Office::NavigationHelper
              :action => :index]
     tabs << ['Payment List',
              :controller => 'payment',
-             :action =>:index]
+             :action =>:index] if Site.de?
     tabs << ['Mark Checked In',
              :controller => 'checked_in',
              :action =>:index]

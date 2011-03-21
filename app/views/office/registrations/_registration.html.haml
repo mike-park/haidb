@@ -1,9 +1,3 @@
-= semantic_attributes_for registration do |attr|
-  = attr.attributes do
-    = attr.attribute :event
-    = attr.attribute :role
-    = attr.attributes :special_diet, :backjack_rental, :sunday_stayover, :sunday_meal, :sunday_choice, :lift, :payment_method
-    = attr.attribute :notes
-
-fixme - Attributes missing
-
+= render 'office/angels/angel', :angel => registration.angel
+= render 'office/registrations/show_payment', :registration => registration
+= render 'office/registrations/show_others', :registration => registration

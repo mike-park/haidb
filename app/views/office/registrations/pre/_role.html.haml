@@ -3,27 +3,41 @@
     %tr
       %th.name Name
       %th Gender
-      %th Pay. Meth
-      %th Veg.
-      %th Backjk
-      %th Lift
-      %th Stayover
-      %th Meal
-      %th Notes
-      %th
+      - if Site.de?
+        %th Pay. Meth
+        %th Lift
+        %th Backjk
+        %th Stayover
+        %th Meal
+        %th Veg.
+        %th Notes
+      - elsif Site.uk?
+        %th How Hear
+        %th Prev. Event
+        %th Lift
+        %th Veg.
+        %th Cloth. Talk
+        %th Reg Fee Rec
       %th
   %tbody
     - registrations.by_first_name.each do |r|
       %tr{:class => cycle(:odd, :even)}
-        %td.name= link_to(r.full_name, [:office, r.angel])
+        %td.name= r.full_name
         %td.center= r.gender.first
-        %td= r.payment_method
-        %td.center= checkmark_if(r.special_diet)
-        %td.center= checkmark_if(r.backjack_rental)
-        %td= r.lift
-        %td.center= checkmark_if(r.sunday_stayover)
-        %td.center= checkmark_if(r.sunday_meal)
-        %td= r.notes
-        %td.link= link_to_edit edit_office_event_registration_path(r.event, r)
-        %td.link= link_to_destroy office_event_registration_path(r.event, r)
+        - if Site.de?
+          %td= r.payment_method
+          %td= r.lift
+          %td.center= checkmark_if(r.backjack_rental)
+          %td.center= checkmark_if(r.sunday_stayover)
+          %td.center= checkmark_if(r.sunday_meal)
+          %td.center= checkmark_if(r.special_diet)
+          %td= r.notes
+        - elsif Site.uk?
+          %td= r.how_hear
+          %td= r.previous_event
+          %td= r.lift
+          %td.center= checkmark_if(r.special_diet)
+          %td.center= checkmark_if(r.clothing_conversation)
+          %td.center= checkmark_if(r.reg_fee_received)
+        %td.link= link_to_show office_event_registration_path(r.event, r)
 .wat-cf

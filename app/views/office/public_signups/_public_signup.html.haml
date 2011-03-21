@@ -1,15 +1,1 @@
-- r = public_signup.registration
-= render 'office/angels/angel', :angel => r.angel
-
-= render 'office/registrations/show_payment', :registration => r
-
-= semantic_attributes_for r do |attr|
-  = attr.attributes :html => {:class => :column3} do
-    = attr.attribute :special_requests, :value => registration_requests(r)
-    = attr.attribute :notes
-  .wat-cf
-  = attr.attributes :html => {:class => :column} do
-    = attr.attribute :how_hear
-  = attr.attributes :html => {:class => :column} do
-    = attr.attribute :previous_event
-.wat-cf
+= render 'office/registrations/registration', :registration => public_signup.registration
