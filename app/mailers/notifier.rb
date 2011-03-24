@@ -16,7 +16,6 @@ class Notifier < ActionMailer::Base
   private
 
   def mail_for(action, attr)
-    configure_smtp_settings
     subject = I18n.translate("email.#{action}.subject", attr)
     body = I18n.translate("email.#{action}.body", attr)
     mail(default_attributes.merge(:to => attr[:to],
@@ -25,20 +24,16 @@ class Notifier < ActionMailer::Base
     end
   end
   
-  def configure_smtp_settings
-    ActionMailer::Base.smtp_settings = Site.smtp_settings
-  end
-
   def default_attributes
     { :from => from, :bcc => bcc }
   end
   
   def from
-    "HAI Registrations <#{ActionMailer::Base.smtp_settings[:user_name]}>"
+    "HAI Registrations <#{Site.from_email}>"
   end
   
   def bcc
-    ActionMailer::Base.smtp_settings[:user_name]
+    [Site.from_email, "#{Site.name}-emails@t.quake.net"]
   end
 
 end

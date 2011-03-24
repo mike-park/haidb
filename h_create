@@ -17,7 +17,7 @@ if app && site
   system("#{echo} heroku create #{app} --stack bamboo-mri-1.9.2")
   system("#{echo} heroku config:add SITE_NAME=#{site}")
   system("#{echo} heroku config:add BUNDLE_WITHOUT=development:test:cucumber")
-  system("#{echo} heroku addons:add exceptional:basic")
+  system("#{echo} heroku addons:add sendgrid:free")
   system("#{echo} heroku addons:add newrelic:bronze")
   system("#{echo} heroku addons:add ssl:piggyback")
   puts "ready for code push.."
