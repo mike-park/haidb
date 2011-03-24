@@ -150,7 +150,7 @@ module Office::NavigationHelper
   end
 
   def user_navigation
-    content_tag(:li, link_to('Logout', destroy_staff_session_path))
+    content_tag(:li, link_to("#{current_staff.email} logout", destroy_staff_session_path))
   end
 
   def main_navigation

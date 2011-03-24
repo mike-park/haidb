@@ -1,25 +1,60 @@
-<!DOCTYPE html>
+!!!
 %html
   %head
-    %title= @title || 'HAI Event Signup'
-    = javascript_include_tag :defaults
-    = formtastic_stylesheet_link_tag
-    = stylesheet_link_tag 'public_signup', :media => 'all'
+    %title= "HAI #{Site.name.upcase} Sign-in"
+    %link{:href => "/favicon-#{Site.name}.ico", :rel => "shortcut icon"}
     = csrf_meta_tag
+    :css
+      #container {
+        width: 200px;
+        margin: 0 auto;
+      }
+      #content {
+      }
+      #flash {
+        margin: 2em 0;
+        height: 1em;
+      }
+      .flash {
+        text-align: center;
+        border: 2px solid red;
+      }
 
-  %body{ :width => '560px' }
+    - if Site.de?
+      :css
+        .header {
+          text-align: center;
+          background-color: #9c3;
+        }
+        .logo {
+          position: absolute;
+          height: 115px;
+        }
+    - elsif Site.uk?
+      :css
+        .header {
+          text-align: center;
+          margin-top: -80px;
+          color: #ff8c00;
+        }
+        .logo {
+          text-align: center;
+          z-index: -10;
+          height: 100px;
+        }
+
+  %body
+    .logo
+      = image_tag(Site.logo_big_path)
+    .header
+      %h1
+        HAI #{Site.name.upcase} Registration System
+
     #container
-      #flash{ :'padding-left' => '60px' }
+      #flash
         - flash.each do |key, value|
           %div{ :class => "flash #{key}" }
             = value
 
       #content
         = yield
-
-      .clear
-
-      = debug(params) if Rails.env.development?
-
-  :javascript
-  = yield :javascript

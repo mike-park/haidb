@@ -41,15 +41,14 @@ module Office::PrawnHelper
             #stroke_bounds
             #stroke_color '000000'
             
-
-            fill_color "99cc33"
+            fill_color Site.theme_color
             rectangle([bounds.left, bounds.top], bounds.width, 20)
             fill
             fill_color "000000"
             
             image("#{Rails.root}/public/images/logo-big.png",
                   :fit => [40, 40],
-                  :at => [bounds.left, bounds.top])
+                  :at => [bounds.left, bounds.top]) if Site.de?
               
             text title.to_s, :align => :center, :valign => :center, :size => 20 if title
           

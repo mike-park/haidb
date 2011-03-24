@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title><%= @title || "HAI Database" %></title>
-  
+  <title><%= @title || "HAI #{Site.name.upcase} System" %></title>
+  <link href="/favicon-<%= Site.name %>.ico" rel="shortcut icon">
   <%= stylesheet_link_tag "jquery-ui.css", :media => "screen" %>
   <%= stylesheet_link_tag "base.css", :media => "screen" %>
   <%= stylesheet_link_tag "jquery.tipsy.css", :media => "screen" %>
@@ -27,6 +27,25 @@
   
   <%= csrf_meta_tag %>
 
+  <% if Site.uk? %>
+  <style type='text/css'>
+    #header {
+      background-image: url(/images/logo-big-uk.png);
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      -webkit-background-size: 100% 100%;
+      -moz-background-size: 100% 100%;
+      -o-background-size: 100% 100%;
+      background-size: 100% 100%;
+    }
+    #header, .secondary-navigation {
+      background-color: <%= "#" + Site.theme_color %>;
+    }
+    #main-navigation ul li, .secondary-navigation ul li {
+      background: <%= "#" + Site.theme_color_lighter %>;
+    }
+  </style>
+  <% end %>
   <%= yield :head %>
 </head>
 
@@ -38,7 +57,7 @@
           <%= status_menu %>
         </div>
       <%- end %>
-      <h1><a href="/office">HAI Registration Database</a></h1>
+      <h1><a href="/office">HAI <%= Site.name.upcase %> Registration System</a></h1>
       <% if respond_to? :user_navigation -%>
         <div id="user-navigation">
           <ul class="wat-cf">
