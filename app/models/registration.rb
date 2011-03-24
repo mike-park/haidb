@@ -33,7 +33,7 @@
 
 class Registration < ActiveRecord::Base
   acts_as_audited
-  before_save SundayChoiceCallbacks, :update_previous_event
+  before_save SundayChoiceCallbacks
   after_destroy :delete_public_signup
 
   # role types
@@ -57,15 +57,13 @@ class Registration < ActiveRecord::Base
   SUNDAY_CHOICES = [MEAL, STAYOVER]
 
   HOW_HEAR = ['Friend', 'Advertisement', 'Web Search']
-  PREVIOUS_EVENT = ['Intro/Mini-workshop', 'Open Community Day', 'Weekend Workshop']
+  PREVIOUS_EVENT = ['No', 'Intro', 'Mini-workshop', 'Open Community Day', 'Weekend Workshop']
 
   belongs_to :angel, :inverse_of => :registrations
   belongs_to :event, :inverse_of => :registrations
   belongs_to :public_signup, :inverse_of => :registration
 
   accepts_nested_attributes_for :angel
-
-  attr_accessor :previous_event_what
 
   scope :ok, includes([:angel, :event]).where(:approved => true)
   scope :pending, where(:approved => false)
@@ -141,13 +139,6 @@ class Registration < ActiveRecord::Base
 
   private
 
-  def update_previous_event
-    if previous_event_what.present?
-      self.previous_event = "Unknown type" if previous_event.blank?
-      self.previous_event << ": #{previous_event_what}"
-    end
-  end
-  
   def delete_public_signup
     PublicSignup.delete(public_signup_id) if public_signup_id
   end
