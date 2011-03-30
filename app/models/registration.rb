@@ -56,7 +56,7 @@ class Registration < ActiveRecord::Base
   STAYOVER = "Stayover"
   SUNDAY_CHOICES = [MEAL, STAYOVER]
 
-  HOW_HEAR = ['Friend', 'Advertisement', 'Web Search']
+  HOW_HEAR = ['Friend', 'Advertisement', 'Web Search', 'Enquired Nov 2010 Priceless wksp']
   PREVIOUS_EVENT = ['No', 'Intro', 'Mini-workshop', 'Open Community Day', 'Weekend Workshop']
 
   belongs_to :angel, :inverse_of => :registrations
