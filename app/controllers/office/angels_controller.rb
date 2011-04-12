@@ -1,5 +1,5 @@
 class Office::AngelsController < Office::ApplicationController
-  before_filter :find_angel, :except => [:index, :level, :map, :new, :create]
+  before_filter :find_angel, :except => [:index, :level, :map, :map_info, :new, :create]
 
   def index
     find_angels(5, 'updated_at.desc')
@@ -20,12 +20,14 @@ class Office::AngelsController < Office::ApplicationController
     @map.icons << icon
 
     @search.all.each do |angel|
-      @map.markers << Cartographer::Gmarker.new(:name => "id#{angel.id}",
-           :marker_type => "Person",
-           :position => [angel.lat,angel.lng],
-           :info_window_url => office_angel_url(angel, :format => :map),
-           :icon => icon)
+      @map.markers << angel.to_map_marker(icon, angel_info_window_url(angel))
     end
+  end
+
+  # return info window contents for pointer on map located at lat, lng
+  def map_info
+    @angels = Angel.where(:lat => params[:lat], :lng => params[:lng])
+    render :layout => false
   end
 
   def new
@@ -51,7 +53,6 @@ class Office::AngelsController < Office::ApplicationController
 
   def show
     respond_to do |format|
-      format.map { render :layout => false }
       format.html
       format.vcard { send_data angel.to_vcard, :filename => 'contact.vcf', :type => :vcard }
     end

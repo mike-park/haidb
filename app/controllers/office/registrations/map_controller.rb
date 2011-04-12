@@ -49,13 +49,10 @@ class Office::Registrations::MapController < Office::RegistrationsController
                      else
                        role_to_icon[r.role] || icon
                      end
-      @map.markers << Cartographer::Gmarker.new(:name => "id#{angel.id}",
-           :marker_type => "Person",
-           :position => [angel.lat,angel.lng],
-           :info_window_url => office_angel_url(angel, :format => :map),
-           :icon => choosen_icon)
+      @map.markers << angel.to_map_marker(choosen_icon, angel_info_window_url(angel))
     end
     if @map.markers.any? && Site.de?
+      # HACK ALERT! hardcoded DE site
       @map.markers << Cartographer::Gmarker.new(:name => 'site',
            :marker_type => "Site",
            :position => [52.066864,7.211409],

@@ -1,0 +1,16 @@
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Email
+      %th Address
+      %th Phones
+      %th
+  %tbody
+    - angels.each do |a|
+      %tr{:class => cycle(:odd, :even)}
+        %td= a.full_name
+        %td= auto_link(a.email)
+        %td= compact_address(a)
+        %td= compact_phones(a)
+        %td= link_to_show(office_angel_path(a))

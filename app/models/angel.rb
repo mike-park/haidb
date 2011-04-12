@@ -143,6 +143,14 @@ class Angel < ActiveRecord::Base
     matched_angels.count
   end
 
+  def to_map_marker(icon, info_window_url)
+    Cartographer::Gmarker.new(:name => "id#{id}",
+                              :marker_type => "Person",
+                              :position => [lat, lng],
+                              :info_window_url => info_window_url,
+                              :icon => icon)
+  end
+
   private
 
   def self.find_duplicates_of(angel)
