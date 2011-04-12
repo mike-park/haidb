@@ -26,12 +26,6 @@ module Office::AngelsHelper
     { :as => :select, :label => 'Angel', :collection => Angel.by_last_name }
   end
   
-  # FIXME this doesn;t work until the address is urlencoded
-  def link_to_map(angel)
-    "FIXME"
-    #link_to('Map', "http://maps.google.com/maps?q=#{compact_address(angel, ',')}", :target => '_blank')
-  end
-
   # return address in html display format
   def compact_address(a, separator = tag(:br))
     code = (a.country || Carmen.default_country || '').strip.upcase
