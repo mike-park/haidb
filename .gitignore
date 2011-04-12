@@ -7,3 +7,4 @@ tmp/**/*
 TAGS
 .sass-cache
 db/backup
+.powenv
