@@ -49,7 +49,7 @@ class Office::Registrations::MapController < Office::RegistrationsController
                      else
                        role_to_icon[r.role] || icon
                      end
-      @map.markers << angel.to_map_marker(choosen_icon, angel_info_window_url(angel))
+      @map.markers << angel.to_map_marker(choosen_icon, map_info_window_url(angel))
     end
     if @map.markers.any? && Site.de?
       # HACK ALERT! hardcoded DE site
@@ -58,6 +58,18 @@ class Office::Registrations::MapController < Office::RegistrationsController
            :position => [52.066864,7.211409],
            :icon => site)
     end
+  end
 
+  # return info window contents for pointer on map located at lat, lng and
+  # only matching current event
+  def map_info
+    @angels = event.angels.where(:lat => params[:lat], :lng => params[:lng])
+    render :layout => false
+  end
+
+  private
+
+  def map_info_window_url(angel)
+    map_info_office_event_map_index_url(:event => event, :lat => angel.lat, :lng => angel.lng)
   end
 end

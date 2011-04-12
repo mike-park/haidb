@@ -20,7 +20,7 @@ class Office::AngelsController < Office::ApplicationController
     @map.icons << icon
 
     @search.all.each do |angel|
-      @map.markers << angel.to_map_marker(icon, angel_info_window_url(angel))
+      @map.markers << angel.to_map_marker(icon, map_info_window_url(angel))
     end
   end
 
@@ -64,6 +64,10 @@ class Office::AngelsController < Office::ApplicationController
   end
 
   protected
+
+  def map_info_window_url(angel)
+    map_info_office_angels_url(:lat => angel.lat, :lng => angel.lng)
+  end
 
   def find_angels(rows, sort)
     params[:rows] ||= rows
