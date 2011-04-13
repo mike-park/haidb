@@ -117,11 +117,11 @@ class Angel < ActiveRecord::Base
   end
 
   def self.merge_and_delete_duplicates
-    Angel.group(:email).having('count(*) > 1').each do |possible|
+    find_angels_with_same_email_address.each do |possible|
       merge_and_delete_duplicates_of(possible)
     end
   end
-  
+
   def self.merge_and_delete_duplicates_of(angel)
     matched_angels = find_duplicates_of(angel)
     base = matched_angels.shift
@@ -152,6 +152,12 @@ class Angel < ActiveRecord::Base
   end
 
   private
+
+  def self.find_angels_with_same_email_address
+    # this only works on sqlite, not pgsql
+    #Angel.group(:email).having('count(*) > 1')
+    Angel.all.group_by(&:email).select { |k,v| v.count > 1}.map { |k,v| v }.flatten.compact
+  end
 
   def self.find_duplicates_of(angel)
     Angel.where("LOWER(email) = ?", angel.email.downcase).
