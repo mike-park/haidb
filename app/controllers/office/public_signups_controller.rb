@@ -1,8 +1,13 @@
 class Office::PublicSignupsController < Office::ApplicationController
-  before_filter :find_signup, :except => [:index, :approved, :new, :create]
+  before_filter :find_signup, :except => [:index, :waitlisted, :approved,
+                                          :new, :create]
   
   def index
     @public_signups = PublicSignup.pending.by_created_at
+  end
+
+  def waitlisted
+    @public_signups = PublicSignup.waitlisted.by_created_at
   end
 
   def approved
@@ -27,6 +32,12 @@ class Office::PublicSignupsController < Office::ApplicationController
     redirect_to(office_public_signups_url, :notice => "#{public_signup.full_name} has been successfully added to #{public_signup.event_name}.")
   end
 
+  def waitlist
+    public_signup.set_waitlisted!
+    send_waitlist_email
+    redirect_to(office_public_signups_url, :notice => "#{public_signup.full_name} has been waitlisted.")
+  end
+
   def destroy
     public_signup.destroy
     redirect_to(office_public_signups_url, :notice => 'Public signup was deleted.')
@@ -37,6 +48,12 @@ class Office::PublicSignupsController < Office::ApplicationController
   def send_confirmation_email
     with_language(public_signup.registration.lang) do
       Notifier.registration_confirmed(public_signup.registration).deliver
+    end
+  end
+  
+  def send_waitlist_email
+    with_language(public_signup.registration.lang) do
+      Notifier.public_signup_waitlisted(public_signup).deliver
     end
   end
   
