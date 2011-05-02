@@ -3,10 +3,10 @@
 
   .content
 
-    %h2 #{public_signups.count} approved signups
+    %h2 #{public_signups.count} waitlisted signups
 
     .inner
       - if public_signups.count > 0
-        = render 'approved', :approved => public_signups
+        = render 'waitlisted', :waitlisted => public_signups
 
   = block_footer(public_signup_breadcrumbs)

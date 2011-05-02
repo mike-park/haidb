@@ -4,11 +4,21 @@
   .block
     .content
       = controls do |c|
-        - add_button_to(c, 'Show pending registrations', :controller => :public_signups, :action => :index)
+        - add_button_to(c, 'Show pending signups', :controller => :public_signups, :action => :index)
 
       .inner
         %h3 
           #{pluralize(@pending.count, "public signup")} pending approval.
+
+- if @waitlisted.count > 0
+  .block
+    .content
+      = controls do |c|
+        - add_button_to(c, 'Show waitlisted signups', :controller => :public_signups, :action => :waitlisted)
+
+      .inner
+        %h3 
+          #{pluralize(@waitlisted.count, "public signup")} waitlisted.
 
 - @events.each do |event|
   .block

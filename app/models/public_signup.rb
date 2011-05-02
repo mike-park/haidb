@@ -18,24 +18,43 @@ class PublicSignup < ActiveRecord::Base
   
   attr_accessor :terms_and_conditions
 
+  WAITLISTED = 'waitlisted'
+  APPROVED = 'approved'
+  PENDING = 'pending'
+  STATUSES = [PENDING, WAITLISTED, APPROVED]
+
   default_scope includes(:registration => [ :angel ])
-  scope :pending, where(:approved_at => nil)
-  scope :approved, where("public_signups.approved_at is NOT NULL")
+  scope :pending, where("public_signups.status = ?", PENDING)
+  scope :waitlisted, where("public_signups.status = ?", WAITLISTED)
+  scope :approved, where("public_signups.status = ?", APPROVED)
   scope :by_created_at, order('public_signups.created_at asc')
 
   accepts_nested_attributes_for :registration
 
   validates_acceptance_of :terms_and_conditions, { :on => :create }
+  validates_inclusion_of :status, :in => STATUSES
 
-  delegate :full_name, :event_name, :gender, :approved?, :email, :lang,
+  delegate :full_name, :event_name, :gender, :email, :lang,
   :angel, :to => :registration
-  
+
+  STATUSES.each do |state|
+    define_method("#{state}?") do
+      !!(status == state)
+    end
+  end
+
   # marks this signup and the embedded registration as approved
   def set_approved!
     self.approved_at = Time.now
+    self.status = APPROVED
     registration.approved = true
     save!
     Angel.merge_and_delete_duplicates_of(angel)
+  end
+
+  def set_waitlisted!
+    self.status = WAITLISTED
+    save!
   end
 
   def display_name

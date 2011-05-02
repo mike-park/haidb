@@ -6,6 +6,13 @@ class Notifier < ActionMailer::Base
                :to => public_signup.registration.email })
   end
 
+  def public_signup_waitlisted(public_signup)
+    mail_for('public_signup_waitlisted', {
+               :person_name => public_signup.registration.full_name,
+               :event_name => public_signup.registration.event_name,
+               :to => public_signup.registration.email })
+  end
+
   def registration_confirmed(registration)
     mail_for('registration_confirmed', {
                :person_name => registration.full_name,

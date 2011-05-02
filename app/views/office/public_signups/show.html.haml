@@ -9,10 +9,11 @@
     - else
       = controls do |c|
         - add_button_to(c, :edit)
-        - add_button_to(c, :delete)
 
       = controls do |c|
         - c.item 'Approve', url_for(:action => :approve), :icon => :tick, :method => :put
+        - if !public_signup.waitlisted?
+          - c.item 'Waitlist', url_for(:action => :waitlist), :icon => :clock_pause, :method => :put
 
 
     .inner
