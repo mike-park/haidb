@@ -83,7 +83,7 @@ gem "ruby_parser", :group => :development
 group :development, :test do
   # newer version fails for me.
   gem "faker", "= 0.3.1", :group => [:development, :test]
-  gem 'annotate-models'
+  gem 'annotate'
   gem 'awesome_print'
   
   gem 'rspec-rails', '>= 2.4.1'
@@ -96,4 +96,8 @@ group :development, :test do
 
   # To use debugger
   gem 'ruby-debug19', :require => 'ruby-debug'
+
+  # heroku interface & taps for db operations
+  gem "heroku"
+  gem "taps"
 end
