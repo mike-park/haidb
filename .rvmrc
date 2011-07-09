@@ -39,3 +39,4 @@ fi
 #   rvm gemset import "$filename" | grep -v already | grep -v listed | grep -v complete | sed '/^$/d'
 # fi
 
+[[ -s ".powenv" ]] && source ".powenv"
