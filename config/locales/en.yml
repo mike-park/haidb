@@ -1,0 +1,72 @@
+en:
+  actionmailer:
+    notifier:
+      public_signup_received: "Thanks for your registration"
+      registration_confirmed: "You are confirmed for %{event}"
+
+  enums:
+    select: 'Select..'
+    error: 'Your form is missing some information. Please check and resubmit.'
+    angel:
+      gender:
+        female: 'Female'
+        male: 'Male'
+    registration:
+      special_diet:
+        none: "None"
+        vegie: "Vegetarian"
+      backjack_rental:
+        none: "No"
+        rent: "Yes, 7 &euro; rental cost"
+      lift:
+        na: 'N/A'
+        offered: 'Offered'
+        requested: 'Requested'
+      sunday_choice:
+        none: 'None'
+        meal: 'Yes, 7 &euro; cost'
+        stayover: 'Yes, including stayover and Monday breakfast, 25 &euro; cost'
+      payment_method:
+        internet: "Internet"
+        post: "Post"
+        direct: "Direct"
+      roster:
+        title: "%{event} Roster"
+        address: 'Address'
+        phones: 'Phones (H=Home, M=Mobile, W=Work)'
+        home: 'H'
+        mobile: 'M'
+        work: 'W'
+        participant: 'Participants'
+        team: 'Team'
+        facilitator: 'Facilitators'
+        password: 'iamlove'
+  formtastic:
+    labels:
+      lift: "Lift to event site"
+      sunday_choice: "Sunday Supper"
+      terms_and_conditions: "I Accept the Payment and Participation Conditions."
+    actions:
+      public_signup:
+        create: "Sign me up!"
+
+  hello: "Hello world"
+  meta:
+    language_name: 'English'
+  ago: 'ago'
+  layouts:
+    header:
+      patients: "Patients"
+      invoices: "Invoices"
+      payments: "Payments"
+      therapies: "Therapies"
+  number:
+    format:
+      precision: 2
+  date:
+    formats:
+      default: "%d.%m.%Y"
+  activerecord:
+    errors:
+      messages:
+        select: "must be selected"
