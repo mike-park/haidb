@@ -38,14 +38,6 @@ GIT
       json (>= 1.0.0)
 
 GIT
-  remote: git://github.com/sandal/prawn.git
-  revision: 5e59fa7829129f3c1ccc87ba1ac332c284bb9fa6
-  submodules: true
-  specs:
-    prawn (0.11.1.pre)
-      pdf-reader (>= 0.9.0)
-
-GIT
   remote: git://github.com/sferik/rails_admin.git
   revision: 2452e8a988f0fc81c91a9ec03833d2fef9a56d12
   specs:
@@ -56,7 +48,7 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
-    Ascii85 (1.0.0)
+    Ascii85 (1.0.1)
     Saikuro (1.1.0)
     abstract (1.0.0)
     actionmailer (3.0.5)
@@ -188,9 +180,12 @@ GEM
       roodi (>= 2.1.0)
     mime-types (1.16)
     nokogiri (1.4.4)
-    pdf-reader (0.9.1)
-      Ascii85 (>= 0.9)
+    pdf-reader (0.10.0)
+      Ascii85 (~> 1.0.0)
     polyglot (0.3.1)
+    prawn (0.11.1)
+      pdf-reader (>= 0.9.0)
+      ttfunk (~> 1.0.0)
     rack (1.2.1)
     rack-mount (0.6.13)
       rack (>= 1.0.0)
@@ -278,6 +273,7 @@ GEM
     thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
+    ttfunk (1.0.1)
     tzinfo (0.3.24)
     vcard (0.1.1)
     warden (1.0.3)
@@ -314,7 +310,7 @@ DEPENDENCIES
   jquery-rails
   meta_search
   metric_fu (>= 2.0.1)
-  prawn!
+  prawn
   rails (~> 3.0.0)
   rails3-generators
   rails_admin!

@@ -28,7 +28,7 @@ gem "geocoder", :git => 'git://github.com/mikepinde/geocoder.git'
 # country select list
 gem 'carmen', :git => 'git://github.com/mikepinde/carmen.git'
 # pdf export
-gem 'prawn', :git => 'git://github.com/sandal/prawn.git', :submodules => true
+gem 'prawn'
 
 # xls export
 # dont use
