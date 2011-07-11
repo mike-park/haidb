@@ -166,19 +166,19 @@ GEM
       mime-types (>= 1.16)
     routing-filter (0.2.2)
       actionpack
-    rspec (2.5.0)
-      rspec-core (~> 2.5.0)
-      rspec-expectations (~> 2.5.0)
-      rspec-mocks (~> 2.5.0)
-    rspec-core (2.5.1)
-    rspec-expectations (2.5.0)
+    rspec (2.6.0)
+      rspec-core (~> 2.6.0)
+      rspec-expectations (~> 2.6.0)
+      rspec-mocks (~> 2.6.0)
+    rspec-core (2.6.4)
+    rspec-expectations (2.6.0)
       diff-lcs (~> 1.1.2)
-    rspec-mocks (2.5.0)
-    rspec-rails (2.5.0)
+    rspec-mocks (2.6.0)
+    rspec-rails (2.6.1)
       actionpack (~> 3.0)
       activesupport (~> 3.0)
       railties (~> 3.0)
-      rspec (~> 2.5.0)
+      rspec (~> 2.6.0)
     ruby-debug-base19 (0.11.24)
       columnize (>= 0.3.1)
       linecache19 (>= 0.5.11)
@@ -225,14 +225,14 @@ DEPENDENCIES
   attrtastic
   awesome_print
   carmen!
-  devise (= 1.4.2)
+  devise (~> 1.4.2)
   factory_girl_rails (>= 1.1.beta1)
   fast_gettext!
   formtastic
   formtastic_datepicker_inputs
   geocoder!
   gettext_i18n_rails!
-  haml (= 3.1.2)
+  haml (~> 3.1.2)
   haml-rails
   heroku
   hoptoad_notifier
@@ -241,7 +241,7 @@ DEPENDENCIES
   prawn
   rails (~> 3.0.9)
   routing-filter
-  rspec-rails (>= 2.4.1)
+  rspec-rails (~> 2.6.1)
   ruby-debug19
   spork (>= 0.9.0.rc2)
   sqlite3-ruby

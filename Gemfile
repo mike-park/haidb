@@ -17,7 +17,7 @@ gem 'attrtastic'
 # styling support.  the base .scss files have been copied into pubic/stylesheets & edited
 gem "activo-rails", :git => 'git://github.com/jellybob/activo-rails.git'
 
-gem "devise", "= 1.4.2"
+gem "devise", "~> 1.4.2"
 
 # simple model searching
 gem "meta_search"
@@ -43,7 +43,7 @@ gem 'acts_as_audited', :git => 'git://github.com/collectiveidea/acts_as_audited.
 gem 'hoptoad_notifier'
 
 # these add generators that help
-gem "haml", "= 3.1.2"
+gem "haml", "~> 3.1.2"
 gem 'haml-rails'
 gem 'jquery-rails'
 
@@ -57,7 +57,7 @@ group :development, :test do
   gem 'annotate'
   gem 'awesome_print'
   
-  gem 'rspec-rails', '>= 2.4.1'
+  gem 'rspec-rails', '~> 2.6.1'
   gem 'factory_girl_rails', '>= 1.1.beta1', :require => false
 
   gem 'webrat', '>= 0.7.3'
