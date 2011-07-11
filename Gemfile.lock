@@ -84,6 +84,15 @@ GEM
     awesome_print (0.3.1)
     bcrypt-ruby (2.1.4)
     builder (2.1.2)
+    capybara (1.0.0)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      selenium-webdriver (~> 0.2.0)
+      xpath (~> 0.1.4)
+    childprocess (0.1.9)
+      ffi (~> 1.0.6)
     columnize (0.3.2)
     configuration (1.3.1)
     devise (1.4.2)
@@ -97,6 +106,7 @@ GEM
     factory_girl_rails (1.1.rc1)
       factory_girl (~> 2.0.0.rc)
       railties (>= 3.0.0)
+    ffi (1.0.9)
     formtastic (1.2.2)
       actionpack (>= 2.3.7)
       activesupport (>= 2.3.7)
@@ -124,6 +134,7 @@ GEM
       rails (~> 3.0)
       thor (~> 0.14.4)
     json (1.5.1)
+    json_pure (1.5.3)
     launchy (0.4.0)
       configuration (>= 0.0.5)
       rake (>= 0.8.1)
@@ -140,7 +151,7 @@ GEM
       activesupport (~> 3.0.2)
       arel (~> 2.0.2)
     mime-types (1.16)
-    nokogiri (1.4.4)
+    nokogiri (1.5.0)
     orm_adapter (0.0.5)
     pdf-reader (0.10.0)
       Ascii85 (~> 1.0.0)
@@ -196,6 +207,12 @@ GEM
       ruby-debug-base19 (>= 0.11.19)
     ruby_core_source (0.1.4)
       archive-tar-minitar (>= 0.5.2)
+    rubyzip (0.9.4)
+    selenium-webdriver (0.2.2)
+      childprocess (>= 0.1.9)
+      ffi (>= 1.0.7)
+      json_pure
+      rubyzip
     sequel (3.20.0)
     sinatra (1.0)
       rack (>= 1.0)
@@ -222,6 +239,8 @@ GEM
       rack (>= 1.0)
       rack-test (>= 0.5.3)
     will_paginate (3.0.pre2)
+    xpath (0.1.4)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -236,6 +255,7 @@ DEPENDENCIES
   autotest-growl (~> 0.2.9)
   autotest-rails-pure (~> 4.1.2)
   awesome_print
+  capybara (~> 1.0.0)
   carmen!
   devise (~> 1.4.2)
   factory_girl_rails (~> 1.1.rc1)
@@ -249,6 +269,7 @@ DEPENDENCIES
   heroku
   hoptoad_notifier
   jquery-rails
+  launchy (~> 0.4.0)
   meta_search
   prawn
   rails (~> 3.0.9)
