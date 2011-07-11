@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'spork'
 
 # setup with help from:
@@ -21,21 +20,30 @@ Spork.prefork do
     # my login macros
     config.extend ControllerMacros, :type => :controller    
   end
-  
+
+  # useful way to figure out time spent in requires
+  # module Kernel
+  #   def require_with_trace(*args)
+  #     start = Time.now.to_f
+  #     @indent ||= 0
+  #     @indent += 2
+  #     require_without_trace(*args)
+  #     @indent -= 2
+  #     Kernel::puts "#{' '*@indent}#{((Time.now.to_f - start)*1000).to_i} #{args[0]}"
+  #   end
+  #   alias_method_chain :require, :trace
+  # end
+
 end
 
 Spork.each_run do
-  # This code will be run each time you run your specs.
   require 'factory_girl_rails'
 end
 
-# --- Instructions ---
-# - Sort through your spec_helper file. Place as much environment loading 
-#   code that you don't normally modify during development in the 
-#   Spork.prefork block.
-# - Place the rest under Spork.each_run block
-# - Any code that is left outside of the blocks will be ran during preforking
-#   and during each_run!
-# - These instructions should self-destruct in 10 seconds.  If they don't,
-#   feel free to delete them.
-#
+# allow us to change models without reloading spork
+# this does not work this app & rails 3.0.9.  i have used it with a
+# different app & rails 3.1rc4 with no problems
+#Spork.each_run do
+#  ActiveSupport::Dependencies.clear
+#  ActiveRecord::Base.instantiate_observers
+#end if Spork.using_spork?
