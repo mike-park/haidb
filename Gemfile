@@ -57,6 +57,7 @@ group :development, :test do
   gem 'annotate'
   gem 'awesome_print'
   
+  gem 'rspec', '~> 2.6.0'
   gem 'rspec-rails', '~> 2.6.1'
   gem 'factory_girl_rails', '~> 1.1.rc1', :require => false
   gem 'spork', '~> 0.9.0.rc9'

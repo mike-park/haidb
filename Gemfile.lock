@@ -270,6 +270,7 @@ DEPENDENCIES
   prawn
   rails (~> 3.0.9)
   routing-filter
+  rspec (~> 2.6.0)
   rspec-rails (~> 2.6.1)
   ruby-debug19
   spork (~> 0.9.0.rc9)
