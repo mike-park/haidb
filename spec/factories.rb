@@ -84,8 +84,12 @@ FactoryGirl.define do
 
   # office authentication
   factory :staff do
-    email 'mikep@quake.net'
-    password 'foobar1234'
+    email 'normal@example.com'
+    password 'somesecret1234'
+    factory :admin do
+      email 'admin@example.com'
+      super_user true
+    end
   end
 end
 
