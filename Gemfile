@@ -42,6 +42,7 @@ gem 'acts_as_audited', :git => 'git://github.com/collectiveidea/acts_as_audited.
 gem 'hoptoad_notifier'
 
 # these add generators that help
+gem "haml", "= 3.1.2"
 gem 'haml-rails'
 gem 'jquery-rails'
 
@@ -55,7 +56,6 @@ gem 'gettext_i18n_rails', :git => 'git://github.com/grosser/gettext_i18n_rails.g
 #gem "jammit"
 #gem "friendly_id", "~> 3.1"
 gem "will_paginate", "~> 3.0.pre2"
-gem "haml", ">= 3.0.21"
 gem "rails3-generators", :group => :development
 gem "hpricot", :group => :development
 gem "ruby_parser", :group => :development
@@ -92,7 +92,6 @@ group :development, :test do
   gem 'webrat', '>= 0.7.3'
 
   gem 'spork', '>= 0.9.0.rc2'
-  gem 'metric_fu', '>= 2.0.1'
 
   # To use debugger
   gem 'ruby-debug19', :require => 'ruby-debug'
