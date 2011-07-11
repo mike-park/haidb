@@ -14,7 +14,7 @@
         = render 'office/shared/audits', :audits => event.audits.descending
 
     = controls do |c|
-      - c.item 'Show Registrations', office_event_registrations_path(event), :icon => :group_go
+      - c.item 'Show Registrations', office_event_registrations_path(event), :icon => 'group_go'
 
     .inner
       %h3 Registration counts

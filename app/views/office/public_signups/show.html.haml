@@ -11,9 +11,9 @@
         - add_button_to(c, :edit)
 
       = controls do |c|
-        - c.item 'Approve', url_for(:action => :approve), :icon => :tick, :method => :put
+        - c.item 'Approve', url_for(:action => :approve), :icon => 'tick', :method => :put
         - if !public_signup.waitlisted?
-          - c.item 'Waitlist', url_for(:action => :waitlist), :icon => :clock_pause, :method => :put
+          - c.item 'Waitlist', url_for(:action => :waitlist), :icon => 'clock_pause', :method => :put
 
 
     .inner
