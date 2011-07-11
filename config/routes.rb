@@ -1,7 +1,5 @@
 Haidb::Application.routes.draw do
   devise_for :staffs	# office people
-  devise_for :users	# normal users
-  devise_for :admins	# me
 
   filter :locale
 
