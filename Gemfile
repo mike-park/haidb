@@ -59,10 +59,9 @@ group :development, :test do
   
   gem 'rspec-rails', '~> 2.6.1'
   gem 'factory_girl_rails', '~> 1.1.rc1', :require => false
+  gem 'spork', '~> 0.9.0.rc9'
 
   gem 'webrat', '>= 0.7.3'
-
-  gem 'spork', '>= 0.9.0.rc2'
 
   # To use debugger
   gem 'ruby-debug19', :require => 'ruby-debug'
