@@ -234,10 +234,6 @@ GEM
     vcard (0.1.1)
     warden (1.0.4)
       rack (>= 1.0)
-    webrat (0.7.3)
-      nokogiri (>= 1.2.0)
-      rack (>= 1.0)
-      rack-test (>= 0.5.3)
     will_paginate (3.0.pre2)
     xpath (0.1.4)
       nokogiri (~> 1.3)
@@ -280,5 +276,4 @@ DEPENDENCIES
   sqlite3-ruby
   taps
   vcard
-  webrat (>= 0.7.3)
   will_paginate (~> 3.0.pre2)

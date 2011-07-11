@@ -67,8 +67,6 @@ group :development, :test do
   gem "capybara", "~> 1.0.0"
   gem "launchy", "~> 0.4.0"
 
-  gem 'webrat', '>= 0.7.3'
-
   # To use debugger
   gem 'ruby-debug19', :require => 'ruby-debug'
 
