@@ -3,12 +3,13 @@ source 'http://rubygems.org'
 gem "rails", "~> 3.0.9"
 gem "sqlite3-ruby", :require => "sqlite3"
 
-# my specials
+# include lang in url
 gem 'routing-filter'
+
 # handles I18n for dates and times, has bug in fields_changed? which makes fields
 # seem to change when they have not
 #gem 'delocalize'
-gem 'tabletastic', '~> 0.2.0.pre6'
+
 gem 'formtastic'
 gem "formtastic_datepicker_inputs"
 gem 'attrtastic'
