@@ -1,2 +1,0 @@
-module Office::DashboardsHelper
-end
