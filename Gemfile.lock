@@ -37,14 +37,6 @@ GIT
     geocoder (0.9.9)
       json (>= 1.0.0)
 
-GIT
-  remote: git://github.com/sferik/rails_admin.git
-  revision: 2452e8a988f0fc81c91a9ec03833d2fef9a56d12
-  specs:
-    rails_admin (0.0.1)
-      builder (~> 2.1.0)
-      rails (~> 3.0.3)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -260,7 +252,6 @@ DEPENDENCIES
   prawn
   rails (~> 3.0.9)
   rails3-generators
-  rails_admin!
   routing-filter
   rspec-rails (>= 2.4.1)
   ruby-debug19
