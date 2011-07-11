@@ -15,7 +15,7 @@ gem 'attrtastic'
 gem "activo-rails", :git => 'git://github.com/mikepinde/activo-rails.git'
 gem "formtastic_datepicker_inputs"
 
-gem "devise", ">= 1.1.3"
+gem "devise", "= 1.4.2"
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 
 # simple model searching
