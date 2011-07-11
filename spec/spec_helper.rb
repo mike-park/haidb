@@ -17,8 +17,9 @@ Spork.prefork do
     config.mock_with :rspec
     config.fixture_path = "#{::Rails.root}/spec/fixtures"
     config.use_transactional_fixtures = true
-    # my login macros
-    config.extend ControllerMacros, :type => :controller    
+    # my login macros; available in describe not it
+    config.extend ControllerMacros, :type => :controller
+    config.extend CapybaraMacros, :type => :request
   end
 
   # useful way to figure out time spent in requires
