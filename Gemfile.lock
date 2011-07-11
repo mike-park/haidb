@@ -19,10 +19,10 @@ GIT
       fast_gettext
 
 GIT
-  remote: git://github.com/mikepinde/activo-rails.git
-  revision: 42dca5864d4ed7d1ecdd512c6d8831341363b2ae
+  remote: git://github.com/jellybob/activo-rails.git
+  revision: a495334db1e17d291b7d811e66b1c6e003db895c
   specs:
-    activo-rails (1.0)
+    activo-rails (1.0.1)
 
 GIT
   remote: git://github.com/mikepinde/carmen.git

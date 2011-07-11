@@ -12,19 +12,19 @@ module Office::ApplicationHelper
     case action.to_s.downcase
     when /^(new|add)\b/
       path = url_for(options.merge(:action => :new))
-      icon = {:icon => :add}
+      icon = {:icon => 'add'}
     when /^edit\b/
       path = url_for(options.merge(:action => :edit))
-      icon = {:icon => :pencil}
+      icon = {:icon => 'pencil'}
     when /^delete\b/
       path = url_for(options.merge(:action => :destroy))
-      icon = {:icon => :delete, :method => :delete}
+      icon = {:icon => 'delete', :method => :delete}
     when /^show\b/
       path = url_for(options)
-      icon = {:icon => :magnifier}
+      icon = {:icon => 'magnifier'}
     when /^pdf\b/
       path = url_for(options)
-      icon = {:icon => :page_white_acrobat}
+      icon = {:icon => 'page_white_acrobat'}
     else
       display = action.to_s
       icon = options.extract!(:icon)

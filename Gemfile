@@ -10,10 +10,12 @@ gem 'routing-filter'
 #gem 'delocalize'
 gem 'tabletastic', '~> 0.2.0.pre6'
 gem 'formtastic'
-gem 'attrtastic'
-#gem "tabs_on_rails"
-gem "activo-rails", :git => 'git://github.com/mikepinde/activo-rails.git'
 gem "formtastic_datepicker_inputs"
+gem 'attrtastic'
+
+
+# styling support.  the base .scss files have been copied into pubic/stylesheets & edited
+gem "activo-rails", :git => 'git://github.com/jellybob/activo-rails.git'
 
 gem "devise", "= 1.4.2"
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
