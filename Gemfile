@@ -58,7 +58,7 @@ group :development, :test do
   gem 'awesome_print'
   
   gem 'rspec-rails', '~> 2.6.1'
-  gem 'factory_girl_rails', '>= 1.1.beta1', :require => false
+  gem 'factory_girl_rails', '~> 1.1.rc1', :require => false
 
   gem 'webrat', '>= 0.7.3'
 
