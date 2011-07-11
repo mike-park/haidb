@@ -50,39 +50,9 @@ gem 'jquery-rails'
 gem 'fast_gettext', :git => 'git://github.com/grosser/fast_gettext.git'
 gem 'gettext_i18n_rails', :git => 'git://github.com/grosser/gettext_i18n_rails.git'
 
-# prologue standards
-#gem "cancan"
-#gem "hoptoad_notifier"
-#gem "jammit"
-#gem "friendly_id", "~> 3.1"
 gem "will_paginate", "~> 3.0.pre2"
-gem "rails3-generators", :group => :development
-gem "hpricot", :group => :development
-gem "ruby_parser", :group => :development
-#gem "rspec-rails", "~> 2.0.0", :group => [:test, :development]
-#gem "mocha", :group => [:test]
-#gem "factory_girl_rails", :group => [:test, :cucumber]
-#gem "faker", "= 0.3.1", :group => [:development, :test]
-#gem "autotest", :group => [:test]
-#gem "autotest-rails", :group => [:test]
-#gem "thin", :group => [:test, :cucumber, :development]
-#gem "cucumber", :group => [:cucumber]
-#gem "database_cleaner", :group => [:test, :cucumber]
-#gem "cucumber-rails", :group => [:cucumber]
-#gem "capybara", "0.4.0", :group => [:cucumber]
-#gem "launchy", :group => [:cucumber]
-#gem "timecop", :group => [:test, :cucumber]
-#gem "pickle", :group => [:test, :cucumber]
 
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# Bundle gems for the local environment. Make sure to
-# put test-only gems in this group so their generators
-# and rake tasks are available in development mode:
 group :development, :test do
-  # newer version fails for me.
-  gem "faker", "= 0.3.1", :group => [:development, :test]
   gem 'annotate'
   gem 'awesome_print'
   
