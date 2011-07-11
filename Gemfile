@@ -65,6 +65,12 @@ group :development, :test do
   gem "autotest-rails-pure", "~> 4.1.2"
   gem "autotest-fsevent", "~> 0.2.5"
   gem "autotest-growl", "~> 0.2.9"
+
+  # capybara causes rack 1.2.3 to generate warnings
+  # rack-1.2.3/lib/rack/utils.rb:16: warning: regexp match /.../n against to UTF-8 string
+  # See https://github.com/jnicklas/capybara/issues/243
+  # problem fixed with latest rack (which as of 7/7/11 not available for
+  # rails 3.0.9
   gem "capybara", "~> 1.0.0"
   gem "launchy", "~> 0.4.0"
 
