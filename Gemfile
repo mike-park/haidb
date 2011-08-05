@@ -74,8 +74,8 @@ group :development, :test do
   gem "capybara", "~> 1.0.0"
   gem "launchy", "~> 0.4.0"
 
-  # To use debugger
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  # To use debugger; linecache19 doesn't compile with 1.9.3-head
+  # gem 'ruby-debug19', :require => 'ruby-debug'
 
   # heroku interface & taps for db operations
   gem "heroku"

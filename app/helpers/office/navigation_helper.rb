@@ -16,7 +16,7 @@ module Office::NavigationHelper
       b.add :index, 'Pending Public Signups', office_public_signups_path
       b.add :approved, 'Approved Public Signups', approved_office_public_signups_path
       b.add :show, public_signup, [:office, public_signup]
-      b.filter :name, do |name|
+      b.filter :name do |name|
         name = :approved if name == :index &&
           public_signup &&
           public_signup.approved?
@@ -51,7 +51,7 @@ module Office::NavigationHelper
       b.add :index, 'Future Events', office_events_path
       b.add :past, 'Past Events', past_office_events_path
       b.add :show, event, [:office, event]
-      b.filter :name, do |name|
+      b.filter :name do |name|
         name = :past if name == :index &&
           event &&
           event.start_date &&

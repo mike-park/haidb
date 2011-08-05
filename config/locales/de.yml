@@ -84,9 +84,6 @@ de:
       therapies: "Therapien"
 
   date:
-    input:
-      formats: [:default]
-
     formats:
       default: "%d.%m.%Y"
       short: "%e. %b"
@@ -97,12 +94,8 @@ de:
     abbr_day_names: [So, Mo, Di, Mi, Do, Fr, Sa]
     month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
     abbr_month_names: [~, Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez]
-    order: [ :day, :month, :year ]
   
   time:
-    input:
-      formats: [:long, :medium, :short, :default, :time]
-
     formats:
       default: "%A, %d. %B %Y, %H:%M Uhr"
       short: "%d. %B, %H:%M Uhr"
