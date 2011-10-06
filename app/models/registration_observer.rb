@@ -6,10 +6,12 @@ class RegistrationObserver < ActiveRecord::Observer
     registration.angel.cache_highest_level
   end
 
-  # update cached value of highest level
+  # update cached value of highest level only if registration was attached to event && angel
   def after_destroy(registration)
-    registration.logger.info("#{self}: after_destroy #{registration.display_name}")
-    registration.angel.cache_highest_level
+    if registration.angel && registration.event
+      registration.logger.info("#{self}: after_destroy #{registration.display_name}")
+      registration.angel.cache_highest_level
+    end
   end
 
 end
