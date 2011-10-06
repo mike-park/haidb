@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe PublicSignupsController do
@@ -68,12 +69,6 @@ describe PublicSignupsController do
     end
 
     context "an invalid signup" do
-      let(:public_signup) {  mock_model(PublicSignup).as_null_object }
-      before(:each) do
-        public_signup.stub(:save).and_return(false)
-        PublicSignup.stub(:new).and_return(public_signup)
-      end
-
       it "should render new" do
         post :create
         response.should render_template('new')
@@ -84,6 +79,36 @@ describe PublicSignupsController do
         notifier.stub(:deliver)
         Notifier.should_not_receive(:public_signup_received)
         post :create
+      end
+
+      context "language of messages" do
+        it "should have English errors" do
+          I18n.locale = :en
+          post :create
+          invalid_public_signup = assigns[:public_signup]
+          invalid_public_signup.errors.messages.should == {
+            :"registration.angel.first_name"=>["can't be blank"],
+            :"registration.angel.last_name"=>["can't be blank"],
+            :"registration.angel.email"=>["can't be blank"],
+            :"registration.angel.gender"=>["must be selected"],
+            :"registration.event"=>["must be selected"],
+            :terms_and_conditions=>["must be accepted"]
+          }
+        end
+
+        it "should have German errors" do
+          I18n.locale = :de
+          post :create
+          invalid_public_signup = assigns[:public_signup]
+          invalid_public_signup.errors.messages.should == {
+            :"registration.angel.first_name"=>["muss ausgefüllt werden"],
+            :"registration.angel.last_name"=>["muss ausgefüllt werden"],
+            :"registration.angel.email"=>["muss ausgefüllt werden"],
+            :"registration.angel.gender"=>["muss ausgewählt werden"],
+            :"registration.event"=>["muss ausgewählt werden"],
+            :terms_and_conditions=>["muss akzeptiert werden"]
+          }
+        end
       end
     end
     

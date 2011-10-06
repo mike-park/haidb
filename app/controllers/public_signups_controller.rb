@@ -1,11 +1,11 @@
 class PublicSignupsController < ApplicationController
   def new
-    @public_signup = PublicSignup.new
+    @public_signup = PublicSignup.new(registration_attributes: { angel_attributes: {}})
     render_site_new_template
   end
 
   def create
-    @public_signup = PublicSignup.new(params[:public_signup])
+    @public_signup = PublicSignup.new(params_with_nested_models)
     if @public_signup.save
       redirect_to Site.thankyou_url
       Notifier.public_signup_received(@public_signup).deliver
@@ -19,6 +19,12 @@ class PublicSignupsController < ApplicationController
   end
 
   protected
+
+  # ensure we have a nested registration_attributes and within that angel_attributes
+  def params_with_nested_models
+    {registration_attributes: {angel_attributes: {}}}.with_indifferent_access.merge(params[:public_signup] || {})
+  end
+
   def render_site_new_template
     @basedir = "public_signups/#{Site.name}"
     render "#{@basedir}/new", :layout => "#{Site.name}_site"
