@@ -6,3 +6,4 @@ tmp/
 TAGS
 .sass-cache
 .powenv
+.idea/
