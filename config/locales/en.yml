@@ -17,15 +17,15 @@ en:
         vegie: "Vegetarian"
       backjack_rental:
         none: "No"
-        rent: "Yes, 7 &euro; rental cost"
+        rent: "Yes, 7€ rental cost"
       lift:
         na: 'N/A'
         offered: 'Offered'
         requested: 'Requested'
       sunday_choice:
         none: 'None'
-        meal: 'Yes, 7 &euro; cost'
-        stayover: 'Yes, including stayover and Monday breakfast, 25 &euro; cost'
+        meal: 'Yes, 7€ cost'
+        stayover: 'Yes, including stayover and Monday breakfast, 25€ cost'
       payment_method:
         internet: "Internet"
         post: "Post"

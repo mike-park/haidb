@@ -20,15 +20,15 @@ de:
         vegie: "Vegetarisch"
       backjack_rental:
         none: "Nein"
-        rent: "Ja, 7 &euro; Preis"
+        rent: "Ja, 7€ Preis"
       lift:
         na: 'entfällt'
         offered: 'Biete'
         requested: 'Suche'
       sunday_choice:
         none: 'Nein'
-        meal: 'Ja, 7 &euro; Preis'
-        stayover: 'Ja, inkl. Übernachtung und Montag Frühstück 25 &euro; Preis'
+        meal: 'Ja, 7€ Preis'
+        stayover: 'Ja, inkl. Übernachtung und Montag Frühstück 25€ Preis'
       payment_method:
         internet: "Lastschrifteinzug per Internet"
         post: "Lastschrifteinzug schriftliche Anmeldung per Post"
