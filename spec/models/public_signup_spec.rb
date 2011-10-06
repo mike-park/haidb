@@ -25,13 +25,13 @@ describe PublicSignup do
 
   context "#new validations" do
     it "should have nested registration and angel after new" do
-      public_signup = PublicSignup.new
+      public_signup = PublicSignup.new(registration_attributes: { angel_attributes: {}})
       public_signup.registration.should be
       public_signup.registration.angel.should be
     end
 
     it "should have default values after new" do
-      public_signup = PublicSignup.new
+      public_signup = PublicSignup.new(registration_attributes: { angel_attributes: {}})
       public_signup.registration.role.should == Registration::PARTICIPANT
       public_signup.registration.should_not be_approved
       public_signup.registration.payment_method.should == Registration::DIRECT
@@ -45,21 +45,20 @@ describe PublicSignup do
 
     it "should accept nested parameters for registration" do
       reg_attr = Factory.attributes_for(:full_registration)
+      angel_attr = Factory.attributes_for(:full_angel)
       registration = Registration.new(reg_attr)
-      public_signup = PublicSignup.new(:registration_attributes => reg_attr)
+      angel = Angel.new(angel_attr)
+      public_signup = PublicSignup.new
+      public_signup.assign_attributes(:registration_attributes => reg_attr.merge(angel_attributes: angel_attr))
       public_signup.registration.inspect.should == registration.inspect
+      public_signup.registration.angel.inspect.should == angel.inspect
     end
 
     context "language of messages" do
       it "should have English errors" do
         I18n.locale = :en
         invalid_public_signup = PublicSignup.create(:terms_and_conditions => false)
-        invalid_public_signup.errors.should == {
-          :"registration.angel.first_name"=>["can't be blank"], 
-          :"registration.angel.last_name"=>["can't be blank"], 
-          :"registration.angel.email"=>["can't be blank"], 
-          :"registration.angel.gender"=>["must be selected"], 
-          :"registration.event"=>["must be selected"], 
+        invalid_public_signup.errors.messages.should == {
           :terms_and_conditions=>["must be accepted"]
         }
       end
@@ -67,12 +66,7 @@ describe PublicSignup do
       it "should have German errors" do
         I18n.locale = :de
         invalid_public_signup = PublicSignup.create(:terms_and_conditions => false)
-        invalid_public_signup.errors.should == {
-          :"registration.angel.first_name"=>["muss ausgefüllt werden"], 
-          :"registration.angel.last_name"=>["muss ausgefüllt werden"], 
-          :"registration.angel.email"=>["muss ausgefüllt werden"], 
-          :"registration.angel.gender"=>["muss ausgewählt werden"], 
-          :"registration.event"=>["muss ausgewählt werden"], 
+        invalid_public_signup.errors.messages.should == {
           :terms_and_conditions=>["muss akzeptiert werden"]
         }
       end

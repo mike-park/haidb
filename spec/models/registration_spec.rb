@@ -44,7 +44,7 @@ describe Registration do
         values.each do |value|
           valid_registration = Factory.build(:registration, field => value)
           valid_registration.valid?
-          valid_registration.errors.should == {}
+          valid_registration.errors.messages.should == {}
           valid_registration.should be_valid
           valid_registration.send(field).should == value
         end
@@ -56,7 +56,7 @@ describe Registration do
       methods.each do |method|
         valid_registration = Factory.build(:registration, :payment_method => method)
         valid_registration.valid?
-        valid_registration.errors.should == {}
+        valid_registration.errors.messages.should == {}
         valid_registration.should be_valid
         valid_registration.payment_method.should == method
       end
@@ -73,7 +73,7 @@ describe Registration do
                                           :angel => first_registration.angel,
                                           :event => first_registration.event)
       second_registration.should_not be_valid
-      second_registration.errors.should == {
+      second_registration.errors.messages.should == {
         :angel_id=>["already registered for this event"]
       }
     end
@@ -94,7 +94,7 @@ describe Registration do
       event = Factory.create(:event)
       registration = Factory.build(:registration, :event => nil, :event_id => event.id)
       registration.valid?
-      registration.errors.should == {}
+      registration.errors.messages.should == {}
       registration.should be_valid
     end
 
@@ -102,7 +102,7 @@ describe Registration do
       it "should have English errors" do
         I18n.locale = :en
         invalid_registration = Registration.create
-        invalid_registration.errors.should == {
+        invalid_registration.errors.messages.should == {
           :angel=>["can't be blank"],
           :event=>["must be selected"]
         }
@@ -111,7 +111,7 @@ describe Registration do
       it "should have German errors" do
         I18n.locale = :de
         invalid_registration = Registration.create
-        invalid_registration.errors.should == {
+        invalid_registration.errors.messages.should == {
           :angel=>["muss ausgefüllt werden"],
           :event=>["muss ausgewählt werden"]
         }
