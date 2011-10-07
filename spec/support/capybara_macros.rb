@@ -9,7 +9,8 @@ module CapybaraMacros
         fill_in 'staff[email]', :with => user.email
         fill_in 'staff[password]', :with => user.password
       end
-      click_button 'staff_submit'
+      #save_and_open_page
+      click_button 'Sign in'
     end
   end
     
