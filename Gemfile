@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem "rake"
-gem "rails", "3.1.1.rc3"
+gem "rails", "3.1.1"
 
 # Gems used only for assets and not required
 # in production environments by default.
