@@ -1,4 +1,5 @@
-@charset 'UTF-8';
-@import 'office/first';
-@import "office/activo/activo";
-@import "office/custom";
+@charset "UTF-8";
+@import 'activo/mixins.css.sass';
+@import 'first.css.scss';
+@import "activo/style.css.sass";
+@import "last.css.sass";
