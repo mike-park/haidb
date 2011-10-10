@@ -1,38 +1,3 @@
-/*
- *    David Marquês Francisco
- *    (dfrancisc[at]gmail.com)
- *
- *    Originally based on the theme "Drastic
- *    Dark" by Juan Maria Martinez Arce
- *    (juan[at]insignia4u.com)
- *
- *    Added components that doesn't exist in
- *    other web-app-theme themes
- *    -----------------------------------------
- *
- *    #full-main (ocupa os 100% de width para
- *      páginas que não têm barra lateral)
- *    .flash .error-list
- *    #sidebar .warning
- *    .breadcrumb
- *    .searchform
- *    a.global_button (não está a ser utilizado
- *      mas pode ser útil. São botões que ficam
- *      na barra de separadores)
- *    .block-norounded (blocos sem as pontas
- *      arredondadas)
- *    .secondary-inner-nav (navegação sem as
- *      pontas arredondadas para blocos
- *      interiores)
- *    div.tooltip (reimplementa o aspecto das
- *      tooltips que mostram o 'title' das
- *      imagens)
- *    .highlighted-title-info (informação
- *      adicional para títulos)
- *
- *                                           */
-
-
 /////////////////// COLORS ////////////////////
 
 $light_grey:           #f4f4f4
@@ -79,7 +44,7 @@ hr
 
 #header
   background-color: $green
-  background-image: url('../../images/logo.png')
+  background-image: url('/images/de/logo.png')
   background-repeat: no-repeat
   background-position: 20px 2px
 
@@ -208,7 +173,7 @@ hr
 
 .secondary-inner-nav
   background-color: #f0eff0
-  background-image: url('../../images/boxbar-background.png')
+  background-image: url('/images/boxbar-background.png')
   font-size: 13px
 
   border-bottom-color: #fff
@@ -298,7 +263,7 @@ hr
     // lista da barra lateral
     background-position: 0 11px
     background-repeat: no-repeat
-    background-image: url('../../images/arrow.png')
+    background-image: url('/images/arrow.png')
     border-bottom: 1px solid $not_so_light_grey
     list-style-type: none
     // elementos da lista
@@ -329,7 +294,7 @@ hr
       padding-top: 10px
       padding-left: 17px // distância à imagem
       margin-right: 15px // espaçamento entre os elementos
-      background: url('../../images/breadcrumb.png') no-repeat 0px 12px
+      background: url('/images/breadcrumb.png') no-repeat 0px 12px
       float: left
 
       a
@@ -361,7 +326,7 @@ hr
     min-width: 15px
     text-align: center
     background: $light_grey
-    background-image: url('../../images/button-background.png')
+    background-image: url('/images/button-background.png')
     color: $black_text
 
   a:hover
@@ -375,7 +340,7 @@ hr
 
 .pagination a:active
   // quando se clica
-  background-image: url('../../images/button-background-active.png')
+  background-image: url('/images/button-background-active.png')
   outline: none /* hide dotted outline in Firefox */
 
 
@@ -499,7 +464,7 @@ ul.list li
 //  BUTTONS
 
 a.button, button.button
-  background-image: url('../../images/button-background.png')
+  background-image: url('/images/button-background.png')
   background-color: #eee
   border: 1px solid #c3c4ba
   font-family: helvetica, arial, sans-serif
@@ -515,7 +480,7 @@ a.button, button.button
 
 a.button:active, button.button:active
   // quando se clica no botão
-  background-image: url('../../images/button-background-active.png')
+  background-image: url('/images/button-background-active.png')
   outline: none /* hide dotted outline in Firefox */
 
 
@@ -569,7 +534,7 @@ a.global_button
 // ICONS FILETYPES
 
 .filetype
-  background-image: url('../../../images/filetype/unknown.png')
+  background-image: url('/images/filetype/unknown.png')
   background-repeat: no-repeat
   padding-top: 9px
   padding-left: 11px

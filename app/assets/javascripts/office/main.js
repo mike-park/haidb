@@ -1,7 +1,8 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require_self
-//= require_tree .
+//= require office/collapsible
 
 $(document).ready(function(){
   var dp = $('input.ui-date-picker');

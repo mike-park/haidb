@@ -1,3 +1,7 @@
+//= require jquery
+//= require jquery_ujs
+//= require_self
+
 var pm = function() {
   var val = $("input[name='public_signup[registration_attributes][payment_method]']:checked").val();
   if (val == 'Post') {

@@ -12,12 +12,12 @@ blockquote
 }
 
 #main
-{ background: #FFFFFF url(/images/uk/back.png) repeat-y;
+{ background: #FFFFFF url('/images/uk/back.png') repeat-y;
   color: #70695A;
 }
 
 #links, #footer, #menu, #menu li a
-{ background: #FFFFFF url(/images/uk/menu.png);
+{ background: #FFFFFF url('/images/uk/menu.png');
   color: #DBD7D1;
   border-color: #D7D7D7;
 }
@@ -28,7 +28,7 @@ blockquote
 }
 
 #logo
-{ background: #FFFFFF url(/images/uk/logo.jpg) no-repeat;
+{ background: #FFFFFF url('/images/uk/logo-big.png') no-repeat;
   color: #70695A;
 }
 
@@ -44,7 +44,7 @@ h1, #column2 h1
 }
 
 #menu li a:hover, #menu li a#selected, #menu li a#selected:hover
-{ background: #FFFFFF url(/images/uk/menu_hover.png);
+{ background: #FFFFFF url('/images/uk/menu_hover.png');
   color: #70695A;
 } 
 
@@ -59,7 +59,7 @@ h1, #column2 h1
 }
 
 .sbihead
-{ background: #FFFFFF url(/images/uk/sbi_header.png);
+{ background: #FFFFFF url('/images/uk/sbi_header.png');
   color: #70695A;
 }
 
@@ -69,7 +69,7 @@ h1, #column2 h1
 }
 
 .sbilinks li a
-{ background: #FFFFFF url(/images/uk/link.png);
+{ background: #FFFFFF url('/images/uk/link.png');
   color: #DBD7D1;
 } 
 
