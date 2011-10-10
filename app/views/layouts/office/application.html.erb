@@ -4,33 +4,22 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title><%= @title || "HAI #{Site.name.upcase} System" %></title>
   <link href="/favicon-<%= Site.name %>.ico" rel="shortcut icon">
-  <%= stylesheet_link_tag "jquery-ui.css", :media => "screen" %>
-  <%= stylesheet_link_tag "base.css", :media => "screen" %>
-  <%= stylesheet_link_tag "jquery.tipsy.css", :media => "screen" %>
-  <%= stylesheet_link_tag "activo/activo.css", :media => "screen", :id => "current-theme" %>
-  <!--[if IE]>
-    <%= stylesheet_link_tag "activo/activo-ie.css", :media => "screen" %>
-  <![endif]-->
-  <%= stylesheet_link_tag "activo-attrtastic/attrtastic_changes.css", :media => "screen" %>
-  <%= stylesheet_link_tag "activo-formtastic/formtastic.css", :media => "screen" %>
-  <%= stylesheet_link_tag "activo-formtastic/formtastic_changes.css", :media => "screen" %>
-  <%= stylesheet_link_tag "application.css", :media => "screen" %>
-  <%= stylesheet_link_tag "custom.css", :media => "screen" %>
-  
-  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" %>
-  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js" %>
-  <%= javascript_include_tag "jquery.scrollTo.js" %>
-  <%= javascript_include_tag "jquery.localscroll.js" %>
-  <%= javascript_include_tag "application.js" %>
-  <%= javascript_include_tag "jquery.tipsy.js" %>
-  <%= javascript_include_tag "rails.js" %>
-  
+  <link href="/stylesheets/jquery-ui.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/base.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/jquery.tipsy.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/activo-attrtastic/attrtastic_changes.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/activo-formtastic/formtastic.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/activo-formtastic/formtastic_changes.css" media="screen" rel="stylesheet" type="text/css" />
+  <%= stylesheet_link_tag "office/main" %>
+
+  <%= javascript_include_tag 'office/main' %>
+
   <%= csrf_meta_tag %>
 
   <% if Site.uk? %>
   <style type='text/css'>
     #header {
-      background-image: url(/images/logo-big-uk.png);
+      background-image: url('/images/uk/logo-big.png');
       background-repeat: no-repeat;
       background-position: 0 0;
       -webkit-background-size: 100% 100%;
@@ -86,7 +75,6 @@
       </div>
     </div>
   </div>
-<%= javascript_include_tag 'collapsible' %>
 <%= yield :javascripts %>
 </body>
 </html>

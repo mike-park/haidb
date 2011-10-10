@@ -12,8 +12,7 @@
 
 class PublicSignup < ActiveRecord::Base
   acts_as_audited
-  after_initialize :setup_registration
-  
+
   has_one :registration, :inverse_of => :public_signup, :dependent => :destroy
   
   attr_accessor :terms_and_conditions
@@ -31,7 +30,7 @@ class PublicSignup < ActiveRecord::Base
 
   accepts_nested_attributes_for :registration
 
-  validates_acceptance_of :terms_and_conditions, { :on => :create }
+  validates_acceptance_of :terms_and_conditions, allow_nil: false, on: :create
   validates_inclusion_of :status, :in => STATUSES
 
   delegate :full_name, :event_name, :gender, :email, :lang,
@@ -60,15 +59,4 @@ class PublicSignup < ActiveRecord::Base
   def display_name
     full_name
   end
-
-  private
-
-  # ensure we have necessary sub objects
-  def setup_registration
-    unless registration
-      build_registration
-      registration.build_angel
-    end
-  end
-  
 end

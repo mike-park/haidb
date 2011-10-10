@@ -7,13 +7,11 @@
     %meta{:content => "Mikki Kitz", :name => "author"}
     %meta{:content => "Begegnungen in Liebe und Toleranz", :name => "description"}
     %meta{:content => "Liebe, Nähe, Sexualität, Workshops, Veranstaltungen, HAI, Human Awareness Institute, Hand on Heart , Verein, Partnerschaft, Paare, Singles, Selbsterfahrung, Bewußtheit, Therapie, Intimität, Netzwerk, gemeinnützig, Information, Berührung, Stan Dale, Tantra, Selbsterfahrungsworkshops, Paarworkshops, Singleworkshops, Kommunikation, Kommunikationstraining, Life Coaching, sexuelle Probleme, Beziehungsprobleme, Beziehungen, Einsamkeit, Toleranz, Lust, Frauen, Männer, Homosexualität, Bisexualität, Polyamorie, Polyamory, Sinnlichkeit, Wissen, Forschung, Achtsamkeit, Begegnungen, Beratung, Körperkontakt, Herz, Wegweiser, international, Erotik, Leidenschaft, Kontakt, Körper, Körperarbeit, Gefühle", :name => "keywords"}
-    %link{:href => "/stylesheets/de/lds.css", :rel => "stylesheet", :type => "text/css"}
     %link{:href => "/favicon-de.ico", :rel => "shortcut icon"}
     :javascript
       window["_GOOG_TRANS_EXT_VER"] = "1"
-    = javascript_include_tag :defaults
-    = formtastic_stylesheet_link_tag
-    = stylesheet_link_tag 'public_signup', :media => 'all'
+    = javascript_include_tag "public_signup"
+    = stylesheet_link_tag 'public_signup/de/main'
     = csrf_meta_tag
   %body
     %div{:style => "position: fixed; left:20px; top:27px;z-index:2"}

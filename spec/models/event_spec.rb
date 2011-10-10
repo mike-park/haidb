@@ -37,7 +37,7 @@ describe Event do
       it "should have English errors" do
         I18n.locale = :en
         invalid_event = Event.create
-        invalid_event.errors.should == {
+        invalid_event.errors.messages.should == {
           :display_name=>["can't be blank"],
           :category=>["can't be blank", "is not included in the list"],
           :start_date=>["can't be blank"]}
@@ -46,7 +46,7 @@ describe Event do
       it "should have German errors" do
         I18n.locale = :de
         invalid_event = Event.create
-        invalid_event.errors.should == {
+        invalid_event.errors.messages.should == {
           :display_name=>["muss ausgefüllt werden"],
           :category=>["muss ausgefüllt werden", "ist kein gültiger Wert"],
           :start_date=>["muss ausgefüllt werden"]}

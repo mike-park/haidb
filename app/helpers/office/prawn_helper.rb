@@ -46,7 +46,7 @@ module Office::PrawnHelper
             fill
             fill_color "000000"
             
-            image("#{Rails.root}/public/images/logo-big.png",
+            image("#{Rails.root}/public/images/de/logo-big.png",
                   :fit => [40, 40],
                   :at => [bounds.left, bounds.top]) if Site.de?
               

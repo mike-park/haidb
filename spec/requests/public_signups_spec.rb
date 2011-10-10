@@ -55,7 +55,7 @@ describe "GET /public_signups/new" do
       visit_de_in_german
     end
 
-    it "should render in Gemany by default" do
+    it "should render in German by default" do
       visit "/"
       page.should have_content('Zahlungsart')
     end
@@ -66,6 +66,26 @@ describe "GET /public_signups/new" do
       visit "/"
       should_have_common_elements
       visit_uk_in_english
+    end
+  end
+end
+
+describe "POST /public_signups" do
+  before(:each) do
+    FactoryGirl.create(:future_event)
+  end
+
+  context "de site", if: Site.de? do
+    it "should save an English signup" do
+      visit "/en"
+      fill_in "First name", with: "John"
+      fill_in "Last name", with: 'Smith'
+
+      click_button "Sign me up!"
+      #save_and_open_page
+      Event.all.count.should == 1
+      Registration.all.count.should == 1
+      Angel.all.count.should == 1
     end
   end
 end

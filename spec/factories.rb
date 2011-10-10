@@ -19,6 +19,9 @@ FactoryGirl.define do
   factory :event5, :parent => :event do
     level 5
   end
+  factory :future_event, :parent => :event do
+    start_date Date.tomorrow
+  end
   
   sequence :start_date do |n|
     Date.new(2011, n, 5)

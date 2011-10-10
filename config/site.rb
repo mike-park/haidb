@@ -28,7 +28,7 @@ class Site
   end
 
   def self.logo_big_path
-    "/images/logo-big-#{name}.png"
+    "/images/#{name}/logo-big.png"
   end
 
   def self.theme_color

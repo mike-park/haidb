@@ -70,7 +70,7 @@ describe Angel do
       it "should have English errors" do
         I18n.locale = :en
         invalid_angel = Angel.create
-        invalid_angel.errors.should == {
+        invalid_angel.errors.messages.should == {
           :first_name=>["can't be blank"],
           :last_name=>["can't be blank"],
           :email=>["can't be blank"],
@@ -80,7 +80,7 @@ describe Angel do
       it "should have German errors" do
         I18n.locale = :de
         invalid_angel = Angel.create
-        invalid_angel.errors.should == {
+        invalid_angel.errors.messages.should == {
           :first_name=>["muss ausgefüllt werden"],
           :last_name=>["muss ausgefüllt werden"],
           :email=>["muss ausgefüllt werden"],

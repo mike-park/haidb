@@ -1,7 +1,30 @@
 source 'http://rubygems.org'
 
-gem "rails", "~> 3.0.9"
-gem "sqlite3-ruby", :require => "sqlite3"
+gem "rake"
+# rack 1.3.4 generates warning: already initialized constant WFKV_
+gem 'rack', '1.3.3'
+gem "rails", "3.1.1"
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails', "  ~> 3.1.0"
+  gem 'coffee-rails', "~> 3.1.0"
+  gem 'uglifier'
+end
+
+gem 'jquery-rails'
+
+# these add generators that help
+gem 'haml-rails'
+
+# form helpers
+gem 'formtastic'
+# 2.0 compatible
+gem "formtastic_datepicker_inputs", :git => "git://github.com/adyard/formtastic_datepicker_inputs.git"
+
+# attribute display helper
+gem "attrtastic"
 
 # include lang in url
 gem 'routing-filter'
@@ -9,10 +32,6 @@ gem 'routing-filter'
 # handles I18n for dates and times, has bug in fields_changed? which makes fields
 # seem to change when they have not
 #gem 'delocalize'
-
-gem 'formtastic'
-gem "formtastic_datepicker_inputs"
-gem 'attrtastic'
 
 # styling support.  the base .scss files have been copied into pubic/stylesheets & edited
 gem "activo-rails", :git => 'git://github.com/jellybob/activo-rails.git'
@@ -37,15 +56,10 @@ gem 'prawn'
 #gem "ekuseru"
 
 # audit tracking of model changes
-gem 'acts_as_audited', :git => 'git://github.com/collectiveidea/acts_as_audited.git'
+gem 'acts_as_audited'
 
 # hoptoad error reporting
 gem 'hoptoad_notifier'
-
-# these add generators that help
-gem "haml", "~> 3.1.2"
-gem 'haml-rails'
-gem 'jquery-rails'
 
 # replacement/alternative I18n
 gem 'fast_gettext', :git => 'git://github.com/grosser/fast_gettext.git'
@@ -54,6 +68,7 @@ gem 'gettext_i18n_rails', :git => 'git://github.com/grosser/gettext_i18n_rails.g
 gem "will_paginate", "~> 3.0.pre2"
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'annotate'
   gem 'awesome_print'
   
@@ -72,12 +87,5 @@ group :development, :test do
   # problem fixed with latest rack (which as of 7/7/11 not available for
   # rails 3.0.9
   gem "capybara", "~> 1.0.0"
-  gem "launchy", "~> 0.4.0"
-
-  # To use debugger; linecache19 doesn't compile with 1.9.3-head
-  # gem 'ruby-debug19', :require => 'ruby-debug'
-
-  # heroku interface & taps for db operations
-  gem "heroku"
-  gem "taps"
+  gem "launchy", "~> 2.0.5"
 end
