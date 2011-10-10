@@ -16,5 +16,7 @@ var pm = function() {
   }
 }
 
-$("input[name='public_signup[registration_attributes][payment_method]']").click(pm);
-pm();
+$(function(){
+    $("input[name='public_signup[registration_attributes][payment_method]']").click(pm);
+    pm();
+});
