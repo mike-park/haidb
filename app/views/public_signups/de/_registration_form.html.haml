@@ -20,17 +20,21 @@
   = r.input :sunday_choice, options_for_sunday_choice(r)
   = r.input :lift, options_for_lift(r)
 
-  - if language?(:de)
+- if language?(:de)
+  = r.inputs do
     .instructions= _('public_signup.form.payment')
     = r.input :payment_method, options_for_payment_method(r)
-    #post
-      .instructions= _('public_signup.form.payment_by_post')
-    = r.inputs :id => 'internet' do
-      = r.input :bank_account_name,  :input_html => {:size => 30}
-      = r.input :bank_account_nr,  :input_html => {:size => 20}
-      = r.input :bank_name,  :input_html => {:size => 50}
-      = r.input :bank_sort_code,  :input_html => {:size => 20}
 
+  #post
+    .instructions= _('public_signup.form.payment_by_post')
+
+  = r.inputs :id => 'internet' do
+    = r.input :bank_account_name,  :input_html => {:size => 30}
+    = r.input :bank_account_nr,  :input_html => {:size => 20}
+    = r.input :bank_name,  :input_html => {:size => 50}
+    = r.input :bank_sort_code,  :input_html => {:size => 20}
+
+= r.inputs do
   .instructions= _('public_signup.form.note')
   = r.input :notes, options_for_note(r)
 
