@@ -1,6 +1,8 @@
 source 'http://rubygems.org'
 
 gem "rake"
+# rack 1.3.4 generates warning: already initialized constant WFKV_
+gem 'rack', '1.3.3'
 gem "rails", "3.1.1"
 
 # Gems used only for assets and not required
