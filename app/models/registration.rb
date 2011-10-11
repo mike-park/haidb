@@ -128,7 +128,7 @@ class Registration < ActiveRecord::Base
   end
 
   def self.highest_completed_level
-    completed.includes(:event).map {|r| r.event.level}.max || 0
+    completed.includes(:event).map {|r| r.event.level}.compact.max || 0
     #maximum('events.level', :include => :event, :conditions => {
     #          :completed => true,
     #        }).to_i
