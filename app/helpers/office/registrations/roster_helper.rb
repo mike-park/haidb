@@ -42,7 +42,7 @@ module Office::Registrations::RosterHelper
           t('enums.registration.roster.phones')]
     registrations.completed.where_role(role).by_first_name.each do |r|
       t << ["#{r.full_name}\n" +
-            auto_link(r.email),
+            r.email,
             map_address(compact_address(r.angel, "\n")),
             compact_phones(r.angel, "\n")
            ]
