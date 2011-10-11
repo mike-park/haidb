@@ -89,3 +89,7 @@ group :development, :test do
   gem "capybara", "~> 1.0.0"
   gem "launchy", "~> 2.0.5"
 end
+
+group :production do
+  gem 'pg'
+end
