@@ -141,7 +141,7 @@ describe "POST /public_signups" do
     click_link "Waitlisted"
     click_link "Show"
     click_link "Approve"
-    save_and_open_page
+    #save_and_open_page
     page.should have_content("John Smith has been successfully added")
     PublicSignup.waitlisted.count.should == 0
     PublicSignup.approved.count.should == 1
