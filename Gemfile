@@ -1,9 +1,8 @@
 source 'http://rubygems.org'
 
 gem "rake"
-# rack 1.3.4 generates warning: already initialized constant WFKV_
-gem 'rack', '1.3.3'
-gem "rails", "3.1.1"
+gem 'rack'
+gem "rails", "3.1.3"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,7 +20,7 @@ gem 'haml-rails'
 # form helpers
 gem 'formtastic'
 # 2.0 compatible
-gem "formtastic_datepicker_inputs", :git => "git://github.com/adyard/formtastic_datepicker_inputs.git"
+gem "formtastic_datepicker_inputs", :git => "git://github.com/nurey/formtastic_datepicker_inputs.git"
 
 # attribute display helper
 gem "attrtastic"
