@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe "GET /public_signups/new" do
@@ -70,22 +71,91 @@ describe "GET /public_signups/new" do
   end
 end
 
+def should_have_n_records(n)
+  Event.all.count.should == 1
+  Registration.all.count.should == n
+  Angel.all.count.should == n
+  PublicSignup.approved.count.should == 0
+  PublicSignup.waitlisted.count.should == 0
+  PublicSignup.pending.count.should == n
+end
+
+def create_a_public_signup
+  should_have_n_records(0)
+  visit "/en"
+  select(future_event.display_name, from: "Event")
+  fill_in "First name", with: "John"
+  fill_in "Last name", with: 'Smith'
+  choose('Male')
+  fill_in "Email", with: "jsmith@example.com"
+  check "public_signup_terms_and_conditions"
+
+  click_button "Sign me up!"
+  #save_and_open_page
+  should_have_n_records(1)
+  Angel.first.lang.should == 'en'
+end
+
 describe "POST /public_signups" do
+  let(:future_event) {FactoryGirl.create(:future_event)}
   before(:each) do
-    FactoryGirl.create(:future_event)
+    Site.stub(:thankyou_url) { '/' }
+    future_event
+  end
+
+  it "should save an English signup" do
+    create_a_public_signup
   end
 
   context "de site", if: Site.de? do
-    it "should save an English signup" do
-      visit "/en"
-      fill_in "First name", with: "John"
-      fill_in "Last name", with: 'Smith'
+    it "should save a German signup" do
+      visit "/de"
+      select(future_event.display_name, from: "Event")
+      fill_in "Vorname", with: "John"
+      fill_in "Name", with: 'Smith'
+      choose('männlich')
+      fill_in "Emailadresse", with: "jsmith@example.com"
+      check "public_signup_terms_and_conditions"
 
-      click_button "Sign me up!"
-      #save_and_open_page
+      click_button "Melden Sie mich an!"
       Event.all.count.should == 1
       Registration.all.count.should == 1
       Angel.all.count.should == 1
+      Angel.first.lang.should == 'de'
+    end
+  end
+
+  def waitlist_signup
+    visit "/office/public_signups"
+    click_link "Show"
+    click_link "Waitlist"
+    #save_and_open_page
+    page.should have_content("John Smith has been waitlisted")
+    PublicSignup.waitlisted.count.should == 1
+    PublicSignup.approved.count.should == 0
+    PublicSignup.pending.count.should == 0
+  end
+
+  def approve_signup
+    visit "/office/public_signups"
+    click_link "Waitlisted"
+    click_link "Show"
+    click_link "Approve"
+    save_and_open_page
+    page.should have_content("John Smith has been successfully added")
+    PublicSignup.waitlisted.count.should == 0
+    PublicSignup.approved.count.should == 1
+    PublicSignup.pending.count.should == 0
+
+  end
+
+  context "public_signup workflow" do
+    office_login
+
+    it "should allow public_signup to be waitlisted, then approved" do
+      create_a_public_signup
+      waitlist_signup
+      approve_signup
     end
   end
 end
