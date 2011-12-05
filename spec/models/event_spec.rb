@@ -33,6 +33,11 @@ describe Event do
       end
     end
 
+    it "accepts_nested_attributes for event_emails" do
+      event = Event.new(Factory.attributes_for(:event).merge(event_emails_attributes: [Factory.attributes_for(:event_email)]))
+      event.should be_valid
+    end
+
     context "language of messages" do
       it "should have English errors" do
         I18n.locale = :en
@@ -102,5 +107,54 @@ describe Event do
       Event.should have(:no).records
       Registration.should have(:no).records
     end
+
+    it "should delete event_emails" do
+      event = Factory.create(:event)
+      event.event_emails.build(category: EventEmail::CATEGORIES.first)
+      event.event_emails.build(category: EventEmail::CATEGORIES.last)
+      event.save
+      Event.should have(1).record
+      EventEmail.should have(2).records
+
+      event.destroy
+
+      Event.should have(:no).records
+      EventEmail.should have(:no).records
+    end
+  end
+
+  context "emails" do
+    let(:category) { EventEmail::CATEGORIES.first }
+    let(:event_email) { double("event_email") }
+    subject { Factory.create(:event) }
+
+    before(:each) do
+      subject.event_emails.stub(:find_by_category).with(category).and_return(event_email)
+    end
+
+    it "should return email of matching email category & locale" do
+      event_email.should_receive(:email).with('en').and_return('found')
+      subject.email(category, 'en').should == 'found'
+    end
+    it "should return name of matching email category" do
+      event_email.should_receive(:name).and_return('name')
+      subject.email_name(category).should == 'name'
+    end
   end
 end
+
+
+
+# == Schema Information
+#
+# Table name: events
+#
+#  id           :integer         not null, primary key
+#  display_name :string(255)     not null
+#  category     :string(255)     not null
+#  level        :integer         default(0)
+#  start_date   :date            not null
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

@@ -2,6 +2,9 @@
   = attr.attributes :html => {:class => :column} do
     = attr.attribute :display_name
     = attr.attribute :category
+    = attr.attribute :signup_email_name, :value => event.email_name(EventEmail::SIGNUP)
+    = attr.attribute :pending_email_name, :value => event.email_name(EventEmail::PENDING)
+    = attr.attribute :approved_email_name, :value => event.email_name(EventEmail::APPROVED)
   = attr.attributes :html => {:class => :column} do
     = attr.attribute :start_date, :value => l(event.start_date)
     = attr.attribute :level

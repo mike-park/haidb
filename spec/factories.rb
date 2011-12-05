@@ -22,7 +22,29 @@ FactoryGirl.define do
   factory :future_event, :parent => :event do
     start_date Date.tomorrow
   end
-  
+
+  factory :email, aliases: [:en_email] do
+    locale "en"
+    subject "Subject"
+    body "Body"
+  end
+
+  factory :de_email, parent: :email do
+    locale 'de'
+    subject "Betreff"
+    body "Inhalt"
+  end
+
+  factory :email_name do
+    name "std email"
+  end
+
+  factory :event_email do
+    category EventEmail::CATEGORIES.first
+    event
+    email_name
+  end
+
   sequence :start_date do |n|
     Date.new(2011, n, 5)
   end

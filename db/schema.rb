@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110502131133) do
+ActiveRecord::Schema.define(:version => 20111125171417) do
 
   create_table "admins", :force => true do |t|
     t.string    "email",                               :default => "", :null => false
@@ -80,13 +81,41 @@ ActiveRecord::Schema.define(:version => 20110502131133) do
   add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
   add_index "audits", ["user_id", "user_type"], :name => "user_index"
 
+  create_table "email_names", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "emails", :force => true do |t|
+    t.integer  "email_name_id"
+    t.string   "locale"
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "emails", ["email_name_id"], :name => "index_emails_on_email_name_id"
+
+  create_table "event_emails", :force => true do |t|
+    t.integer  "email_name_id"
+    t.integer  "event_id"
+    t.string   "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_emails", ["email_name_id"], :name => "index_event_emails_on_email_name_id"
+  add_index "event_emails", ["event_id"], :name => "index_event_emails_on_event_id"
+
   create_table "events", :force => true do |t|
-    t.string    "display_name",                :null => false
-    t.string    "category",                    :null => false
-    t.integer   "level",        :default => 0
-    t.date      "start_date",                  :null => false
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.string   "display_name",                :null => false
+    t.string   "category",                    :null => false
+    t.integer  "level",        :default => 0
+    t.date     "start_date",                  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "events", ["id"], :name => "index_events_on_id"

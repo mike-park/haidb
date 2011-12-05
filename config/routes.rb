@@ -18,7 +18,7 @@ Haidb::Application.routes.draw do
         get 'map_info'
       end
     end
-  
+
     resources :events do
       collection do
         get 'upcoming'
@@ -52,7 +52,11 @@ Haidb::Application.routes.draw do
       end
     end
     
+    namespace :site_defaults do
+      resources :email_names
+    end
     resources :site_defaults
+
     resources :registrations
 
     match '/dashboards' => "dashboards#index"

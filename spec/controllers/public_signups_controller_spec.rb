@@ -56,6 +56,7 @@ describe PublicSignupsController do
       end
 
       it "should redirect_to site specific url" do
+        Notifier.stub(:public_signup_received).and_return(double("email").as_null_object)
         post :create
         response.should redirect_to(Site.thankyou_url)
       end

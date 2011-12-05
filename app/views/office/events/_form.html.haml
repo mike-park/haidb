@@ -5,6 +5,9 @@
     = f.input :start_date, :as => :date_picker, :format => '%d.%m.%Y'
     = f.input :category, options_for_event_categories(f)
     = f.input :level
+    = input_for_event_email(f, EventEmail::SIGNUP)
+    = input_for_event_email(f, EventEmail::PENDING)
+    = input_for_event_email(f, EventEmail::APPROVED)
   .wat-cf
   = f.buttons
 .wat-cf
