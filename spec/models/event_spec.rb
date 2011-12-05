@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Event do
   context "#new validation" do
-    
+
     it "is valid with min attributes" do
       valid_event = Factory.create(:event)
       valid_event.should be_valid
@@ -39,22 +39,25 @@ describe Event do
     end
 
     context "language of messages" do
-      it "should have English errors" do
-        I18n.locale = :en
-        invalid_event = Event.create
-        invalid_event.errors.messages.should == {
-          :display_name=>["can't be blank"],
-          :category=>["can't be blank", "is not included in the list"],
-          :start_date=>["can't be blank"]}
+      context "en" do
+        before(:each) { I18n.locale = :en }
+        it "should have English errors" do
+          invalid_event = Event.create
+          invalid_event.errors.messages.should == {
+              :display_name=>["can't be blank"],
+              :category=>["can't be blank", "is not included in the list"],
+              :start_date=>["can't be blank"]}
+        end
       end
-
-      it "should have German errors" do
-        I18n.locale = :de
-        invalid_event = Event.create
-        invalid_event.errors.messages.should == {
-          :display_name=>["muss ausgefüllt werden"],
-          :category=>["muss ausgefüllt werden", "ist kein gültiger Wert"],
-          :start_date=>["muss ausgefüllt werden"]}
+      context "de" do
+        before(:each) { I18n.locale = :de }
+        it "should have German errors" do
+          invalid_event = Event.create
+          invalid_event.errors.messages.should == {
+              :display_name=>["muss ausgefüllt werden"],
+              :category=>["muss ausgefüllt werden", "ist kein gültiger Wert"],
+              :start_date=>["muss ausgefüllt werden"]}
+        end
       end
     end
   end
@@ -69,7 +72,7 @@ describe Event do
     after(:all) do
       Event.delete_all
     end
-    
+
     it "should order by oldest last" do
       all = Event.with_oldest_last.all
       all.should == [@e4, @e2, @e1, @e3]

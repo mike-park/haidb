@@ -25,11 +25,11 @@ describe Notifier do
 
   context ".send_registration_email" do
     let(:category) { EventEmail::SIGNUP }
-    let(:locale) { 'en' }
     let(:email) { Factory.build(:en_email,
                                 subject: "subject {{person_name}} {{event_name}}",
                                 body: "body {{person_name}} {{event_name}}") }
     let(:registration) { Factory.build(:full_registration) }
+    let(:locale) { registration.angel.lang }
     subject { Notifier.send_registration_email(category, registration) }
     let(:sender) { Site.from_email }
     let(:site_name) { Site.name }

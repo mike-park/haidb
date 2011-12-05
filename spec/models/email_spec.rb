@@ -14,11 +14,16 @@ describe Email do
       end
     end
 
-    it "should limit 1 locale per email_name" do
-      email = Factory.create(:email, email_name_id: 1)
-      email2 = email.dup
-      email2.should_not be_valid
-      email2.errors.messages.should include(locale: ['has already been taken'])
+    context "en langauge" do
+      before(:each) do
+        I18n.locale = :en
+      end
+      it "should limit 1 locale per email_name" do
+        email = Factory.create(:email, email_name_id: 1)
+        email2 = email.dup
+        email2.should_not be_valid
+        email2.errors.messages.should include(locale: ['has already been taken'])
+      end
     end
   end
 end

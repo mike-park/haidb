@@ -99,22 +99,26 @@ describe Registration do
     end
 
     context "language of messages" do
-      it "should have English errors" do
-        I18n.locale = :en
-        invalid_registration = Registration.create
-        invalid_registration.errors.messages.should == {
-          :angel=>["can't be blank"],
-          :event=>["must be selected"]
-        }
+      context "en" do
+        before(:each) { I18n.locale = :en }
+        it "should have English errors" do
+          invalid_registration = Registration.create
+          invalid_registration.errors.messages.should == {
+              :angel=>["can't be blank"],
+              :event=>["must be selected"]
+          }
+        end
       end
 
-      it "should have German errors" do
-        I18n.locale = :de
-        invalid_registration = Registration.create
-        invalid_registration.errors.messages.should == {
-          :angel=>["muss ausgefüllt werden"],
-          :event=>["muss ausgewählt werden"]
-        }
+      context "de" do
+        before(:each) { I18n.locale = :de }
+        it "should have German errors" do
+          invalid_registration = Registration.create
+          invalid_registration.errors.messages.should == {
+              :angel=>["muss ausgefüllt werden"],
+              :event=>["muss ausgewählt werden"]
+          }
+        end
       end
     end
   end
