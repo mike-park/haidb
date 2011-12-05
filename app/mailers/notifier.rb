@@ -62,7 +62,15 @@ class Notifier < ActionMailer::Base
   end
   
   def bcc
-    [Site.from_email, "#{Site.name}-emails@t.quake.net"]
+    if Rails.env.development?
+      debug_address
+    else
+      [Site.from_email, "#{Site.name}-emails@t.quake.net"]
+    end
+  end
+
+  def debug_address
+    "haidb-testing@t.quake.net"
   end
 
 end
