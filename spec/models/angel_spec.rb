@@ -6,24 +6,26 @@ require 'spec_helper'
 
 describe Angel do
   context "#new validation" do
-    it "should have default values" do
-      I18n.locale = :de
-      default_angel = Angel.new
-      default_angel.lang.should == 'de'
-      I18n.locale = :en
-      default_angel = Angel.new
-      default_angel.lang.should == 'en'
+    [:en, :de].each do |locale|
+      context "language #{locale}" do
+        before(:each) { I18n.locale = locale }
+        it "should initialize lang with locale" do
+          default_angel = Angel.new
+          default_angel.lang.should == locale.to_s
+        end
+      end
     end
 
-    it "should not overwrite saved lang" do
-      I18n.locale = :en
-      # note we assign a symbol, but when read from db it becomes a string
-      valid_angel = Factory.create(:angel, :lang => :de)
-      valid_angel.lang.should == :de
-      found_angel = Angel.find(valid_angel)
-      found_angel.lang.should == 'de'
+    context "locale lang en" do
+      before(:each) { I18n.locale = :en }
+      it "should not overwrite saved lang" do
+        valid_angel = Factory.create(:angel, :lang => :de)
+        valid_angel.lang.should == :de
+        found_angel = Angel.find(valid_angel)
+        found_angel.lang.should == 'de'
+      end
     end
-    
+
     it "is valid with min attributes" do
       valid_angel = Factory.create(:angel)
       valid_angel.should be_valid
@@ -67,24 +69,31 @@ describe Angel do
     end
 
     context "language of messages" do
-      it "should have English errors" do
-        I18n.locale = :en
-        invalid_angel = Angel.create
-        invalid_angel.errors.messages.should == {
-          :first_name=>["can't be blank"],
-          :last_name=>["can't be blank"],
-          :email=>["can't be blank"],
-          :gender=>["must be selected"]}
+
+      context "en" do
+        before(:each) { I18n.locale = :en }
+
+        it "should have English errors" do
+          invalid_angel = Angel.create
+          invalid_angel.errors.messages.should == {
+              :first_name=>["can't be blank"],
+              :last_name=>["can't be blank"],
+              :email=>["can't be blank"],
+              :gender=>["must be selected"]}
+        end
       end
 
-      it "should have German errors" do
-        I18n.locale = :de
-        invalid_angel = Angel.create
-        invalid_angel.errors.messages.should == {
-          :first_name=>["muss ausgefüllt werden"],
-          :last_name=>["muss ausgefüllt werden"],
-          :email=>["muss ausgefüllt werden"],
-          :gender=>["muss ausgewählt werden"]}
+      context "de" do
+        before(:each) { I18n.locale = :de }
+
+        it "should have German errors" do
+          invalid_angel = Angel.create
+          invalid_angel.errors.messages.should == {
+              :first_name=>["muss ausgefüllt werden"],
+              :last_name=>["muss ausgefüllt werden"],
+              :email=>["muss ausgefüllt werden"],
+              :gender=>["muss ausgewählt werden"]}
+        end
       end
     end
   end
@@ -95,7 +104,7 @@ describe Angel do
                                  :last_name => '  Park   	',
                                  :email => ' MikeP@Quake.Net  ')
     }
-    
+
     it "should have a display_name" do
       angel.display_name.should == "Park, Mike - Berlin"
     end
@@ -165,7 +174,7 @@ describe Angel do
       angel.registrations.count.should == 1
     end
   end
-  
+
 
   context "highest level" do
     it "should match the highest completed level" do
@@ -193,7 +202,7 @@ describe Angel do
 
       angel.highest_level.should == 3
       Angel.find(angel.id).highest_level.should == 3
-      
+
       other_angel.highest_level.should == 5
       Angel.find(other_angel.id).highest_level.should == 5
     end
@@ -276,3 +285,30 @@ describe Angel do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: angels
+#
+#  id            :integer         primary key
+#  display_name  :string(255)     not null
+#  first_name    :string(255)
+#  last_name     :string(255)     not null
+#  gender        :string(255)     not null
+#  address       :string(255)
+#  postal_code   :string(255)
+#  city          :string(255)
+#  country       :string(255)
+#  email         :string(255)     not null
+#  home_phone    :string(255)
+#  mobile_phone  :string(255)
+#  work_phone    :string(255)
+#  lang          :string(255)
+#  notes         :text
+#  created_at    :timestamp
+#  updated_at    :timestamp
+#  highest_level :integer         default(0)
+#  lat           :float
+#  lng           :float
+#
+

@@ -1,0 +1,12 @@
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Count of events
+      %th
+  %tbody
+    - email_names.each do |email_name|
+      %tr{:class => cycle(:odd, :even)}
+        %td= email_name.name
+        %td= email_name.events.size
+        %td= link_to_show(office_site_defaults_email_name_path(email_name))

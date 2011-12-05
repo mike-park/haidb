@@ -1,5 +1,30 @@
 module Office::NavigationHelper
 
+  def email_name_navigation
+    tabs = []
+    tabs << ['Keys',
+             :controller => '/office/site_defaults',
+             :action => :index]
+    tabs << ['Emails', :index]
+    tabs
+  end
+
+  def site_default_submodule_breadcrumbs
+    crumbs =  build_breadcrumbs(build_site_default_breadcrumbs(nil), :index)
+    crumbs
+  end
+
+  def site_defaults_navigation
+    tabs = []
+    tabs << ['Keys',
+             :controller => 'site_defaults',
+             :action => :index]
+    tabs << ['Emails',
+             :controller => '/office/site_defaults/email_names',
+             :action => :index]
+    tabs
+  end
+
   def build_site_default_breadcrumbs(site_default)
     BreadCrumbBuilder.new(site_default) do |b|
       b.add :index, 'Site Defaults', office_site_defaults_path

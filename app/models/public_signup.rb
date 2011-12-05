@@ -1,15 +1,3 @@
-# == Schema Information
-# Schema version: 20110320131630
-#
-# Table name: public_signups
-#
-#  id          :integer         primary key
-#  ip_addr     :string(255)
-#  created_at  :timestamp
-#  updated_at  :timestamp
-#  approved_at :timestamp
-#
-
 class PublicSignup < ActiveRecord::Base
   acts_as_audited
 
@@ -60,3 +48,16 @@ class PublicSignup < ActiveRecord::Base
     full_name
   end
 end
+
+# == Schema Information
+#
+# Table name: public_signups
+#
+#  id          :integer         primary key
+#  ip_addr     :string(255)
+#  created_at  :timestamp
+#  updated_at  :timestamp
+#  approved_at :timestamp
+#  status      :string(255)     default("pending")
+#
+

@@ -1,5 +1,13 @@
+class Staff < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable, :lockable and :timeoutable
+  devise :database_authenticatable, :rememberable, :trackable, :validatable
+
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me
+end
+
 # == Schema Information
-# Schema version: 20110320131630
 #
 # Table name: staffs
 #
@@ -17,14 +25,6 @@
 #  last_sign_in_ip      :string(255)
 #  created_at           :timestamp
 #  updated_at           :timestamp
-#  super_user           :boolean
+#  super_user           :boolean         default(FALSE)
 #
 
-class Staff < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable, :lockable and :timeoutable
-  devise :database_authenticatable, :rememberable, :trackable, :validatable
-
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-end

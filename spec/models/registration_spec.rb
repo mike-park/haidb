@@ -99,22 +99,26 @@ describe Registration do
     end
 
     context "language of messages" do
-      it "should have English errors" do
-        I18n.locale = :en
-        invalid_registration = Registration.create
-        invalid_registration.errors.messages.should == {
-          :angel=>["can't be blank"],
-          :event=>["must be selected"]
-        }
+      context "en" do
+        before(:each) { I18n.locale = :en }
+        it "should have English errors" do
+          invalid_registration = Registration.create
+          invalid_registration.errors.messages.should == {
+              :angel=>["can't be blank"],
+              :event=>["must be selected"]
+          }
+        end
       end
 
-      it "should have German errors" do
-        I18n.locale = :de
-        invalid_registration = Registration.create
-        invalid_registration.errors.messages.should == {
-          :angel=>["muss ausgefüllt werden"],
-          :event=>["muss ausgewählt werden"]
-        }
+      context "de" do
+        before(:each) { I18n.locale = :de }
+        it "should have German errors" do
+          invalid_registration = Registration.create
+          invalid_registration.errors.messages.should == {
+              :angel=>["muss ausgefüllt werden"],
+              :event=>["muss ausgewählt werden"]
+          }
+        end
       end
     end
   end
@@ -219,3 +223,36 @@ describe Registration do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: registrations
+#
+#  id                    :integer         primary key
+#  angel_id              :integer         not null
+#  event_id              :integer         not null
+#  role                  :string(255)     default("Participant"), not null
+#  special_diet          :boolean         default(FALSE)
+#  backjack_rental       :boolean         default(FALSE)
+#  sunday_stayover       :boolean         default(FALSE)
+#  sunday_meal           :boolean         default(FALSE)
+#  sunday_choice         :string(255)
+#  lift                  :string(255)
+#  payment_method        :string(255)     default("Direct")
+#  bank_account_nr       :string(255)
+#  bank_account_name     :string(255)
+#  bank_name             :string(255)
+#  bank_sort_code        :string(255)
+#  notes                 :text
+#  completed             :boolean         default(FALSE)
+#  checked_in            :boolean         default(FALSE)
+#  created_at            :timestamp
+#  updated_at            :timestamp
+#  public_signup_id      :integer
+#  approved              :boolean         default(FALSE)
+#  how_hear              :string(255)
+#  previous_event        :string(255)
+#  reg_fee_received      :boolean
+#  clothing_conversation :boolean
+#
+

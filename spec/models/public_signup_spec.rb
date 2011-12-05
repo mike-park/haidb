@@ -8,14 +8,14 @@ describe PublicSignup do
       Registration.count.should == 0
       Angel.count.should == 0
     end
-    
+
     it "has one after adding one" do
       Factory.create(:public_signup)
       PublicSignup.count.should == 1
       Registration.count.should == 1
       Angel.count.should == 1
     end
-    
+
     it "has none after one was created in a previous example" do
       PublicSignup.count.should == 0
       Registration.count.should == 0
@@ -55,23 +55,25 @@ describe PublicSignup do
     end
 
     context "language of messages" do
-      it "should have English errors" do
-        I18n.locale = :en
-        invalid_public_signup = PublicSignup.create(:terms_and_conditions => false)
-        invalid_public_signup.errors.messages.should == {
-          :terms_and_conditions=>["must be accepted"]
-        }
+      context "en" do
+        before(:each) { I18n.locale = :en }
+        it "should have English errors" do
+          invalid_public_signup = PublicSignup.create(:terms_and_conditions => false)
+          invalid_public_signup.errors.messages.should == {
+              :terms_and_conditions=>["must be accepted"]
+          }
+        end
       end
-
-      it "should have German errors" do
-        I18n.locale = :de
-        invalid_public_signup = PublicSignup.create(:terms_and_conditions => false)
-        invalid_public_signup.errors.messages.should == {
-          :terms_and_conditions=>["muss akzeptiert werden"]
-        }
+      context "de" do
+        before(:each) { I18n.locale = :de }
+        it "should have German errors" do
+          invalid_public_signup = PublicSignup.create(:terms_and_conditions => false)
+          invalid_public_signup.errors.messages.should == {
+              :terms_and_conditions=>["muss akzeptiert werden"]
+          }
+        end
       end
     end
-    
   end
 
   context "#set_approved!" do
@@ -115,7 +117,7 @@ describe PublicSignup do
       ps.display_name.should be
     end
   end
-  
+
   context "record counts" do
     it "should destroy registration when public_signup is destroyed" do
       public_signup = Factory.create(:public_signup)
@@ -129,3 +131,16 @@ describe PublicSignup do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: public_signups
+#
+#  id          :integer         primary key
+#  ip_addr     :string(255)
+#  created_at  :timestamp
+#  updated_at  :timestamp
+#  approved_at :timestamp
+#  status      :string(255)     default("pending")
+#
+

@@ -54,6 +54,9 @@ gem 'prawn'
 # Office::RegistrationsController# (ActionView::Template::Error) "incompatible character encodings: ASCII-8BIT and US-ASCII"
 #gem "ekuseru"
 
+# template language for emails
+gem 'liquid'
+
 # audit tracking of model changes
 gem 'acts_as_audited'
 

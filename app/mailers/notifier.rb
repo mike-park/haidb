@@ -1,46 +1,76 @@
 class Notifier < ActionMailer::Base
+
+  attr_accessor :registration
+
   def public_signup_received(public_signup)
-    mail_for('public_signup_received', {
-               :person_name => public_signup.registration.full_name,
-               :event_name => public_signup.registration.event_name,
-               :to => public_signup.registration.email })
+    send_registration_email(EventEmail::SIGNUP, public_signup.registration)
   end
 
   def public_signup_waitlisted(public_signup)
-    mail_for('public_signup_waitlisted', {
-               :person_name => public_signup.registration.full_name,
-               :event_name => public_signup.registration.event_name,
-               :to => public_signup.registration.email })
+    send_registration_email(EventEmail::PENDING, public_signup.registration)
   end
 
   def registration_confirmed(registration)
-    mail_for('registration_confirmed', {
-               :person_name => registration.full_name,
-               :event_name => registration.event_name,
-               :to => registration.email })
+    send_registration_email(EventEmail::APPROVED, registration)
+  end
+
+  def send_registration_email(category, registration)
+    self.registration = registration
+
+    if template = email_template_of(category)
+      attr = mail_attributes
+      attr[:subject] = render_template(template.subject)
+      mail(attr) do |format|
+        format.text { render :text => render_template(template.body) }
+      end
+    else
+      puts "no email template found: [#{registration.event_name}, #{category}, #{locale}]"
+    end
   end
 
   private
 
-  def mail_for(action, attr)
-    subject = I18n.translate("email.#{action}.subject", attr)
-    body = I18n.translate("email.#{action}.body", attr)
-    mail(default_attributes.merge(:to => attr[:to],
-                                  :subject => subject)) do |format|
-      format.text { render :text => body }
-    end
+  def email_template_of(category)
+    registration.event.email(category, locale)
   end
-  
-  def default_attributes
-    { :from => from, :bcc => bcc }
+
+  def locale
+    registration.angel.lang || 'en'
   end
-  
+
+  def render_template(template)
+    Liquid::Template.parse(template).render(template_fields)
+  end
+
+  def template_fields
+    {
+        'person_name' => registration.full_name,
+        'event_name' => registration.event_name,
+    }
+  end
+
+  def mail_attributes
+    { :from => from, :bcc => bcc, to: to }
+  end
+
+  def to
+    registration.email
+  end
+
   def from
     "HAI Registrations <#{Site.from_email}>"
   end
   
   def bcc
-    [Site.from_email, "#{Site.name}-emails@t.quake.net"]
+    if Rails.env.development?
+      debug_address
+    else
+      [Site.from_email, "#{Site.name}-emails@t.quake.net"]
+    end
+  end
+
+  def debug_address
+    "haidb-testing@t.quake.net"
   end
 
 end
