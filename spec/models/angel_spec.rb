@@ -276,3 +276,30 @@ describe Angel do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: angels
+#
+#  id            :integer         primary key
+#  display_name  :string(255)     not null
+#  first_name    :string(255)
+#  last_name     :string(255)     not null
+#  gender        :string(255)     not null
+#  address       :string(255)
+#  postal_code   :string(255)
+#  city          :string(255)
+#  country       :string(255)
+#  email         :string(255)     not null
+#  home_phone    :string(255)
+#  mobile_phone  :string(255)
+#  work_phone    :string(255)
+#  lang          :string(255)
+#  notes         :text
+#  created_at    :timestamp
+#  updated_at    :timestamp
+#  highest_level :integer         default(0)
+#  lat           :float
+#  lng           :float
+#
+

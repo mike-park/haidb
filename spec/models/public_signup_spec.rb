@@ -129,3 +129,16 @@ describe PublicSignup do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: public_signups
+#
+#  id          :integer         primary key
+#  ip_addr     :string(255)
+#  created_at  :timestamp
+#  updated_at  :timestamp
+#  approved_at :timestamp
+#  status      :string(255)     default("pending")
+#
+
