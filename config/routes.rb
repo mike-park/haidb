@@ -4,7 +4,7 @@ Haidb::Application.routes.draw do
   filter :locale
 
   root :to => "public_signups#new"
-  
+
   # participant signup
   resources :public_signups, :only => [:new, :create]
 
@@ -51,7 +51,7 @@ Haidb::Application.routes.draw do
         put 'waitlist'
       end
     end
-    
+
     namespace :site_defaults do
       resources :email_names
     end

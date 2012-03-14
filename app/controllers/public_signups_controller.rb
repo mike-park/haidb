@@ -8,7 +8,7 @@ class PublicSignupsController < ApplicationController
     @public_signup = PublicSignup.new(params_with_nested_models)
     if @public_signup.save
       redirect_to Site.thankyou_url
-      Notifier.public_signup_received(@public_signup).deliver
+      @public_signup.send_email(EventEmail::SIGNUP)
     else
       # fixes bug where "0" (unchecked box value) gets rerendered as checked state
       unless @public_signup.terms_and_conditions == '1'

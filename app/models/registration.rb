@@ -88,7 +88,7 @@ class Registration < ActiveRecord::Base
   }
 
   delegate :level, :to => :event
-  delegate :full_name, :gender, :lang, :email, :to => :angel
+  delegate :full_name, :gender, :email, :to => :angel
   
   def event_name
     event.display_name
@@ -104,6 +104,21 @@ class Registration < ActiveRecord::Base
   def display_name
     "#{event_name} registration of #{full_name}"
   end
+
+  # return angel lang or default to 'en'
+  def lang
+    (angel && angel.lang) || 'en'
+  end
+
+  def send_email(type)
+    template = event.email(type, lang)
+    if template
+      Notifier.registration_with_template(self, template).deliver
+    else
+      logger.warn "no email template found: [#{event_name}, #{type}, #{lang}]"
+    end
+  end
+
 
   private
 

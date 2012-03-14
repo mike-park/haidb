@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :event do
-    category Event::LIS
+    category 'HAI LIS Workshop'
     start_date Date.today
     display_name { "Level 1: #{start_date}" }
   end
@@ -40,7 +40,7 @@ FactoryGirl.define do
   end
 
   factory :event_email do
-    category EventEmail::CATEGORIES.first
+    category 'Signup'
     event
     email_name
   end
@@ -53,7 +53,7 @@ FactoryGirl.define do
     first_name 'Mike'
     last_name 'Park'
     email 'mikep@quake.net'
-    gender Angel::MALE
+    gender 'Male'
   end
   
   factory :full_angel, :parent => :angel do
@@ -92,9 +92,9 @@ FactoryGirl.define do
     backjack_rental true
     sunday_stayover true
     sunday_meal true
-    sunday_choice Registration::STAYOVER
-    lift Registration::REQUESTED
-    payment_method Registration::INTERNET
+    sunday_choice 'Stayover'
+    lift 'Requested'
+    payment_method 'Internet'
     bank_account_nr '123 456 789'
     bank_account_name 'Mike Park'
     bank_name 'Sparkasse Berlin'

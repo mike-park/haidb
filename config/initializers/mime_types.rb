@@ -5,4 +5,3 @@
 # Mime::Type.register_alias "text/html", :iphone
 
 Mime::Type.register "text/x-vcard", :vcard
-Mime::Type.register "application/pdf", :pdf

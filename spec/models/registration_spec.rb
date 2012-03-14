@@ -9,7 +9,7 @@ describe Registration do
       default_registration.payment_method.should == Registration::DIRECT
       default_registration.should_not be_approved
     end
-    
+
     it "is valid with min attributes" do
       valid_registration = Factory.create(:registration)
       valid_registration.should be_valid
@@ -33,12 +33,12 @@ describe Registration do
         in_valid_registration.should_not be_valid
       end
     end
-    
+
     it "is valid with each item in each list" do
       lists = {
-        :role => Registration::ROLES,
-        :lift => Registration::LIFTS,
-        :sunday_choice => Registration::SUNDAY_CHOICES
+          :role => Registration::ROLES,
+          :lift => Registration::LIFTS,
+          :sunday_choice => Registration::SUNDAY_CHOICES
       }
       lists.each do |field, values|
         values.each do |value|
@@ -61,7 +61,7 @@ describe Registration do
         valid_registration.payment_method.should == method
       end
     end
-    
+
     it "should be invalid without payment fields when type internet" do
       in_valid_registration = Factory.build(:registration, :payment_method => Registration::INTERNET)
       in_valid_registration.should_not be_valid
@@ -74,10 +74,10 @@ describe Registration do
                                           :event => first_registration.event)
       second_registration.should_not be_valid
       second_registration.errors.messages.should == {
-        :angel_id=>["already registered for this event"]
+          :angel_id=>["already registered for this event"]
       }
     end
-    
+
     it "should accept nested attributes for angel" do
       angel = Factory.build(:angel)
       registration = Registration.new(:angel_attributes => Factory.attributes_for(:angel))
@@ -152,10 +152,10 @@ describe Registration do
       r1 = Factory.create(:registration)
       Registration.highest_completed_level.should == 0
     end
-    
+
   end
-  
-  
+
+
   context "scopes" do
     it "should return them in first name order" do
       r1 = Factory.create(:registration, :angel => Factory.build(:angel, :first_name => 'Z'))
@@ -222,6 +222,28 @@ describe Registration do
       PublicSignup.should have(:no).records
     end
   end
+
+  context "emails" do
+    let(:registration) { FactoryGirl.create(:registration) }
+    context "lang" do
+      it "should return the angel lang" do
+        registration.lang.should == registration.angel.lang
+      end
+      it "should default to en lang" do
+        registration.angel.lang = nil
+        registration.lang.should == 'en'
+      end
+    end
+
+    it "should send registration email" do
+      email_template = double('email_template')
+      registration.event.should_receive(:email).with(EventEmail::SIGNUP, registration.lang).and_return(email_template)
+      email_msg = double('email_msg').as_null_object
+      Notifier.should_receive(:registration_with_template).with(registration, email_template).and_return(email_msg)
+      registration.send_email(EventEmail::SIGNUP)
+    end
+  end
+
 end
 
 # == Schema Information

@@ -1,21 +1,21 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem "rake"
 gem 'rack'
-gem "rails", "3.1.3"
+gem "rails", "3.2.2"
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "  ~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
-  gem 'uglifier'
+  gem 'sass-rails', "  ~> 3.2.3"
+  gem 'coffee-rails', "~> 3.2.1"
+  gem 'uglifier', '>= 1.0.3'
 end
 
 gem 'jquery-rails'
 
 # these add generators that help
-gem 'haml-rails'
+gem 'haml', '>= 3.1.4'
 
 # form helpers
 gem 'formtastic'
@@ -67,29 +67,29 @@ gem 'hoptoad_notifier'
 gem 'fast_gettext', :git => 'git://github.com/grosser/fast_gettext.git'
 gem 'gettext_i18n_rails', :git => 'git://github.com/grosser/gettext_i18n_rails.git'
 
-gem "will_paginate", "~> 3.0.pre2"
+gem "will_paginate"
 
 group :development, :test do
   gem 'sqlite3'
   gem 'annotate'
   gem 'awesome_print'
-  
-  gem 'rspec', '~> 2.6.0'
-  gem 'rspec-rails', '~> 2.6.1'
-  gem 'factory_girl_rails', '~> 1.1.rc1', :require => false
-  gem 'spork', '~> 0.9.0.rc9'
-  gem "autotest", "~> 4.4.6"
-  gem "autotest-rails-pure", "~> 4.1.2"
-  gem "autotest-fsevent", "~> 0.2.5"
-  gem "autotest-growl", "~> 0.2.9"
+  gem 'haml-rails'
+
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'spork-rails'
+#  gem "autotest", "~> 4.4.6"
+#  gem "autotest-rails-pure", "~> 4.1.2"
+#  gem "autotest-fsevent", "~> 0.2.5"
+#  gem "autotest-growl", "~> 0.2.9"
 
   # capybara causes rack 1.2.3 to generate warnings
   # rack-1.2.3/lib/rack/utils.rb:16: warning: regexp match /.../n against to UTF-8 string
   # See https://github.com/jnicklas/capybara/issues/243
   # problem fixed with latest rack (which as of 7/7/11 not available for
   # rails 3.0.9
-  gem "capybara", "~> 1.0.0"
-  gem "launchy", "~> 2.0.5"
+  gem "capybara"
+  gem "launchy"
 end
 
 group :production do

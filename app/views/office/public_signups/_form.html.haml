@@ -20,7 +20,7 @@
     = render 'office/registrations/fields_requests', :form => r
     = render 'office/registrations/field_note', :form => r
     
-  = f.buttons do
-    = f.commit_button
+  = f.actions do
+    = f.action :submit
     or #{link_to('Cancel', [:office,public_signup])}
 

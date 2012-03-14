@@ -50,22 +50,19 @@ describe PublicSignupsController do
     end
 
     context "a valid signup" do
-      let(:public_signup) {  mock_model(PublicSignup).as_null_object }
+      let(:public_signup) {  double("PublicSignup").as_null_object }
       before(:each) do
         public_signup.stub(:save).and_return(true)
         PublicSignup.stub(:new).and_return(public_signup)
       end
 
       it "should redirect_to site specific url" do
-        Notifier.stub(:public_signup_received).and_return(double("email").as_null_object)
         post :create
         response.should redirect_to(Site.thankyou_url)
       end
 
       it "should send notification email" do
-        notifier = mock(Notifier)
-        notifier.stub(:deliver)
-        Notifier.should_receive(:public_signup_received).with(public_signup).and_return(notifier)
+        public_signup.should_receive(:send_email).with(EventEmail::SIGNUP)
         post :create
       end
     end
@@ -77,10 +74,8 @@ describe PublicSignupsController do
       end
 
       it "should not send notification email" do
-        notifier = mock(Notifier)
-        notifier.stub(:deliver)
-        Notifier.should_not_receive(:public_signup_received)
         post :create
+        ActionMailer::Base.deliveries.count.should == 0
       end
 
       context "language of messages" do
