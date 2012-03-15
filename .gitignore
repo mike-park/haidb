@@ -7,3 +7,4 @@ TAGS
 .sass-cache
 .powenv
 .idea/
+.bundle/
