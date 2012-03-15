@@ -18,12 +18,6 @@ GIT
     activo-rails (1.0.1)
 
 GIT
-  remote: git://github.com/mikepinde/carmen.git
-  revision: c55dd56e7e86e817c96001d34dd0bbc73318e04f
-  specs:
-    carmen (0.2.4)
-
-GIT
   remote: git://github.com/mikepinde/geocoder.git
   revision: 52a81dc80bfa3d45fa64ad73225656a4332f7f20
   specs:
@@ -89,6 +83,7 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    carmen (0.2.13)
     childprocess (0.3.1)
       ffi (~> 1.0.6)
     coffee-rails (3.2.2)
@@ -244,7 +239,7 @@ DEPENDENCIES
   attrtastic
   awesome_print
   capybara
-  carmen!
+  carmen (~> 0.2.13)
   coffee-rails (~> 3.2.1)
   devise (~> 1.4.2)
   factory_girl_rails

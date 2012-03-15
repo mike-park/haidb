@@ -45,7 +45,7 @@ gem 'vcard'
 gem "geocoder", :git => 'git://github.com/mikepinde/geocoder.git'
 #gem "geocoder", :path => "~/src/ruby/git/geocoder"
 # country select list
-gem 'carmen', :git => 'git://github.com/mikepinde/carmen.git'
+gem 'carmen', "~> 0.2.13" #, :git => 'git://github.com/mikepinde/carmen.git'
 # pdf export
 gem 'prawn'
 
