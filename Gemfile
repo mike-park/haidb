@@ -3,7 +3,8 @@ source 'https://rubygems.org'
 gem "rake"
 gem 'rack'
 gem "rails", "3.2.2"
-gem 'thin'
+gem 'thin'            # web server (heroku recommended
+gem 'newrelic_rpm'    # performance monitoring
 
 # Gems used only for assets and not required
 # in production environments by default.
