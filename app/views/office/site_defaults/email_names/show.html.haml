@@ -1,24 +1,18 @@
 .block
-  = block_navigation(email_name_navigation << "#{email_name.name}")
-
   .content
     = controls do |c|
       - add_button_to(c, :edit)
       - add_button_to(c, :delete)
 
-    %h2 #{email_name.name} email
+    %h2 #{email_name.name} Template
 
-    .inner
-      = render 'email_name', email_name: email_name
+    = render 'email_name', email_name: email_name
 
   .content
     %h2
 
-    .inner
-      - if email_name.events.size > 0
-        %h3 Used by #{pluralize(email_name.events.size, 'event')}
-        = render 'events', :events => email_name.events
-      - else
-        %h3 Not used by any events.
-
-  = block_footer(site_default_submodule_breadcrumbs)
+    - if email_name.events.size > 0
+      %h3 Used by #{pluralize(email_name.events.size, 'event')}
+      = render 'events', :events => email_name.events
+    - else
+      %h3 Not used by any events.

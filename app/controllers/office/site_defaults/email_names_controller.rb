@@ -46,7 +46,6 @@ private
     @email_name ||= EmailName.find_by_id(params['id'])
   end
   helper_method :email_name
-  hide_action :email_name
 
   def find_email_name
     unless email_name

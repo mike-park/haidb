@@ -1,17 +1,22 @@
-%table.table
+%table.table.table-striped
   %thead
     %tr
       %th= sort_link @search, :first_name, 'Name'
       %th= sort_link @search, :email
       %th= sort_link @search, :city, 'Address'
       %th= sort_link @search, :home_phone, 'Phones'
-      %th
+      %th= sort_link @search, :highest_level
+
   %tbody
     - angels.each do |a|
-      %tr{:class => cycle(:odd, :even)}
-        %td= a.full_name
+      %tr
+        %td= link_to_show(office_angel_path(a), a.full_name)
         %td= a.email
         %td= compact_address(a)
         %td= compact_phones(a)
-        %td= link_to_show(office_angel_path(a))
-= render 'office/shared/table_options', :table => angels, :search => :first_name_or_last_name_or_email_or_city_or_country_or_postal_code_contains
+        %td= a.highest_level
+
+
+= render 'filter'
+
+= render 'office/shared/table_options', :table => angels

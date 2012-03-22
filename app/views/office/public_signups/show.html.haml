@@ -1,6 +1,4 @@
 .block
-  = block_navigation("Registration Request of #{public_signup.full_name}")
-
   .content
     - if public_signup.approved?
       = controls do |c|
@@ -11,23 +9,19 @@
         - add_button_to(c, :edit)
 
       = controls do |c|
-        - c.item 'Approve', url_for(:action => :approve), :icon => 'tick', :method => :put
+        - add_button_to(c, :approve, :action => :approve, :icon => 'ok', :method => :put)
         - if !public_signup.waitlisted?
-          - c.item 'Waitlist', url_for(:action => :waitlist), :icon => 'clock_pause', :method => :put
+          - add_button_to(c, :waitlist, :action => :waitlist, :icon => 'time', :method => :put)
 
+    %h3
+      Registration request for #{public_signup.event_name}
 
-    .inner
-      %h3
-        Registration request for #{public_signup.event_name}
+    - if public_signup.approved?
+      %p Request approved #{time_ago_in_words(public_signup.approved_at)} ago.
+    - else
+      %p
+        #{public_signup.registration.role} request by
+        #{public_signup.full_name} for
+        #{public_signup.event_name}.  Do you approved?
 
-      - if public_signup.approved?
-        %p Request approved #{time_ago_in_words(public_signup.approved_at)} ago.
-      - else
-        %p
-          #{public_signup.registration.role} request by
-          #{public_signup.full_name} for
-          #{public_signup.event_name}.  Do you approved?
-
-      = render 'public_signup', :public_signup => public_signup
-
-  = block_footer(public_signup_breadcrumbs)
+    = render 'public_signup', :public_signup => public_signup

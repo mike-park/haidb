@@ -1,0 +1,7 @@
+= content_for :secondary_navigation do
+  %ul.nav.nav-list
+    %li.nav-header Public Signups
+    %li= link_to_new(new_public_signup_path, "New Public Signup")
+    %li= link_to(icon('icon-question-sign') + "Pending", office_public_signups_path)
+    %li= link_to(icon('icon-time') + "Wait listed", waitlisted_office_public_signups_path)
+    %li= link_to(icon('icon-ok') + "Approved", approved_office_public_signups_path)

@@ -1,13 +1,23 @@
 - r = registration
 - if r.payment_method.present? && Site.de?
-  = semantic_attributes_for r do |attr|
-    = attr.attributes :html => {:class => :column} do
-      = attr.attribute :payment_method
-    - if r.payment_method == Registration::INTERNET
-      = attr.attributes :html => {:class => :column} do
-        = attr.attribute :label => 'Account Name & Number' do
-          = "#{r.bank_account_name} / #{r.bank_account_nr}"
-      = attr.attributes :html => {:class => :column} do
-        = attr.attribute :label => 'Bank Name & BLZ' do
-          = "#{r.bank_name} / #{r.bank_sort_code}"
-.wat-cf
+  %table.table.table-key-values
+    %caption
+      %h6 Payment Information
+    %tbody
+      %tr
+        %th Method
+        %td= r.payment_method
+      - if r.payment_method == Registration::INTERNET
+        %tr
+          %th Account Name
+          %td= r.bank_account_name
+        %tr
+          %th Account Number
+          %td= r.bank_account_nr
+        %tr
+          %th Bank Name
+          %td= r.bank_name
+        %tr
+          %th Bank BLZ
+          %td= r.bank_sort_code
+

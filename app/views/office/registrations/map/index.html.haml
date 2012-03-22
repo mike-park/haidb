@@ -1,7 +1,3 @@
 .block
-  = block_navigation(pre_event_navigation)
-
   = render '/office/shared/map', :map => @map, :height => '500px'
   = render 'search'
-
-  = block_footer(['Map'])

@@ -1,16 +1,12 @@
 class Office::AngelsController < Office::ApplicationController
-  before_filter :find_angel, :except => [:index, :level, :map, :map_info, :new, :create]
+  before_filter :find_angel, :except => [:index, :map, :map_info, :new, :create]
 
   def index
-    find_angels(5, 'updated_at.desc')
-  end
-
-  def level
-    find_angels(10, 'first_name.asc')
+    find_angels(10, 'updated_at.desc')
   end
 
   def map
-    params[:search] ||= {}
+    params[:search] ||= params[:id] ? {id_eq: params[:id]} : {}
     @search = Angel.geocoded.search(params[:search])
 
     @map = Cartographer::Gmap.new( 'map', :debug => true )
@@ -54,7 +50,7 @@ class Office::AngelsController < Office::ApplicationController
   def show
     respond_to do |format|
       format.html
-      format.vcard { send_data angel.to_vcard, :filename => 'contact.vcf', :type => :vcard }
+      format.vcard { send_data angel.to_vcard, :filename => "#{angel.full_name}.vcf", :type => :vcard }
     end
   end
 
@@ -104,12 +100,9 @@ class Office::AngelsController < Office::ApplicationController
     @angels
   end
   helper_method :angels
-  hide_action :angels
 
   def registrations
     @registrations ||= angel.registrations.ok.by_start_date
   end
   helper_method :registrations
-  hide_action :registrations
-  
 end

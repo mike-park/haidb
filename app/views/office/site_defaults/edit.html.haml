@@ -1,6 +1,4 @@
 .block
-  = block_navigation("Edit #{site_default.display_name}")
-
   .content
     - if super_user?
       = controls do |c|
@@ -8,7 +6,4 @@
 
     %h2 Editing key #{site_default.display_name}
 
-    .inner
-      = render 'form'
-
-  = block_footer(site_default_breadcrumbs)
+    = render 'form'

@@ -1,10 +1,6 @@
-= semantic_form_for([:office, angel]) do |f|
-  = f.semantic_errors
+= simple_form_for([:office, angel], html: {class: 'form-horizontal'}) do |f|
   = render 'fields', :f => f
-  .wat-cf
-  = f.inputs :class => :column_left do 
-    = f.input :highest_level, :as => :numeric
-  .wat-cf
-  = f.inputs do
-    = f.input :notes, :input_html => {:cols => 25, :rows => 3} 
-  = f.actions
+  = f.input :highest_level
+  = f.input :notes, :input_html => {:cols => 25, :rows => 3}
+  .form-actions
+    = f.button :submit, class: 'btn-primary'

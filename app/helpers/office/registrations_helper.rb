@@ -10,10 +10,18 @@ module Office::RegistrationsHelper
     { :label => false, :input_html => {:cols => nil, :rows => 5} }
   end
 
+  # HACK ALERT! this assumes simple_form
   def options_for_signup_events_select(form)
     { :as => :select, :prompt => I18n.t(:'enums.select'),
-      :collection => form.object.new_record? ? Event.upcoming :
-      Event.with_oldest_last
+      :collection => form.object.new_record? ? Event.upcoming : Event.with_oldest_last,
+      label_method: :display_name, value_method: :id
+    }
+  end
+
+  # HACK ALERT! this assumes formtastic.
+  def options_for_public_signup_events_select(form)
+    { :as => :select, :prompt => I18n.t(:'enums.select'),
+      :collection => Event.upcoming
     }
   end
 
@@ -103,5 +111,9 @@ module Office::RegistrationsHelper
       :as => :select,
       :prompt => 'Select ...',
       :collection => Registration::PREVIOUS_EVENT }
+  end
+
+  def color_dot(state)
+    content_tag(:span, "", class: "dot dot-#{state ? 'green' : 'red'}")
   end
 end

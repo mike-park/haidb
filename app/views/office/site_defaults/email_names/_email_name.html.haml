@@ -1,15 +1,15 @@
-= semantic_attributes_for email_name do |attr|
-  = attr.attributes do
-    = attr.attribute :name
-
 - email_name.emails.each do |email|
-  = semantic_attributes_for email do |attr|
-    = attr.attributes do
-      = attr.attribute :locale
-      = attr.attribute :subject
-      = attr.attribute :body
-
-  .wat-cf
+  %table.table.table-key-values.table-striped
+    %tbody
+      %tr
+        %th Locale
+        %td= email.locale
+      %tr
+        %th Subject
+        %td= email.subject
+      %tr
+        %th Body
+        %td= email.body
 
   - if email.audits.any?
     = render 'office/shared/audits', :audits => email.audits.descending

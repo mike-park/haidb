@@ -1,35 +1,26 @@
-= semantic_form_for [:office, parent, registration] do |r|
+= simple_form_for [:office, parent, registration], html: {class: 'form-horizontal'} do |r|
   -if registration.errors.any?
     #error_explanation
       %h3= "#{pluralize(registration.errors.count, "error")} prohibited this registration from being saved"
 
-  = r.semantic_errors(:angel_id, :event_id)
-  = r.inputs :class => 'column_left' do
-    - if have_event?
-      = r.input :angel, options_for_angel_select(r)
-    - else
-      = r.input :event, options_for_signup_events_select(r)
-  = r.inputs :class => :column_right do
-    = r.input :role, options_for_role(r)
-  .wat-cf
+  - if have_event?
+    = r.association :angel, options_for_angel_select(r)
+  - else
+    = r.association :event, options_for_signup_events_select(r)
+  = r.input :role, options_for_role(r)
 
   = render('office/registrations/fields_payment', :form => r) if Site.de?
   = render 'office/registrations/fields_requests', :form => r
   = render 'office/registrations/field_note', :form => r
     
   - if Site.uk?
-    = r.inputs :class => :column do
-      = r.input :clothing_conversation
-    = r.inputs :class => :column do
-      = r.input :reg_fee_received
+    = r.input :clothing_conversation
+    = r.input :reg_fee_received
 
-  = r.inputs :class => :column do
-    = r.input :checked_in
-  = r.inputs :class => :column do
-    = r.input :completed
-  .wat-cf
+  = r.input :checked_in
+  = r.input :completed
 
-  = r.actions do
-    = r.action :submit
+  .form-actions
+    = r.button :submit, class: 'btn-primary'
 
 

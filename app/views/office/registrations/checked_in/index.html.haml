@@ -1,16 +1,10 @@
 .block
-  = block_navigation(pre_event_navigation)
-
   .content
 
-    %h2 #{event.display_name} checked in Angels
+    %h2 #{event.display_name} Checked in Angels
 
-    .inner
-      %p
-        Click the header links to mark all angels, or click the toggle button
-        to change the status of a single angel.
+    %p
+      Click the header links to mark all angels, or click the toggle button
+      to change the status of a single angel.
 
-      #checked_in
-        = render 'registrations', :registrations => registrations
-
-  = block_footer(registration_submodule_breadcrumbs << ['Checked In'])
+    = render 'registrations', :registrations => registrations

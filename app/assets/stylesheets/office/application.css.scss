@@ -1,0 +1,76 @@
+// bootstrap configured jquery-ui theme
+@import 'jquery-ui-1.8.16.custom.css';
+@import 'bootstrap';
+@import 'bootstrap-responsive';
+
+body {
+  background-color: #eee;
+}
+
+.block {
+  @include border-radius();
+  @include box-shadow();
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+.content {
+  padding: 10px;
+  @include clearfix();
+}
+
+.action-buttons {
+  float: right;
+  a { margin-left: 10px; }
+}
+
+.counts {
+  float: left;
+  text-align: center;
+  margin-right: 10px;
+  th, td {
+    text-align: center;
+    background-color: #f5f5f5;
+  }
+}
+
+.table-key-values {
+  caption { text-align: left; }
+  th { @include tableColumns(2); }
+}
+
+/*=============== collapsible blocks */
+*[data-collapsible] {
+  cursor: pointer;
+  &:before { content: '►'; }
+  &:hover { background-color: #eee; }
+  &.active {
+    &:before { content: '▼'; }
+  }
+}
+
+.form-filter {
+  div { display: inline-block; }
+}
+
+.table {
+  .name { white-space: nowrap; max-width: 100px; overflow: hidden; }
+  .notes { max-width: 200px; }
+  .qty { text-align: right; }
+  .center {text-align: center; }
+}
+
+.table-toggler {
+  td.green { background-color: green; }
+  td.red { background-color: red; }
+  td { border-bottom: 1px solid #eaeaea; }
+  form { margin: 0; }
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+.dot-green { background-color: green; }
+.dot-red { background-color: red; }

@@ -1,20 +1,4 @@
 .block
-  = block_navigation(registration_navigation)
-
   .content
-    = controls do |c|
-      - add_button_to(c, 'Add registration')
-
-    = controls do |c|
-      - add_button_to(c, "VCards", params.merge(:format => :vcard, :icon => 'vcard'))
-      - add_button_to(c, "CSV", params.merge(:format => :csv, :icon => 'page_excel'))
-
-
-    %h2
-      #{pluralize(registrations.count, 'registration')}
-      for #{parent.display_name}
-
-    .inner
-      = render 'registrations', :registrations => registrations if registrations.any?
-
-  = block_footer(registration_breadcrumbs)
+    %h2 #{event.display_name} Attendance
+    = render 'list_type', list: 'attendance_list', registrations: registrations

@@ -1,10 +1,5 @@
 .block
-  = block_navigation(email_name_navigation << "New Email")
-
   .content
     %h2 New Email
 
-    .inner
-      = render 'form', email_name: email_name
-
-  = block_footer(site_default_submodule_breadcrumbs)
+    = render 'form', email_name: email_name

@@ -1,33 +1,20 @@
 .block
-  = block_navigation("Show Angel #{angel.full_name}")
-
   .content
     = controls do |c|
       - add_button_to(c, :edit)
       - add_button_to(c, :delete)
 
-    = controls do |c|
-      - add_button_to(c, "Map", params.merge(:search => { :id_eq => angel.id }, :action => :map, :icon => 'map_magnify'))
-      - add_button_to(c, "VCard", params.merge(:format => :vcard, :icon => 'vcard'))
-
     %h2 Details for #{angel.display_name}
 
-    .inner
-      = render 'angel', :angel => angel, :show_highest_level => true
-      - if angel.audits.any?
-        = render 'office/shared/audits', :audits => angel.audits.descending
+    = render 'angel', :angel => angel, :show_highest_level => true
+    = render 'office/shared/audits', :audits => angel.audits.descending if angel.audits.any?
 
   .content
     = controls do |c|
       - add_button_to(c, 'Add registration', :angel_id => angel, :controller => :registrations)
 
-    %h2
-
-    .inner
-      - if registrations.count > 0
-        %h3 Registered for #{pluralize(registrations.count, 'event')}
-        = render 'registrations', :registrations => registrations
-      - else
-        %h3 Not registered for any events.
-
-  = block_footer(angel_breadcrumbs)
+    - if registrations.count > 0
+      %h3 Registered for #{pluralize(registrations.count, 'event')}
+      = render 'registrations', :registrations => registrations
+    - else
+      %h3 Not registered for any events.

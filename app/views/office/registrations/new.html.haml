@@ -1,10 +1,5 @@
 .block
-  = block_navigation(["New Registration for #{parent.display_name}"])
-
   .content
     %h2 New registration for #{parent.display_name}
 
-    .inner
-      = render 'form'
-
-  = block_footer(registration_breadcrumbs)
+    = render 'form'

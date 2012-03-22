@@ -11,20 +11,6 @@ module ApplicationHelper
     options_for_select(list, rows)
   end
 
-  # redundent when we use metasearch
-  def XXXsort_link_to(label, args = {})
-    label = label.to_s
-    prev_order = params[:sord] || 'asc'
-    curr_order = nil
-    if params[:sidx] && params[:sidx] == label
-      curr_order = prev_order == 'asc' ? 'desc' : 'asc'
-    end
-
-    args.merge!(:sidx => label, :q => params[:q], :sord => curr_order,
-                :rows => params[:rows])
-    link_to(new_label(label, curr_order), url_for(args))
-  end
-
   def map_address(addr, options = {})
     q = addr.gsub("\n", ",")
     options[:tag] ||= :a
@@ -50,23 +36,26 @@ module ApplicationHelper
 
   # generate edit link with icon
   def link_to_edit(path)
-    link_to icon(:pencil, :small, :alt => 'Edit'), path
+    link_to icon('icon-edit'), path, title: 'Edit this record'
   end
 
   # show link with icon
-  def link_to_show(path)
-    link_to icon(:magnifier, :small, :alt => 'Show'), path
+  def link_to_show(path, message = "".html_safe)
+    link_to icon('icon-zoom-in') + message, path, title: 'Show more information'
   end
 
-  # show link with icon
-  def link_to_new(path)
-    link_to icon(:add, :small, :alt => 'Add'), path
+  # new link with icon
+  def link_to_new(path, message = "".html_safe)
+    link_to icon('icon-plus-sign') + message, path, title: 'Create a new record'
   end
 
   # destroy link with icon
   def link_to_destroy(path)
-    link_to icon(:delete, :small, :alt => 'Delete'), path, 
-    :confirm => 'Are you sure?', :method => :delete
+    link_to icon('icon-remove-sign'), path, :confirm => 'Are you sure?', :method => :delete, title: 'Delete this record'
+  end
+
+  def link_to_registrations(path)
+    link_to icon('icon-user'), path, title: 'Show registrations'
   end
 
   # return object model name. ie Angel object => 'angel'

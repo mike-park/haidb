@@ -1,26 +1,21 @@
-= semantic_form_for [:office, public_signup] do |f|
+= simple_form_for [:office, public_signup], html: {class: 'form-horizontal'} do |f|
   -if public_signup.errors.any?
     #error_explanation
       %h2
-        #{pluralize(public_signup.errors.count, "error")} prohibited this 
-        registration from being saved
+        #{pluralize(public_signup.errors.count, "error")} prohibited this registration from being saved
 
-  = f.semantic_fields_for :registration do |r|
-    = r.inputs :class => :column_left do
-      = r.input :event, options_for_signup_events_select(r)
-    = r.inputs :class => :column_right do
-      = r.input :role, options_for_role(r)
+  = f.simple_fields_for :registration do |r|
+    = r.association :event, options_for_signup_events_select(r)
+    = r.input :role, options_for_role(r)
 
-    = r.semantic_fields_for :angel do |a|
+    = r.simple_fields_for :angel do |a|
       = render 'office/angels/fields', :f => a
-
-    .clear
 
     = render 'office/registrations/fields_payment', :form => r
     = render 'office/registrations/fields_requests', :form => r
     = render 'office/registrations/field_note', :form => r
-    
-  = f.actions do
-    = f.action :submit
-    or #{link_to('Cancel', [:office,public_signup])}
+
+  .form-actions
+    = f.button :submit, class: 'btn-primary'
+    or #{link_to('Cancel', [:office, public_signup])}
 

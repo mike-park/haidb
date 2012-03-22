@@ -1,12 +1,7 @@
 .block
-  = block_navigation([['Pending Approval', :index], ['Waitlisted', :waitlisted], ['Approved', :approved]])
-
   .content
 
-    %h2 #{public_signups.count} waitlisted signups
+    %h2 #{public_signups.count} wait listed sign-ups
 
-    .inner
-      - if public_signups.count > 0
-        = render 'waitlisted', :waitlisted => public_signups
-
-  = block_footer(public_signup_breadcrumbs)
+    - if public_signups.count > 0
+      = render 'waitlisted', :waitlisted => public_signups

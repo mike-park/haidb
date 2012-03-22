@@ -33,7 +33,13 @@ gem 'routing-filter'
 #gem 'delocalize'
 
 # styling support.  the base .scss files have been copied into pubic/stylesheets & edited
-gem "activo-rails", :git => 'git://github.com/jellybob/activo-rails.git'
+#gem "activo-rails", :git => 'git://github.com/jellybob/activo-rails.git'
+#gem "activo-rails", :path => '/Users/mikep/Src/ruby/git/activo-rails'
+
+# new styling, use twitter bootstrap
+gem 'bootstrap-sass', '>= 2.0.1'
+gem 'simple_form'
+gem 'tabulous'					# menu highlighting
 
 gem "devise", "~> 1.4.2"
 

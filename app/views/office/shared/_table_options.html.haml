@@ -1,12 +1,7 @@
-= will_paginate table, :class => 'pagination', :page_links => false, :inner_window => 1
-
-.row_count
-  = form_tag url_for, :method => :get, :class => :xrow_count do
-    = select_tag :rows, options_for_row_count, :onchange => 'this.form.submit()'
-
-.row_count
-  = pluralize table.total_entries, 'record'
-
-= render '/office/shared/search', :search => search
-
-.wat-cf
+.row-fluid
+  .span6
+    .pagination
+      = form_tag url_for, :method => :get, :class => 'form form-inline' do
+        = select_tag :rows, options_for_row_count, :onchange => 'this.form.submit()'
+  .span6
+    = page_navigation_links table

@@ -1,0 +1,5 @@
+.form-filter
+  = simple_form_for @search, url: url_for, html: {class: 'form form-inline'} do |f|
+    = f.input :display_name_contains, placeholder: 'Display Name contains', label: false, required: false
+    = f.input :category_equals, collection: Event::CATEGORIES, required: false, prompt: 'Category is', label: false, include_blank: true
+    = f.button :submit, 'Filter'

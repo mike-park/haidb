@@ -1,13 +1,8 @@
 .block
-  = block_navigation(email_name_navigation << "Edit #{email_name.name}")
-
   .content
     = controls do |c|
       - add_button_to(c, :delete)
 
     %h2 Edit Email
 
-    .inner
-      = render 'form', email_name: email_name
-
-  = block_footer(site_default_submodule_breadcrumbs)
+    = render 'form', email_name: email_name

@@ -44,7 +44,7 @@ module Office::Registrations::RosterHelper
       t << ["#{r.full_name}\n" +
             r.email,
             map_address(compact_address(r.angel, "\n")),
-            compact_phones(r.angel, "\n")
+            compact_phones(r.angel, true)
            ]
     end
     t

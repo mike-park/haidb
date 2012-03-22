@@ -1,15 +1,13 @@
-= semantic_form_for([:office, :site_defaults, email_name]) do |f|
-  = f.semantic_errors
-  = f.inputs :class => :column_left do
-    = f.input :name
-    = f.semantic_fields_for :emails do |l|
-      = l.inputs "Language #{l.object.locale}" do
-        - if l.object.persisted?
-          = l.input :_destroy, :as => :boolean, :label => 'Delete this language'
+= simple_form_for([:office, :site_defaults, email_name], html: {class: 'form-horizontal'}) do |f|
+  = f.input :name
+  = f.simple_fields_for :emails do |l|
+    %fieldset
+      Language #{l.object.locale}
+      - if l.object.persisted?
+        = l.input :_destroy, :as => :boolean, :label => 'Delete this language'
         = l.input :locale, :as => :hidden
         = l.input :email_name_id, :as => :hidden
         = l.input :subject
         = l.input :body
-  .wat-cf
-  = f.actions
-.wat-cf
+  .form-actions
+    = f.button :submit, 'Save template', class: 'btn-primary'

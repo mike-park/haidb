@@ -1,6 +1,4 @@
 .block
-  = block_navigation("Key #{site_default.display_name}")
-
   .content
     = controls do |c|
       - add_button_to(c, :edit)
@@ -9,7 +7,4 @@
 
     %h2 Key #{site_default.display_name}
 
-    .inner
-      = render 'site_default', :site_default => site_default
-
-  = block_footer(site_default_breadcrumbs)
+    = render 'site_default', :site_default => site_default

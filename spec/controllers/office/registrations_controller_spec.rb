@@ -29,13 +29,13 @@ describe Office::RegistrationsController do
       assigns[:registration].should be_approved
     end
 
-    it "should redirect to pre on success" do
+    it "should redirect to registrations on success" do
       registration = mock_model(Registration)
       registration.should_receive(:approved=)
       registration.stub(:save).and_return(true)
       Registration.stub(:new).and_return(registration)
       post :create, :event_id => @event
-      response.should redirect_to("/#{I18n.locale}/office/events/#{@event.id}/pre")
+      response.should redirect_to("/#{I18n.locale}/office/events/#{@event.id}/registrations")
     end
   end
 end

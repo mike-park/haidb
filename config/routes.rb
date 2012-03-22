@@ -11,28 +11,28 @@ Haidb::Application.routes.draw do
   namespace :office do
 
     resources :angels do
-      resources :registrations
       collection do
-        get 'level'
         get 'map'
         get 'map_info'
       end
+      resources :registrations
     end
 
     resources :events do
       collection do
-        get 'upcoming'
         get 'past'
       end
-      resources :registrations
+      resources :registrations do
+        collection do
+          get 'details'
+          get 'payments'
+          get 'checklists'
+          get 'roster'
+        end
+      end
       scope :module => "registrations" do
-        resources :pre, :only => [:index]
-        resources :post, :only => [:index]
         resources :completed, :only => [:index, :create, :update]
         resources :checked_in, :only => [:index, :create, :update]
-        resources :payment, :only => [:index]
-        resources :checklist, :only => [:index]
-        resources :roster, :only => [:index]
         resources :map, :only => [:index] do
           collection do
             get 'map_info'

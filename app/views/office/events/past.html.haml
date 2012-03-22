@@ -1,10 +1,4 @@
 .block
-  = block_navigation([['Future Events', :index],['Past Events', :past]])
-
   .content
-    %h2 #{pluralize(events.count, 'past event')}
+    = render 'events', :events => events, caption: pluralize(events.count, 'past event')
 
-    .inner
-      = render 'events', :events => events
-
-  = block_footer(event_breadcrumbs)

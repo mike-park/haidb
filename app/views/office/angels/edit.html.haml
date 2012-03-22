@@ -1,13 +1,8 @@
 .block
-  = block_navigation("Edit Angel #{angel.full_name}")
-
   .content
     = controls do |c|
       - add_button_to(c, :delete)
 
     %h2 Editing #{angel.display_name}
 
-    .inner
-      = render 'form'
-
-  = block_footer(angel_breadcrumbs)
+    = render 'form'

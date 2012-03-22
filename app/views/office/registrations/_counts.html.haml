@@ -1,0 +1,4 @@
+- if Site.de?
+  = render 'office/registrations/de/counts', :registrations => registrations
+- elsif Site.uk?
+  = render 'office/registrations/uk/counts', :registrations => registrations

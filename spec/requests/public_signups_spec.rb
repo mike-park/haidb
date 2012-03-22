@@ -149,10 +149,10 @@ describe "POST /public_signups" do
 
   def approve_signup
     visit "/office/public_signups"
-    click_link "Waitlisted"
+    #save_and_open_page
+    click_link "Wait listed"
     click_link "Show"
     click_link "Approve"
-    #save_and_open_page
     page.should have_content("John Smith has been successfully added")
     PublicSignup.waitlisted.count.should == 0
     PublicSignup.approved.count.should == 1

@@ -23,7 +23,7 @@ module Office::AngelsHelper
   end
 
   def options_for_angel_select(form)
-    { :as => :select, :label => 'Angel', :collection => Angel.by_last_name }
+    { :as => :select, :label => 'Angel', :collection => Angel.by_last_name, label_method: :display_name, value_method: :id }
   end
   
   # return address in html display format
@@ -47,25 +47,17 @@ module Office::AngelsHelper
     end
   end
 
-  def compact_phones(angel, separator = tag(:br))
+  def compact_phones(angel, text_only = false)
+    separator = text_only ? "\n" : tag(:br)
     phones = []
     %w(home mobile work).each do |ph|
       number = angel.read_attribute("#{ph}_phone")
       unless number.blank?
         label = t("enums.registration.roster.#{ph}")
-        phones << h("#{label}: #{number}")
+        phones << "#{label}: " + (text_only ? number : link_to(number, "tel:#{number}"))
       end
     end
     phones.join(separator).html_safe
-  end
-    
-  def angel_controls
-    controls do |c|
-      add_button_to(c, "Map", params.merge(:action => :map, :icon => 'map_magnify'))
-      add_button_to(c, "VCard", params.merge(:format => :vcard, :icon => 'vcard'))
-      add_button_to(c, "CSV", params.merge(:format => :csv, :icon => 'page_excel'))
-      yield c if block_given?
-    end
   end
 
   def no_angels_on_map(height = '400px')

@@ -1,13 +1,3 @@
 .block
-  = block_navigation([['Future Events', :index],['Past Events', :past]])
-
   .content
-    = controls do |c|
-      - add_button_to(c, 'Add event')
-
-    %h2= pluralize(events.count, 'event')
-
-    .inner
-      = render 'events', :events => events
-
-  = block_footer(event_breadcrumbs)
+    = render 'events', :events => events, caption: pluralize(events.count, 'future event')

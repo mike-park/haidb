@@ -1,24 +1,17 @@
 .block
-  = block_navigation("#{event.display_name} summary")
-
   .content
     = controls do |c|
       - add_button_to(c, :edit)
       - add_button_to(c, :delete)
 
-    %h2 #{event.display_name} summary
+    %h2 #{event.display_name}
 
-    .inner
-      = render 'event', :event => event
-      - if event.audits.any?
-        = render 'office/shared/audits', :audits => event.audits.descending
+    = render 'event', :event => event
+
+    - if event.audits.any?
+      = render 'office/shared/audits', :audits => event.audits.descending
 
     = controls do |c|
-      - c.item 'Show Registrations', office_event_registrations_path(event), :icon => 'group_go'
+      - c << link_to(icon('icon-user') + "Registrations", office_event_registrations_path(event), class: 'btn')
 
-    .inner
-      %h3 Registration counts
-      = render 'counts', :registrations => registrations
-      
-
-  = block_footer(event_breadcrumbs)
+    = render 'office/registrations/counts', :registrations => registrations

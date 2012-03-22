@@ -1,15 +1,5 @@
 .block
-  = block_navigation(angel_navigation)
-
   .content
-    = controls do |c|
-      - add_button_to(c, :new)
-
-    = angel_controls
-
     %h2 Contact List
 
-    .inner
-      = render 'list', :angels => angels
-
-  = block_footer(angel_breadcrumbs)
+    = render 'list', :angels => angels

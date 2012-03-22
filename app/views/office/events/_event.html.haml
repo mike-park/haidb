@@ -1,11 +1,29 @@
-= semantic_attributes_for event do |attr|
-  = attr.attributes :html => {:class => :column} do
-    = attr.attribute :display_name
-    = attr.attribute :category
-    = attr.attribute :signup_email_name, :value => event.email_name(EventEmail::SIGNUP)
-    = attr.attribute :pending_email_name, :value => event.email_name(EventEmail::PENDING)
-    = attr.attribute :approved_email_name, :value => event.email_name(EventEmail::APPROVED)
-  = attr.attributes :html => {:class => :column} do
-    = attr.attribute :start_date, :value => l(event.start_date)
-    = attr.attribute :level
-.wat-cf
+%table.table.table-key-values
+  %caption
+    %h6 Event Information
+  %tbody
+    %tr
+      %th Display Name
+      %td= event.display_name
+    %tr
+      %th Category
+      %td= event.category
+    %tr
+      %th Start Date
+      %td= l(event.start_date)
+    %tr
+      %th Level
+      %td= event.level
+
+- categories = EventEmail::CATEGORIES.select {|category| event.find_event_email(category) }
+- if categories.any?
+  %h6 Event Email Templates
+  .tabbable
+    %ul.nav.nav-tabs
+      - categories.each_with_index do |category, index|
+        %li{class: index == 0 ? 'active' : ""}= link_to(category, "##{category}", data: {toggle: 'tab'})
+    .tab-content
+      - categories.each_with_index do |category, index|
+        .tab-pane{id: category, class: index == 0 ? 'active' : ""}
+          - event_email = event.find_event_email(category)
+          = render event_email.email_name if event_email

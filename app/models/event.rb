@@ -31,8 +31,6 @@ class Event < ActiveRecord::Base
     find_event_email(email_category).try(:email, locale)
   end
 
-  private
-
   def find_event_email(email_category)
     event_emails.find_by_category(email_category)
   end

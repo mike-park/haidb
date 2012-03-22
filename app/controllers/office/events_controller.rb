@@ -56,12 +56,9 @@ class Office::EventsController < Office::ApplicationController
     @events
   end
   helper_method :events
-  hide_action :events
-  
+
   def registrations
     @registrations ||= event.registrations.ok.by_first_name
   end
   helper_method :registrations
-  hide_action :registrations
-
 end

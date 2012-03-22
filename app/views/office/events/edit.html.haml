@@ -1,13 +1,8 @@
 .block
-  = block_navigation("Edit #{event.display_name}")
-
   .content
     = controls do |c|
       - add_button_to(c, :delete)
 
     %h2 Editing #{event.display_name}
 
-    .inner
-      = render 'form'
-
-  = block_footer(event_breadcrumbs)
+    = render 'form'

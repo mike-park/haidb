@@ -1,10 +1,5 @@
-= form.inputs :class => :column do
-  = form.input :lift, options_for_lift(form)
-= form.inputs :class => :column do
-  = form.input :special_diet, options_for_special_diet(form)
+= form.input :lift, options_for_lift(form)
+= form.input :special_diet, options_for_special_diet(form)
 - if Site.de?
-  = form.inputs :class => :column do
-    = form.input :backjack_rental, options_for_backjack_rental(form, :translate => false)
-  = form.inputs :class => :column do
-    = form.input :sunday_choice, options_for_sunday_choice(form, :translate => false)
-.wat-cf
+  = form.input :backjack_rental, options_for_backjack_rental(form, :translate => false)
+  = form.input :sunday_choice, options_for_sunday_choice(form, :translate => false)

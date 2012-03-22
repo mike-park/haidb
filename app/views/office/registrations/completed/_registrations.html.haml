@@ -1,15 +1,14 @@
-#completed
-  %table.table
-    %thead
+%table.table-condensed.table-toggler
+  %thead
+    %tr
+      %th.name Name
+      %th= render 'header_th', :label => 'Not Completed', :value => 'nc'
+      %th= render 'header_th', :label => 'Completed', :value => 'completed'
+      %th Toggle
+  %tbody
+    - registrations.by_first_name.each do |r|
       %tr
-        %th.name Name
-        %th= render 'header_th', :label => 'Not Completed', :value => 'nc'
-        %th= render 'header_th', :label => 'Completed', :value => 'completed'
-        %th Toggle
-    %tbody
-      - registrations.by_first_name.each do |r|
-        %tr{:class => cycle(:odd, :even)}
-          %td.name= r.full_name
-          = completed_registration_tds(r)
-          %td= completed_toggle(r)
-.wat-cf
+        %td.name= r.full_name
+        = content_tag(:td, '', r.completed? ? {} : {class: 'red'})
+        = content_tag(:td, '', r.completed? ? {class: 'green'} : {})
+        %td= completed_toggle(r)

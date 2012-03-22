@@ -1,4 +1,4 @@
-%table.table
+%table.table-condensed.table-toggler
   %thead
     %tr
       %th.name Name
@@ -7,8 +7,8 @@
       %th Toggle
   %tbody
     - registrations.each do |r|
-      %tr{:class => cycle(:odd, :even)}
+      %tr
         %td.name= r.full_name
-        = checked_in_registration_tds(r)
+        = content_tag(:td, '', r.checked_in? ? {} : {class: 'red'})
+        = content_tag(:td, '', r.checked_in? ? {class: 'green'} : {})
         %td= checked_in_toggle(r)
-.wat-cf

@@ -1,13 +1,8 @@
 .block
-  = block_navigation(email_name_navigation)
-
   .content
     = controls do |c|
       - add_button_to(c, :new)
 
     %h2 Emails
 
-    .inner
-      = render 'email_names', email_names: @email_names
-
-  = block_footer(site_default_submodule_breadcrumbs)
+    = render 'email_names', email_names: @email_names

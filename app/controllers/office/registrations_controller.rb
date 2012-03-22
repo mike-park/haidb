@@ -1,28 +1,29 @@
 class Office::RegistrationsController < Office::ApplicationController
   before_filter :find_event_or_angel
-  
+  before_filter :verify_registration_exists, only: [:edit, :update, :destroy]
+
   def index
     respond_to do |format|
       format.html
       format.csv do
         send_data Angel.to_csv(registrations.ok.all.map(&:angel)), {
-          :filename => "#{parent.display_name} contacts.csv",
-          :type => :csv
+            :filename => "#{parent.display_name} contacts.csv",
+            :type => :csv
         }
       end
       format.vcard do
         send_data Angel.to_vcard(registrations.ok.all.map(&:angel)), {
-          :filename => "#{parent.display_name} contacts.vcf",
-          :type => :vcard
+            :filename => "#{parent.display_name} contacts.vcf",
+            :type => :vcard
         }
       end
     end
   end
-  
+
   def new
     @registration = registrations.new(params[:registration])
   end
-    
+
   def create
     @registration = registrations.new(params[:registration])
     @registration.approved = true
@@ -32,6 +33,9 @@ class Office::RegistrationsController < Office::ApplicationController
     else
       render :new
     end
+  end
+
+  def edit
   end
 
   def update
@@ -45,21 +49,59 @@ class Office::RegistrationsController < Office::ApplicationController
 
   def destroy
     registration.destroy
-    redirect_to(back_url,
-                :notice => 'Registration was successfully deleted.')
+    redirect_to(back_url, :notice => 'Registration was successfully deleted.')
   end
-  
+
+
+  def checklists
+    @title = "#{event.display_name} Checklist"
+    respond_to do |format|
+      format.html
+      format.pdf do
+        send_data render_to_string(:layout => false), {
+            :filename => "#{event.display_name} checklist.pdf",
+            :type => :pdf,
+        }
+      end
+    end
+  end
+
+  def roster
+    # HACK ALERT!
+    if Site.de?
+      I18n.locale = :de
+    else
+      I18n.locale = :en
+    end
+    @title = translate('enums.registration.roster.title', :event => event.display_name)
+    # @password = translate('enums.registration.roster.password')
+    respond_to do |format|
+      format.html
+      format.pdf do
+        send_data render_to_string(:layout => false), {
+            :filename => "#{event.display_name} roster.pdf",
+            :type => :pdf
+        }
+      end
+    end
+  end
 
   protected
 
+  def verify_registration_exists
+    unless registration
+      redirect_to(back_url, alert: 'Unknown registration selected')
+    end
+  end
+
   def back_url
     if have_event?
-      office_event_pre_index_url(parent)
+      office_event_registrations_url(parent)
     else
       office_angel_url(parent)
     end
   end
-  
+
   def find_event_or_angel
     unless parent
       redirect_to(office_events_url, :alert => 'You must select an event first')
@@ -70,13 +112,11 @@ class Office::RegistrationsController < Office::ApplicationController
     @parent ||= event || angel
   end
   helper_method :parent
-  hide_action :parent
 
   def have_event?
     parent.is_a?(Event)
   end
   helper_method :have_event?
-  hide_action :have_event?
 
   def registrations
     if have_event?
@@ -86,7 +126,6 @@ class Office::RegistrationsController < Office::ApplicationController
     end
   end
   helper_method :registrations
-  hide_action :registrations
 
   def angels
     if have_event?
@@ -96,5 +135,4 @@ class Office::RegistrationsController < Office::ApplicationController
     end
   end
   helper_method :angels
-  hide_action :angels
 end

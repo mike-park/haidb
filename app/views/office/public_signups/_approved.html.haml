@@ -1,4 +1,4 @@
-%table.table
+%table.table.table-striped
   %thead
     %tr
       %th Name
@@ -9,11 +9,10 @@
   
   %tbody
     - approved.each do |p|
-      %tr{:class => cycle(:odd, :even)}
-        %td= p.full_name
+      %tr
+        %td= link_to_show([:office, p], p.full_name)
         %td= p.gender
         %td= p.event_name
         %td= time_ago_in_words(p.approved_at) + " ago"
-        %td.action= link_to_show([:office, p])
-= render 'office/shared/table_options', :table => approved, :search => :registration_angel_first_name_or_registration_angel_last_name_or_registration_event_display_name_contains
-.wat-cf
+
+= render 'office/shared/table_options', :table => approved

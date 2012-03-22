@@ -1,0 +1,6 @@
+= content_for :secondary_navigation do
+  %ul.nav.nav-list
+    %li.nav-header Events
+    %li= link_to_new(new_office_event_path, "New Event")
+    %li= link_to(icon('icon-list-alt') + "Future Events", office_events_path)
+    %li= link_to(icon('icon-list-alt') + "Past Events", past_office_events_path)

@@ -1,0 +1,11 @@
+%tr
+  %td{ :colspan => 3}= role
+
+- regs.by_first_name.each do |r|
+  %tr
+    %td
+      #{r.full_name}
+      %br
+      #{r.email}
+    %td= compact_address(r.angel)
+    %td= compact_phones(r.angel)

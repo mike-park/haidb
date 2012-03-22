@@ -1,0 +1,10 @@
+= render "counts", :registrations => registrations
+
+- title = pluralize(registrations.participants.count, "Participant Registration")
+= render list, registrations: registrations.participants, title: title if registrations.participants.any?
+
+- title = pluralize(registrations.team.count, "Team Registration")
+= render list, registrations: registrations.team, title: title if registrations.team.any?
+
+- title = pluralize(registrations.facilitators.count, "Facilitator Registration")
+= render list, registrations: registrations.facilitators, title: title if registrations.facilitators.any?

@@ -1,0 +1,38 @@
+- regs = registrations
+.counts.well
+  %h1= regs.participants.count
+  %h3 Participants
+
+.counts.well
+  %h1= regs.team.count
+  %h3 Team
+
+.counts
+  %table.table.table-bordered.table-condensed
+    %thead
+      %tr
+        %th Total
+        %th{:colspan => "2"} Participants
+        %th{:colspan => "2"} Team
+        %th Vegetarians
+        %th Clothing Conv.
+        %th Reg Fee Rec.
+      %tr
+        %th
+        %th Males
+        %th Females
+        %th Males
+        %th Females
+        %th
+        %th
+        %th
+    %tbody
+      %tr
+        %td= regs.count
+        %td= regs.participants.males.count
+        %td= regs.participants.females.count
+        %td= regs.team.males.count
+        %td= regs.team.females.count
+        %td= regs.special_diets.count
+        %td= regs.clothing_conversations.count
+        %td= regs.reg_fee_receiveds.count

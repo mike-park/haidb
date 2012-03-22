@@ -1,0 +1,21 @@
+%table.table.table-striped
+  %caption
+    %h4= title
+  %thead
+    %tr
+      %th.name Name
+      %th Pay. Meth
+      %th Acc. Name
+      %th Acc. Number
+      %th Bank Name
+      %th Bank BLZ
+      %th
+  %tbody
+    - registrations.by_first_name.each do |r|
+      %tr
+        %td.name= link_to_show(office_event_registration_path(r.event, r), r.full_name)
+        %td= r.payment_method
+        %td= r.bank_account_name
+        %td= r.bank_account_nr
+        %td= r.bank_name
+        %td= r.bank_sort_code

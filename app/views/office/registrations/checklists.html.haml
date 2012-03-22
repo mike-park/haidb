@@ -1,0 +1,7 @@
+.block
+  .content
+    = controls do |c|
+      - add_button_to(c, "PDF Format", :format => :pdf)
+
+    %h2 #{event.display_name} Checklists
+    = render 'list_type', list: 'checklists_list', registrations: registrations
