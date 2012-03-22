@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem "rake"
 gem 'rack'
 gem "rails", "3.2.2"
+gem 'thin'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -32,10 +33,6 @@ gem 'routing-filter'
 # seem to change when they have not
 #gem 'delocalize'
 
-# styling support.  the base .scss files have been copied into pubic/stylesheets & edited
-#gem "activo-rails", :git => 'git://github.com/jellybob/activo-rails.git'
-#gem "activo-rails", :path => '/Users/mikep/Src/ruby/git/activo-rails'
-
 # new styling, use twitter bootstrap
 gem 'bootstrap-sass', '>= 2.0.1'
 gem 'simple_form'
@@ -49,9 +46,8 @@ gem "meta_search"
 gem 'vcard'
 # geocoding angel
 gem "geocoder", :git => 'git://github.com/mikepinde/geocoder.git'
-#gem "geocoder", :path => "~/src/ruby/git/geocoder"
 # country select list
-gem 'carmen', "~> 0.2.13" #, :git => 'git://github.com/mikepinde/carmen.git'
+gem 'carmen', "~> 0.2.13"
 # pdf export
 gem 'prawn'
 
