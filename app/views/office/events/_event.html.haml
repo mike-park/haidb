@@ -26,4 +26,4 @@
       - categories.each_with_index do |category, index|
         .tab-pane{id: category, class: index == 0 ? 'active' : ""}
           - event_email = event.find_event_email(category)
-          = render event_email.email_name if event_email
+          = render event_email.email_name if event_email && event_email.email_name
