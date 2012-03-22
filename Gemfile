@@ -23,9 +23,6 @@ gem 'formtastic'
 # 2.0 compatible
 gem "formtastic_datepicker_inputs", :git => "git://github.com/nurey/formtastic_datepicker_inputs.git"
 
-# attribute display helper
-gem "attrtastic"
-
 # include lang in url
 gem 'routing-filter'
 

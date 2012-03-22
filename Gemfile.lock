@@ -64,9 +64,6 @@ GEM
     addressable (2.2.7)
     annotate (2.4.0)
     arel (3.0.2)
-    attrtastic (0.4.3)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
     awesome_print (1.0.2)
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.0.1)
@@ -243,7 +240,6 @@ PLATFORMS
 DEPENDENCIES
   acts_as_audited
   annotate
-  attrtastic
   awesome_print
   bootstrap-sass (>= 2.0.1)
   capybara
