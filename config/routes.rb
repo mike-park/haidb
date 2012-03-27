@@ -1,6 +1,6 @@
 Haidb::Application.routes.draw do
   devise_for :staffs	# office people
-  devise_for :teams
+  devise_for :teams, controllers: { omniauth_callbacks: 'team/omniauth_callbacks' }
 
   filter :locale
 

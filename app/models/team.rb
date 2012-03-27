@@ -6,4 +6,10 @@ class Team < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
+
+  def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
+    ap access_token
+    data = access_token.extra.raw_info
+    self.where(:email => data.email).first
+  end
 end
