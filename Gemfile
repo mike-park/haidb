@@ -37,6 +37,9 @@ gem 'simple_form'
 gem 'tabulous'					# menu highlighting
 
 gem "devise", "~> 2.0.4"
+gem 'devise_invitable', '~> 1.0.0'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
 
 # simple model searching
 gem "meta_search"

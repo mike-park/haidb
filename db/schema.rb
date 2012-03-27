@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120324120403) do
+ActiveRecord::Schema.define(:version => 20120327111011) do
 
   create_table "admins", :force => true do |t|
     t.string    "email",                               :default => "", :null => false
@@ -225,6 +225,36 @@ ActiveRecord::Schema.define(:version => 20120324120403) do
 
   add_index "staffs", ["email"], :name => "index_staffs_on_email", :unique => true
   add_index "staffs", ["reset_password_token"], :name => "index_staffs_on_reset_password_token", :unique => true
+
+  create_table "teams", :force => true do |t|
+    t.string   "email",                                :default => "", :null => false
+    t.string   "encrypted_password",                   :default => ""
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                        :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.integer  "failed_attempts",                      :default => 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
+    t.string   "invitation_token",       :limit => 60
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit"
+    t.integer  "invited_by_id"
+    t.string   "invited_by_type"
+  end
+
+  add_index "teams", ["email"], :name => "index_teams_on_email", :unique => true
+  add_index "teams", ["invitation_token"], :name => "index_teams_on_invitation_token"
+  add_index "teams", ["invited_by_id"], :name => "index_teams_on_invited_by_id"
+  add_index "teams", ["reset_password_token"], :name => "index_teams_on_reset_password_token", :unique => true
+  add_index "teams", ["unlock_token"], :name => "index_teams_on_unlock_token", :unique => true
 
   create_table "translation_keys", :force => true do |t|
     t.string    "key",        :null => false

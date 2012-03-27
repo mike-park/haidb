@@ -63,6 +63,12 @@ module ApplicationHelper
     model.class.to_s.downcase
   end
 
+  def link_to_logout(path, message = "Logout")
+    content_tag(:ul, class: 'nav nav-pills pull-right') do
+      content_tag(:li, link_to(message, path, method: :delete))
+    end
+  end
+
   private
 
   def new_label(label, order)

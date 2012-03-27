@@ -1,5 +1,6 @@
 Haidb::Application.routes.draw do
   devise_for :staffs	# office people
+  devise_for :teams
 
   filter :locale
 
@@ -62,6 +63,11 @@ Haidb::Application.routes.draw do
     match '/dashboards' => "dashboards#index"
     match '/' => "dashboards#index"
 
+  end
+
+  namespace :team do
+    resources :dashboards, only: [:index]
+    match '/' => 'dashboards#index'
   end
 
   # The priority is based upon order of creation:

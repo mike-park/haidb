@@ -78,12 +78,6 @@ module Office::ApplicationHelper
 
   # routines originally in activo-rails or mmenu. now rewritten for bootstrap
 
-  def user_navigation
-    content_tag(:ul, class: 'nav nav-pills pull-right') do
-      content_tag(:li, link_to("#{current_staff.email} logout", destroy_staff_session_path, method: :delete))
-    end
-  end
-
   def controls
     buttons = []
     content_tag(:div, class: 'action-buttons') do

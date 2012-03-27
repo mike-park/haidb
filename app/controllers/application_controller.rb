@@ -13,4 +13,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def in_office_zone?
+    request.path.match(/^\/office/).present?
+  end
+  helper_method :in_office_zone?
+
+  def in_team_zone?
+    request.path.match(/^\/team/).present?
+  end
+  helper_method :in_team_zone?
+
 end
