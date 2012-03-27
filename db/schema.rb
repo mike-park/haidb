@@ -11,30 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120327111011) do
-
-  create_table "admins", :force => true do |t|
-    t.string    "email",                               :default => "", :null => false
-    t.string    "encrypted_password",   :limit => 128, :default => "", :null => false
-    t.string    "password_salt",                       :default => "", :null => false
-    t.string    "reset_password_token"
-    t.string    "remember_token"
-    t.timestamp "remember_created_at"
-    t.integer   "sign_in_count",                       :default => 0
-    t.timestamp "current_sign_in_at"
-    t.timestamp "last_sign_in_at"
-    t.string    "current_sign_in_ip"
-    t.string    "last_sign_in_ip"
-    t.string    "confirmation_token"
-    t.timestamp "confirmed_at"
-    t.timestamp "confirmation_sent_at"
-    t.integer   "failed_attempts",                     :default => 0
-    t.string    "unlock_token"
-    t.timestamp "locked_at"
-    t.string    "authentication_token"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20120327151055) do
 
   create_table "angels", :force => true do |t|
     t.string    "display_name",                 :null => false
@@ -226,7 +203,25 @@ ActiveRecord::Schema.define(:version => 20120327111011) do
   add_index "staffs", ["email"], :name => "index_staffs_on_email", :unique => true
   add_index "staffs", ["reset_password_token"], :name => "index_staffs_on_reset_password_token", :unique => true
 
-  create_table "teams", :force => true do |t|
+  create_table "translation_keys", :force => true do |t|
+    t.string    "key",        :null => false
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+  end
+
+  add_index "translation_keys", ["key"], :name => "index_translation_keys_on_key"
+
+  create_table "translation_texts", :force => true do |t|
+    t.text      "text"
+    t.string    "locale"
+    t.integer   "translation_key_id", :null => false
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+  end
+
+  add_index "translation_texts", ["translation_key_id"], :name => "index_translation_texts_on_translation_key_id"
+
+  create_table "users", :force => true do |t|
     t.string   "email",                                :default => "", :null => false
     t.string   "encrypted_password",                   :default => ""
     t.string   "reset_password_token"
@@ -250,54 +245,10 @@ ActiveRecord::Schema.define(:version => 20120327111011) do
     t.string   "invited_by_type"
   end
 
-  add_index "teams", ["email"], :name => "index_teams_on_email", :unique => true
-  add_index "teams", ["invitation_token"], :name => "index_teams_on_invitation_token"
-  add_index "teams", ["invited_by_id"], :name => "index_teams_on_invited_by_id"
-  add_index "teams", ["reset_password_token"], :name => "index_teams_on_reset_password_token", :unique => true
-  add_index "teams", ["unlock_token"], :name => "index_teams_on_unlock_token", :unique => true
-
-  create_table "translation_keys", :force => true do |t|
-    t.string    "key",        :null => false
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-  end
-
-  add_index "translation_keys", ["key"], :name => "index_translation_keys_on_key"
-
-  create_table "translation_texts", :force => true do |t|
-    t.text      "text"
-    t.string    "locale"
-    t.integer   "translation_key_id", :null => false
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-  end
-
-  add_index "translation_texts", ["translation_key_id"], :name => "index_translation_texts_on_translation_key_id"
-
-  create_table "users", :force => true do |t|
-    t.string    "email",                               :default => "", :null => false
-    t.string    "encrypted_password",   :limit => 128, :default => "", :null => false
-    t.string    "password_salt",                       :default => "", :null => false
-    t.string    "reset_password_token"
-    t.string    "remember_token"
-    t.timestamp "remember_created_at"
-    t.integer   "sign_in_count",                       :default => 0
-    t.timestamp "current_sign_in_at"
-    t.timestamp "last_sign_in_at"
-    t.string    "current_sign_in_ip"
-    t.string    "last_sign_in_ip"
-    t.string    "confirmation_token"
-    t.timestamp "confirmed_at"
-    t.timestamp "confirmation_sent_at"
-    t.integer   "failed_attempts",                     :default => 0
-    t.string    "unlock_token"
-    t.timestamp "locked_at"
-    t.string    "authentication_token"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-  end
-
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["invitation_token"], :name => "index_users_on_invitation_token"
+  add_index "users", ["invited_by_id"], :name => "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
 
 end

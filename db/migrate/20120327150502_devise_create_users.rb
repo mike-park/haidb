@@ -1,6 +1,6 @@
-class DeviseCreateTeams < ActiveRecord::Migration
+class DeviseCreateUsers < ActiveRecord::Migration
   def change
-    create_table(:teams) do |t|
+    create_table(:users) do |t|
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""
       t.string :encrypted_password, :null => false, :default => ""
@@ -40,10 +40,10 @@ class DeviseCreateTeams < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :teams, :email,                :unique => true
-    add_index :teams, :reset_password_token, :unique => true
-    # add_index :teams, :confirmation_token,   :unique => true
-    add_index :teams, :unlock_token,         :unique => true
-    # add_index :teams, :authentication_token, :unique => true
+    add_index :users, :email,                :unique => true
+    add_index :users, :reset_password_token, :unique => true
+    # add_index :users, :confirmation_token,   :unique => true
+    add_index :users, :unlock_token,         :unique => true
+    # add_index :users, :authentication_token, :unique => true
   end
 end

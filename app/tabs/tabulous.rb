@@ -64,12 +64,12 @@ Tabulous.setup do |config|
           [    :office_public_signups_tab               ,    'Public Signups'               ,    office_public_signups_path               ,    true        ,    true        ],
           [    :office_site_defaults_tab                ,    'Site Defaults'                ,    office_site_defaults_path                ,    true        ,    true        ],
       ]
-    elsif in_team_zone?
+    elsif in_users_zone?
       [
           #------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
           #    TAB NAME                                 |    DISPLAY TEXT                          |    PATH                                     |    VISIBLE?    |    ENABLED?    #
           #------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
-          [    :team_dashboards_tab                   ,    'Dashboard'                   ,    team_dashboards_path                   ,    true        ,    true        ],
+          [    :users_dashboards_tab                   ,    'Dashboard'                   ,    users_dashboards_path                   ,    true        ,    true        ],
       ]
     end
 
@@ -116,12 +116,12 @@ Tabulous.setup do |config|
     #    CONTROLLER                           |    ACTION          |    TAB                                      #
     #------------------------------------------------------------------------------------------------------------#
     ]
-    elsif in_team_zone?
+    elsif in_users_zone?
       [
           #------------------------------------------------------------------------------------------------------------#
           #    CONTROLLER                           |    ACTION          |    TAB                                      #
           #------------------------------------------------------------------------------------------------------------#
-          [    :dashboards                   ,    :all_actions    ,    :team_dashboards_tab                   ],
+          [    :dashboards                   ,    :all_actions    ,    :users_dashboards_tab                   ],
           ]
     end
 

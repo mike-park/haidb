@@ -1,6 +1,6 @@
 Haidb::Application.routes.draw do
   devise_for :staffs	# office people
-  devise_for :teams, controllers: { omniauth_callbacks: 'team/omniauth_callbacks' }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   filter :locale
 
@@ -65,7 +65,7 @@ Haidb::Application.routes.draw do
 
   end
 
-  namespace :team do
+  namespace :users do
     resources :dashboards, only: [:index]
     match '/' => 'dashboards#index'
   end

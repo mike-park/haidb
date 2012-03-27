@@ -2,7 +2,7 @@
 %html
   %head
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
-    %title= @title || "HAI #{Site.name.upcase} Team System"
+    %title= @title || "HAI #{Site.name.upcase} System"
     %link{:href => "/favicon-#{Site.name}.ico", :rel => "shortcut icon"}/
     = stylesheet_link_tag "office/application"
     = javascript_include_tag 'office/application'
@@ -12,9 +12,9 @@
     .navbar
       .navbar-inner
         .container-fluid
-          %a.brand HAI #{Site.name.upcase} Team
+          %a.brand HAI #{Site.name.upcase}
           = tabs
-          = link_to_logout(destroy_team_session_path)
+          = link_to_logout(destroy_user_session_path)
 
 
     .container-fluid
