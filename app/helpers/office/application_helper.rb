@@ -80,7 +80,7 @@ module Office::ApplicationHelper
 
   def user_navigation
     content_tag(:ul, class: 'nav nav-pills pull-right') do
-      content_tag(:li, link_to("#{current_staff.email} logout", destroy_staff_session_path))
+      content_tag(:li, link_to("#{current_staff.email} logout", destroy_staff_session_path, method: :delete))
     end
   end
 

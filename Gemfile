@@ -36,7 +36,7 @@ gem 'bootstrap-sass', '>= 2.0.1'
 gem 'simple_form'
 gem 'tabulous'					# menu highlighting
 
-gem "devise", "~> 1.4.2"
+gem "devise", "~> 2.0.4"
 
 # simple model searching
 gem "meta_search"
