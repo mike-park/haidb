@@ -2,6 +2,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_user_language
 
+  protected
+
+  def authenticate_inviter!
+    authenticate_staff!(:force => true)
+  end
+
   private
   
   def set_user_language

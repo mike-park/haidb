@@ -21,6 +21,9 @@ Haidb::Application.configure do
   # use mailcatcher to display
   config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
 
+  # devise required
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
