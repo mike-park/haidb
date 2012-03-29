@@ -9,7 +9,17 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  
+
+  # devise redirect on staff login
+  def staff_root_path
+    office_root_path
+  end
+
+  # devise sign out path
+  def after_sign_out_path_for(scope)
+    scope == :staff ? staff_root_path : users_root_path
+  end
+
   def set_user_language
     if (locale = params[:locale])
       if I18n.available_locales.include?(locale.to_sym) ||

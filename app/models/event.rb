@@ -34,6 +34,14 @@ class Event < ActiveRecord::Base
   def find_event_email(email_category)
     event_emails.find_by_category(email_category)
   end
+
+  def upcoming?
+    start_date > Date.today
+  end
+
+  def past?
+    !upcoming?
+  end
 end
 
 

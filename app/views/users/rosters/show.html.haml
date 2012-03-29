@@ -3,10 +3,10 @@
     = controls do |c|
       - add_button_to(c, "PDF Format", :format => :pdf)
 
-    %h2 #{@roster.title}
+    %h2= @roster.title
 
     %p
-      Click PDF Format to generate a printable version. Only angels marked as completed will appear on this roster.
+      Click PDF Format to generate a printable version.
       - if @password
         The PDF file will have a password of
         %em#password= @password

@@ -1,5 +1,8 @@
-%h2 Users::Dashboards Index
+.block
+  .content
+    %h2= pluralize(@pending.size, 'pending registration')
+    = render 'registrations', registrations: @pending if @pending.any?
 
-= ap current_user
-= ap current_staff
-
+  .content
+    %h2 Signed up for #{pluralize(@approved.size, 'event')}
+    = render 'registrations', registrations: @approved if @approved.any?

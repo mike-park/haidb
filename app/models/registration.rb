@@ -40,7 +40,10 @@ class Registration < ActiveRecord::Base
   scope :non_participants, ok.where("role != ?", PARTICIPANT)
   scope :facilitators, ok.where(:role => FACILITATOR)
   scope :where_role, lambda { |role| ok.where(:role => role) }
-  
+  scope :where_email, lambda { |email| includes([:angel, :event]).where('angels.email = ?', email) }
+  scope :upcoming_events, lambda { includes(:event).where('events.start_date > ?', Date.current) }
+  scope :past_events, lambda { includes(:event).where('events.start_date <= ?', Date.current) }
+
   scope :special_diets, where(:special_diet => true)
   scope :backjack_rentals, where(:backjack_rental => true)
   scope :sunday_stayovers, where(:sunday_stayover => true)
@@ -51,6 +54,7 @@ class Registration < ActiveRecord::Base
   scope :males, where(:angels => {:gender => Angel::MALE})
   scope :by_first_name, includes(:angel).order('LOWER(angels.first_name) asc')
   scope :by_start_date, includes(:event).order('events.start_date desc')
+  scope :by_start_date_asc, includes(:event).order('events.start_date asc')
   scope :completed, where(:completed => true)
 
   validates_uniqueness_of :angel_id, {
@@ -87,7 +91,7 @@ class Registration < ActiveRecord::Base
     :unless => "lift.blank?"
   }
 
-  delegate :level, :to => :event
+  delegate :level, :start_date, :to => :event
   delegate :full_name, :gender, :email, :to => :angel
   
   def event_name
@@ -119,6 +123,9 @@ class Registration < ActiveRecord::Base
     end
   end
 
+  def pending?
+    !approved?
+  end
 
   private
 

@@ -36,10 +36,17 @@ gem 'bootstrap-sass', '>= 2.0.1'
 gem 'simple_form'
 gem 'tabulous'					# menu highlighting
 
+# authentication
 gem "devise", "~> 2.0.4"
 gem 'devise_invitable', '~> 1.0.0'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+
+# authorization
+gem 'cancan'
+
+# decorating
+gem 'draper'
 
 # simple model searching
 gem "meta_search"

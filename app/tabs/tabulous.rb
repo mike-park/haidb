@@ -58,7 +58,7 @@ Tabulous.setup do |config|
           #------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
           #    TAB NAME                                 |    DISPLAY TEXT                          |    PATH                                     |    VISIBLE?    |    ENABLED?    #
           #------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
-          [    :office_dashboards_tab                   ,    'Dashboard'                   ,    office_dashboards_path                   ,    true        ,    true        ],
+          [    :office_dashboards_tab                   ,    'Dashboard'                   ,    office_root_path                   ,    true        ,    true        ],
           [    :office_angels_tab                       ,    'Angels'                       ,    office_angels_path                       ,    true        ,    true        ],
           [    :office_events_tab                       ,    'Events'                       ,    office_events_path                       ,    true        ,    true        ],
           [    :office_public_signups_tab               ,    'Public Signups'               ,    office_public_signups_path               ,    true        ,    true        ],
@@ -69,7 +69,7 @@ Tabulous.setup do |config|
           #------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
           #    TAB NAME                                 |    DISPLAY TEXT                          |    PATH                                     |    VISIBLE?    |    ENABLED?    #
           #------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
-          [    :users_dashboards_tab                   ,    'Dashboard'                   ,    users_dashboards_path                   ,    true        ,    true        ],
+          [    :users_dashboards_tab                   ,    'My Events'                   ,    users_root_path                   ,    true        ,    true        ],
       ]
     end
 
@@ -122,7 +122,8 @@ Tabulous.setup do |config|
           #    CONTROLLER                           |    ACTION          |    TAB                                      #
           #------------------------------------------------------------------------------------------------------------#
           [    :dashboards                   ,    :all_actions    ,    :users_dashboards_tab                   ],
-          ]
+          [    :rosters                   ,    :all_actions    ,    :users_dashboards_tab                   ],
+      ]
     end
 
   end

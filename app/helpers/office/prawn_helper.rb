@@ -8,13 +8,13 @@ module Office::PrawnHelper
                            :margin => [1.cm, 1.cm])
 
     pdf = Prawn::Document.new(options)
-    default_layout(pdf, &block)
+    default_layout(pdf, options, &block)
     pdf.render.html_safe
   end
 
   protected
 
-  def default_layout(pdf, &block)
+  def default_layout(pdf, options, &block)
     title_height = 1.cm
     warning_height = 0.8.cm
     header_height = title_height + warning_height
@@ -22,8 +22,8 @@ module Office::PrawnHelper
     gap = 10
 
     # HACK ALERT! two globals here. better to pass in a parameters
-    title = @title || []
-    warning = @warning || []
+    title = options[:title] || @title || []
+    warning = options[:warning] || @warning || []
     
     pdf.instance_eval do
       repeat :all do

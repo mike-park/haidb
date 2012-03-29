@@ -57,17 +57,15 @@ Haidb::Application.routes.draw do
       resources :email_names
     end
     resources :site_defaults
-
     resources :registrations
-
-    match '/dashboards' => "dashboards#index"
-    match '/' => "dashboards#index"
-
+    resources :dashboards, only: [:index]
+    root to: 'dashboards#index'
   end
 
   namespace :users do
     resources :dashboards, only: [:index]
-    match '/' => 'dashboards#index'
+    resources :rosters, only: [:show]
+    root to: 'dashboards#index'
   end
 
   # The priority is based upon order of creation:

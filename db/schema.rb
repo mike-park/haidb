@@ -232,6 +232,10 @@ ActiveRecord::Schema.define(:version => 20120327151055) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
     t.integer  "failed_attempts",                      :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
@@ -245,6 +249,7 @@ ActiveRecord::Schema.define(:version => 20120327151055) do
     t.string   "invited_by_type"
   end
 
+  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["invitation_token"], :name => "index_users_on_invitation_token"
   add_index "users", ["invited_by_id"], :name => "index_users_on_invited_by_id"

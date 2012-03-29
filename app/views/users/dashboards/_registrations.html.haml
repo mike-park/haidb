@@ -1,0 +1,15 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th Date
+      %th Event
+      %th Role
+      %th
+  %tbody
+    - registrations.each do |registration|
+      %tr
+        %td= l registration.start_date
+        %td= registration.event_name
+        %td= registration.role
+        %td= link_to('Roster', users_roster_path(id: registration.event)) if can?(:roster, registration)
+

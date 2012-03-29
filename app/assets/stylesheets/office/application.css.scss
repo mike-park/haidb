@@ -74,3 +74,14 @@ body {
 }
 .dot-green { background-color: green; }
 .dot-red { background-color: red; }
+
+// awesome_print output
+.ap {
+  border: 1px solid red;
+  pre {
+    background-color: inherit;
+    font-size: 10px;
+    border: none;
+    display: inline;
+  }
+}
