@@ -4,20 +4,12 @@
     %title= "HAI #{Site.name.upcase} Sign-in"
     %link{:href => "/favicon-#{Site.name}.ico", :rel => "shortcut icon"}
     = csrf_meta_tag
+    = stylesheet_link_tag "office/application"
+    = javascript_include_tag 'office/application'
     :css
       #container {
         width: 480px;
         margin: 0 auto;
-      }
-      #content {
-      }
-      #flash {
-        margin: 2em 0;
-        height: 1em;
-      }
-      .flash {
-        text-align: center;
-        border: 2px solid red;
       }
 
     - if Site.de?
@@ -25,6 +17,9 @@
         .header {
           text-align: center;
           background-color: #9c3;
+          height: 80px;
+          padding-top: 15px;
+          margin-bottom: 30px;
         }
         .logo {
           position: absolute;
@@ -36,6 +31,7 @@
           text-align: center;
           margin-top: -80px;
           color: #ff8c00;
+          height: 100px;
         }
         .logo {
           text-align: center;
@@ -51,10 +47,15 @@
         HAI #{Site.name.upcase} Registration System
 
     #container
-      #flash
-        - flash.each do |key, value|
-          %div{ :class => "flash #{key}" }
-            = value
-
-      #content
-        = yield
+      .row-fluid
+        .span12
+          .flashes
+            - flash.each do |key, msg|
+              .alert.alert-message.fade.in{title: key.to_s.humanize, class: "#{key}", data: { alert: 'alert'}}
+                = link_to("&times;".html_safe, '#', data: {dismiss: 'alert'}, class: 'close')
+                %strong= msg
+      .row-fluid
+        .span12
+          .block
+            .content
+              = yield

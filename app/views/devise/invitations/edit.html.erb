@@ -1,0 +1,20 @@
+<h2>Set your password</h2>
+
+<%= simple_form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { class: 'form-horizontal', :method => :put } do |f| %>
+  <%= f.hidden_field :invitation_token %>
+
+    <%= f.error_notification %>
+
+    <div class="inputs">
+      <%= f.input :password, :required => true %>
+    </div>
+
+    <div class="inputs">
+      <%= f.input :password_confirmation, :required => true %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, "Set my password" %>
+    </div>
+
+<% end %>

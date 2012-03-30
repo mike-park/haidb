@@ -1,8 +1,11 @@
 .block
   .content
-    %h2= pluralize(@pending.size, 'pending registration')
+    %p
+      %strong Hi #{current_user.email}, we have the following registrations recorded for you.
+
+    %h6= pluralize(@pending.size, 'pending registration')
     = render 'registrations', registrations: @pending if @pending.any?
 
   .content
-    %h2 Signed up for #{pluralize(@approved.size, 'event')}
+    %h6 Signed up for #{pluralize(@approved.size, 'event')}
     = render 'registrations', registrations: @approved if @approved.any?

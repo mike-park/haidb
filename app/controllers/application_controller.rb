@@ -15,6 +15,11 @@ class ApplicationController < ActionController::Base
     office_root_path
   end
 
+  # devise redirect on users login
+  def user_root_path
+    users_root_path
+  end
+
   # devise sign out path
   def after_sign_out_path_for(scope)
     scope == :staff ? staff_root_path : users_root_path
