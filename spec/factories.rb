@@ -22,6 +22,9 @@ FactoryGirl.define do
   factory :future_event, :parent => :event do
     start_date Date.tomorrow
   end
+  factory :past_event, :parent => :event do
+    start_date Date.yesterday
+  end
 
   factory :email, aliases: [:en_email] do
     locale "en"
@@ -115,6 +118,11 @@ FactoryGirl.define do
       email 'admin@example.com'
       super_user true
     end
+  end
+
+  factory :user do
+    email 'user@example.com'
+    password 'someuserpassword'
   end
 end
 

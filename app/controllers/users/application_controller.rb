@@ -3,7 +3,7 @@ class Users::ApplicationController < ApplicationController
 
   layout 'users/application'
 
-  rescue_from CanCan::AccessDenied do |exception|
+  rescue_from CanCan::AccessDenied, ActiveRecord::RecordNotFound do |exception|
     redirect_to users_root_url, :alert => exception.message
   end
 end
