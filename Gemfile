@@ -100,6 +100,8 @@ group :development, :test do
   # rails 3.0.9
   gem "capybara"
   gem "launchy"
+
+  gem 'faker'
 end
 
 group :production do
