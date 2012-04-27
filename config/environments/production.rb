@@ -65,7 +65,7 @@ Haidb::Application.configure do
   }
 
   # devise required
-  config.action_mailer.default_url_options = { :host => ENV['HTTP_HOST'] }
+  config.action_mailer.default_url_options = { :host => ENV['MAIL_HOST'] }
 
   # Enable threaded mode
   # config.threadsafe!
