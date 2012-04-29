@@ -7,23 +7,12 @@ class Office::AngelsController < Office::ApplicationController
 
   def map
     params[:search] ||= params[:id] ? {id_eq: params[:id]} : {}
-    @search = Angel.geocoded.search(params[:search])
-
-    @map = Cartographer::Gmap.new( 'map', :debug => true )
-    @map.zoom = :bound
-    
-    icon = Cartographer::Gicon.new
-    @map.icons << icon
-
-    @search.all.each do |angel|
-      @map.markers << angel.to_map_marker(icon, map_info_window_url(angel))
+    @search = Angel.search(params[:search])
+    @json = @search.all.to_gmaps4rails do |angel, marker|
+      marker.infowindow render_to_string(:partial => '/office/shared/map_info',
+                                         :locals => { angels: Angel.located_at(angel.lat, angel.lng) })
+      marker.title angel.full_name
     end
-  end
-
-  # return info window contents for pointer on map located at lat, lng
-  def map_info
-    @angels = Angel.where(:lat => params[:lat], :lng => params[:lng])
-    render :layout => false
   end
 
   def new

@@ -2,6 +2,7 @@
 @import 'jquery-ui-1.8.16.custom';
 @import 'bootstrap';
 @import 'bootstrap-responsive';
+@import 'gmaps4rails';
 
 body {
   background-color: #eee;
@@ -84,4 +85,15 @@ body {
     border: none;
     display: inline;
   }
+}
+
+.map_container {
+  // tiwtter bootstrap fix see
+  // https://github.com/apneadiving/Google-Maps-for-Rails/wiki/Google-Maps-and-Twitter-Bootstrap
+  img { max-width: none; }
+  width: inherit;
+}
+
+.gmaps4rails_map {
+  width: inherit;
 }

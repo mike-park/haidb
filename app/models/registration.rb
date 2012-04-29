@@ -1,5 +1,7 @@
 class Registration < ActiveRecord::Base
   acts_as_audited
+  acts_as_gmappable lat: 'lat', lng: 'lng', process_geocoding: false
+
   before_save SundayChoiceCallbacks
   after_destroy :delete_public_signup
 
@@ -92,7 +94,7 @@ class Registration < ActiveRecord::Base
   }
 
   delegate :level, :start_date, :to => :event
-  delegate :full_name, :gender, :email, :to => :angel
+  delegate :lat, :lng, :full_name, :gender, :email, :to => :angel
   
   def event_name
     event.display_name

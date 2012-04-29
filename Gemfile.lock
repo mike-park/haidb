@@ -12,13 +12,6 @@ GIT
       fast_gettext
 
 GIT
-  remote: git://github.com/mikepinde/geocoder.git
-  revision: 52a81dc80bfa3d45fa64ad73225656a4332f7f20
-  specs:
-    geocoder (0.9.9)
-      json (>= 1.0.0)
-
-GIT
   remote: git://github.com/nurey/formtastic_datepicker_inputs.git
   revision: 8565cf96369300e39481dfdfceb11a8d99bfcd3f
   specs:
@@ -286,7 +279,6 @@ DEPENDENCIES
   fast_gettext!
   formtastic
   formtastic_datepicker_inputs!
-  geocoder!
   gettext_i18n_rails!
   gmaps4rails
   haml (>= 3.1.4)

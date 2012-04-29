@@ -3,6 +3,7 @@
 //= require jquery-ui.min
 //= require bootstrap
 //= require office/collapsible
+//= require gmaps4rails/googlemaps.js
 //= require_self
 
 

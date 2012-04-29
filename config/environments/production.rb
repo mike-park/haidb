@@ -49,6 +49,10 @@ Haidb::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( public_signup.js office/application.js public_signup/de/main.css public_signup/uk/main.css office/application.css)
 
+  # gmaps4rails additions (necessary for heroku)
+  config.assets.paths << "#{Gmaps4rails::Engine.config.root}/public/stylesheets"
+  config.assets.precompile << "gmaps4rails.css"
+
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = false
 

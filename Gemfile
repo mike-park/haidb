@@ -52,8 +52,6 @@ gem 'draper'
 gem "meta_search"
 # vcard export
 gem 'vcard'
-# geocoding angel
-gem "geocoder", :git => 'git://github.com/mikepinde/geocoder.git'
 # country select list
 gem 'carmen', "~> 0.2.13"
 # pdf export

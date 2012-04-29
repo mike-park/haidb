@@ -29,11 +29,10 @@ require 'csv'
 
 class Angel < ActiveRecord::Base
   acts_as_audited
-  geocoded_by :full_address, :latitude  => :lat, :longitude => :lng
-  
+  acts_as_gmappable address: 'full_address', lat: 'lat', lng: 'lng', validation: false
+
   after_initialize :set_default_values
   before_save :sanitize_fields, :update_display_name
-  before_save :geocode, :if => :geocode_required?
 
   FEMALE = 'Female'
   MALE = 'Male'
@@ -44,6 +43,7 @@ class Angel < ActiveRecord::Base
 
   #default_scope order('LOWER(first_name) asc')
   scope :by_last_name, order('LOWER(last_name) asc')
+  scope :located_at, lambda {|lat, lng| where(lat: lat, lng: lng)}
 
   validates_presence_of :first_name, :last_name, :email
   validates_inclusion_of :gender, { :in => GENDERS,
@@ -143,12 +143,8 @@ class Angel < ActiveRecord::Base
     matched_angels.count
   end
 
-  def to_map_marker(icon, info_window_url)
-    Cartographer::Gmarker.new(:name => "id#{id}",
-                              :marker_type => "Person",
-                              :position => [lat, lng],
-                              :info_window_url => info_window_url,
-                              :icon => icon)
+  def geocoded?
+    lat.present? && lng.present?
   end
 
   private
@@ -180,11 +176,21 @@ class Angel < ActiveRecord::Base
     ADDRESS_FIELDS.map {|field| read_attribute(field)}.compact.join(", ")
   end
 
-  def geocode_required?
+  def address_has_changed?
     fields_changed = ADDRESS_FIELDS.select { |f| changed_attributes[f.to_s] }
-    fields_changed.any? || lat.nil? || lng.nil?
+    fields_changed.any?
   end
-  
+
+  # return true if new geocode is NOT necessary
+  def gmaps
+    if geocoded? && !address_has_changed?
+      true
+    else
+      false
+    end
+  end
+  attr_writer :gmaps
+
   # only update if necessary, to avoid extra database traffic
   def update_display_name
     name = [last_name, first_name].reject { |i| i.blank? }.join(", ")
