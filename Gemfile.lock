@@ -117,6 +117,8 @@ GEM
     ffi (1.0.11)
     formtastic (2.1.1)
       actionpack (~> 3.0)
+    gmaps4rails (1.4.8)
+      json
     haml (3.1.4)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
@@ -286,6 +288,7 @@ DEPENDENCIES
   formtastic_datepicker_inputs!
   geocoder!
   gettext_i18n_rails!
+  gmaps4rails
   haml (>= 3.1.4)
   haml-rails
   hoptoad_notifier

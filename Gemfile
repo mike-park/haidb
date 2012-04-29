@@ -58,6 +58,8 @@ gem "geocoder", :git => 'git://github.com/mikepinde/geocoder.git'
 gem 'carmen', "~> 0.2.13"
 # pdf export
 gem 'prawn'
+# map rendering
+gem 'gmaps4rails'
 
 # xls export
 # dont use
