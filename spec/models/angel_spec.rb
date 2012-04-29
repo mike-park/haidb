@@ -135,16 +135,16 @@ describe Angel do
     context "should require a geocode call" do
       it "when new" do
         angel = Factory.build(:full_angel)
-        angel.should be_geocode_required
+        angel.send(:gmaps).should == false
       end
 
       it "when address change" do
         angel = Factory.create(:full_angel)
-        angel.should_not be_geocode_required
+        angel.send(:gmaps).should == true
         angel.notes = "does not influence geocode"
-        angel.should_not be_geocode_required
+        angel.send(:gmaps).should == true
         angel.city = "london"
-        angel.should be_geocode_required
+        angel.send(:gmaps).should == false
       end
     end
   end
