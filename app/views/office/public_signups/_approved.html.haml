@@ -13,6 +13,6 @@
         %td= link_to_show([:office, p], p.full_name)
         %td= p.gender
         %td= p.event_name
-        %td= time_ago_in_words(p.approved_at) + " ago"
+        %td= time_ago_in_words(p.approved_at)
 
 = render 'office/shared/table_options', :table => approved
