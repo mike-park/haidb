@@ -4,4 +4,4 @@
     %h2 #{public_signups.count} wait listed sign-ups
 
     - if public_signups.count > 0
-      = render 'waitlisted', :waitlisted => public_signups
+      = render 'public_signup_list', public_signups: public_signups

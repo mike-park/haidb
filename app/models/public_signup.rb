@@ -21,7 +21,7 @@ class PublicSignup < ActiveRecord::Base
   validates_acceptance_of :terms_and_conditions, allow_nil: false, on: :create
   validates_inclusion_of :status, :in => STATUSES
 
-  delegate :full_name, :event_name, :gender, :email, :lang, :angel, :send_email, :to => :registration
+  delegate :full_name, :event_name, :gender, :email, :lang, :angel, :send_email, :reg_fee_received, :clothing_conversation, :to => :registration
 
   STATUSES.each do |state|
     define_method("#{state}?") do
