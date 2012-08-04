@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem "rake"
 gem 'rack'
-gem "rails", "3.2.2"
+gem "rails", "3.2.6"
 gem 'thin'            # web server (heroku recommended
 gem 'newrelic_rpm'    # performance monitoring
 
