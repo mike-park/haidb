@@ -12,7 +12,7 @@ class Site
   end
 
   unless self.uk? || self.de?
-    raise "ENV['SITE_NAME'] must be set"
+    puts "ENV['SITE_NAME'] must be set"
   end
   
   def self.from_email
