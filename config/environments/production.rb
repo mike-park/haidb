@@ -9,8 +9,9 @@ Haidb::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  # required true for heroku & webrick server
+  # required true for heroku & cedar stack
   config.serve_static_assets = true
+  config.static_cache_control = "public, max-age=604800"
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
