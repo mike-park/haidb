@@ -4,7 +4,7 @@ ruby '1.9.3'
 gem "rake"
 gem 'rack'
 gem "rails", "3.2.6"
-gem 'thin'            # web server (heroku recommended
+gem 'unicorn'         # web server
 gem 'newrelic_rpm'    # performance monitoring
 
 # Gems used only for assets and not required
