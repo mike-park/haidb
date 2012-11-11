@@ -5,9 +5,9 @@
       Language #{l.object.locale}
       - if l.object.persisted?
         = l.input :_destroy, :as => :boolean, :label => 'Delete this language'
-        = l.input :locale, :as => :hidden
-        = l.input :email_name_id, :as => :hidden
-        = l.input :subject
-        = l.input :body
+      = l.input :locale, :as => :hidden
+      = l.input :email_name_id, :as => :hidden
+      = l.input :subject
+      = l.input :body
   .form-actions
     = f.button :submit, 'Save template', class: 'btn-primary'
