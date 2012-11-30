@@ -5,8 +5,7 @@ tmp/
 *~
 TAGS
 .sass-cache
-.powenv
 .idea/
 .bundle/*
 notes/
-.powrc
+.pow*
