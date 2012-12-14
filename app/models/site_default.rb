@@ -42,7 +42,7 @@ class SiteDefault < ActiveRecord::Base
           }
         }
       end
-      file.write(attr.to_json)
+      file.write(attr.to_yaml)
     end
   end
 
@@ -55,7 +55,7 @@ class SiteDefault < ActiveRecord::Base
   end
   
   def self.load(filename)
-    attr = JSON::parse(File.read(Rails.root.join(filename)))
+    attr = YAML.load(File.read(Rails.root.join(filename)))
     SiteDefault.destroy_all
     attr.each do |a|
       SiteDefault.create!(a)
