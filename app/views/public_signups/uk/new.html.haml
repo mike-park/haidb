@@ -15,8 +15,9 @@
   = f.inputs do
     - if _('public_signup.form.conditions').present?
       .instructions= _('public_signup.form.conditions')
-
-    = f.input :terms_and_conditions, options_for_terms_and_conditions(f)
+      = f.input :terms_and_conditions, options_for_terms_and_conditions(f)
+    - else
+      = f.input :terms_and_conditions, as: :hidden, value: 1
 
   = f.actions
 

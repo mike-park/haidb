@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120327151055) do
+ActiveRecord::Schema.define(:version => 20121130100912) do
 
   create_table "angels", :force => true do |t|
     t.string    "display_name",                 :null => false
@@ -168,11 +168,13 @@ ActiveRecord::Schema.define(:version => 20120327151055) do
     t.string    "previous_event"
     t.boolean   "reg_fee_received"
     t.boolean   "clothing_conversation"
+    t.text      "options"
   end
 
   add_index "registrations", ["angel_id"], :name => "index_registrations_on_angel_id"
   add_index "registrations", ["event_id", "role"], :name => "index_registrations_on_role"
   add_index "registrations", ["event_id"], :name => "index_registrations_on_event_id"
+  add_index "registrations", ["event_id"], :name => "index_registrations_on_gender"
   add_index "registrations", ["id"], :name => "index_registrations_on_id"
 
   create_table "site_defaults", :force => true do |t|
@@ -183,21 +185,21 @@ ActiveRecord::Schema.define(:version => 20120327151055) do
   end
 
   create_table "staffs", :force => true do |t|
-    t.string   "email",                                 :default => "",    :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
-    t.string   "password_salt",                         :default => "",    :null => false
-    t.string   "reset_password_token"
-    t.string   "remember_token"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "super_user",                            :default => false
-    t.datetime "reset_password_sent_at"
+    t.string    "email",                  :default => "",    :null => false
+    t.string    "encrypted_password",     :default => "",    :null => false
+    t.string    "password_salt",          :default => "",    :null => false
+    t.string    "reset_password_token"
+    t.string    "remember_token"
+    t.timestamp "remember_created_at"
+    t.integer   "sign_in_count",          :default => 0
+    t.timestamp "current_sign_in_at"
+    t.timestamp "last_sign_in_at"
+    t.string    "current_sign_in_ip"
+    t.string    "last_sign_in_ip"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.boolean   "super_user",             :default => false
+    t.timestamp "reset_password_sent_at"
   end
 
   add_index "staffs", ["email"], :name => "index_staffs_on_email", :unique => true
@@ -222,31 +224,31 @@ ActiveRecord::Schema.define(:version => 20120327151055) do
   add_index "translation_texts", ["translation_key_id"], :name => "index_translation_texts_on_translation_key_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                :default => "", :null => false
-    t.string   "encrypted_password",                   :default => ""
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                        :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",                      :default => 0
-    t.string   "unlock_token"
-    t.datetime "locked_at"
-    t.datetime "created_at",                                           :null => false
-    t.datetime "updated_at",                                           :null => false
-    t.string   "invitation_token",       :limit => 60
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer  "invitation_limit"
-    t.integer  "invited_by_id"
-    t.string   "invited_by_type"
+    t.string    "email",                                :default => "", :null => false
+    t.string    "encrypted_password",                   :default => ""
+    t.string    "reset_password_token"
+    t.timestamp "reset_password_sent_at"
+    t.timestamp "remember_created_at"
+    t.integer   "sign_in_count",                        :default => 0
+    t.timestamp "current_sign_in_at"
+    t.timestamp "last_sign_in_at"
+    t.string    "current_sign_in_ip"
+    t.string    "last_sign_in_ip"
+    t.string    "confirmation_token"
+    t.timestamp "confirmed_at"
+    t.timestamp "confirmation_sent_at"
+    t.string    "unconfirmed_email"
+    t.integer   "failed_attempts",                      :default => 0
+    t.string    "unlock_token"
+    t.timestamp "locked_at"
+    t.timestamp "created_at",                                           :null => false
+    t.timestamp "updated_at",                                           :null => false
+    t.string    "invitation_token",       :limit => 60
+    t.timestamp "invitation_sent_at"
+    t.timestamp "invitation_accepted_at"
+    t.integer   "invitation_limit"
+    t.integer   "invited_by_id"
+    t.string    "invited_by_type"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

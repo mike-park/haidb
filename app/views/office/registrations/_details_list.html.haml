@@ -16,6 +16,7 @@
       - elsif Site.uk?
         %th How Hear
         %th Prev. Event
+        %th Highest Level Details
         %th Lift
         %th.center Veg.
         %th.center Cloth. Talk
@@ -36,6 +37,7 @@
         - elsif Site.uk?
           %td= r.how_hear
           %td= r.previous_event
+          %td= [r.highest_level, r.highest_location, r.highest_date].compact.join(" / ")
           %td= r.lift
           %td.center= checkmark_if(r.special_diet)
           %td.center= checkmark_if(r.clothing_conversation)
