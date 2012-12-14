@@ -13,7 +13,7 @@ describe Notifier do
 
     its(:from) { should == [sender] }
     its(:to) { should == [registration.angel.email] }
-    its(:bcc) { should == [sender, "#{site_name}-emails@t.quake.net"] }
+    its(:bcc) { should == [sender] }
     its(:subject) { should == "subject #{registration.full_name} #{registration.event_name}" }
     its(:encoded) { should match("body #{registration.full_name} #{registration.event_name}") }
 
