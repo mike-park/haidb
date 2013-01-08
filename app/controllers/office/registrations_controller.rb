@@ -1,6 +1,5 @@
 class Office::RegistrationsController < Office::ApplicationController
   before_filter :find_event_or_angel
-  before_filter :verify_registration_exists, only: [:edit, :update, :destroy]
 
   def index
     respond_to do |format|
@@ -28,20 +27,19 @@ class Office::RegistrationsController < Office::ApplicationController
     @registration = registrations.new(params[:registration])
     @registration.approved = true
     if @registration.save
-      redirect_to(back_url,
-                  :notice => 'Registration was successfully created.')
+      redirect_to(back_url, :notice => 'Registration was successfully created.')
     else
       render :new
     end
   end
 
   def edit
+    store_location(params[:back_url])
   end
 
   def update
     if registration.update_attributes(params[:registration])
-      redirect_to(back_url,
-                  :notice => 'Registration was successfully updated.')
+      redirect_to(back_url, :notice => 'Registration was successfully updated.')
     else
       render :edit
     end
@@ -83,11 +81,7 @@ class Office::RegistrationsController < Office::ApplicationController
   end
 
   def back_url
-    if have_event?
-      office_event_registrations_url(parent)
-    else
-      office_angel_url(parent)
-    end
+    stored_location || parent.index_url
   end
 
   def find_event_or_angel
@@ -97,30 +91,88 @@ class Office::RegistrationsController < Office::ApplicationController
   end
 
   def parent
-    @parent ||= event || angel
+    @parent ||= begin
+      if (event = Event.find_by_id(params[:event_id]))
+        EventParent.new(event, self)
+      elsif (angel = Angel.find_by_id(params[:angel_id]))
+        AngelParent.new(angel, self)
+      end
+    end
   end
   helper_method :parent
 
-  def have_event?
-    parent.is_a?(Event)
-  end
-  helper_method :have_event?
-
   def registrations
-    if have_event?
-      @registrations ||= parent.registrations.ok.by_first_name
-    else
-      @registrations ||= parent.registrations.ok.by_start_date
-    end
+    parent.registrations
   end
   helper_method :registrations
 
   def angels
-    if have_event?
-      @angels ||= parent.registrations.ok.by_first_name.map(&:angel)
-    else
-      @angels ||= [parent]
-    end
+    parent.angels
   end
   helper_method :angels
+
+  def event
+    parent.event
+  end
+  helper_method :event
+
+  def angel
+    parent.angel
+  end
+  helper_method :angel
+
+  def registration
+    @registration ||= Registration.find(params[:id])
+  end
+  helper_method :registration
+
+  class EventParent
+    attr_reader :event, :controller
+
+    def initialize(event, controller)
+      @event = event
+      @controller = controller
+    end
+
+    def index_url
+      controller.office_event_registrations_url(event)
+    end
+
+    def registrations
+      event.registrations.ok.by_first_name
+    end
+
+    def angels
+      event.registrations.ok.by_first_name.map(&:angel)
+    end
+
+    def ar_object
+      event
+    end
+  end
+
+  class AngelParent
+    attr_reader :angel, :controller
+
+    def initialize(angel, controller)
+      @angel = angel
+      @controller = controller
+    end
+
+    def index_url
+      controller.office_angel_url(angel)
+    end
+
+    def registrations
+      angel.registrations.ok.by_start_date
+    end
+
+    def angels
+      [angel]
+    end
+
+    def ar_object
+      angel
+    end
+  end
 end

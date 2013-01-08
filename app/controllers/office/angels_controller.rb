@@ -94,4 +94,9 @@ class Office::AngelsController < Office::ApplicationController
     @registrations ||= angel.registrations.ok.by_start_date
   end
   helper_method :registrations
+
+  def angel
+    @angel ||= Angel.find_by_id(params[:id])
+  end
+  helper_method :angel
 end

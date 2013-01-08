@@ -61,4 +61,9 @@ class Office::EventsController < Office::ApplicationController
     @registrations ||= event.registrations.ok.by_first_name
   end
   helper_method :registrations
+
+  def event
+    @event ||= Event.find_by_id(params[:id])
+  end
+  helper_method :event
 end
