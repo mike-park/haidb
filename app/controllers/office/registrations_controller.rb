@@ -174,5 +174,9 @@ class Office::RegistrationsController < Office::ApplicationController
     def ar_object
       angel
     end
+
+    def event
+      nil
+    end
   end
 end

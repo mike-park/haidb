@@ -98,6 +98,8 @@ class Registration < ActiveRecord::Base
     :unless => "lift.blank?"
   }
 
+  validates_numericality_of :cost
+
   delegate :level, :start_date, :to => :event
   delegate :lat, :lng, :full_name, :gender, :email, :to => :angel
   
@@ -136,6 +138,7 @@ class Registration < ActiveRecord::Base
 
   def update_payment_summary
     self.paid = payments.sum(:amount) || 0
+    self.cost ||= 0
     self.owed = cost - paid
   end
 
