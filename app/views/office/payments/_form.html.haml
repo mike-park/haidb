@@ -1,0 +1,11 @@
+= simple_form_for [:office, registration, @payment], html: {class: 'form-horizontal'} do |f|
+  -if @payment.errors.any?
+    #error_explanation
+      %h3= "#{pluralize(@payment.errors.count, "error")} prohibited this payment from being saved"
+
+  = f.input :paid_on, :as => :string, input_html: {class: 'date-pick'}, :format => '%d.%m.%Y'
+  = f.input :note
+  = f.input :amount
+
+  .form-actions
+    = f.button :submit, class: 'btn-primary'

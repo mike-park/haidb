@@ -1,0 +1,9 @@
+.block
+  .content
+    = controls do |c|
+      - add_button_to(c, :edit)
+      - add_button_to(c, :delete)
+
+  .content
+    = render 'payment', payment: @payment
+    = render 'office/shared/audits', :audits => @payment.audits.descending if @payment.audits.any?

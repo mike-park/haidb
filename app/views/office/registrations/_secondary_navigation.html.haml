@@ -8,6 +8,8 @@
       %li= link_to(icon('icon-list-alt') + "Attendance", office_event_registrations_path(event))
       %li= link_to(icon('icon-list-alt') + "Details", details_office_event_registrations_path(event))
       %li= link_to(icon('icon-list-alt') + "Payment Info", payments_office_event_registrations_path(event))
+      - if Site.de?
+        %li= link_to(icon('icon-list-alt') + "Bank Accounts", bank_accounts_office_event_registrations_path(event))
       %li= link_to(icon('icon-list-alt') + "Checklist", checklists_office_event_registrations_path(event))
       %li= link_to(icon('icon-list-alt') + "Roster", roster_office_event_registrations_path(event))
       %li.nav-header Actions

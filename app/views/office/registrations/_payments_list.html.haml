@@ -1,21 +1,23 @@
-%table.table.table-striped
-  %caption
-    %h4= title
-  %thead
-    %tr
-      %th.name Name
-      %th Pay. Meth
-      %th Acc. Name
-      %th Acc. Number
-      %th Bank Name
-      %th Bank BLZ
-      %th
-  %tbody
-    - registrations.by_first_name.each do |r|
-      %tr
-        %td.name= link_to_show(office_event_registration_path(r.event, r), r.full_name)
-        %td= r.payment_method
-        %td= r.bank_account_name
-        %td= r.bank_account_nr
-        %td= r.bank_name
-        %td= r.bank_sort_code
+.row-fluid
+  .span6
+    %table.table
+      %caption
+        %h4= title
+      %thead
+        %tr
+          %th.name Name
+          %th.qty Cost
+          %th.qty Paid
+          %th.qty Owes
+      %tbody
+        - registrations.by_first_name.each do |r|
+          %tr
+            %td.name= link_to_show(office_registration_payments_path(r), r.full_name)
+            %td.qty= number_to_currency r.cost
+            %td.qty= number_to_currency r.paid
+            %td.qty{class: r.owed > 0 ? 'owes':''}= number_to_currency r.owed
+        %tr
+          %td Total
+          %td.qty= number_to_currency registrations.map(&:cost).inject(&:+)
+          %td.qty= number_to_currency registrations.map(&:paid).inject(&:+)
+          %td.qty= number_to_currency registrations.map(&:owed).inject(&:+)

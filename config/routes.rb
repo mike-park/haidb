@@ -28,6 +28,7 @@ Haidb::Application.routes.draw do
         collection do
           get 'details'
           get 'payments'
+          get 'bank_accounts'
           get 'checklists'
           get 'roster'
         end
@@ -58,7 +59,9 @@ Haidb::Application.routes.draw do
       resources :email_names
     end
     resources :site_defaults
-    resources :registrations
+    resources :registrations do
+      resources :payments
+    end
     resources :dashboards, only: [:index]
     root to: 'dashboards#index'
   end

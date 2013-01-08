@@ -1,0 +1,16 @@
+- r = registration
+.row-fluid
+  .span5
+    %table.table.table-key-values
+      %caption
+        %h6 Payment Summary Information
+      %tbody
+        %tr
+          %th Cost
+          %td.qty= number_to_currency r.cost
+        %tr
+          %th Paid
+          %td.qty= number_to_currency r.paid
+        %tr
+          %th Owes
+          %td.qty= number_to_currency r.owed

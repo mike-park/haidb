@@ -2,9 +2,12 @@ class Registration < ActiveRecord::Base
   acts_as_audited
   acts_as_gmappable lat: 'lat', lng: 'lng', process_geocoding: false
 
+  has_many :payments, dependent: :destroy
+
   store :options, accessors: [:highest_level, :highest_location, :highest_date]
 
   before_save SundayChoiceCallbacks
+  before_save :update_payment_summary
   after_destroy :delete_public_signup
 
   # role types
@@ -129,6 +132,16 @@ class Registration < ActiveRecord::Base
 
   def pending?
     !approved?
+  end
+
+  def update_payment_summary
+    self.paid = payments.sum(:amount) || 0
+    self.owed = cost - paid
+  end
+
+  def update_payment_summary!
+    update_payment_summary
+    save!
   end
 
   private

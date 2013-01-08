@@ -56,9 +56,11 @@ body {
 
 .table {
   .name { white-space: nowrap; max-width: 100px; overflow: hidden; }
+  .date { white-space: nowrap; width: 85px; }
   .notes { max-width: 200px; }
   .qty { text-align: right; }
   .center {text-align: center; }
+  .owes { background-color: #ffb2b2; }
 }
 
 .table-toggler {

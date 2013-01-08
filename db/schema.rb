@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121130100912) do
+ActiveRecord::Schema.define(:version => 20121214140351) do
 
   create_table "angels", :force => true do |t|
     t.string    "display_name",                 :null => false
@@ -134,6 +134,17 @@ ActiveRecord::Schema.define(:version => 20121130100912) do
     t.timestamp "updated_at"
   end
 
+  create_table "payments", :force => true do |t|
+    t.integer  "registration_id"
+    t.date     "paid_on"
+    t.string   "note"
+    t.decimal  "amount",          :precision => 10, :scale => 2, :default => 0.0
+    t.datetime "created_at",                                                      :null => false
+    t.datetime "updated_at",                                                      :null => false
+  end
+
+  add_index "payments", ["registration_id"], :name => "index_payments_on_registration_id"
+
   create_table "public_signups", :force => true do |t|
     t.string    "ip_addr"
     t.timestamp "created_at"
@@ -143,32 +154,35 @@ ActiveRecord::Schema.define(:version => 20121130100912) do
   end
 
   create_table "registrations", :force => true do |t|
-    t.integer   "angel_id",                                         :null => false
-    t.integer   "event_id",                                         :null => false
-    t.string    "role",                  :default => "Participant", :null => false
-    t.boolean   "special_diet",          :default => false
-    t.boolean   "backjack_rental",       :default => false
-    t.boolean   "sunday_stayover",       :default => false
-    t.boolean   "sunday_meal",           :default => false
+    t.integer   "angel_id",                                                                        :null => false
+    t.integer   "event_id",                                                                        :null => false
+    t.string    "role",                                                 :default => "Participant", :null => false
+    t.boolean   "special_diet",                                         :default => false
+    t.boolean   "backjack_rental",                                      :default => false
+    t.boolean   "sunday_stayover",                                      :default => false
+    t.boolean   "sunday_meal",                                          :default => false
     t.string    "sunday_choice"
     t.string    "lift"
-    t.string    "payment_method",        :default => "Direct"
+    t.string    "payment_method",                                       :default => "Direct"
     t.string    "bank_account_nr"
     t.string    "bank_account_name"
     t.string    "bank_name"
     t.string    "bank_sort_code"
     t.text      "notes"
-    t.boolean   "completed",             :default => false
-    t.boolean   "checked_in",            :default => false
+    t.boolean   "completed",                                            :default => false
+    t.boolean   "checked_in",                                           :default => false
     t.timestamp "created_at"
     t.timestamp "updated_at"
     t.integer   "public_signup_id"
-    t.boolean   "approved",              :default => false
+    t.boolean   "approved",                                             :default => false
     t.string    "how_hear"
     t.string    "previous_event"
     t.boolean   "reg_fee_received"
     t.boolean   "clothing_conversation"
     t.text      "options"
+    t.decimal   "cost",                  :precision => 10, :scale => 2, :default => 0.0
+    t.decimal   "paid",                  :precision => 10, :scale => 2, :default => 0.0
+    t.decimal   "owed",                  :precision => 10, :scale => 2, :default => 0.0
   end
 
   add_index "registrations", ["angel_id"], :name => "index_registrations_on_angel_id"

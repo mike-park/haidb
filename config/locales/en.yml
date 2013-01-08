@@ -63,6 +63,9 @@ en:
   number:
     format:
       precision: 2
+    currency:
+      format:
+        unit: '€'
   date:
     formats:
       default: "%d.%m.%Y"

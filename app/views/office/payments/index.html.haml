@@ -1,0 +1,11 @@
+.block
+  .content
+    = controls do |c|
+      - add_button_to(c, :new)
+
+    %h2
+      Payments by #{registration.full_name} for #{registration.event_name}
+
+  .content
+    = render 'summary'
+    = render 'payments', payments: @payments if @payments.any?
