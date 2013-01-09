@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '1.9.3'
 gem "rake"
 gem 'rack'
-gem "rails", "3.2.6"
+gem "rails", "3.2.11"
 gem 'unicorn'         # web server
 gem 'newrelic_rpm'    # performance monitoring
 
