@@ -6,13 +6,13 @@ class Office::RegistrationsController < Office::ApplicationController
       format.html
       format.csv do
         send_data Angel.to_csv(registrations.ok.all.map(&:angel)), {
-            :filename => "#{parent.display_name} contacts.csv",
+            :filename => "#{event.display_name} contacts.csv",
             :type => :csv
         }
       end
       format.vcard do
         send_data Angel.to_vcard(registrations.ok.all.map(&:angel)), {
-            :filename => "#{parent.display_name} contacts.vcf",
+            :filename => "#{event.display_name} contacts.vcf",
             :type => :vcard
         }
       end
