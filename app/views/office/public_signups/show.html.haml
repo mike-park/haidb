@@ -3,6 +3,7 @@
     - if public_signup.approved?
       = controls do |c|
         - add_button_to(c, 'Show event registrations', :event_id => public_signup.registration.event, :controller => :registrations)
+        - add_button_to(c, :waitlist, :action => :waitlist, :icon => 'time', :method => :put)
 
     - else
       = controls do |c|

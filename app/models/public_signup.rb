@@ -40,6 +40,7 @@ class PublicSignup < ActiveRecord::Base
 
   def set_waitlisted!
     self.status = WAITLISTED
+    registration.approved = false
     save!
   end
 
