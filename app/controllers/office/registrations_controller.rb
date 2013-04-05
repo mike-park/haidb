@@ -102,9 +102,14 @@ class Office::RegistrationsController < Office::ApplicationController
   helper_method :parent
 
   def registrations
-    parent.registrations
+    parent.registrations.ok
   end
   helper_method :registrations
+
+  def non_registrations
+    parent.registrations.pending
+  end
+  helper_method :non_registrations
 
   def angels
     parent.angels
@@ -139,7 +144,7 @@ class Office::RegistrationsController < Office::ApplicationController
     end
 
     def registrations
-      event.registrations.ok.by_first_name
+      event.registrations.by_first_name
     end
 
     def angels
@@ -164,7 +169,7 @@ class Office::RegistrationsController < Office::ApplicationController
     end
 
     def registrations
-      angel.registrations.ok.by_start_date
+      angel.registrations.by_start_date
     end
 
     def angels

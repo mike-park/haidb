@@ -8,3 +8,7 @@
 
 - title = pluralize(registrations.facilitators.count, "Facilitator Registration")
 = render list, registrations: registrations.facilitators, title: title if registrations.facilitators.any?
+
+- if local_assigns.has_key? :non_registrations
+  - title = pluralize(non_registrations.count, "Not Approved Registration Requests")
+  = render list, registrations: non_registrations, title: title if non_registrations.any?
