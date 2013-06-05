@@ -54,9 +54,9 @@ class RosterDecorator < ApplicationDecorator
   def warning
     if Site.de?
       ["Diese Liste ist vertraulich - bitte sicher aufbewahren und NUR für private Zwecke benutzen.",
-       "This list is confidential - store if safely and use it ONLY for private matters."]
+       "This list is confidential - store it safely and use it ONLY for private matters."]
     else
-      ["This list is confidential - store if safely and use it ONLY for private matters."]
+      ["This list is confidential - store it safely and use it ONLY for private matters."]
     end
   end
 
