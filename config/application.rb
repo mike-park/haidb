@@ -14,8 +14,9 @@ end
 
 module Haidb
   class Application < Rails::Application
+    # disable deflator. get localhost:3000 displays gzip cruft. for some reason the browser doesn't unzip the result.
     # enable caching and constant ETags
-    config.middleware.insert_before "Rack::ETag", "Rack::Deflater"
+    # config.middleware.insert_before "Rack::ETag", "Rack::Deflater"
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
