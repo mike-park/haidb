@@ -27,6 +27,11 @@ class PublicSignupsController < ApplicationController
 
   def render_site_new_template
     @basedir = "public_signups/#{Site.name}"
-    render "#{@basedir}/new", :layout => "#{Site.name}_site"
+    render "#{@basedir}/new", :layout => "#{Site.name}#{template_version}_site"
   end
+
+  def template_version
+    @version ||= params[:template_version].to_s.match(/\d+/).to_s
+  end
+  helper_method :template_version
 end

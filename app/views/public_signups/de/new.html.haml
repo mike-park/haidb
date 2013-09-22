@@ -1,16 +1,16 @@
 = semantic_form_for @public_signup do |f|
+  = hidden_field_tag(:template_version, template_version)
   -if @public_signup.errors.any?
     #error_explanation
       %h2= t('enums.error')
-      = debug(@public_signup.errors) if Rails.env.development?
   - else
     %p#lang
       - if language?(:de)
         If you prefer you may 
-        = link_to('register in English.', new_public_signup_path(:locale => :en))
+        = link_to('register in English.', new_public_signup_path(:locale => :en, template_version: template_version))
       - else
         Bitte melden Sie sich in 
-        = link_to('Deutsch hier an.', new_public_signup_path(:locale => :de))
+        = link_to('Deutsch hier an.', new_public_signup_path(:locale => :de, template_version: template_version))
 
 
   %p.title
