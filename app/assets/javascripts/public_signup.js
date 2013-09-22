@@ -2,20 +2,20 @@
 //= require_self
 
 var pm = function() {
-  var val = $("input[name='public_signup[registration_attributes][payment_method]']:checked").val();
+  var val = jQuery("input[name='public_signup[registration_attributes][payment_method]']:checked").val();
   if (val == 'Post') {
-    $('#internet').hide();
-    $('#post').fadeIn();
+    jQuery('#internet').hide();
+    jQuery('#post').fadeIn();
   } else if (val == 'Internet') {
-    $('#internet').fadeIn();
-    $('#post').hide();
+    jQuery('#internet').fadeIn();
+    jQuery('#post').hide();
   } else {
-    $('#internet').hide();
-    $('#post').hide();
+    jQuery('#internet').hide();
+    jQuery('#post').hide();
   }
 }
 
-$(function(){
-    $("input[name='public_signup[registration_attributes][payment_method]']").click(pm);
+jQuery(function(){
+    jQuery("input[name='public_signup[registration_attributes][payment_method]']").click(pm);
     pm();
 });
