@@ -1,4 +1,5 @@
 = semantic_form_for @public_signup do |f|
+  = hidden_field_tag(:template_version, template_version)
   -if @public_signup.errors.any?
     #error_explanation
       %h2= t('enums.error')

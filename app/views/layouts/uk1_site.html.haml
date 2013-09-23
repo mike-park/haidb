@@ -1,0 +1,34 @@
+!!!
+%html{:lang => "en", "xml:lang" => "en", :xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=iso-8859-1", :name => "Content-Type"}
+    %meta{:content => "text/html; charset=US-ASCII", "http-equiv" => "Content-Type"}
+    %title
+      HAI UK Home - Love, Intimacy and Sexuality Workshops in the UK
+    %meta{:content => "HAI UK, love, intimacy, sexuality, workshops, hugging, hugs, closeness, community, togetherness", :name => "keywords"}
+    %meta{:content => "The Human Awareness Institute (HAI) empowers individuals to be potent, loving, contributing human beings. HAI promotes personal growth and social evolution by replacing ignorance and fear with awareness and love.", :name => "description"}
+    %link{href: "/favicon-uk.ico", rel: "shortcut icon"}
+    = stylesheet_link_tag 'public_signup/uk/main'
+    %script{src:"//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
+    = javascript_include_tag "public_signup"
+    = csrf_meta_tag
+  %body
+    #main
+      #logo
+        %h1
+          HAI UK
+      #content
+        = _('uk.layout1.content_top')
+        #column2
+          #haidbcontainer
+            #flash{ :'padding-left' => '60px' }
+              - flash.each do |key, value|
+                %div{ :class => "flash #{key}" }
+                  = value
+
+            #haidbcontent
+              = yield
+            .clear
+
+      #footer
+        creating a world where everyone wins
