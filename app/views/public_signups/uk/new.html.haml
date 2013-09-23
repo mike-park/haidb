@@ -2,7 +2,6 @@
   -if @public_signup.errors.any?
     #error_explanation
       %h2= t('enums.error')
-      = debug(@public_signup.errors) if Rails.env.development?
 
   %p.title
     = _('public_signup.form.title')
