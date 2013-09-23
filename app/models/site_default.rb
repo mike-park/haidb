@@ -15,6 +15,7 @@ class SiteDefault < ActiveRecord::Base
   before_destroy :destroy_translations
   after_initialize :setup_nested_models
   before_validation :remove_empty_translations
+  after_save :clear_translation_caches
 
   belongs_to :translation_key, :dependent => :destroy
 
@@ -63,6 +64,16 @@ class SiteDefault < ActiveRecord::Base
   end
 
   private
+
+  def clear_translation_caches
+    # delete all cached app translations
+    FastGettext.caches[FastGettext.default_text_domain] = {}
+    # and force reload of cache of cache
+    FastGettext.text_domain = FastGettext.text_domain
+    # currently this has no effect; but technically it should be the correct way to reset translations
+    I18n.reload!
+  end
+
   def destroy_translations
     translations.all.map(&:destroy)
   end
