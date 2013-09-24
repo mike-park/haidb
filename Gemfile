@@ -80,6 +80,11 @@ gem 'gettext_i18n_rails', :git => 'git://github.com/grosser/gettext_i18n_rails.g
 
 gem "will_paginate"
 
+# speed up asset precompilation on heroku
+gem 'dalli', '~> 2.6.4'
+gem 'memcachier', '~> 0.0.2'
+
+
 group :development, :test do
   gem 'sqlite3'
   gem 'annotate'
