@@ -4,7 +4,9 @@
   %tbody
     %tr
       %th Name
-      %td= angel.full_name
+      %td
+        = angel.full_name
+        = gravatar_image(angel.gravatar)
     %tr
       %th Gender
       %td= angel.gender

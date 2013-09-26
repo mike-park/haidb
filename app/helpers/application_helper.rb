@@ -69,6 +69,11 @@ module ApplicationHelper
     end
   end
 
+  def gravatar_image(data)
+    return unless data.present?
+    tag(:img, src: data)
+  end
+
   private
 
   def new_label(label, order)

@@ -111,6 +111,7 @@ GEM
       actionpack (~> 3.0)
     gmaps4rails (1.4.8)
       json
+    gravatar-ultimate (1.0.3)
     haml (3.1.4)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
@@ -288,6 +289,7 @@ DEPENDENCIES
   formtastic_datepicker_inputs!
   gettext_i18n_rails!
   gmaps4rails
+  gravatar-ultimate
   haml (>= 3.1.4)
   haml-rails
   hoptoad_notifier

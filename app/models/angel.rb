@@ -28,11 +28,11 @@
 require 'csv'
 
 class Angel < ActiveRecord::Base
-  acts_as_audited
+  acts_as_audited except: [:gravatar]
   acts_as_gmappable address: 'full_address', lat: 'lat', lng: 'lng', validation: false
 
   after_initialize :set_default_values
-  before_save :sanitize_fields, :update_display_name
+  before_save :sanitize_fields, :update_display_name, :update_gravatar
 
   FEMALE = 'Female'
   MALE = 'Male'
@@ -197,5 +197,12 @@ class Angel < ActiveRecord::Base
     name = [name, city].reject {|i| i.blank? }.join(" - ")
     self.display_name = name if name != display_name
   end
-  
+
+  def update_gravatar
+    self.gravatar = data_uri(Gravatar.new(email).image_data(rescue_errors: true, size: '40', rating: 'x', default: 'mm'))
+  end
+
+  def data_uri(data, type = "image/jpg")
+    "data:" + type + ";base64," + Base64.encode64(data).rstrip if data.present?
+  end
 end

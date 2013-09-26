@@ -1,6 +1,7 @@
 %table.table.table-striped
   %thead
     %tr
+      %th Img
       %th= sort_link @search, :first_name, 'Name'
       %th= sort_link @search, :email
       %th= sort_link @search, :city, 'Address'
@@ -10,6 +11,7 @@
   %tbody
     - angels.each do |a|
       %tr
+        %td= gravatar_image(a.gravatar)
         %td= link_to_show(office_angel_path(a), a.full_name)
         %td= a.email
         %td= compact_address(a)

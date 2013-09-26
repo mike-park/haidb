@@ -84,6 +84,8 @@ gem "will_paginate"
 gem 'dalli', '~> 2.6.4'
 gem 'memcachier', '~> 0.0.2'
 
+# access gravatar images
+gem 'gravatar-ultimate'
 
 group :development, :test do
   gem 'sqlite3'
