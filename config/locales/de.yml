@@ -27,8 +27,8 @@ de:
         requested: 'Suche'
       sunday_choice:
         none: 'Nein'
-        meal: 'Ja, 7€ Preis'
-        stayover: 'Ja, inkl. Übernachtung und Montag Frühstück 25€ Preis'
+        meal: 'Ja, 10€ Preis'
+        stayover: 'Ja, inkl. Übernachtung und Montag Frühstück 40€ Preis'
       payment_method:
         internet: "Lastschrifteinzug per Internet"
         post: "Lastschrifteinzug schriftliche Anmeldung per Post"
