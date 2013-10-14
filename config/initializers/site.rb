@@ -35,8 +35,8 @@ class Site
         },
         'uk' => {
           # fake de language to simplify code
-          :de => "http://www.hai-uk.org.uk/thx.asp",
-          :en => "http://www.hai-uk.org.uk/thx.asp"
+          :de => "http://www.hai-uk.org.uk/thx.php",
+          :en => "http://www.hai-uk.org.uk/thx.php"
         }
       }
       url = sites[name][I18n.locale]
