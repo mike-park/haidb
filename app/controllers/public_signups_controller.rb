@@ -1,6 +1,6 @@
 class PublicSignupsController < ApplicationController
   def new
-    @public_signup = PublicSignup.new(registration_attributes: { angel_attributes: {}})
+    @public_signup = PublicSignup.new(registration_attributes: { event_id: params[:event_id], angel_attributes: {}})
     render_site_new_template
   end
 
