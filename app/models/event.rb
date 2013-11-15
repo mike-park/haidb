@@ -16,7 +16,8 @@ class Event < ActiveRecord::Base
   has_many :email_names, :through => :event_emails, :uniq => true
 
   scope :with_oldest_last, order('start_date desc')
-  scope :upcoming, lambda { order('start_date asc').where('start_date > ?', Date.today)}
+  scope :upcoming, lambda { order('start_date asc').where('start_date >= ?', Date.today)}
+  scope :current, lambda { order('start_date asc').where('start_date >= ?', Date.today - 1.week)}
 
   validates_presence_of :display_name, :category, :start_date
   validates_inclusion_of :category, :in => CATEGORIES

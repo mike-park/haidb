@@ -68,6 +68,7 @@ describe Event do
       @e2 = Factory.create(:event, :start_date => Date.tomorrow)
       @e3 = Factory.create(:event, :start_date => Date.new(2009, 6, 29))
       @e4 = Factory.create(:event, :start_date => Date.new(2020, 12, 31))
+      @e5 = Factory.create(:event, :start_date => Date.today - 5.days)
     end
     after(:all) do
       Event.delete_all
@@ -75,12 +76,16 @@ describe Event do
 
     it "should order by oldest last" do
       all = Event.with_oldest_last.all
-      all.should == [@e4, @e2, @e1, @e3]
+      all.should == [@e4, @e2, @e5, @e1, @e3]
     end
 
     it "should have only future events in order as they will occur" do
       all = Event.upcoming.all
       all.should == [@e2, @e4]
+    end
+
+    it "should have only 3 current events" do
+      Event.current.all.should == [@e5, @e2, @e4]
     end
   end
 
