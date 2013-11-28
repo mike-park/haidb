@@ -10,7 +10,7 @@ describe PublicSignupsController do
         Site.stub(:name).and_return(name)
         basedir = "public_signups/#{name}"
         # no top level new template, only in subdirectory. 
-        [lambda {get :new}, lambda {post :create}].each do |action|
+        [lambda { get :new }, lambda { post :create }].each do |action|
           action.call
           assigns[:basedir].should == basedir
           response.should render_template("#{basedir}/new", "layouts/#{name}_site")
@@ -50,15 +50,28 @@ describe PublicSignupsController do
     end
 
     context "a valid signup" do
-      let(:public_signup) {  double("PublicSignup").as_null_object }
+      let(:public_signup) { double("PublicSignup").as_null_object }
       before(:each) do
         public_signup.stub(:save).and_return(true)
         PublicSignup.stub(:new).and_return(public_signup)
       end
 
       it "should redirect_to site specific url" do
+        success_url = 'https://somewhere.over.the.mountain/'
+        SiteDefault.create!(description: 'desc',
+                            translation_key_attributes: {
+                                key: 'public_signup.form.success_url',
+                                translations_attributes: [
+                                    {locale: 'en', text: success_url}
+                                ]})
         post :create
-        response.should redirect_to(Site.thankyou_url)
+        response.should redirect_to(success_url)
+        SiteDefault.destroy_all
+      end
+
+      it "should redirect to local url if no specific url exists" do
+        post :create, template_version: '99'
+        response.should redirect_to(public_signup_url(0, template_version: '99'))
       end
 
       it "should send notification email" do
@@ -85,12 +98,12 @@ describe PublicSignupsController do
             post :create
             invalid_public_signup = assigns[:public_signup]
             invalid_public_signup.errors.messages.should == {
-                :"registration.angel.first_name"=>["can't be blank"],
-                :"registration.angel.last_name"=>["can't be blank"],
-                :"registration.angel.email"=>["can't be blank"],
-                :"registration.angel.gender"=>["must be selected"],
-                :"registration.event"=>["must be selected"],
-                :terms_and_conditions=>["must be accepted"]
+                :"registration.angel.first_name" => ["can't be blank"],
+                :"registration.angel.last_name" => ["can't be blank"],
+                :"registration.angel.email" => ["can't be blank"],
+                :"registration.angel.gender" => ["must be selected"],
+                :"registration.event" => ["must be selected"],
+                :terms_and_conditions => ["must be accepted"]
             }
           end
         end
@@ -100,12 +113,12 @@ describe PublicSignupsController do
             post :create
             invalid_public_signup = assigns[:public_signup]
             invalid_public_signup.errors.messages.should == {
-                :"registration.angel.first_name"=>["muss ausgefüllt werden"],
-                :"registration.angel.last_name"=>["muss ausgefüllt werden"],
-                :"registration.angel.email"=>["muss ausgefüllt werden"],
-                :"registration.angel.gender"=>["muss ausgewählt werden"],
-                :"registration.event"=>["muss ausgewählt werden"],
-                :terms_and_conditions=>["muss akzeptiert werden"]
+                :"registration.angel.first_name" => ["muss ausgefüllt werden"],
+                :"registration.angel.last_name" => ["muss ausgefüllt werden"],
+                :"registration.angel.email" => ["muss ausgefüllt werden"],
+                :"registration.angel.gender" => ["muss ausgewählt werden"],
+                :"registration.event" => ["muss ausgewählt werden"],
+                :terms_and_conditions => ["muss akzeptiert werden"]
             }
           end
         end

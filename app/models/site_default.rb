@@ -16,6 +16,7 @@ class SiteDefault < ActiveRecord::Base
   after_initialize :setup_nested_models
   before_validation :remove_empty_translations
   after_save :clear_translation_caches
+  after_destroy :clear_translation_caches
 
   belongs_to :translation_key, :dependent => :destroy
 
@@ -29,6 +30,12 @@ class SiteDefault < ActiveRecord::Base
   
   def display_name
     translation_key.key
+  end
+
+  # get key via auto-translation of FastGettext. return nil if not set. (by default translation returns rhe )
+  def self.get(key)
+    value = _(key)
+    value == key ? nil : value
   end
 
   def self.dump(filename)

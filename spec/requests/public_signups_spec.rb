@@ -108,7 +108,6 @@ end
 describe "POST /public_signups" do
   let(:future_event) {FactoryGirl.create(:future_event)}
   before(:each) do
-    Site.stub(:thankyou_url) { '/' }
     future_event
   end
 

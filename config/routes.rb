@@ -8,7 +8,7 @@ Haidb::Application.routes.draw do
   root :to => "public_signups#new"
 
   # participant signup
-  resources :public_signups, :only => [:new, :create]
+  resources :public_signups, :only => [:new, :create, :show]
 
   namespace :office do
 
