@@ -110,7 +110,6 @@ group :development, :test do
   gem "launchy"
 
   gem 'faker'
-  gem 'zeus'
 end
 
 group :production do
