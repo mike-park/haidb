@@ -30,8 +30,8 @@ class Site
       sites = {
         'de' => {
           # language
-          :de => "http://www.liebstduschon.de/lds/index.php?id=20x0",
-          :en => "http://www.liebstduschon.de/lds/index.php?id=20x1"
+          :de => "http://www.liebe-workshop.de/",
+          :en => "http://www.liebe-workshop.de/"
         },
         'uk' => {
           # fake de language to simplify code
