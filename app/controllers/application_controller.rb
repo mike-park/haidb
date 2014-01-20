@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def audit_user
+    current_staff
+  end
+
   # devise redirect on staff login
   def staff_root_path
     office_root_path
