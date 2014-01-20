@@ -87,6 +87,8 @@ gem 'memcachier', '~> 0.0.2'
 # access gravatar images
 gem 'gravatar-ultimate'
 
+gem 'pg'
+
 group :development, :test do
   gem 'sqlite3'
   gem 'annotate'
@@ -110,8 +112,4 @@ group :development, :test do
   gem "launchy"
 
   gem 'faker'
-end
-
-group :production do
-  gem 'pg'
 end
