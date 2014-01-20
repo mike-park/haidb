@@ -3,6 +3,7 @@
     %tr
       %th Title
       %th Level
+      %th Role
       %th{:width => '60%'} Notes
       %th
   %tbody
@@ -10,5 +11,6 @@
       %tr
         %td= link_to_show(office_event_registration_path(r.event, r), r.event_name)
         %td= r.level
+        %td= r.role
         %td= r.notes
         %td.link= link_to_destroy office_angel_registration_path(r.angel, r)
