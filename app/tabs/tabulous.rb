@@ -58,8 +58,9 @@ Tabulous.setup do |config|
           #------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
           #    TAB NAME                                 |    DISPLAY TEXT                          |    PATH                                     |    VISIBLE?    |    ENABLED?    #
           #------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
-          [    :office_dashboards_tab                   ,    'Dashboard'                   ,    office_root_path                   ,    true        ,    true        ],
+          [    :office_dashboards_tab                   ,    'Dashboard'                    ,    office_root_path                         ,    true        ,    true        ],
           [    :office_angels_tab                       ,    'Angels'                       ,    office_angels_path                       ,    true        ,    true        ],
+          [    :office_teams_tab                        ,    'Teams'                        ,    office_teams_path                        ,    true        ,    true        ],
           [    :office_events_tab                       ,    'Events'                       ,    office_events_path                       ,    true        ,    true        ],
           [    :office_public_signups_tab               ,    'Public Signups'               ,    office_public_signups_path               ,    true        ,    true        ],
           [    :office_site_defaults_tab                ,    'Site Defaults'                ,    office_site_defaults_path                ,    true        ,    true        ],
@@ -106,6 +107,7 @@ Tabulous.setup do |config|
         [    :checklist      ,    :all_actions    ,    :office_events_tab      ],
         [    :roster         ,    :all_actions    ,    :office_events_tab         ],
         [    :map            ,    :all_actions    ,    :office_events_tab            ],
+        [    :teams                        ,    :all_actions    ,    :office_teams_tab                        ],
         [    :events                       ,    :all_actions    ,    :office_events_tab                       ],
         [    :public_signups               ,    :all_actions    ,    :office_public_signups_tab               ],
         [    :site_defaults                ,    :all_actions    ,    :office_site_defaults_tab                ],

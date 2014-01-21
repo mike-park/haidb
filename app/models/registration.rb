@@ -45,11 +45,16 @@ class Registration < ActiveRecord::Base
   scope :team, ok.where(:role => TEAM)
   scope :participants, ok.where(:role => PARTICIPANT)
   scope :non_participants, ok.where("role != ?", PARTICIPANT)
+  scope :non_facilitators, ok.where("role != ?", FACILITATOR)
   scope :facilitators, ok.where(:role => FACILITATOR)
   scope :where_role, lambda { |role| ok.where(:role => role) }
+
   scope :where_email, lambda { |email| includes([:angel, :event]).where('angels.email = ?', email) }
+
   scope :upcoming_events, lambda { includes(:event).where('events.start_date > ?', Date.current) }
   scope :past_events, lambda { includes(:event).where('events.start_date <= ?', Date.current) }
+  scope :since, lambda { |date| includes(:event).where('events.start_date >= ?', date) }
+  scope :team_workshops, lambda { where(events: {category: Event::TEAM}) }
 
   scope :special_diets, where(:special_diet => true)
   scope :backjack_rentals, where(:backjack_rental => true)

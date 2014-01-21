@@ -147,6 +147,10 @@ class Angel < ActiveRecord::Base
     lat.present? && lng.present?
   end
 
+  def <=>(other)
+    display_name.downcase <=> other.display_name.downcase
+  end
+
   private
 
   def self.find_angels_with_same_email_address

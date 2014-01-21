@@ -1,0 +1,9 @@
+= content_for :secondary_navigation do
+  %ul.nav.nav-list
+    %li.nav-header Team Reports
+    %li= link_to(icon('icon-list-alt') + "Active", url_for(params.merge(status: 'active')))
+    %li= link_to(icon('icon-list-alt') + "Current", url_for(params.merge(status: 'current')))
+    %li= link_to(icon('icon-list-alt') + "All", url_for(params.merge(status: 'all')))
+    %li.nav-header Export
+    %li= link_to(icon('icon-envelope') + "Address Book", url_for(params.merge(format: :vcard)))
+    %li= link_to(icon('icon-list') + "Spreadsheet", url_for(params.merge(format: :csv)))

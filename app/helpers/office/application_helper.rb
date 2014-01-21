@@ -50,6 +50,19 @@ module Office::ApplicationHelper
     end
   end
 
+  def add_email_button_to(nav, options)
+    count = 0
+    [:cc, :bcc].each do |name|
+      if (list = options[name])
+        count += list.length
+        options[name] = list.join(',')
+      end
+    end
+    label = icon('icon-envelope') + "Email #{count}"
+    options[:class] = 'btn'
+    nav << mail_to(current_staff.email, label, options)
+  end
+
   # Copied from https://gist.github.com/1205828
   # Based on https://gist.github.com/1182136
   class BootstrapLinkRenderer < ::WillPaginate::ActionView::LinkRenderer
