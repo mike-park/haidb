@@ -113,3 +113,8 @@ group :development, :test do
 
   gem 'faker'
 end
+
+group :test do
+  # required only while rubymine defaults to checking 'rspec run under bundler'
+  gem 'zeus', '~> 0.13.4.pre2'
+end
