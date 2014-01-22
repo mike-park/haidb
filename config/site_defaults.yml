@@ -1,0 +1,286 @@
+---
+:de:
+- :description: Title line of the public signup form.
+  :translation_key_attributes:
+    :key: public_signup.form.title
+    :translations_attributes:
+      0:
+        locale: en
+        text: 'Registration for HAI/Hand-on-Heart Workshop '
+      1:
+        locale: de
+        text: 'Anmeldung für unsere HAI/Hand-on-Heart Workshops '
+- :description: Text block that precedes the form fields.
+  :translation_key_attributes:
+    :key: public_signup.form.introduction
+    :translations_attributes:
+      0:
+        locale: en
+        text: 'Please enter your registration information below. Fields showing the
+          * are required. After we review your registration you will receive a confirmation
+          email. '
+      1:
+        locale: de
+        text: Bitte geben Sie Ihre Anmeldedaten weiter unten ein. Felder mit * zeigen
+          Pflichtfelder. Nach Überprüfung Ihrer Anmeldung erhalten Sie eine Bestätigungs-Email.
+- :description: Text block that precedes the workshop options.
+  :translation_key_attributes:
+    :key: public_signup.form.workshop_information
+    :translations_attributes:
+      0:
+        locale: en
+        text: Workshop Information
+      1:
+        locale: de
+        text: Workshop Information
+- :description: Text block above the note field.
+  :translation_key_attributes:
+    :key: public_signup.form.note
+    :translations_attributes:
+      0:
+        locale: en
+        text: Any other things we should know? We will do our best to accommodate
+          your needs.
+      1:
+        locale: de
+        text: Alle sonstigen Angaben, die wir wissen sollten, können Sie in der Spalte
+          Anmerkungen an uns senden. Wir werden unser Bestes tun, um Ihre Bedürfnisse
+          oder Wünsche zu erfüllen.
+- :description: Text block that appears above the payment options.
+  :translation_key_attributes:
+    :key: public_signup.form.payment
+    :translations_attributes:
+      0:
+        locale: en
+        text: Payment Details
+      1:
+        locale: de
+        text: "Die Bezahlung des Workshops erfolgt über Lastschrifteinzug. Sie können
+          den Auftrag zum Lastschrifteinzug hier abgeben oder über das Anmeldeformular
+          per Post zurücksenden. Die Workshopgebühren betragen 235 EUR bei Level 1,
+          bei Level 2-8 275 EUR. In den Gebühren sind die 110 EUR für Unterkunft und
+          Verpflegung NICHT miteingeschlossen. Diese sind bei Workshopbeginn direkt
+          als Bargeld an das Seminarhaus Schöppingen zu entrichten.\r\n<br />\r\n<br
+          />\r\nBei Anmeldungen aus dem deutschsprachigen Ausland: Bitte überweisen
+          Sie die Workshopgebühr selber an\r\n<br />\r\n<br />\r\nBank Account: HAND
+          ON HEART e.V. in Hamburg, Wohlwillstrasse 1, Germany<br />\r\nBank: HASPA
+          in Hamburg, Wohlwillstrasse 49-50, Germany (BIC HASPDEHHXXX)<br />\r\nInternational
+          Account Number (IBAN) DE93 2005 0550 1251 1238 55<br />\r\n\r\n"
+- :description: Text block that appears when payment by post is selected.
+  :translation_key_attributes:
+    :key: public_signup.form.payment_by_post
+    :translations_attributes:
+      0:
+        locale: de
+        text: "<a href=\"https://docs.google.com/document/d/1yYKaSlLn9H0neF3zuhhmSD7ngSusuAdtnwy4q-owWsc/edit?usp=sharing\">
+          \r\nDownload der druckbaren Anmeldeformular aus</a>\r\n<br>\r\n<br>\r\nSenden
+          an: <br>\r\n<blockquote>Hand on Heart e.V.<br>\r\nc/o M.Kitz, Wohlwillstr.1
+          <br>\r\n20359 Hamburg, Deutschland<br>\r\n</blockquote>\r\n"
+- :description: Text block that appears above the terms and conditions checkbox.
+  :translation_key_attributes:
+    :key: public_signup.form.conditions
+    :translations_attributes:
+      0:
+        locale: de
+        text: "<strong>Teilnahmevereinbarung:</strong> Bei Rücktritt bis zu 4 Wochen
+          vor Seminarbeginn wird eine Bearbeitungsgebühr von 15% der Seminargebühr
+          erhoben, danach wird die volle Summe fällig. Bei der Bereitstellung von
+          Ersatzteilnehmern entfällt dies.  Bei vorzeitigem Abbruch des Seminars besteht
+          kein Anspruch auf Erstattung der Seminargebühren.<br>\r\n<br>\r\nDie Teilnahme
+          an diesem Seminar dient der persönlichen Selbsterfahrung und ersetzt keine
+          psychotherapeutische Behandlung. Dem Teilnehmer ist bekannt, dass die Teilnahme
+          an dieser Veranstaltung der eigenen Verantwortlichkeit unterliegt und stellt
+          hiermit Veranstalter, Seminarleiter, Team und Seminarhaus von allen Haftungsansprüchen
+          frei.\r\n"
+      1:
+        locale: en
+        text: "To pay for the workshop please transfer 235.00 &euro; (Level 1) or
+          275.00 &euro; (Level 2-8) at least 4 weeks prior to the WS to the following:<br
+          />\r\n<br />\r\nBank Account:             HAND ON HEART e.V.<br />\r\nBank:
+          HASPA in Hamburg, Wohlwillstrasse, Germany (BIC HASPDEHHXXX) <br />\r\nInternational
+          Account Number (IBAN) DE93 2005 0550 1251 1238 55<br />\r\n<br />\r\nThe
+          amount of 110 &euro; for Accommodation and Food is NOT included and must
+          be paid directly to the venue prior to the workshop.<br />\r\n<br />\r\n<strong>Participation
+          Conditions:</strong> If you need to cancel up to 4 weeks prior to the workshop,
+          we will charge 15% handling fee. If you cancel less than 4 weeks before
+          the workshop, the full amount will be charged. But if you find someone to
+          take your place, there is no handling fee for changing the booking to the
+          new name. If you need to leave during the weekend itself, we will not be
+          able to make any refund whatsoever.  <br />\r\n<br />\r\nThe workshop is
+          about personal growth and NOT PSYCHOTHERAPY!  <br />\r\n<br />\r\nThe participants
+          agree to take part in this workshop on their own responsibility and understand
+          that the facilitators, producers, team or venue can accept no liability
+          whatsoever.\r\n"
+- :description: Helpful information above the gender question.
+  :translation_key_attributes:
+    :key: public_signup.form.gender
+    :translations_attributes:
+      0:
+        locale: en
+        text: Please select a gender identity. If necessary, you may specify any atypical
+          gender identity you feel is important to you or may be relevant to us in
+          the comment block below. It will be treated in the strictest of confidence.
+      1:
+        locale: de
+        text: Weiter unten können Sie jegliche darüber hinausgehende Geschlechtsidentität
+          angeben, so Ihnen dies wichtig erscheint oder für uns von Relevanz sein
+          könnte. Dies wird mit striktester Vertraulichkeit behandelt.
+- :description: HTML of local thank you page. This page will only be used if public_sign.form.success_url
+    is blank.
+  :translation_key_attributes:
+    :key: public_signup.form.thankyou
+    :translations_attributes:
+      0:
+        locale: en
+        text: "<div><p>Thank you for your sign up! </p>\r\n\r\n<p>It will be processed
+          soon – and you will receive a confirmation from me the moment it has been
+          accepted.</p>\r\n\r\n<p>Kind regards</p>\r\n\r\n<p>Mikki Kitz, the producer
+          of the HAI workshops in Germany</p>\r\n</div>"
+      1:
+        locale: de
+        text: "<div><p>Vielen Dank für deine Anmeldung! </p>\r\n\r\n<p>Ich werde sie
+          bald bearbeiten, und du wirst von mir noch eine verbindliche Bestätigung
+          erhalten.</p>\r\n\r\n<p>Mit freundlichem Gruß</p>\r\n\r\n<p>Mikki Kitz,
+          die Organisatorin der HAI Workshops hier in Deutschland</p>\r\n\r\n</div>\r\n"
+:uk:
+- :description: Title line of the public signup form.
+  :translation_key_attributes:
+    :key: public_signup.form.title
+    :translations_attributes:
+      0:
+        locale: en
+        text: Registration for HAI Workshop
+- :description: Text block that precedes the form fields.
+  :translation_key_attributes:
+    :key: public_signup.form.introduction
+    :translations_attributes:
+      0:
+        locale: en
+        text: 'Please enter your registration information below. Fields showing the
+          * are required. After we review your registration you will receive a confirmation
+          email. '
+- :description: Text block that precedes the workshop options.
+  :translation_key_attributes:
+    :key: public_signup.form.workshop_information
+    :translations_attributes:
+      0:
+        locale: en
+        text: Workshop Information
+- :description: Text block above the note field.
+  :translation_key_attributes:
+    :key: public_signup.form.note
+    :translations_attributes:
+      0:
+        locale: en
+        text: Any other things we should know? We will do our best to accommodate
+          your needs.
+- :description: Text block that appears above the payment options.
+  :translation_key_attributes:
+    :key: public_signup.form.payment
+    :translations_attributes:
+      0:
+        locale: en
+        text: Payment Details
+- :description: Text block that appears above the terms and conditions checkbox.
+  :translation_key_attributes:
+    :key: public_signup.form.conditions
+    :translations_attributes:
+      0:
+        locale: en
+        text: "<h3> Clothing Optional Statement</h3>\r\n<p> At the &lsquo;Love is
+          a Miracle&rsquo; (Level 1) weekend there is an opportunity on Saturday to
+          participate in an optional safe and loving disrobing exercise led by the
+          Facilitators. From that point on, the weekend continues to be clothing optional
+          – the key word being &lsquo;optional&rsquo;.</p><p>The Disrobing Exercise
+          is designed to allow us to experience feeling better about the skin we live
+          in, and see one another&apos;s humanity in a profound way.</p>\r\n<p>By
+          registering for this weekend you confirm that you have read the above statement
+          and if you wish to discuss it further please contact the HAI UK office.</p>\r\n<br
+          />\r\n<h2>Participation Conditions</h2>\r\n<p>\r\nPlaces are subject to
+          availability. We aim for equal numbers of men and women and take this into
+          account in determining availability.</p>\r\n<p> A full refund is available
+          in the event of cancellation, provided that you give us notice of cancellation
+          at least one week before the workshop.</p>\r\n<p>Data Protection Act 1998
+          We will store data you have given us electronically. We will use this information
+          only for HAI’s purposes, including our own marketing. Information will not
+          be disclosed to any other party. You may ask us, at any time, not to use
+          information for marketing purposes, by contacting us at uk-office@hai.org
+          or on 0845 5551200.</p>"
+- :description: Text block that appears above the previous workshop questions.
+  :translation_key_attributes:
+    :key: public_signup.form.previous_workshop.instructions
+    :translations_attributes:
+      0:
+        locale: en
+        text: If you have previously attended HAI weekend workshops, please give us
+          details of your highest level.
+- :description: Highest level label
+  :translation_key_attributes:
+    :key: public_signup.form.previous_workshop.highest_level
+    :translations_attributes:
+      0:
+        locale: en
+        text: Highest level completed
+- :description: Highest level location label
+  :translation_key_attributes:
+    :key: public_signup.form.previous_workshop.highest_location
+    :translations_attributes:
+      0:
+        locale: en
+        text: Workshop location
+- :description: Highest level date label
+  :translation_key_attributes:
+    :key: public_signup.form.previous_workshop.highest_date
+    :translations_attributes:
+      0:
+        locale: en
+        text: Workshop date
+- :description: Html content that appears above all public viewed pages.  The public
+    signup form is directly below.
+  :translation_key_attributes:
+    :key: uk.layout.content_top
+    :translations_attributes:
+      0:
+        locale: en
+        text: <div id="menu"> <ul> <li> <a href="http://www.hai-uk.org.uk/">home</a>
+          </li> <li> <a id="selected" name="selected" href= "#">registration</a> </li>
+          </ul> </div> <div id="column1"> <div class="sidebaritem"> <div class="sbihead">
+          <h1> want to know more? </h1> </div> <div class="sbicontent"> <!-- ****
+          INSERT OTHER INFORMATION HERE **** --> <p> Give us a ring on:<br /> 0845
+          555 1200<br /> <br /> Or email us at:<br /> <a href="mailto:uk-office@hai.org">uk-office@hai.org</a><br
+          /> </p> <p> HAI-UK is a not-for-profit organisation </p> <p> Charity registration
+          number 1128261 </p> <p> Donations to HAI UK can be made via <a href= "http://www.justgiving.com/haiuk/Donate"
+          target="_blank">JustGiving </a> </p> </div> </div> </div>
+- :description: "Template Version 1:\r\n\r\nHtml content that will be inserted above
+    the public signup form.\r\n\r\n"
+  :translation_key_attributes:
+    :key: uk.layout1.content_top
+    :translations_attributes:
+      0:
+        locale: en
+        text: "        <div id=\"menu\"> \r\n          <ul> \r\n            <li> \r\n
+          \             <a href=\"http://www.hai-uk.org.uk/\">home</a> \r\n            </li>
+          \r\n            <li> \r\n              <a id=\"selected\" name=\"selected\"
+          href=\r\n              \"#\">registration</a> \r\n            </li> \r\n
+          \         </ul> \r\n        </div> \r\n        <div id=\"column1\"> \r\n
+          \        <div class=\"sidebaritem\">\r\n            <div class=\"sbihead\">\r\n
+          \             <h1>\r\n                want to know more?\r\n              </h1>\r\n
+          \           </div>\r\n            <div class=\"sbicontent\">\r\n              <!--
+          **** INSERT OTHER INFORMATION HERE **** -->\r\n\r\n              <p>\r\n
+          \               Give us a ring on:<br />\r\n                0845 555 1200<br
+          />\r\n                <br />\r\n                Or email us at:<br />\r\n
+          \               <a href=\"mailto:uk-office@hai.org\">uk-office@hai.org</a><br
+          />\r\n              </p>\r\n\r\n              <p>\r\n                HAI-UK
+          is a not-for-profit organisation\r\n              </p>\r\n              <p>\r\n
+          \               Charity registration number 1128261\r\n              </p>\r\n
+          \             <p>\r\n                Donations to HAI UK can be made via\r\n
+          \               <a href=\r\n                \"http://www.justgiving.com/haiuk/Donate\"
+          target=\"_blank\">JustGiving\r\n                </a>\r\n              </p>\r\n
+          \           </div> \r\n          </div> \r\n        </div> "
+- :description: Redirect url after successful submission of public signup.
+  :translation_key_attributes:
+    :key: public_signup.form.success_url
+    :translations_attributes:
+      0:
+        locale: en
+        text: http://www.hai-uk.org.uk/thx.php
