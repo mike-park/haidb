@@ -14,5 +14,5 @@
           %tr
             %td.date= link_to_show(office_registration_payment_path(p.registration, p), l(p.paid_on))
             %td= p.note
-            %td.qty= number_to_currency p.amount
+            %td.qty= local_currency p.amount
             %td.link= link_to_destroy office_registration_payment_path(p.registration, p)

@@ -74,6 +74,11 @@ module ApplicationHelper
     tag(:img, src: data)
   end
 
+  def local_currency(number)
+    locale = Site.de? ? 'de' : 'en-GB'
+    number_to_currency(number, locale: locale)
+  end
+
   private
 
   def new_label(label, order)
