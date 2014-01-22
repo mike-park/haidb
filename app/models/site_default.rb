@@ -32,7 +32,7 @@ class SiteDefault < ActiveRecord::Base
     translation_key.key
   end
 
-  # get key via auto-translation of FastGettext. return nil if not set. (by default translation returns rhe )
+  # get key via auto-translation of FastGettext. return nil if not set. (by default translation returns the key)
   def self.get(key)
     value = _(key)
     value == key ? nil : value

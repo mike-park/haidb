@@ -142,6 +142,17 @@
           bald bearbeiten, und du wirst von mir noch eine verbindliche Bestätigung
           erhalten.</p>\r\n\r\n<p>Mit freundlichem Gruß</p>\r\n\r\n<p>Mikki Kitz,
           die Organisatorin der HAI Workshops hier in Deutschland</p>\r\n\r\n</div>\r\n"
+- :description: Default color used as a background on report headers. Must be a 6
+    digit hex color code. ie ffffff is white.
+  :translation_key_attributes:
+    :key: site.theme_color
+    :translations_attributes:
+      0:
+        locale: en
+        text: 99cc33
+      1:
+        locale: de
+        text: 99cc33
 :uk:
 - :description: Title line of the public signup form.
   :translation_key_attributes:
@@ -284,3 +295,11 @@
       0:
         locale: en
         text: http://www.hai-uk.org.uk/thx.php
+- :description: Default color used as a background on report headers. Must be a 6
+    digit hex color code. ie ffffff is white.
+  :translation_key_attributes:
+    :key: site.theme_color
+    :translations_attributes:
+      0:
+        locale: en
+        text: d6af2e

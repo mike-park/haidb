@@ -26,10 +26,14 @@ class Notifier < ActionMailer::Base
   end
 
   def from
-    "HAI Registrations <#{Site.from_email}>"
+    "HAI Registrations <#{default_address}>"
   end
   
   def bcc
-    Site.from_email
+    default_address
+  end
+
+  def default_address
+    SiteDefault.get('email.registrations.from_address')
   end
 end

@@ -6,7 +6,7 @@ describe PublicSignupsController do
     render_views
 
     it "should render the correct form and layout" do
-      Site::NAMES.each do |name|
+      %w(de uk).each do |name|
         Site.stub(:name).and_return(name)
         basedir = "public_signups/#{name}"
         # no top level new template, only in subdirectory. 

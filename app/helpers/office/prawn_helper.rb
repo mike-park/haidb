@@ -40,11 +40,14 @@ module Office::PrawnHelper
             #stroke_color "ff0000"
             #stroke_bounds
             #stroke_color '000000'
-            
-            fill_color Site.theme_color
-            rectangle([bounds.left, bounds.top], bounds.width, 20)
-            fill
-            fill_color "000000"
+
+            theme_color = SiteDefault.get('site.theme_color')
+            if theme_color
+              fill_color theme_color
+              rectangle([bounds.left, bounds.top], bounds.width, 20)
+              fill
+              fill_color "000000"
+            end
             
             image("#{Rails.root}/public/images/de/logo-big.png",
                   :fit => [40, 40],

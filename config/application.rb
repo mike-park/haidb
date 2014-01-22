@@ -1,8 +1,5 @@
 require File.expand_path('../boot', __FILE__)
 
-# include my site specific overrides
-require File.expand_path('../site', __FILE__)
-
 require 'rails/all'
 
 if defined?(Bundler)

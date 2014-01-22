@@ -9,4 +9,4 @@ if a && a['de']
   a['de'].sort!
 end
 
-Carmen.default_country = Site.default_country
+Carmen.default_country = Site.de? ? 'DE' : 'GB'

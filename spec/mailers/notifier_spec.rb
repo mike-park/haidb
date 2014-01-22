@@ -8,8 +8,12 @@ describe Notifier do
                                 body: "body {{person_name}} {{event_name}}") }
     let(:registration) { Factory.build(:full_registration) }
     subject { Notifier.registration_with_template(registration, email) }
-    let(:sender) { Site.from_email }
+    let(:sender) { 'a_person@example.com' }
     let(:site_name) { Site.name }
+
+    before do
+      SiteDefault.stub(:get).with('email.registrations.from_address').and_return(sender)
+    end
 
     its(:from) { should == [sender] }
     its(:to) { should == [registration.angel.email] }
