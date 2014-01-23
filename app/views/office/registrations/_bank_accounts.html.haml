@@ -4,6 +4,7 @@
   %thead
     %tr
       %th.name Name
+      %th Code
       %th Pay. Meth
       %th Acc. Name
       %th Acc. Number
@@ -14,6 +15,7 @@
     - registrations.by_first_name.each do |r|
       %tr
         %td.name= link_to_show(office_event_registration_path(r.event, r), r.full_name)
+        %td= r.registration_code
         %td= r.payment_method
         %td= r.bank_account_name
         %td= r.bank_account_nr

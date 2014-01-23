@@ -152,7 +152,26 @@ describe Registration do
       r1 = Factory.create(:registration)
       Registration.highest_completed_level.should == 0
     end
+  end
 
+  context "registration code" do
+    it "should save a registration code" do
+      event = Factory.create(:event, next_registration_code: '123')
+      registration = Factory.create(:registration, event: event)
+      registration.registration_code.should == '123'
+    end
+
+    it "should not change an existing code" do
+      event = Factory.create(:event, next_registration_code: '123')
+      registration = Factory.create(:registration, event: event, registration_code: '999')
+      registration.registration_code.should == '999'
+    end
+
+    it "should have no registration code" do
+      event = Factory.create(:event, next_registration_code: nil)
+      registration = Factory.create(:registration, event: event)
+      registration.registration_code.should_not be
+    end
   end
 
 
@@ -245,36 +264,3 @@ describe Registration do
   end
 
 end
-
-# == Schema Information
-#
-# Table name: registrations
-#
-#  id                    :integer         primary key
-#  angel_id              :integer         not null
-#  event_id              :integer         not null
-#  role                  :string(255)     default("Participant"), not null
-#  special_diet          :boolean         default(FALSE)
-#  backjack_rental       :boolean         default(FALSE)
-#  sunday_stayover       :boolean         default(FALSE)
-#  sunday_meal           :boolean         default(FALSE)
-#  sunday_choice         :string(255)
-#  lift                  :string(255)
-#  payment_method        :string(255)     default("Direct")
-#  bank_account_nr       :string(255)
-#  bank_account_name     :string(255)
-#  bank_name             :string(255)
-#  bank_sort_code        :string(255)
-#  notes                 :text
-#  completed             :boolean         default(FALSE)
-#  checked_in            :boolean         default(FALSE)
-#  created_at            :timestamp
-#  updated_at            :timestamp
-#  public_signup_id      :integer
-#  approved              :boolean         default(FALSE)
-#  how_hear              :string(255)
-#  previous_event        :string(255)
-#  reg_fee_received      :boolean
-#  clothing_conversation :boolean
-#
-

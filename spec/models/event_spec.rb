@@ -44,9 +44,9 @@ describe Event do
         it "should have English errors" do
           invalid_event = Event.create
           invalid_event.errors.messages.should == {
-              :display_name=>["can't be blank"],
-              :category=>["can't be blank", "is not included in the list"],
-              :start_date=>["can't be blank"]}
+              :display_name => ["can't be blank"],
+              :category => ["can't be blank", "is not included in the list"],
+              :start_date => ["can't be blank"]}
         end
       end
       context "de" do
@@ -54,9 +54,9 @@ describe Event do
         it "should have German errors" do
           invalid_event = Event.create
           invalid_event.errors.messages.should == {
-              :display_name=>["muss ausgefüllt werden"],
-              :category=>["muss ausgefüllt werden", "ist kein gültiger Wert"],
-              :start_date=>["muss ausgefüllt werden"]}
+              :display_name => ["muss ausgefüllt werden"],
+              :category => ["muss ausgefüllt werden", "ist kein gültiger Wert"],
+              :start_date => ["muss ausgefüllt werden"]}
         end
       end
     end
@@ -149,20 +149,30 @@ describe Event do
       subject.email_name(category).should == 'name'
     end
   end
+
+  context "registration_codes" do
+    context "with codes" do
+      subject { Factory.create(:event, next_registration_code: '123') }
+
+      it "should increment code" do
+        subject.claim_registration_code.should == '123'
+        subject.next_registration_code.should == '124'
+      end
+
+      it "should have registration codes" do
+        subject.should have_registration_codes
+      end
+    end
+
+    context "without codes" do
+      it "should have no code" do
+        ['', '  ', "\t\n ", nil].each do |code|
+          event = Factory.create(:event, next_registration_code: code)
+          ['claim', code, event.claim_registration_code].should == ['claim', code, nil]
+          ['next', code, event.next_registration_code].should == ['next', code, nil]
+          ['required?', code, event.has_registration_codes?].should == ['required?', code, false]
+        end
+      end
+    end
+  end
 end
-
-
-
-# == Schema Information
-#
-# Table name: events
-#
-#  id           :integer         not null, primary key
-#  display_name :string(255)     not null
-#  category     :string(255)     not null
-#  level        :integer         default(0)
-#  start_date   :date            not null
-#  created_at   :datetime
-#  updated_at   :datetime
-#
-

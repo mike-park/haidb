@@ -9,6 +9,8 @@ class Event < ActiveRecord::Base
   CATEGORIES = [LIS, TEAM,
                 COMMUNITYWEEKEND, HANDONHEART, OTHER]
 
+  store :options, accessors: [:next_registration_code]
+
   has_many :registrations, :inverse_of => :event, :dependent => :destroy
   has_many :angels, :through => :registrations
 
@@ -21,6 +23,8 @@ class Event < ActiveRecord::Base
 
   validates_presence_of :display_name, :category, :start_date
   validates_inclusion_of :category, :in => CATEGORIES
+  validates_numericality_of :next_registration_code, allow_blank: true, allow_nil: true
+  before_validation :reset_next_registration_code, if: lambda { |e| e.next_registration_code.blank? }
 
   accepts_nested_attributes_for :event_emails
 
@@ -42,6 +46,24 @@ class Event < ActiveRecord::Base
 
   def past?
     !upcoming?
+  end
+
+  def claim_registration_code
+    if has_registration_codes?
+      code = next_registration_code
+      update_attribute(:next_registration_code, code.next)
+      code
+    end
+  end
+
+  def has_registration_codes?
+    next_registration_code.present?
+  end
+
+  private
+
+  def reset_next_registration_code
+    self.next_registration_code = nil
   end
 end
 

@@ -9,6 +9,7 @@ FactoryGirl.define do
 
   factory :full_event, :parent => :event do
     level 1
+    next_registration_code '123'
   end
   factory :event1, :parent => :event do
     level 1

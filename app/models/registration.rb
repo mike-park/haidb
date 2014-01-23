@@ -4,10 +4,11 @@ class Registration < ActiveRecord::Base
 
   has_many :payments, dependent: :destroy
 
-  store :options, accessors: [:highest_level, :highest_location, :highest_date]
+  store :options, accessors: [:highest_level, :highest_location, :highest_date, :registration_code]
 
   before_save SundayChoiceCallbacks
   before_save :update_payment_summary
+  before_save :assign_registration_code, if: lambda {|r| r.event.has_registration_codes? && r.registration_code.blank? }
   after_destroy :delete_public_signup
 
   # role types
@@ -157,38 +158,8 @@ class Registration < ActiveRecord::Base
   def delete_public_signup
     PublicSignup.delete(public_signup_id) if public_signup_id
   end
-  
+
+  def assign_registration_code
+    self.registration_code = event.claim_registration_code
+  end
 end
-
-# == Schema Information
-#
-# Table name: registrations
-#
-#  id                    :integer         primary key
-#  angel_id              :integer         not null
-#  event_id              :integer         not null
-#  role                  :string(255)     default("Participant"), not null
-#  special_diet          :boolean         default(FALSE)
-#  backjack_rental       :boolean         default(FALSE)
-#  sunday_stayover       :boolean         default(FALSE)
-#  sunday_meal           :boolean         default(FALSE)
-#  sunday_choice         :string(255)
-#  lift                  :string(255)
-#  payment_method        :string(255)     default("Direct")
-#  bank_account_nr       :string(255)
-#  bank_account_name     :string(255)
-#  bank_name             :string(255)
-#  bank_sort_code        :string(255)
-#  notes                 :text
-#  completed             :boolean         default(FALSE)
-#  checked_in            :boolean         default(FALSE)
-#  created_at            :timestamp
-#  updated_at            :timestamp
-#  public_signup_id      :integer
-#  approved              :boolean         default(FALSE)
-#  how_hear              :string(255)
-#  previous_event        :string(255)
-#  reg_fee_received      :boolean
-#  clothing_conversation :boolean
-#
-

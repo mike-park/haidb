@@ -5,6 +5,9 @@
       %h6 Payment Information
     %tbody
       %tr
+        %th Code
+        %td= r.registration_code
+      %tr
         %th Method
         %td= r.payment_method
       - if r.payment_method == Registration::INTERNET

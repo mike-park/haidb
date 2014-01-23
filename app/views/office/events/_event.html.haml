@@ -14,6 +14,9 @@
     %tr
       %th Level
       %td= event.level
+    %tr
+      %th Next Registration Code
+      %td= event.next_registration_code
 
 - categories = EventEmail::CATEGORIES.select {|category| event.find_event_email(category) }
 - if categories.any?
