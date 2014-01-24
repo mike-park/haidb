@@ -8,7 +8,7 @@ class Registration < ActiveRecord::Base
 
   before_save SundayChoiceCallbacks
   before_save :update_payment_summary
-  before_save :assign_registration_code, if: lambda {|r| r.event.has_registration_codes? && r.registration_code.blank? }
+  before_save :assign_registration_code, if: lambda {|r| r.approved? && r.event.has_registration_codes? && r.registration_code.blank? }
   after_destroy :delete_public_signup
 
   # role types
@@ -141,6 +141,12 @@ class Registration < ActiveRecord::Base
 
   def update_payment_summary!
     update_payment_summary
+    save!
+  end
+
+  def approve!
+    self.approved = true
+    self.cost = event.cost_for(role)
     save!
   end
 

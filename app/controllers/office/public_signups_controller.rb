@@ -26,7 +26,7 @@ class Office::PublicSignupsController < Office::ApplicationController
   end
 
   def approve
-    public_signup.set_approved!
+    public_signup.approve!
     public_signup.send_email(EventEmail::APPROVED)
     redirect_to(office_public_signups_url, :notice => "#{public_signup.full_name} has been successfully added to #{public_signup.event_name}.")
   end

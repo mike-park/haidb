@@ -4,6 +4,8 @@
   = f.input :category, options_for_event_categories(f)
   = f.input :level
   = f.input :next_registration_code, hint: 'If supplied, auto-incremented for each registration.'
+  = f.input :participant_cost
+  = f.input :team_cost
   = input_for_event_email(f, EventEmail::SIGNUP)
   = input_for_event_email(f, EventEmail::PENDING)
   = input_for_event_email(f, EventEmail::APPROVED)

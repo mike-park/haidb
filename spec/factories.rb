@@ -10,6 +10,8 @@ FactoryGirl.define do
     factory :full_event do
       level 1
       next_registration_code '123'
+      participant_cost 110.98
+      team_cost 99.12
     end
     factory :event1 do
       level 1
@@ -85,7 +87,6 @@ FactoryGirl.define do
   factory :registration do
     event
     angel
-    payment_method 'Transfer'
 
     factory :full_registration do
       special_diet true

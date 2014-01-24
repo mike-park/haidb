@@ -161,23 +161,41 @@ describe Registration do
   context "registration code" do
     it "should save a registration code" do
       event = FactoryGirl.create(:event, next_registration_code: '123')
-      registration = FactoryGirl.create(:registration, event: event)
+      registration = FactoryGirl.create(:registration, event: event, approved: true)
       registration.registration_code.should == '123'
+    end
+
+    it "should not save a registration code" do
+      event = FactoryGirl.create(:event, next_registration_code: '123')
+      registration = FactoryGirl.create(:registration, event: event, approved: false)
+      registration.registration_code.should_not be
     end
 
     it "should not change an existing code" do
       event = FactoryGirl.create(:event, next_registration_code: '123')
-      registration = FactoryGirl.create(:registration, event: event, registration_code: '999')
+      registration = FactoryGirl.create(:registration, event: event, approved: true, registration_code: '999')
       registration.registration_code.should == '999'
     end
 
     it "should have no registration code" do
       event = FactoryGirl.create(:event, next_registration_code: nil)
-      registration = FactoryGirl.create(:registration, event: event)
+      registration = FactoryGirl.create(:registration, event: event, approved: true)
       registration.registration_code.should_not be
     end
   end
 
+  context "approve!" do
+    let(:event) { FactoryGirl.create(:event, team_cost: 1, participant_cost: 2) }
+    let(:registration) { FactoryGirl.build(:registration, role: Registration::FACILITATOR, event: event) }
+
+    [[Registration::FACILITATOR, 0], [Registration::TEAM, 1], [Registration::PARTICIPANT, 2]].each do |role, cost|
+      it "should set a #{role} cost to #{cost}" do
+        registration.role = role
+        registration.approve!
+        [role, registration.cost].should == [role, cost]
+      end
+    end
+  end
 
   context "scopes" do
     it "should return them in first name order" do

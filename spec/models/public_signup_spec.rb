@@ -76,13 +76,13 @@ describe PublicSignup do
     end
   end
 
-  context "#set_approved!" do
+  context "#approve!" do
     it "should set the approved_at date & mark the registration as approved" do
       ps = FactoryGirl.create(:public_signup)
       ps.registration.should_not be_approved
       ps.should be_pending
       ps.approved_at.should_not be
-      ps.set_approved!
+      ps.approve!
       ps.approved_at.should be
       ps.registration.should be_approved
       ps.should be_approved

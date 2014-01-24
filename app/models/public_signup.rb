@@ -30,11 +30,13 @@ class PublicSignup < ActiveRecord::Base
   end
 
   # marks this signup and the embedded registration as approved
-  def set_approved!
-    self.approved_at = Time.now
-    self.status = APPROVED
-    registration.approved = true
-    save!
+  def approve!
+    transaction do
+      self.approved_at = Time.now
+      self.status = APPROVED
+      registration.approve!
+      save!
+    end
     Angel.merge_and_delete_duplicates_of(angel)
   end
 

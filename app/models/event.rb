@@ -23,7 +23,8 @@ class Event < ActiveRecord::Base
 
   validates_presence_of :display_name, :category, :start_date
   validates_inclusion_of :category, :in => CATEGORIES
-  validates_numericality_of :next_registration_code, allow_blank: true, allow_nil: true
+  validates_numericality_of :next_registration_code, :participant_cost, :team_cost, allow_blank: true, allow_nil: true,
+                            greater_than_or_equal_to: 0
   before_validation :reset_next_registration_code, if: lambda { |e| e.next_registration_code.blank? }
 
   accepts_nested_attributes_for :event_emails
@@ -53,6 +54,17 @@ class Event < ActiveRecord::Base
       code = next_registration_code
       update_attribute(:next_registration_code, code.next)
       code
+    end
+  end
+
+  def cost_for(role)
+    case role
+      when Registration::TEAM
+        team_cost
+      when Registration::PARTICIPANT
+        participant_cost
+      else
+        0
     end
   end
 
