@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Office::RegistrationsController do
   login_staff
   before(:each) do
-    @event = Factory.create(:event)
+    @event = FactoryGirl.create(:event)
   end
   
   describe "GET new" do

@@ -2,7 +2,7 @@ module CapybaraMacros
 
   def office_login
     before(:each) do
-      user = Factory.create(:staff)
+      user = FactoryGirl.create(:staff)
       visit office_root_path
       within("#new_staff") do
         fill_in 'staff[email]', :with => user.email
@@ -14,7 +14,7 @@ module CapybaraMacros
 
   def users_login
     before(:each) do
-      user = Factory.build(:user)
+      user = FactoryGirl.build(:user)
       user.skip_confirmation!
       user.save!
       visit users_root_path

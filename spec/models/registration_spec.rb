@@ -6,30 +6,30 @@ describe Registration do
     it "should have default values" do
       default_registration = Registration.new
       default_registration.role.should == Registration::PARTICIPANT
-      default_registration.payment_method.should == Registration::DIRECT
+      default_registration.payment_method.should_not be
       default_registration.should_not be_approved
     end
 
     it "is valid with min attributes" do
-      valid_registration = Factory.create(:registration)
+      valid_registration = FactoryGirl.create(:registration)
       valid_registration.should be_valid
     end
 
     it "is valid with all attributes" do
-      valid_registration = Factory.create(:full_registration)
+      valid_registration = FactoryGirl.create(:full_registration)
       valid_registration.should be_valid
     end
 
     it "is invalid without fields" do
-      [:role, :angel, :event, :payment_method].each do |field|
-        in_valid_registration = Factory.build(:registration, field => nil)
+      [:role, :angel, :event].each do |field|
+        in_valid_registration = FactoryGirl.build(:registration, field => nil)
         in_valid_registration.should_not be_valid
       end
     end
 
     it "is invalid with random list item" do
-      [:role, :lift, :payment_method, :sunday_choice].each do |field|
-        in_valid_registration = Factory.build(:registration, field => 'Random')
+      [:role, :lift, :sunday_choice].each do |field|
+        in_valid_registration = FactoryGirl.build(:registration, field => 'Random')
         in_valid_registration.should_not be_valid
       end
     end
@@ -42,7 +42,7 @@ describe Registration do
       }
       lists.each do |field, values|
         values.each do |value|
-          valid_registration = Factory.build(:registration, field => value)
+          valid_registration = FactoryGirl.build(:registration, field => value)
           valid_registration.valid?
           valid_registration.errors.messages.should == {}
           valid_registration.should be_valid
@@ -51,10 +51,10 @@ describe Registration do
       end
     end
 
-    it "should be valid without payment fields when not type internet" do
-      methods = Registration::PAYMENT_METHODS - [Registration::INTERNET]
+    it "should be valid without payment fields when not type PAY_DEBT" do
+      methods = Registration::PAYMENT_METHODS - [Registration::PAY_DEBT]
       methods.each do |method|
-        valid_registration = Factory.build(:registration, :payment_method => method)
+        valid_registration = FactoryGirl.build(:registration, :payment_method => method)
         valid_registration.valid?
         valid_registration.errors.messages.should == {}
         valid_registration.should be_valid
@@ -62,14 +62,14 @@ describe Registration do
       end
     end
 
-    it "should be invalid without payment fields when type internet" do
-      in_valid_registration = Factory.build(:registration, :payment_method => Registration::INTERNET)
+    it "should be invalid without payment fields when type PAY_DEBT" do
+      in_valid_registration = FactoryGirl.build(:registration, :payment_method => Registration::PAY_DEBT)
       in_valid_registration.should_not be_valid
     end
 
     it "should be invalid to register the same angel for the same workshop twice" do
-      first_registration = Factory.create(:registration)
-      second_registration = Factory.build(:registration,
+      first_registration = FactoryGirl.create(:registration)
+      second_registration = FactoryGirl.build(:registration,
                                           :angel => first_registration.angel,
                                           :event => first_registration.event)
       second_registration.should_not be_valid
@@ -79,26 +79,30 @@ describe Registration do
     end
 
     it "should accept nested attributes for angel" do
-      angel = Factory.build(:angel)
-      registration = Registration.new(:angel_attributes => Factory.attributes_for(:angel))
+      angel = FactoryGirl.build(:angel)
+      registration = Registration.new(:angel_attributes => FactoryGirl.attributes_for(:angel))
       registration.angel.inspect.should == angel.inspect
     end
 
     it "should accept pre-existing angel for new registration" do
-      angel = Factory.create(:angel)
-      registration = Factory.build(:registration, :angel => nil, :angel_id => angel.id)
+      angel = FactoryGirl.create(:angel)
+      registration = FactoryGirl.build(:registration, :angel => nil, :angel_id => angel.id)
       registration.should be_valid
     end
 
     it "should accept pre-existing event for new registration" do
-      event = Factory.create(:event)
-      registration = Factory.build(:registration, :event => nil, :event_id => event.id)
+      event = FactoryGirl.create(:event)
+      registration = FactoryGirl.build(:registration, :event => nil, :event_id => event.id)
       registration.valid?
       registration.errors.messages.should == {}
       registration.should be_valid
     end
 
     context "language of messages" do
+      before do
+        Site.stub(:name).and_return('de')
+      end
+
       context "en" do
         before(:each) { I18n.locale = :en }
         it "should have English errors" do
@@ -125,7 +129,7 @@ describe Registration do
 
   context "delegation" do
     it "should delegate these fields" do
-      registration = Factory.build(:full_registration)
+      registration = FactoryGirl.build(:full_registration)
       event = registration.event
       angel = registration.angel
       registration.level.should == event.level
@@ -139,37 +143,37 @@ describe Registration do
 
   context "highest level" do
     it "should return the highest completed level" do
-      e1 = Factory.build(:event1)
-      e3 = Factory.build(:event3)
-      e5 = Factory.build(:event5)
-      r1 = Factory.create(:registration, :event => e1, :completed => true)
-      r2 = Factory.create(:registration, :event => e3, :completed => true)
-      r3 = Factory.create(:registration, :event => e5, :completed => false)
+      e1 = FactoryGirl.build(:event1)
+      e3 = FactoryGirl.build(:event3)
+      e5 = FactoryGirl.build(:event5)
+      r1 = FactoryGirl.create(:registration, :event => e1, :completed => true)
+      r2 = FactoryGirl.create(:registration, :event => e3, :completed => true)
+      r3 = FactoryGirl.create(:registration, :event => e5, :completed => false)
       Registration.highest_completed_level.should == 3
     end
 
     it "should return 0 if no levels are completed" do
-      r1 = Factory.create(:registration)
+      r1 = FactoryGirl.create(:registration)
       Registration.highest_completed_level.should == 0
     end
   end
 
   context "registration code" do
     it "should save a registration code" do
-      event = Factory.create(:event, next_registration_code: '123')
-      registration = Factory.create(:registration, event: event)
+      event = FactoryGirl.create(:event, next_registration_code: '123')
+      registration = FactoryGirl.create(:registration, event: event)
       registration.registration_code.should == '123'
     end
 
     it "should not change an existing code" do
-      event = Factory.create(:event, next_registration_code: '123')
-      registration = Factory.create(:registration, event: event, registration_code: '999')
+      event = FactoryGirl.create(:event, next_registration_code: '123')
+      registration = FactoryGirl.create(:registration, event: event, registration_code: '999')
       registration.registration_code.should == '999'
     end
 
     it "should have no registration code" do
-      event = Factory.create(:event, next_registration_code: nil)
-      registration = Factory.create(:registration, event: event)
+      event = FactoryGirl.create(:event, next_registration_code: nil)
+      registration = FactoryGirl.create(:registration, event: event)
       registration.registration_code.should_not be
     end
   end
@@ -177,26 +181,26 @@ describe Registration do
 
   context "scopes" do
     it "should return them in first name order" do
-      r1 = Factory.create(:registration, :angel => Factory.build(:angel, :first_name => 'Z'))
-      r2 = Factory.create(:registration, :angel => Factory.build(:angel, :first_name => 'A'))
+      r1 = FactoryGirl.create(:registration, :angel => FactoryGirl.build(:angel, :first_name => 'Z'))
+      r2 = FactoryGirl.create(:registration, :angel => FactoryGirl.build(:angel, :first_name => 'A'))
       Registration.by_first_name.all.should == [r2, r1]
     end
 
     it "should return only approved registrations" do
-      r1 = Factory.create(:registration, :approved => false)
-      r2 = Factory.create(:registration, :approved => true)
+      r1 = FactoryGirl.create(:registration, :approved => false)
+      r2 = FactoryGirl.create(:registration, :approved => true)
       Registration.ok.all.should == [r2]
     end
     it "should return only pending registrations" do
-      r1 = Factory.create(:registration, :approved => false)
-      r2 = Factory.create(:registration, :approved => true)
+      r1 = FactoryGirl.create(:registration, :approved => false)
+      r2 = FactoryGirl.create(:registration, :approved => true)
       Registration.pending.all.should == [r1]
     end
     it "should return only approved team/participant/facilitator registrations" do
-      r1 = Factory.create(:registration, :approved => false)
-      t = Factory.create(:registration, :role => Registration::TEAM, :approved => true)
-      p = Factory.create(:registration, :role => Registration::PARTICIPANT, :approved => true)
-      f = Factory.create(:registration, :role => Registration::FACILITATOR, :approved => true)
+      r1 = FactoryGirl.create(:registration, :approved => false)
+      t = FactoryGirl.create(:registration, :role => Registration::TEAM, :approved => true)
+      p = FactoryGirl.create(:registration, :role => Registration::PARTICIPANT, :approved => true)
+      f = FactoryGirl.create(:registration, :role => Registration::FACILITATOR, :approved => true)
       Registration.team.all.should == [t]
       Registration.facilitators.all.should == [f]
       Registration.participants.all.should == [p]
@@ -205,7 +209,7 @@ describe Registration do
 
   context "observer" do
     it "should call angel cache_highest_level when registration saved" do
-      registration = Factory.create(:registration)
+      registration = FactoryGirl.create(:registration)
       registration.angel.stub(:cache_highest_level)
 
       registration.angel.should_receive(:cache_highest_level)
@@ -214,7 +218,7 @@ describe Registration do
     end
 
     it "should call angel cache_highest_level when registration deleted" do
-      registration = Factory.create(:registration)
+      registration = FactoryGirl.create(:registration)
       registration.angel.stub(:cache_highest_level)
 
       registration.angel.should_receive(:cache_highest_level)
@@ -225,13 +229,13 @@ describe Registration do
 
   context "record counts" do
     it "should increase when adding a registration" do
-      registration = Factory.create(:registration)
+      registration = FactoryGirl.create(:registration)
       Angel.should have(1).record
       Registration.should have(1).record
       Event.should have(1).record
     end
     it "should destroy public_signup when registration is destroyed" do
-      public_signup = Factory.create(:public_signup)
+      public_signup = FactoryGirl.create(:public_signup)
       PublicSignup.should have(1).record
       Registration.should have(1).record
 

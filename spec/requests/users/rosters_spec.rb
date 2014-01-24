@@ -9,9 +9,9 @@ describe "users/rosters" do
   end
 
   context "with a valid login" do
-    let(:angel) { Factory.create(:angel, email: User.first.email)}
-    let(:event) { Factory.create(:event) }
-    let(:registration) { Factory.create(:registration, event: event, angel: angel) }
+    let(:angel) { FactoryGirl.create(:angel, email: User.first.email)}
+    let(:event) { FactoryGirl.create(:event) }
+    let(:registration) { FactoryGirl.create(:registration, event: event, angel: angel) }
 
     users_login
 

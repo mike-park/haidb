@@ -7,8 +7,8 @@ describe "users/dashboards" do
   end
 
   context "with a valid login" do
-    let(:angel) { Factory.create(:angel, email: User.first.email)}
-    let(:registration) { Factory.create(:registration, angel: angel) }
+    let(:angel) { FactoryGirl.create(:angel, email: User.first.email)}
+    let(:registration) { FactoryGirl.create(:registration, angel: angel) }
 
     users_login
 
@@ -18,15 +18,15 @@ describe "users/dashboards" do
     end
 
     it "should show 1 pending registration for future events" do
-      registration.update_attribute(:event, Factory.create(:future_event))
-      Factory.create(:public_signup, registration: registration)
+      registration.update_attribute(:event, FactoryGirl.create(:future_event))
+      FactoryGirl.create(:public_signup, registration: registration)
       visit users_root_path
       page.should have_selector('body', text: '1 pending registration')
     end
 
     it "should show 0 pending registration for past events" do
-      registration.update_attribute(:event, Factory.create(:past_event))
-      Factory.create(:public_signup, registration: registration)
+      registration.update_attribute(:event, FactoryGirl.create(:past_event))
+      FactoryGirl.create(:public_signup, registration: registration)
       visit users_root_path
       page.should have_selector('body', text: '0 pending registrations')
     end

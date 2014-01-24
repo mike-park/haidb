@@ -25,11 +25,31 @@ describe PublicSignupsController do
       response.should be_success
     end
 
-    it "should create public_signup object (with registration & angel)" do
+    it "should have common default values" do
       get :new
-      assigns[:public_signup].should be
-      assigns[:public_signup].registration.should be
-      assigns[:public_signup].registration.angel.should be
+      ps = assigns[:public_signup]
+      ps.registration.role.should == Registration::PARTICIPANT
+      ps.registration.payment_method == Registration::PAY_DEBT
+      ps.registration.should_not be_approved
+      ps.registration.angel.lang.should == 'en'
+    end
+
+    it "should have DE specific default values" do
+      Site.stub(:name).and_return('de')
+      I18n.locale = :de
+      get :new
+      ps = assigns[:public_signup]
+      ps.registration.payment_method == Registration::PAY_DEBT
+      ps.registration.angel.lang.should == 'de'
+    end
+
+    it "should have UK specific default values" do
+      Site.stub(:name).and_return('uk')
+      I18n.locale = :en
+      get :new
+      ps = assigns[:public_signup]
+      ps.registration.payment_method == Registration::PAY_TRANSFER
+      ps.registration.angel.lang.should == 'en'
     end
   end
 
@@ -39,14 +59,6 @@ describe PublicSignupsController do
     it "should create public_signup object" do
       post :create
       assigns[:public_signup].should be
-    end
-
-    it "should have default values" do
-      post :create
-      ps = assigns[:public_signup]
-      ps.registration.role.should == Registration::PARTICIPANT
-      ps.registration.should_not be_approved
-      ps.registration.angel.lang.should == 'en'
     end
 
     context "a valid signup" do
@@ -81,13 +93,18 @@ describe PublicSignupsController do
     end
 
     context "an invalid signup" do
+      let(:valid_attributes) { {registration_attributes: {payment_method: Registration::PAY_DEBT, angel_attributes: {}}} }
+      before do
+        Site.stub(:name).and_return('de')
+      end
+
       it "should render new" do
-        post :create
+        post :create, public_signup: valid_attributes
         response.should render_template('new')
       end
 
       it "should not send notification email" do
-        post :create
+        post :create, public_signup: valid_attributes
         ActionMailer::Base.deliveries.count.should == 0
       end
 
@@ -95,11 +112,14 @@ describe PublicSignupsController do
         context "en" do
           before(:each) { I18n.locale = :en }
           it "should have English errors" do
-            post :create
+            post :create, public_signup: valid_attributes
             invalid_public_signup = assigns[:public_signup]
             invalid_public_signup.errors.messages.should == {
                 :"registration.angel.first_name" => ["can't be blank"],
                 :"registration.angel.last_name" => ["can't be blank"],
+                :"registration.bank_account_name" => ["can't be blank"],
+                :"registration.iban" => ["can't be blank"],
+                :"registration.bic" => ["can't be blank"],
                 :"registration.angel.email" => ["can't be blank"],
                 :"registration.angel.gender" => ["must be selected"],
                 :"registration.event" => ["must be selected"],
@@ -110,7 +130,7 @@ describe PublicSignupsController do
         context "de" do
           before(:each) { I18n.locale = :de }
           it "should have German errors" do
-            post :create
+            post :create, public_signup: valid_attributes
             invalid_public_signup = assigns[:public_signup]
             invalid_public_signup.errors.messages.should == {
                 :"registration.angel.first_name" => ["muss ausgefüllt werden"],
@@ -118,13 +138,14 @@ describe PublicSignupsController do
                 :"registration.angel.email" => ["muss ausgefüllt werden"],
                 :"registration.angel.gender" => ["muss ausgewählt werden"],
                 :"registration.event" => ["muss ausgewählt werden"],
+                :"registration.bank_account_name" => ["muss ausgefüllt werden"],
+                :"registration.bic" => ["muss ausgefüllt werden"],
+                :"registration.iban" => ["muss ausgefüllt werden"],
                 :terms_and_conditions => ["muss akzeptiert werden"]
             }
           end
         end
       end
     end
-
   end
-
 end

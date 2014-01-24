@@ -1,11 +1,11 @@
 class PublicSignupsController < ApplicationController
   def new
-    @public_signup = PublicSignup.new(registration_attributes: { event_id: params[:event_id], angel_attributes: {}})
+    @public_signup = new_public_signup
     render_site_with_template('new')
   end
 
   def create
-    @public_signup = PublicSignup.new(params_with_nested_models)
+    @public_signup = PublicSignup.new(params[:public_signup])
     if @public_signup.save
       redirect_to thankyou_url
       @public_signup.send_email(EventEmail::SIGNUP)
@@ -24,13 +24,19 @@ class PublicSignupsController < ApplicationController
 
   protected
 
-  def thankyou_url
-    SiteDefault.get('public_signup.form.success_url') || public_signup_url(0, template_version: template_version)
+  def new_public_signup
+    ps = PublicSignup.new
+    registration = Registration.new(angel: Angel.new)
+    registration.payment_method = Site.de? ? Registration::PAY_DEBT : Registration::PAY_TRANSFER
+    ps.registration = registration
+    if params[:event_id] && (event = Event.upcoming.find_by_id(params[:event_id]))
+      ps.registration.event = event
+    end
+    ps
   end
 
-  # ensure we have a nested registration_attributes and within that angel_attributes
-  def params_with_nested_models
-    {registration_attributes: {angel_attributes: {}}}.with_indifferent_access.merge(params[:public_signup] || {})
+  def thankyou_url
+    SiteDefault.get('public_signup.form.success_url') || public_signup_url(0, template_version: template_version)
   end
 
   def render_site_with_template(name)

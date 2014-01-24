@@ -27,9 +27,8 @@ en:
         meal: 'Yes, 7€ cost'
         stayover: 'Yes, including stayover and Monday breakfast, 25€ cost'
       payment_method:
-        internet: "Internet"
-        post: "Post"
-        direct: "Direct"
+        debt: "Direct debt"
+        transfer: "Money transfer from overseas"
       roster:
         title: "%{event} Roster"
         address: 'Address'
@@ -46,6 +45,8 @@ en:
       lift: "Lift to event site"
       sunday_choice: "Sunday Supper"
       terms_and_conditions: "I Accept the Payment and Participation Conditions."
+      iban: "IBAN"
+      bic: "BIC (SWIFT-Code)"
     actions:
       public_signup:
         create: "Sign me up!"

@@ -10,17 +10,13 @@
       %tr
         %th Method
         %td= r.payment_method
-      - if r.payment_method == Registration::INTERNET
-        %tr
-          %th Account Name
-          %td= r.bank_account_name
-        %tr
-          %th Account Number
-          %td= r.bank_account_nr
-        %tr
-          %th Bank Name
-          %td= r.bank_name
-        %tr
-          %th Bank BLZ
-          %td= r.bank_sort_code
+      %tr
+        %th Account Name
+        %td= [r.bank_account_name, r.bank_name].compact.join(' / ')
+      %tr
+        %th IBAN
+        %td= r.iban
+      %tr
+        %th BIC
+        %td= r.bic
 

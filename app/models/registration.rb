@@ -21,11 +21,10 @@ class Registration < ActiveRecord::Base
   REQUESTED = 'Requested'
   LIFTS = [OFFERED, REQUESTED]
 
-  # payment methods. if internet the bank fields are required
-  INTERNET = 'Internet'
-  POST = 'Post'
-  DIRECT = 'Direct'
-  PAYMENT_METHODS = [INTERNET, POST, DIRECT]
+  # payment methods. if debt the bank fields are required
+  PAY_DEBT = 'Debt'
+  PAY_TRANSFER = 'Transfer'
+  PAYMENT_METHODS = [PAY_DEBT, PAY_TRANSFER]
   
   MEAL = "Meal"
   STAYOVER = "Stayover"
@@ -89,16 +88,8 @@ class Registration < ActiveRecord::Base
     :unless => "sunday_choice.blank?"
   }
 
-  validates_presence_of :bank_account_nr, :bank_account_name,
-  :bank_name, :bank_sort_code, {
-    :if => "payment_method == INTERNET"
-  }
+  validates_presence_of :bank_account_name, :iban, :bic, if: lambda {|r| r.payment_method == PAY_DEBT }
 
-  validates_inclusion_of :payment_method, {
-    :in => PAYMENT_METHODS,
-    :message => :select
-  }
-  
   validates_inclusion_of :lift, {
     :in => LIFTS,
     :unless => "lift.blank?"

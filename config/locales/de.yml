@@ -30,9 +30,8 @@ de:
         meal: 'Ja, 10€ Preis'
         stayover: 'Ja, inkl. Übernachtung und Montag Frühstück 40€ Preis'
       payment_method:
-        internet: "Lastschrifteinzug per Internet"
-        post: "Lastschrifteinzug schriftliche Anmeldung per Post"
-        direct: "Direkt-Überweisung aus dem Ausland"
+        debt: "Lastschrifteinzug"
+        transfer: "Direkt-Überweisung aus dem Ausland"
       roster:
         title: "Liste für %{event}"
         address: 'Adresse'
@@ -61,8 +60,8 @@ de:
       payment_method: "Zahlungsart"
       bank_account_name: "Name des Konto-Inhabers"
       bank_name: "Bank"
-      bank_account_nr: "Kontonummer"
-      bank_sort_code: "Bank BLZ"
+      iban: "IBAN"
+      bic: "BIC (SWIFT-Code)"
       special_diet: "Essenswünche"
       backjack_rental: "Miet-Backjack"
       lift: "Mitfahrgelegenheit"

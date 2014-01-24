@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140122232702) do
+ActiveRecord::Schema.define(:version => 20140123111101) do
 
   create_table "angels", :force => true do |t|
     t.string   "display_name",                 :null => false
@@ -165,11 +165,11 @@ ActiveRecord::Schema.define(:version => 20140122232702) do
     t.boolean  "sunday_meal",                                          :default => false
     t.string   "sunday_choice"
     t.string   "lift"
-    t.string   "payment_method",                                       :default => "Direct"
-    t.string   "bank_account_nr"
+    t.string   "payment_method"
+    t.string   "iban"
     t.string   "bank_account_name"
     t.string   "bank_name"
-    t.string   "bank_sort_code"
+    t.string   "bic"
     t.text     "notes"
     t.boolean  "completed",                                            :default => false
     t.boolean  "checked_in",                                           :default => false

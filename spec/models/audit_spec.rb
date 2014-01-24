@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe Audit do
-  let(:angel) { Factory.create(:angel, :home_phone => '1', :email => 'me@somewhere.com') }
+  let(:angel) { FactoryGirl.create(:angel, :home_phone => '1', :email => 'me@somewhere.com') }
 
   it { angel.home_phone.should == '1' }
   it { angel.email.should == 'me@somewhere.com' }

@@ -3,15 +3,10 @@
 
 var pm = function() {
   var val = jQuery("input[name='public_signup[registration_attributes][payment_method]']:checked").val();
-  if (val == 'Post') {
-    jQuery('#internet').hide();
-    jQuery('#post').fadeIn();
-  } else if (val == 'Internet') {
-    jQuery('#internet').fadeIn();
-    jQuery('#post').hide();
+  if (val == 'Debt') {
+    jQuery('#debt').fadeIn();
   } else {
-    jQuery('#internet').hide();
-    jQuery('#post').hide();
+    jQuery('#debt').hide();
   }
 };
 

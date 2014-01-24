@@ -3,13 +3,13 @@ require 'spec_helper'
 describe Email do
   context "#new validation" do
     it "should have a valid factory email" do
-      email = Factory.build(:email)
+      email = FactoryGirl.build(:email)
       email.should be_valid
     end
 
     [:locale, :subject, :body].each do |attr|
       it "should require #{attr}" do
-        email = Factory.build(:email, attr => " ")
+        email = FactoryGirl.build(:email, attr => " ")
         email.should_not be_valid
       end
     end
@@ -19,7 +19,7 @@ describe Email do
         I18n.locale = :en
       end
       it "should limit 1 locale per email_name" do
-        email = Factory.create(:email, email_name_id: 1)
+        email = FactoryGirl.create(:email, email_name_id: 1)
         email2 = email.dup
         email2.should_not be_valid
         email2.errors.messages.should include(locale: ['has already been taken'])

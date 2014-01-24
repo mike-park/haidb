@@ -10,7 +10,7 @@ describe PublicSignup do
     end
 
     it "has one after adding one" do
-      Factory.create(:public_signup)
+      FactoryGirl.create(:public_signup)
       PublicSignup.count.should == 1
       Registration.count.should == 1
       Angel.count.should == 1
@@ -34,18 +34,18 @@ describe PublicSignup do
       public_signup = PublicSignup.new(registration_attributes: { angel_attributes: {}})
       public_signup.registration.role.should == Registration::PARTICIPANT
       public_signup.registration.should_not be_approved
-      public_signup.registration.payment_method.should == Registration::DIRECT
+      public_signup.registration.payment_method.should_not be
       public_signup.should be_pending
     end
 
     it "should be valid with min attributes" do
-      valid_ps = Factory.build(:public_signup)
+      valid_ps = FactoryGirl.build(:public_signup)
       valid_ps.should be_valid
     end
 
     it "should accept nested parameters for registration" do
-      reg_attr = Factory.attributes_for(:full_registration)
-      angel_attr = Factory.attributes_for(:full_angel)
+      reg_attr = FactoryGirl.attributes_for(:full_registration)
+      angel_attr = FactoryGirl.attributes_for(:full_angel)
       registration = Registration.new(reg_attr)
       angel = Angel.new(angel_attr)
       public_signup = PublicSignup.new
@@ -78,7 +78,7 @@ describe PublicSignup do
 
   context "#set_approved!" do
     it "should set the approved_at date & mark the registration as approved" do
-      ps = Factory.create(:public_signup)
+      ps = FactoryGirl.create(:public_signup)
       ps.registration.should_not be_approved
       ps.should be_pending
       ps.approved_at.should_not be
@@ -91,7 +91,7 @@ describe PublicSignup do
 
   context "#set_waitlisted!" do
     it "should set record as waitlisted" do
-      ps = Factory.create(:public_signup)
+      ps = FactoryGirl.create(:public_signup)
       ps.should be_pending
       ps.set_waitlisted!
       ps.approved_at.should_not be
@@ -102,8 +102,8 @@ describe PublicSignup do
 
   context "delegation" do
     it "should handle these fields" do
-      registration = Factory.build(:registration, :approved => true)
-      ps = Factory.build(:public_signup, :registration => registration)
+      registration = FactoryGirl.build(:registration, :approved => true)
+      ps = FactoryGirl.build(:public_signup, :registration => registration)
       ps.full_name.should == registration.full_name
       ps.event_name.should == registration.event_name
       ps.gender.should == registration.gender
@@ -113,14 +113,14 @@ describe PublicSignup do
 
   context "helpers" do
     it "should have a display_name" do
-      ps = Factory.build(:public_signup)
+      ps = FactoryGirl.build(:public_signup)
       ps.display_name.should be
     end
   end
 
   context "record counts" do
     it "should destroy registration when public_signup is destroyed" do
-      public_signup = Factory.create(:public_signup)
+      public_signup = FactoryGirl.create(:public_signup)
       PublicSignup.should have(1).record
       Registration.should have(1).record
 

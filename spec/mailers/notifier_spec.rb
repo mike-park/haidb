@@ -3,10 +3,10 @@ require "spec_helper"
 
 describe Notifier do
   context "#registration_with_template" do
-    let(:email) { Factory.build(:en_email,
+    let(:email) { FactoryGirl.build(:en_email,
                                 subject: "subject {{person_name}} {{event_name}}",
                                 body: "body {{person_name}} {{event_name}}") }
-    let(:registration) { Factory.build(:full_registration) }
+    let(:registration) { FactoryGirl.build(:full_registration) }
     subject { Notifier.registration_with_template(registration, email) }
     let(:sender) { 'a_person@example.com' }
     let(:site_name) { Site.name }

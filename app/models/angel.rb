@@ -127,7 +127,7 @@ class Angel < ActiveRecord::Base
     base = matched_angels.shift
     if matched_angels.any?
       matched_angels.each do |angel|
-        base.attributes = angel.attributes.except(:highest_level)
+        base.attributes = angel.attributes.except(:id, :highest_level, :created_at, :updated_at)
         # iterate as the same person (in two different angel records)
         # might be registered for the same event. this ignores registrations
         # that can't be transfered, they will be destroyed when the dup angel

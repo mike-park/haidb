@@ -10,7 +10,7 @@ describe "GET /public_signups/new" do
   def visit_de_in_english
     page.should have_selector('label', :text => "First name")
     page.should have_selector('.title', :text => "public_signup.form.title")
-    page.should have_no_selector('#public_signup_registration_attributes_payment_method_input')
+    page.should have_selector('#public_signup_registration_attributes_payment_method_input')
     page.should have_link('Deutsch hier an')
     page.should have_selector('#public_signup_registration_attributes_backjack_rental_input')
     page.should have_selector('option', text: 'Germany')
@@ -58,11 +58,6 @@ describe "GET /public_signups/new" do
       #save_and_open_page
       visit_de_in_german
     end
-
-    it "should render in German by default" do
-      visit "/"
-      page.should have_content('Zahlungsart')
-    end
   end
 
   context "uk site" do
@@ -89,34 +84,35 @@ def should_have_n_records(n)
   PublicSignup.pending.count.should == n
 end
 
-def create_a_public_signup
-  should_have_n_records(0)
-  visit "/en"
-  select(future_event.display_name, from: "Event")
-  fill_in "First name", with: "John"
-  fill_in "Last name", with: 'Smith'
-  choose('Male')
-  fill_in "Email", with: "jsmith@example.com"
-  check "public_signup_terms_and_conditions"
-
-  click_button "Sign me up!"
-  #save_and_open_page
-  should_have_n_records(1)
-  Angel.first.lang.should == 'en'
-end
-
 describe "POST /public_signups" do
   let(:future_event) {FactoryGirl.create(:future_event)}
   before(:each) do
     future_event
   end
 
-  it "should save an English signup" do
-    create_a_public_signup
+  def create_en_public_signup
+    should_have_n_records(0)
+    visit "/en"
+    select(future_event.display_name, from: "Event")
+    fill_in "First name", with: "John"
+    fill_in "Last name", with: 'Smith'
+    choose('Male')
+    choose('Money transfer')
+    fill_in "Email", with: "jsmith@example.com"
+    check "public_signup_terms_and_conditions"
+
+    click_button "Sign me up!"
+    #save_and_open_page
+    should_have_n_records(1)
+    Angel.first.lang.should == 'en'
   end
 
   context "de site" do
     before(:each) { Site.stub(:name).and_return('de') }
+
+    it "should save an English signup" do
+      create_en_public_signup
+    end
 
     it "should save a German signup" do
       visit "/de"
@@ -124,6 +120,7 @@ describe "POST /public_signups" do
       fill_in "Vorname", with: "John"
       fill_in "Name", with: 'Smith'
       choose('männlich')
+      choose('Direkt')
       fill_in "Emailadresse", with: "jsmith@example.com"
       check "public_signup_terms_and_conditions"
 
@@ -163,7 +160,7 @@ describe "POST /public_signups" do
     office_login
 
     it "should allow public_signup to be waitlisted, then approved" do
-      create_a_public_signup
+      create_en_public_signup
       waitlist_signup
       approve_signup
     end

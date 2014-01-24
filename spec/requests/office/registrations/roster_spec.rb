@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "roster" do
   office_login
 
-  let(:event) { Factory.create(:event) }
+  let(:event) { FactoryGirl.create(:event) }
   subject { roster_office_event_registrations_path(event) }
 
   it "pdf request sends a pdf file" do

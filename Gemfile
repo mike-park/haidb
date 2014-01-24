@@ -97,11 +97,6 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'spork-rails'
-#  gem "autotest", "~> 4.4.6"
-#  gem "autotest-rails-pure", "~> 4.1.2"
-#  gem "autotest-fsevent", "~> 0.2.5"
-#  gem "autotest-growl", "~> 0.2.9"
 
   # capybara causes rack 1.2.3 to generate warnings
   # rack-1.2.3/lib/rack/utils.rb:16: warning: regexp match /.../n against to UTF-8 string

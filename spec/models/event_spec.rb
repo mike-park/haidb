@@ -5,36 +5,36 @@ describe Event do
   context "#new validation" do
 
     it "is valid with min attributes" do
-      valid_event = Factory.create(:event)
+      valid_event = FactoryGirl.create(:event)
       valid_event.should be_valid
     end
 
     it "is valid with all attributes" do
-      valid_event = Factory.create(:full_event)
+      valid_event = FactoryGirl.create(:full_event)
       valid_event.should be_valid
     end
 
     it "is invalid without fields" do
       [:display_name, :category, :start_date].each do |field|
-        in_valid_event = Factory.build(:event, field => nil)
+        in_valid_event = FactoryGirl.build(:event, field => nil)
         in_valid_event.should_not be_valid
       end
     end
 
     it "is invalid with random category" do
-      in_valid_event = Factory.build(:event, :category => 'Random')
+      in_valid_event = FactoryGirl.build(:event, :category => 'Random')
       in_valid_event.should_not be_valid
     end
 
     it "is valid with each category" do
       Event::CATEGORIES.each do |cat|
-        valid_event = Factory.build(:event, :category => cat)
+        valid_event = FactoryGirl.build(:event, :category => cat)
         valid_event.should be_valid
       end
     end
 
     it "accepts_nested_attributes for event_emails" do
-      event = Event.new(Factory.attributes_for(:event).merge(event_emails_attributes: [Factory.attributes_for(:event_email)]))
+      event = Event.new(FactoryGirl.attributes_for(:event).merge(event_emails_attributes: [FactoryGirl.attributes_for(:event_email)]))
       event.should be_valid
     end
 
@@ -64,11 +64,11 @@ describe Event do
 
   context "scopes" do
     before(:all) do
-      @e1 = Factory.create(:event, :start_date => Date.new(2010, 12, 1))
-      @e2 = Factory.create(:event, :start_date => Date.tomorrow)
-      @e3 = Factory.create(:event, :start_date => Date.new(2009, 6, 29))
-      @e4 = Factory.create(:event, :start_date => Date.new(2020, 12, 31))
-      @e5 = Factory.create(:event, :start_date => Date.today - 5.days)
+      @e1 = FactoryGirl.create(:event, :start_date => Date.new(2010, 12, 1))
+      @e2 = FactoryGirl.create(:event, :start_date => Date.tomorrow)
+      @e3 = FactoryGirl.create(:event, :start_date => Date.new(2009, 6, 29))
+      @e4 = FactoryGirl.create(:event, :start_date => Date.new(2020, 12, 31))
+      @e5 = FactoryGirl.create(:event, :start_date => Date.today - 5.days)
     end
     after(:all) do
       Event.delete_all
@@ -91,8 +91,8 @@ describe Event do
 
   context "observer" do
     it "should call angel cache_highest_level when event level changed" do
-      event = Factory.create(:event1)
-      angel = mock('angel')
+      event = FactoryGirl.create(:event1)
+      angel = double('angel')
       angel.stub(:cache_highest_level)
       event.stub(:angels).and_return([angel])
 
@@ -105,8 +105,8 @@ describe Event do
 
   context "record counts" do
     it "should also delete registrations" do
-      event = Factory.create(:event)
-      registration = Factory.create(:registration, :event => event)
+      event = FactoryGirl.create(:event)
+      registration = FactoryGirl.create(:registration, :event => event)
       Event.should have(1).record
       Registration.should have(1).record
 
@@ -117,7 +117,7 @@ describe Event do
     end
 
     it "should delete event_emails" do
-      event = Factory.create(:event)
+      event = FactoryGirl.create(:event)
       event.event_emails.build(category: EventEmail::CATEGORIES.first)
       event.event_emails.build(category: EventEmail::CATEGORIES.last)
       event.save
@@ -134,7 +134,7 @@ describe Event do
   context "emails" do
     let(:category) { EventEmail::CATEGORIES.first }
     let(:event_email) { double("event_email") }
-    subject { Factory.create(:event) }
+    subject { FactoryGirl.create(:event) }
 
     before(:each) do
       subject.event_emails.stub(:find_by_category).with(category).and_return(event_email)
@@ -152,7 +152,7 @@ describe Event do
 
   context "registration_codes" do
     context "with codes" do
-      subject { Factory.create(:event, next_registration_code: '123') }
+      subject { FactoryGirl.create(:event, next_registration_code: '123') }
 
       it "should increment code" do
         subject.claim_registration_code.should == '123'
@@ -167,7 +167,7 @@ describe Event do
     context "without codes" do
       it "should have no code" do
         ['', '  ', "\t\n ", nil].each do |code|
-          event = Factory.create(:event, next_registration_code: code)
+          event = FactoryGirl.create(:event, next_registration_code: code)
           ['claim', code, event.claim_registration_code].should == ['claim', code, nil]
           ['next', code, event.next_registration_code].should == ['next', code, nil]
           ['required?', code, event.has_registration_codes?].should == ['required?', code, false]

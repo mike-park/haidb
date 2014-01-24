@@ -12,12 +12,12 @@ describe EventEmail do
     end
 
     it "should have a valid factory" do
-      ee = Factory.build(:event_email)
+      ee = FactoryGirl.build(:event_email)
       ee.should be_valid
     end
 
     it "validates uniqueness of category" do
-      ee = Factory.create(:event_email)
+      ee = FactoryGirl.create(:event_email)
       ee2 = ee.dup
       ee2.should_not be_valid
       # change category & be valid
@@ -28,7 +28,7 @@ describe EventEmail do
 
   context "delegations" do
     let(:email_name) { EmailName.new(name: "name") }
-    subject { Factory.build(:event_email, email_name: email_name) }
+    subject { FactoryGirl.build(:event_email, email_name: email_name) }
     it "should call name" do
       subject.name.should == "name"
     end

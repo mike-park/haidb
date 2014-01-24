@@ -3,7 +3,7 @@ require 'spec_helper'
 describe EmailName do
   context "#new validation" do
     it "accepts nested attributes for email" do
-      email = Factory.build(:email)
+      email = FactoryGirl.build(:email)
       email_name = EmailName.new(emails_attributes: [email.attributes, email.attributes])
       email_name.emails.size.should == 2
     end
@@ -28,9 +28,9 @@ describe EmailName do
   end
 
   it ".email returns a locale email" do
-    en = Factory.create(:email_name)
-    en_email = Factory.create(:en_email, email_name: en)
-    de_email = Factory.create(:de_email, email_name: en)
+    en = FactoryGirl.create(:email_name)
+    en_email = FactoryGirl.create(:en_email, email_name: en)
+    de_email = FactoryGirl.create(:de_email, email_name: en)
     en.email('de').should == de_email
     en.email('en').should == en_email
     en.email(:en).should == en_email
