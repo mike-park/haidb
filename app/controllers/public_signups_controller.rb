@@ -6,6 +6,7 @@ class PublicSignupsController < ApplicationController
 
   def create
     @public_signup = PublicSignup.new(params[:public_signup])
+    @public_signup.registration.assign_default_cost if @public_signup.registration
     if @public_signup.save
       redirect_to thankyou_url
       @public_signup.send_email(EventEmail::SIGNUP)

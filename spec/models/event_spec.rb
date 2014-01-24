@@ -175,4 +175,14 @@ describe Event do
       end
     end
   end
+
+  context "cost_for" do
+    let(:event) { FactoryGirl.build(:event, team_cost: 1, participant_cost: 2) }
+
+    [[Registration::FACILITATOR, 0], [Registration::TEAM, 1], [Registration::PARTICIPANT, 2]].each do |role, cost|
+      it "should return cost #{cost} for role #{role}" do
+        [role, event.cost_for(role)].should == [role, cost]
+      end
+    end
+  end
 end

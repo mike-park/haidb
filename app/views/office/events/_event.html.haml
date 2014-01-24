@@ -19,10 +19,10 @@
       %td= event.next_registration_code
     %tr
       %th Participant Cost
-      %td= event.participant_cost
+      %td= local_currency event.participant_cost
     %tr
       %th Team Cost
-      %td= event.team_cost
+      %td= local_currency event.team_cost
 
 - categories = EventEmail::CATEGORIES.select {|category| event.find_event_email(category) }
 - if categories.any?

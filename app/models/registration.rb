@@ -144,10 +144,12 @@ class Registration < ActiveRecord::Base
     save!
   end
 
-  def approve!
+  def approve
     self.approved = true
-    self.cost = event.cost_for(role)
-    save!
+  end
+
+  def assign_default_cost
+    self.cost = event.cost_for(role) if event
   end
 
   private
