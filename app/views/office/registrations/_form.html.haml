@@ -9,7 +9,7 @@
     = r.association :event, options_for_signup_events_select(r)
   = r.input :role, options_for_role(r)
 
-  = render('office/registrations/fields_payment', :form => r) if Site.de?
+  = render('office/registrations/fields_payment', :form => r)
   = render 'office/registrations/fields_requests', :form => r
   = render 'office/registrations/field_note', :form => r
     
@@ -19,7 +19,6 @@
 
   = r.input :checked_in
   = r.input :completed
-  = r.input :cost
 
   .form-actions
     = r.button :submit, class: 'btn-primary'
