@@ -1,6 +1,9 @@
 class Notifier < ActionMailer::Base
 
+  helper :application
+
   def registration_with_template(registration, template)
+    registration = registration.decorate
     attr = mail_attributes(registration)
     attr[:subject] = render_template(registration, template.subject)
     mail(attr) do |format|
@@ -18,6 +21,8 @@ class Notifier < ActionMailer::Base
     {
         'person_name' => registration.full_name,
         'event_name' => registration.event_name,
+        'registration_code' => registration.registration_code,
+        'cost' => registration.cost
     }
   end
 

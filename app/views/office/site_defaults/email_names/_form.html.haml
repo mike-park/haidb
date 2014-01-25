@@ -1,3 +1,15 @@
+%p
+  The subject and body fields can have special words which substitute for values in the registration record.
+  The special fields are:
+  %dt= "{{person_name}}"
+  %dd The full name of the registrant. ie Mike Park
+  %dt= "{{event_name}}"
+  %dd The name of the event. ie Level 1: 2014-02-01
+  %dt= "{{registration_code}}"
+  %dd The auto-assigned registration code. This is only available in confirmation emails.
+  %dt= "{{cost}}"
+  %dd The cost assigned to this registration. ie 110.00 €
+
 = simple_form_for([:office, :site_defaults, email_name], html: {class: 'form-horizontal'}) do |f|
   = f.input :name
   = f.simple_fields_for :emails do |l|

@@ -1,7 +1,7 @@
 # encoding: utf-8
 
-class RosterDecorator < ApplicationDecorator
-  decorates :roster
+class RosterDecorator < Draper::Decorator
+  delegate_all
 
   def to_pdf
     # HACK ALERT!
