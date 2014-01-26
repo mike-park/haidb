@@ -5,7 +5,10 @@
     %tr
       %th= sort_link @search, :display_name, 'Name'
       %th= sort_link @search, :start_date
-      %th.qty Total Registered
+      %th= sort_link @search, :next_registration_code, 'Reg Code'
+      %th= sort_link @search, :participant_cost, 'Part. cost'
+      %th= sort_link @search, :team_cost
+      %th.qty Total
       %th.qty Participants
       %th.qty Team
       %th
@@ -14,6 +17,9 @@
       %tr
         %td= link_to_show(office_event_path(e), e.display_name)
         %td= l e.start_date
+        %td.qty= e.next_registration_code
+        %td.qty= local_currency e.participant_cost
+        %td.qty= local_currency e.team_cost
         %td.qty= e.registrations.ok.count
         %td.qty= e.registrations.ok.participants.count
         %td.qty= e.registrations.ok.team.count
