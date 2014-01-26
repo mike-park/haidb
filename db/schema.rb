@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140124134021) do
+ActiveRecord::Schema.define(:version => 20140126144544) do
 
   create_table "angels", :force => true do |t|
     t.string   "display_name",                 :null => false
@@ -184,9 +184,9 @@ ActiveRecord::Schema.define(:version => 20140124134021) do
     t.boolean  "reg_fee_received"
     t.boolean  "clothing_conversation"
     t.text     "options"
-    t.decimal  "cost",                  :precision => 10, :scale => 2, :default => 0.0
-    t.decimal  "paid",                  :precision => 10, :scale => 2, :default => 0.0
-    t.decimal  "owed",                  :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "cost",                  :precision => 10, :scale => 2
+    t.decimal  "paid",                  :precision => 10, :scale => 2
+    t.decimal  "owed",                  :precision => 10, :scale => 2
   end
 
   add_index "registrations", ["angel_id"], :name => "index_registrations_on_angel_id"

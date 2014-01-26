@@ -134,9 +134,10 @@ class Registration < ActiveRecord::Base
   end
 
   def update_payment_summary
-    self.paid = payments.sum(:amount) || 0
-    self.cost ||= 0
-    self.owed = cost - paid
+    paid = payments.sum(:amount)
+    self.paid = paid == 0 ? nil : paid
+    owed = (cost || 0) - paid
+    self.owed = (paid == 0 && owed == 0) ? nil : owed
   end
 
   def update_payment_summary!

@@ -15,9 +15,9 @@
             %td.name= link_to_show(office_registration_payments_path(r), r.full_name)
             %td.qty= local_currency r.cost
             %td.qty= local_currency r.paid
-            %td.qty{class: r.owed > 0 ? 'owes':''}= local_currency r.owed
+            %td.qty{class: r.owed && r.owed > 0 ? 'owes':''}= local_currency r.owed
         %tr
           %td Total
-          %td.qty= local_currency registrations.map(&:cost).inject(&:+)
-          %td.qty= local_currency registrations.map(&:paid).inject(&:+)
-          %td.qty= local_currency registrations.map(&:owed).inject(&:+)
+          %td.qty= local_currency registrations.map(&:cost).compact.inject(&:+)
+          %td.qty= local_currency registrations.map(&:paid).compact.inject(&:+)
+          %td.qty= local_currency registrations.map(&:owed).compact.inject(&:+)

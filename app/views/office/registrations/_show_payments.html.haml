@@ -1,6 +1,0 @@
-= controls do |c|
-  - c << link_to(new_office_registration_payment_path(registration), class: 'btn') do
-    - icon('icon-plus-sign') + 'Add Payment'
-
-= render 'office/payments/summary', registration: registration
-= render 'office/payments/payments', payments: registration.payments if registration.payments.any?

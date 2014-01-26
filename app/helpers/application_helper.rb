@@ -76,7 +76,7 @@ module ApplicationHelper
 
   def local_currency(number)
     locale = Site.de? ? 'de' : 'en-GB'
-    number_to_currency(number || 0, locale: locale)
+    number_to_currency(number, locale: locale) if number
   end
 
   private
