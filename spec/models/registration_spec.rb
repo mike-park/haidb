@@ -164,18 +164,23 @@ describe Registration do
       let(:registration) { FactoryGirl.build(:registration, event: event) }
 
       it "should save a registration code" do
-        registration.approve
+        registration.save!
+        registration.registration_code.should == '123'
+      end
+
+      it "should overwrite a blank registration code" do
+        registration.registration_code = ''
         registration.save!
         registration.registration_code.should == '123'
       end
 
       it "should not save a registration code" do
-        registration.save!
+        registration.event = nil
+        registration.save
         registration.registration_code.should_not be
       end
 
       it "should not change an existing code" do
-        registration.approve
         registration.registration_code = '999'
         registration.save!
         registration.registration_code.should == '999'
@@ -183,9 +188,42 @@ describe Registration do
 
       it "should have no registration code" do
         event.update_attribute(:next_registration_code, nil)
-        registration.approve
         registration.save!
         registration.registration_code.should_not be
+      end
+    end
+
+    context "cost" do
+      let(:event) { FactoryGirl.create(:event, participant_cost: 10) }
+      let(:registration) { FactoryGirl.build(:registration, role: Registration::PARTICIPANT, event: event) }
+
+      it "should save a cost" do
+        registration.save!
+        registration.cost.should == 10
+      end
+
+      it "should no overwrite a zero cost" do
+        registration.cost = 0
+        registration.save!
+        registration.cost.should == 0
+      end
+
+      it "should not save a cost" do
+        registration.event = nil
+        registration.save
+        registration.cost.should_not be
+      end
+
+      it "should not change an existing cost" do
+        registration.cost = 12
+        registration.save!
+        registration.cost.should == 12
+      end
+
+      it "should have no cost" do
+        event.update_attribute(:participant_cost, nil)
+        registration.save!
+        registration.cost.should_not be
       end
     end
   end

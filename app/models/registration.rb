@@ -6,9 +6,9 @@ class Registration < ActiveRecord::Base
 
   store :options, accessors: [:highest_level, :highest_location, :highest_date, :registration_code]
 
+  before_save :assign_defaults, on: :create
   before_save SundayChoiceCallbacks
   before_save :update_payment_summary
-  before_save :assign_registration_code, if: lambda {|r| r.approved? && r.event.has_registration_codes? && r.registration_code.blank? }
   after_destroy :delete_public_signup
 
   # role types
@@ -95,7 +95,7 @@ class Registration < ActiveRecord::Base
     :unless => "lift.blank?"
   }
 
-  validates_numericality_of :cost
+  validates_numericality_of :cost, allow_nil: true
 
   delegate :level, :start_date, :to => :event
   delegate :lat, :lng, :full_name, :gender, :email, :to => :angel
@@ -149,8 +149,9 @@ class Registration < ActiveRecord::Base
     self.approved = true
   end
 
-  def assign_default_cost
-    self.cost = event.cost_for(role) if event
+  def assign_defaults
+    assign_default_cost unless cost
+    assign_registration_code if registration_code.blank?
   end
 
   private
@@ -159,7 +160,11 @@ class Registration < ActiveRecord::Base
     PublicSignup.delete(public_signup_id) if public_signup_id
   end
 
+  def assign_default_cost
+    self.cost = event.cost_for(role) if event
+  end
+
   def assign_registration_code
-    self.registration_code = event.claim_registration_code
+    self.registration_code = event.claim_registration_code if event
   end
 end
