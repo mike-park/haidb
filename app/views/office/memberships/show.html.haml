@@ -1,0 +1,24 @@
+.block
+  .content
+    = controls do |c|
+      - add_button_to(c, :edit)
+      - add_button_to(c, :delete)
+
+    %h2 Team Member #{@membership.display_name}
+
+    = render 'membership', membership: @membership
+
+    - if @membership.audits.any?
+      = render 'office/shared/audits', :audits => @membership.audits.descending
+
+  .content
+    = controls do |c|
+      - add_button_to(c, 'Add registration', :angel_id => @membership.angel, :controller => :registrations)
+
+    - if @membership.on_team.any?
+      %h3 On team for #{pluralize(@membership.on_team.length, 'event')}
+      = render 'registrations', :registrations => @membership.on_team
+
+    - if @membership.team_workshops.any?
+      %h3 AWS/TWS #{pluralize(@membership.team_workshops.length, 'event')}
+      = render 'registrations', :registrations => @membership.team_workshops

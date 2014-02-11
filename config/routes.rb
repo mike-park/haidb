@@ -44,7 +44,7 @@ Haidb::Application.routes.draw do
       end
     end
 
-    resources :teams, only: [:index]
+    resources :memberships
 
     resources :public_signups do
       collection do

@@ -1,0 +1,28 @@
+%table.table.table-key-values
+  %caption
+    %h6 Membership Information
+  %tbody
+    %tr
+      %th Name
+      %td
+        = link_to office_angel_path(membership.angel) do
+          = membership.angel.full_name
+          = gravatar_image(membership.angel.gravatar)
+    %tr
+      %th Status
+      %td= membership.status
+    %tr
+      %th Active On
+      %td= membership.active_on
+    %tr
+      %th Retired On
+      %td= membership.retired_on
+    %tr
+      %th Participant Cost
+      %td= membership.participant_cost
+    %tr
+      %th Team Cost
+      %td= membership.team_cost
+    %tr
+      %th Notes
+      %td= membership.notes

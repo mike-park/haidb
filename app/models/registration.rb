@@ -154,6 +154,11 @@ class Registration < ActiveRecord::Base
     assign_registration_code if registration_code.blank?
   end
 
+  # sort by event.start_date
+  def <=>(other)
+    start_date <=> other.start_date
+  end
+
   private
 
   def delete_public_signup

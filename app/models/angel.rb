@@ -39,6 +39,7 @@ class Angel < ActiveRecord::Base
   GENDERS = [FEMALE, MALE]
 
   has_many :registrations, :inverse_of => :angel, :dependent => :destroy
+  has_many :memberships, inverse_of: :angel, dependent: :destroy
   has_many :events, :through => :registrations
 
   #default_scope order('LOWER(first_name) asc')

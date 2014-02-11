@@ -55,22 +55,22 @@ Tabulous.setup do |config|
   config.tabs do
     if in_office_zone?
       [
-          #------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
-          #    TAB NAME                                 |    DISPLAY TEXT                          |    PATH                                     |    VISIBLE?    |    ENABLED?    #
-          #------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
-          [    :office_dashboards_tab                   ,    'Dashboard'                    ,    office_root_path                         ,    true        ,    true        ],
-          [    :office_angels_tab                       ,    'Angels'                       ,    office_angels_path                       ,    true        ,    true        ],
-          [    :office_teams_tab                        ,    'Teams'                        ,    office_teams_path                        ,    true        ,    true        ],
-          [    :office_events_tab                       ,    'Events'                       ,    office_events_path                       ,    true        ,    true        ],
-          [    :office_public_signups_tab               ,    'Public Signups'               ,    office_public_signups_path               ,    true        ,    true        ],
-          [    :office_site_defaults_tab                ,    'Site Defaults'                ,    office_site_defaults_path                ,    true        ,    true        ],
+          #----------------------------------------------------------------------------------------------------#
+          #    TAB NAME              |    DISPLAY TEXT       |    PATH       |    VISIBLE?    |    ENABLED?    #
+          #----------------------------------------------------------------------------------------------------#
+          [:office_dashboards_tab,       'Dashboard',            office_root_path, true, true],
+          [:office_angels_tab,           'Angels',               office_angels_path, true, true],
+          [:office_teams_tab,            'Teams',                office_memberships_path, true, true],
+          [:office_events_tab,           'Events',               office_events_path, true, true],
+          [:office_public_signups_tab,   'Public Signups',       office_public_signups_path, true, true],
+          [:office_site_defaults_tab,    'Site Defaults',        office_site_defaults_path, true, true],
       ]
     elsif in_users_zone?
       [
-          #------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
-          #    TAB NAME                                 |    DISPLAY TEXT                          |    PATH                                     |    VISIBLE?    |    ENABLED?    #
-          #------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
-          [    :users_dashboards_tab                   ,    'My Events'                   ,    users_root_path                   ,    true        ,    true        ],
+          #-----------------------------------------------------------------------------------------------------#
+          #    TAB NAME              |    DISPLAY TEXT        |    PATH       |    VISIBLE?    |    ENABLED?    #
+          #-----------------------------------------------------------------------------------------------------#
+          [:users_dashboards_tab,        'My Events',            users_root_path, true, true],
       ]
     end
 
@@ -92,39 +92,36 @@ Tabulous.setup do |config|
 
   config.actions do
     if in_office_zone?
-    [
-        #------------------------------------------------------------------------------------------------------------#
-        #    CONTROLLER                           |    ACTION          |    TAB                                      #
-        #------------------------------------------------------------------------------------------------------------#
-        [    :registrations                ,    :all_actions    ,    :office_events_tab                ],
-        [    :angels                       ,    :all_actions    ,    :office_angels_tab                       ],
-        [    :registrations                ,    :all_actions    ,    :office_events_tab                ],
-        [    :pre            ,    :all_actions    ,    :office_events_tab            ],
-        [    :post           ,    :all_actions    ,    :office_events_tab           ],
-        [    :completed      ,    :all_actions    ,    :office_events_tab      ],
-        [    :checked_in     ,    :all_actions    ,    :office_events_tab     ],
-        [    :payment        ,    :all_actions    ,    :office_events_tab        ],
-        [    :checklist      ,    :all_actions    ,    :office_events_tab      ],
-        [    :roster         ,    :all_actions    ,    :office_events_tab         ],
-        [    :map            ,    :all_actions    ,    :office_events_tab            ],
-        [    :teams                        ,    :all_actions    ,    :office_teams_tab                        ],
-        [    :events                       ,    :all_actions    ,    :office_events_tab                       ],
-        [    :public_signups               ,    :all_actions    ,    :office_public_signups_tab               ],
-        [    :site_defaults                ,    :all_actions    ,    :office_site_defaults_tab                ],
-        [    :email_names                ,    :all_actions    ,    :office_site_defaults_tab                ],
-        [    :registrations                ,    :all_actions    ,    :office_events_tab                ],
-        [    :dashboards                   ,    :all_actions    ,    :office_dashboards_tab                   ],
-    #------------------------------------------------------------------------------------------------------------#
-    #    CONTROLLER                           |    ACTION          |    TAB                                      #
-    #------------------------------------------------------------------------------------------------------------#
-    ]
+      [
+          #-------------------------------------------------------------------#
+          #    CONTROLLER          |    ACTION     |    TAB                   #
+          #-------------------------------------------------------------------#
+          [:registrations,            :all_actions, :office_events_tab],
+          [:angels,                   :all_actions, :office_angels_tab],
+          [:registrations,            :all_actions, :office_events_tab],
+          [:pre,                      :all_actions, :office_events_tab],
+          [:post,                     :all_actions, :office_events_tab],
+          [:completed,                :all_actions, :office_events_tab],
+          [:checked_in,               :all_actions, :office_events_tab],
+          [:payment,                  :all_actions, :office_events_tab],
+          [:checklist,                :all_actions, :office_events_tab],
+          [:roster,                   :all_actions, :office_events_tab],
+          [:map,                      :all_actions, :office_events_tab],
+          [:memberships,              :all_actions, :office_teams_tab],
+          [:events,                   :all_actions, :office_events_tab],
+          [:public_signups,           :all_actions, :office_public_signups_tab],
+          [:site_defaults,            :all_actions, :office_site_defaults_tab],
+          [:email_names,              :all_actions, :office_site_defaults_tab],
+          [:registrations,            :all_actions, :office_events_tab],
+          [:dashboards,               :all_actions, :office_dashboards_tab],
+      ]
     elsif in_users_zone?
       [
-          #------------------------------------------------------------------------------------------------------------#
-          #    CONTROLLER                           |    ACTION          |    TAB                                      #
-          #------------------------------------------------------------------------------------------------------------#
-          [    :dashboards                   ,    :all_actions    ,    :users_dashboards_tab                   ],
-          [    :rosters                   ,    :all_actions    ,    :users_dashboards_tab                   ],
+          #--------------------------------------------------------------------#
+          #    CONTROLLER         |    ACTION       |    TAB                   #
+          #--------------------------------------------------------------------#
+          [:dashboards,               :all_actions, :users_dashboards_tab],
+          [:rosters,                  :all_actions, :users_dashboards_tab],
       ]
     end
 
@@ -145,7 +142,7 @@ Tabulous.setup do |config|
   # instruct tabulous how to behave:
   #config.when_action_has_no_tab = :raise_error      # the default behavior
   # config.when_action_has_no_tab = :do_not_render  # no tab navigation HTML will be generated
-  config.when_action_has_no_tab = :render         # the tab navigation HTML will be generated,
+  config.when_action_has_no_tab = :render # the tab navigation HTML will be generated,
   # but no tab or subtab will be active
 
   #--------------------

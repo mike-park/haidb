@@ -1,4 +1,8 @@
-module Office::TeamsHelper
+module Office::MembershipsHelper
+  def options_for_membership_status(form)
+    { :as => :radio, :collection => Membership::STATUSES }
+  end
+
   def registration_counts_by_milestones(registrations, milestones)
     dates = registrations.map(&:start_date)
     today = Date.current

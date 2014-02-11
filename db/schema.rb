@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140126172606) do
+ActiveRecord::Schema.define(:version => 20140211040334) do
 
   create_table "angels", :force => true do |t|
     t.string   "display_name",                 :null => false
@@ -114,6 +114,22 @@ ActiveRecord::Schema.define(:version => 20140126172606) do
   end
 
   add_index "histories", ["item", "table", "month", "year"], :name => "index_histories_on_item_and_table_and_month_and_year"
+
+  create_table "memberships", :force => true do |t|
+    t.integer  "angel_id"
+    t.string   "status"
+    t.date     "active_on"
+    t.date     "retired_on"
+    t.text     "notes"
+    t.text     "options"
+    t.decimal  "participant_cost", :precision => 10, :scale => 2
+    t.decimal  "team_cost",        :precision => 10, :scale => 2
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+  end
+
+  add_index "memberships", ["angel_id"], :name => "index_memberships_on_angel_id"
+  add_index "memberships", ["status"], :name => "index_memberships_on_status"
 
   create_table "offices", :force => true do |t|
     t.string   "email",                               :default => "", :null => false

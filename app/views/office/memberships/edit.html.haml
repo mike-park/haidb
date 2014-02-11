@@ -1,0 +1,8 @@
+.block
+  .content
+    = controls do |c|
+      - add_button_to(c, :delete)
+
+    %h2 Editing #{@membership.display_name}
+
+    = render 'form'

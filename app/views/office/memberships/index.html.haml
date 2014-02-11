@@ -1,0 +1,32 @@
+.block
+  .content
+    = controls do |c|
+      - add_email_button_to(c, bcc: @memberships.map(&:email))
+
+    %h2= @header
+
+    %table.table.tablesorter
+      %caption
+        %h3= pluralize(@memberships.length, 'Team Member')
+      %thead
+        %tr
+          %th Name
+          %th Status
+          %th.center Highest Level
+          %th.qty Total On Team
+          %th.center 6 months
+          %th.center 1 year
+          %th.center 1.5 years
+          %th.center 2 years
+          %th.center 3 years
+          %th.center 4 years
+          -#%th Team Workshops
+          -#%th
+      %tbody
+        - @memberships.each do |member|
+          %tr
+            %td= link_to_show(office_membership_path(member), member.display_name)
+            %td= member.status
+            %td.center= member.highest_level
+            %td.qty= member.on_team.size
+            = registration_counts_by_milestones(member.on_team_or_team_workshops, [6.months, 12.months, 18.months, 2.years, 3.years, 4.years])

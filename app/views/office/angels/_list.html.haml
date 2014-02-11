@@ -12,7 +12,9 @@
     - angels.each do |a|
       %tr
         %td= gravatar_image(a.gravatar)
-        %td= link_to_show(office_angel_path(a), a.full_name)
+        %td
+          = link_to_show(office_angel_path(a), a.full_name)
+          = angel_membership_status(a)
         %td= a.email
         %td= compact_address(a)
         %td= compact_phones(a)

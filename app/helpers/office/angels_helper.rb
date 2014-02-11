@@ -67,4 +67,11 @@ module Office::AngelsHelper
       end
     end
   end
+
+  def angel_membership_status(angel)
+    membership = angel.memberships.active.first
+    if membership
+      content_tag(:i, membership.status)
+    end
+  end
 end

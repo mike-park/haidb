@@ -122,5 +122,10 @@ FactoryGirl.define do
     sequence(:email) { |n| "user#{n}@example.com" }
     password 'someuserpassword'
   end
+
+  factory :membership do
+    angel
+    status Membership::AWS
+  end
 end
 
