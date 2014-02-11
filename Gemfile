@@ -87,7 +87,11 @@ gem 'memcachier', '~> 0.0.2'
 # access gravatar images
 gem 'gravatar-ultimate'
 
+# database
 gem 'pg'
+
+# config vars in ENV or application.yml
+gem 'figaro', '~> 0.7.0'
 
 group :development, :test do
   gem 'sqlite3'

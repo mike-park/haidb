@@ -9,3 +9,5 @@ TAGS
 .bundle/*
 notes/
 .pow*
+config/application.yml
+config/applications
