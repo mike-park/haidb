@@ -4,7 +4,7 @@ Application to support collecting and managing workshop signups for the non-prof
 
 ## Copyright
 
-Copyright &copy; Mike Park 2010-2013
+Copyright &copy; Mike Park 2010-2014
 
 ## License
 
