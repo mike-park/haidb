@@ -259,7 +259,7 @@ describe Angel do
       #end
 
       it "from one other angel" do
-        Angel.merge_and_delete_duplicates_of(angel2).should == 1
+        expect(Angel.merge_and_delete_duplicates_of(angel2)).to be_true
       end
 
       context "with changes of" do

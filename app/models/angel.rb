@@ -125,23 +125,7 @@ class Angel < ActiveRecord::Base
 
   def self.merge_and_delete_duplicates_of(angel)
     matched_angels = find_duplicates_of(angel)
-    base = matched_angels.shift
-    if matched_angels.any?
-      matched_angels.each do |angel|
-        base.attributes = angel.attributes.except(:id, :highest_level, :created_at, :updated_at)
-        # iterate as the same person (in two different angel records)
-        # might be registered for the same event. this ignores registrations
-        # that can't be transfered, they will be destroyed when the dup angel
-        # is destroyed below
-        angel.registrations.each do |r|
-          base.registrations << r
-        end
-        base.save!
-      end
-      Angel.destroy(matched_angels)
-      base.cache_highest_level
-    end
-    matched_angels.count
+    MergeAngels.new(matched_angels.map(&:id)).invoke
   end
 
   def geocoded?
