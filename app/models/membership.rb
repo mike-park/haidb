@@ -20,7 +20,7 @@ class Membership < ActiveRecord::Base
   }
   validates_uniqueness_of :angel_id, scope: :retired_on, if: lambda { |m| m.retired_on.nil? }
 
-  delegate :display_name, :email, :highest_level, :registrations, to: :angel
+  delegate :full_name_with_context, :<=>, :email, :highest_level, :registrations, to: :angel
 
   # registrations
 

@@ -43,7 +43,8 @@ class Angel < ActiveRecord::Base
   has_many :events, :through => :registrations
 
   #default_scope order('LOWER(first_name) asc')
-  scope :by_last_name, order('LOWER(last_name) asc')
+  scope :by_last_name, lambda { order('LOWER(last_name) asc') }
+  scope :by_full_name, lambda { order('LOWER(first_name), LOWER(last_name), id asc') }
   scope :located_at, lambda {|lat, lng| where(lat: lat, lng: lng)}
 
   validates_presence_of :first_name, :last_name, :email
@@ -55,6 +56,10 @@ class Angel < ActiveRecord::Base
   
   def full_name
     [first_name, last_name].compact.join(" ")
+  end
+
+  def full_name_with_context
+    [full_name, city].reject {|x| x.blank? }.join(" - ")
   end
 
   # this gets auto-called when registrations or events change.
@@ -133,7 +138,7 @@ class Angel < ActiveRecord::Base
   end
 
   def <=>(other)
-    display_name.downcase <=> other.display_name.downcase
+    full_name_with_context.downcase <=> other.full_name_with_context.downcase
   end
 
   private

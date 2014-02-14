@@ -23,7 +23,7 @@ module Office::AngelsHelper
   end
 
   def options_for_angel_select(form)
-    { :as => :select, :label => 'Angel', :collection => Angel.by_last_name, label_method: :display_name, value_method: :id }
+    { :as => :select, :label => 'Angel', :collection => Angel.by_full_name, label_method: :full_name_with_context, value_method: :id }
   end
   
   # return address in html display format

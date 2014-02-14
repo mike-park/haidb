@@ -72,6 +72,6 @@ class Office::MembershipsController < Office::ApplicationController
                      Membership.all
                    else
                      Membership.active
-                 end
+                 end.sort
   end
 end
