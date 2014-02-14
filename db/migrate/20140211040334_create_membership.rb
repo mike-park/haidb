@@ -14,7 +14,9 @@ class CreateMembership < ActiveRecord::Migration
     add_index :memberships, :angel_id
     add_index :memberships, :status
 
-    TeamMember.create_memberships
+    Audit.as_user(Staff.first) do
+      TeamMember.create_memberships
+    end
   end
 
   def down
