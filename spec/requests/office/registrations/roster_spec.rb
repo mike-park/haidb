@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe "roster" do
-  office_login
+  before do
+    office_login
+  end
 
   let(:event) { FactoryGirl.create(:event) }
   subject { roster_office_event_registrations_path(event) }

@@ -7,10 +7,13 @@ describe "users/dashboards" do
   end
 
   context "with a valid login" do
-    let(:angel) { FactoryGirl.create(:angel, email: User.first.email)}
+    let(:user) { FactoryGirl.create(:user) }
+    let(:angel) { FactoryGirl.create(:angel, email: user.email)}
     let(:registration) { FactoryGirl.create(:registration, angel: angel) }
 
-    users_login
+    before do
+      user_login(user)
+    end
 
     it "should show the dashboard page" do
       visit users_root_path

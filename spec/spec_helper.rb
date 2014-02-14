@@ -14,7 +14,8 @@ RSpec.configure do |config|
 
   # my login macros; available in describe not it
   config.extend ControllerMacros, :type => :controller
-  config.extend CapybaraMacros, :type => :request
+
+  config.include CapybaraMacros, :type => :request
 end
 
 =begin

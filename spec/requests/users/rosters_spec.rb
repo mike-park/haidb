@@ -9,11 +9,14 @@ describe "users/rosters" do
   end
 
   context "with a valid login" do
-    let(:angel) { FactoryGirl.create(:angel, email: User.first.email)}
+    let(:user) { FactoryGirl.create(:user) }
+    let(:angel) { FactoryGirl.create(:angel, email: user.email)}
     let(:event) { FactoryGirl.create(:event) }
     let(:registration) { FactoryGirl.create(:registration, event: event, angel: angel) }
 
-    users_login
+    before do
+      user_login(user)
+    end
 
     it "should not show the roster" do
       visit users_roster_path(id: event.id)

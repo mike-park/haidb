@@ -157,7 +157,9 @@ describe "POST /public_signups" do
   end
 
   context "public_signup workflow" do
-    office_login
+    before do
+      office_login
+    end
 
     it "should allow public_signup to be waitlisted, then approved" do
       create_en_public_signup
