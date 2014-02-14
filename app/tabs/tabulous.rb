@@ -98,6 +98,7 @@ Tabulous.setup do |config|
           #-------------------------------------------------------------------#
           [:registrations,            :all_actions, :office_events_tab],
           [:angels,                   :all_actions, :office_angels_tab],
+          [:similar_angels,           :all_actions, :office_angels_tab],
           [:registrations,            :all_actions, :office_events_tab],
           [:pre,                      :all_actions, :office_events_tab],
           [:post,                     :all_actions, :office_events_tab],

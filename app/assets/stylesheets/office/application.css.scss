@@ -100,3 +100,14 @@ body {
 .gmaps4rails_map {
   width: inherit;
 }
+
+// similar angel pages
+
+.similar-angel {
+  @include clearfix();
+
+  .angel {
+    float: left;
+    padding: 20px;
+  }
+}

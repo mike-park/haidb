@@ -20,6 +20,8 @@ Haidb::Application.routes.draw do
       resources :registrations
     end
 
+    resources :similar_angels, only: [:index, :create]
+
     resources :events do
       collection do
         get 'past'

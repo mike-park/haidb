@@ -1,0 +1,19 @@
+.similar-angel
+  %h3.title= similar_angel.title
+
+  - similar_angel.angels.sort.each do |angel|
+    .angel
+      #{angel.full_name}
+      %p= angel.email
+      %p= angel.address
+      %p= angel.phones
+      %p
+        Id: #{angel.id}
+        %br
+        Created: #{angel.created_at}
+        %br
+        Updated: #{angel.updated_at}
+
+  = simple_form_for :similar_angel, path: office_similar_angels_path, method: :post do |f|
+    = f.hidden_field :angel_ids, value: similar_angel.angel_ids
+    = f.submit('Merge')

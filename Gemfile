@@ -93,6 +93,11 @@ gem 'pg'
 # config vars in ENV or application.yml
 gem 'figaro', '~> 0.7.0'
 
+group :development do
+  gem 'better_errors'
+  gem "binding_of_caller"
+end
+
 group :development, :test do
   gem 'sqlite3'
   gem 'annotate'
