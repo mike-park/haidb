@@ -4,6 +4,7 @@ describe Membership do
 
   context "validations" do
     it 'should not allow two active memberships' do
+      I18n.locale = :en
       membership = FactoryGirl.create(:membership)
       membership = FactoryGirl.build(:membership, angel: membership.angel, status: Membership::STATUSES.first)
       expect { membership.save! }.to raise_exception(ActiveRecord::RecordInvalid, /Angel id has already been taken/)
