@@ -43,9 +43,6 @@ gem 'devise_invitable', '~> 1.0.0'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 
-# authorization
-gem 'cancan'
-
 # decorating
 gem 'draper'
 
