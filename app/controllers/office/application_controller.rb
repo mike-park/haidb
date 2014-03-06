@@ -1,7 +1,7 @@
 class Office::ApplicationController < ApplicationController
-  before_filter :authenticate_staff!
-
   layout 'office/application'
+
+  before_filter :authenticate_staff!
 
   rescue_from ActiveRecord::RecordNotFound do
     redirect_to office_root_url, :alert => 'Record not found'
