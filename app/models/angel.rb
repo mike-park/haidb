@@ -93,7 +93,7 @@ class Angel < ActiveRecord::Base
   end
 
   def to_vcard
-    Vpim::Vcard::Maker.make2 do |maker|
+    Vcard::Vcard::Maker.make2 do |maker|
       maker.add_name do |name|
         name.given = first_name || ''
         name.family = last_name || ''
