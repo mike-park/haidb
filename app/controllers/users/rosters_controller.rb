@@ -1,7 +1,7 @@
 class Users::RostersController < Users::ApplicationController
   def show
-    # TODO authorize this access
     @roster = Roster.find(params[:id])
+    authorize @roster
     @roster = RosterDecorator.new(@roster)
     respond_to do |format|
       format.html

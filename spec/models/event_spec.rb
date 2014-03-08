@@ -62,7 +62,7 @@ describe Event do
     end
   end
 
-  context "scopes" do
+  context "event scopes" do
     before(:all) do
       @e1 = FactoryGirl.create(:event, :start_date => Date.new(2010, 12, 1))
       @e2 = FactoryGirl.create(:event, :start_date => Date.tomorrow)
@@ -183,6 +183,20 @@ describe Event do
       it "should return cost #{cost} for role #{role}" do
         [role, event.cost_for(role)].should == [role, cost]
       end
+    end
+  end
+
+  context "registrations" do
+    let(:event) { build(:event) }
+
+    before do
+      create(:registration, event: event)
+      create(:registration, event: event, approved: true)
+      create(:registration, event: event, completed: true, approved: true)
+    end
+
+    it "should have 1 completed registration" do
+      expect(event.completed_registrations.count).to eq(1)
     end
   end
 end

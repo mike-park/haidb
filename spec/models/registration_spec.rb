@@ -80,7 +80,7 @@ describe Registration do
 
     it "should accept nested attributes for angel" do
       angel = FactoryGirl.build(:angel)
-      registration = Registration.new(:angel_attributes => FactoryGirl.attributes_for(:angel))
+      registration = Registration.new(:angel_attributes => angel.attributes)
       registration.angel.inspect.should == angel.inspect
     end
 

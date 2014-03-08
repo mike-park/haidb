@@ -169,6 +169,8 @@ GEM
     prawn (0.12.0)
       pdf-reader (>= 0.9.0)
       ttfunk (~> 1.0.2)
+    pundit (0.2.2)
+      activesupport (>= 3.0.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -296,6 +298,7 @@ DEPENDENCIES
   newrelic_rpm
   pg
   prawn
+  pundit (~> 0.2.2)
   rack
   rails (= 3.2.17)
   rake

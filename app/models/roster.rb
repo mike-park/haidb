@@ -8,7 +8,7 @@ class Roster
   end
 
   def registrations
-    @event.registrations.ok.completed
+    @event.completed_registrations
   end
 
   def name
@@ -17,6 +17,10 @@ class Roster
 
   def emails
     registrations.map {|r| r.email }
+  end
+
+  def has_email?(email)
+    emails.include?(email)
   end
 
   # -> "roster"

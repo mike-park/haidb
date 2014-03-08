@@ -40,6 +40,7 @@ gem 'tabulous'					# menu highlighting
 # authentication
 gem "devise", "~> 3.2.1"
 gem 'devise_invitable', '~> 1.3.4'
+gem 'pundit', '~> 0.2.2'
 
 # decorating
 gem 'draper'

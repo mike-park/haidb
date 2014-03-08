@@ -2,6 +2,7 @@ require 'rubygems'
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require "pundit/rspec"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
@@ -11,6 +12,7 @@ RSpec.configure do |config|
   config.filter_run :focus
 
   config.use_transactional_fixtures = true
+  config.include FactoryGirl::Syntax::Methods
 
   # my login macros; available in describe not it
   config.extend ControllerMacros, :type => :controller

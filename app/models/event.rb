@@ -12,6 +12,7 @@ class Event < ActiveRecord::Base
   store :options, accessors: [:next_registration_code]
 
   has_many :registrations, :inverse_of => :event, :dependent => :destroy
+  has_many :completed_registrations, conditions: { approved: true, completed: true }, class_name: 'Registration'
   has_many :angels, :through => :registrations
 
   has_many :event_emails, :dependent => :destroy

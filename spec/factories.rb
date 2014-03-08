@@ -62,11 +62,13 @@ FactoryGirl.define do
 
   factory :angel do
     first_name 'Mike'
-    last_name 'Park'
-    email 'mikep@quake.net'
+    sequence(:last_name) {|n| "Lastname#{n}" }
+    sequence(:email) { |n| "angel#{n}@example.com" }
     gender 'Male'
 
     factory :full_angel do
+      last_name 'Park'
+      email 'mikep@quake.net'
       address 'Somewhere 140'
       postal_code '12345'
       city 'Berlin'
