@@ -72,6 +72,7 @@ Haidb::Application.routes.draw do
   namespace :users do
     resources :dashboards, only: [:index]
     resources :rosters, only: [:show]
+    resources :signed_up, only: [:new]
     root to: 'dashboards#index'
   end
 

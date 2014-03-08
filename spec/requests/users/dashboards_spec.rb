@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "users/dashboards" do
   it "should redirect to login page" do
     visit users_root_path
-    page.should have_selector('h2', text: 'User Sign in')
+    page.should have_selector('h2', text: 'Sign in')
   end
 
   context "with a valid login" do

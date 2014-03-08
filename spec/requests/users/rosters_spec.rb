@@ -5,7 +5,7 @@ describe "users/rosters" do
 
   it "should redirect to login page" do
     visit users_roster_path(id: does_not_exist_id)
-    page.should have_selector('h2', text: 'User Sign in')
+    page.should have_selector('h2', text: 'Sign in')
   end
 
   context "with a valid login" do
