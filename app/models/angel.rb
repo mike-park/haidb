@@ -2,7 +2,7 @@ require 'csv'
 
 class Angel < ActiveRecord::Base
   acts_as_audited except: [:gravatar]
-  acts_as_gmappable address: 'full_address', lat: 'lat', lng: 'lng', validation: false
+  include Mappable
 
   before_save :sanitize_fields, :update_display_name, :update_gravatar
 
@@ -17,11 +17,10 @@ class Angel < ActiveRecord::Base
   # float compares don't really work
   scope :located_at, lambda {|lat, lng| where(lat: lat, lng: lng)}
 
-  validates_presence_of :first_name, :last_name, :email
+  validates_presence_of :last_name, :email
   validates_inclusion_of :gender, :in => Registration::GENDERS, :message => :select, allow_nil: true
 
   CSV_FIELDS = %w(full_name email highest_level gender address postal_code city country home_phone mobile_phone work_phone)
-  ADDRESS_FIELDS = [:address, :postal_code, :city, :country]
   REGISTRATION_FIELDS = [:first_name, :last_name, :email, :gender,
                          :address, :postal_code, :city, :country, :home_phone, :mobile_phone, :work_phone,
                          :lang, :payment_method, :bank_account_name, :iban, :bic].map(&:to_s).freeze
@@ -105,10 +104,6 @@ class Angel < ActiveRecord::Base
     MergeAngels.new(matched_angels.map(&:id)).invoke
   end
 
-  def geocoded?
-    lat.present? && lng.present?
-  end
-
   def <=>(other)
     full_name_with_context.downcase <=> other.full_name_with_context.downcase
   end
@@ -138,29 +133,10 @@ class Angel < ActiveRecord::Base
   end
 
   def sanitize_fields
-    self.first_name = first_name.strip
-    self.last_name = last_name.strip
-    self.email = email.downcase.strip
+    self.first_name = first_name.to_s.strip
+    self.last_name = last_name.to_s.strip
+    self.email = email.to_s.downcase.strip
   end
-
-  def full_address
-    ADDRESS_FIELDS.map {|field| read_attribute(field)}.compact.join(", ")
-  end
-
-  def address_has_changed?
-    fields_changed = ADDRESS_FIELDS.select { |f| changed_attributes[f.to_s] }
-    fields_changed.any?
-  end
-
-  # return true if new geocode is NOT necessary
-  def gmaps
-    if geocoded? && !address_has_changed?
-      true
-    else
-      false
-    end
-  end
-  attr_writer :gmaps
 
   # only update if necessary, to avoid extra database traffic
   def update_display_name

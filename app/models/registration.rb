@@ -1,6 +1,6 @@
 class Registration < ActiveRecord::Base
   acts_as_audited
-  acts_as_gmappable lat: 'lat', lng: 'lng', process_geocoding: false
+  include Mappable
 
   has_many :payments, dependent: :destroy
 
@@ -163,10 +163,6 @@ class Registration < ActiveRecord::Base
   # sort by event.start_date
   def <=>(other)
     start_date <=> other.start_date
-  end
-
-  def geocoded?
-    lat.present? && lng.present?
   end
 
   private

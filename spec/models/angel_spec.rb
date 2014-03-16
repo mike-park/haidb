@@ -111,33 +111,6 @@ describe Angel do
     end
   end
 
-  context "geocoding" do
-    # remember google only allows so many geocode requests per/day/time/something
-    # a failure here might be temporary
-    it "should have been geocoded" do
-      angel = FactoryGirl.create(:full_angel)
-      angel.should be_geocoded
-      angel.lat.should be_within(0.5).of(52.5234051)
-      angel.lng.should be_within(0.5).of(13.4113999)
-    end
-
-    context "should require a geocode call" do
-      it "when new" do
-        angel = FactoryGirl.build(:full_angel)
-        angel.send(:gmaps).should == false
-      end
-
-      it "when address change" do
-        angel = FactoryGirl.create(:full_angel)
-        angel.send(:gmaps).should == true
-        angel.notes = "does not influence geocode"
-        angel.send(:gmaps).should == true
-        angel.city = "london"
-        angel.send(:gmaps).should == false
-      end
-    end
-  end
-
   context "scopes" do
     it "should order by_last_name" do
       z = FactoryGirl.create(:angel, :last_name => 'Zoo')
