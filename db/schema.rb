@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(:version => 20140316051723) do
     t.string   "display_name",                     :null => false
     t.string   "first_name"
     t.string   "last_name",                        :null => false
-    t.string   "gender",                           :null => false
+    t.string   "gender"
     t.string   "address"
     t.string   "postal_code"
     t.string   "city"

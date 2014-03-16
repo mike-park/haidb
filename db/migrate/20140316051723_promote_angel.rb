@@ -16,6 +16,7 @@ class PromoteAngel < ActiveRecord::Migration
     REG1_FIELDS.each do |name|
       add_column(:angels, name, :string)
     end
+    change_column(:angels, :gender, :string, null: true)
 
     migrate_data
     validate_transfer
