@@ -20,4 +20,4 @@
       %td
         .row-fluid
           .span4= compact_address(r)
-          .span2= link_to(icon('icon-map-marker') + "Map", office_event_map_index_path(id: r), class: 'btn') if r.geocoded?
+          .span2= link_to(icon('icon-map-marker') + "Map", office_event_map_index_path(r.event, id: r), class: 'btn') if r.geocoded?
