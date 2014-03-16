@@ -1,42 +1,10 @@
-# == Schema Information
-# Schema version: 20110320131630
-#
-# Table name: angels
-#
-#  id            :integer         primary key
-#  display_name  :string(255)     not null
-#  first_name    :string(255)
-#  last_name     :string(255)     not null
-#  gender        :string(255)     not null
-#  address       :string(255)
-#  postal_code   :string(255)
-#  city          :string(255)
-#  country       :string(255)
-#  email         :string(255)     not null
-#  home_phone    :string(255)
-#  mobile_phone  :string(255)
-#  work_phone    :string(255)
-#  lang          :string(255)
-#  notes         :text
-#  created_at    :timestamp
-#  updated_at    :timestamp
-#  highest_level :integer         default(0)
-#  lat           :float
-#  lng           :float
-#
-
 require 'csv'
 
 class Angel < ActiveRecord::Base
   acts_as_audited except: [:gravatar]
   acts_as_gmappable address: 'full_address', lat: 'lat', lng: 'lng', validation: false
 
-  after_initialize :set_default_values
   before_save :sanitize_fields, :update_display_name, :update_gravatar
-
-  FEMALE = 'Female'
-  MALE = 'Male'
-  GENDERS = [FEMALE, MALE]
 
   has_many :registrations, :inverse_of => :angel, :dependent => :destroy
   has_many :memberships, inverse_of: :angel, dependent: :destroy
@@ -45,15 +13,19 @@ class Angel < ActiveRecord::Base
   #default_scope order('LOWER(first_name) asc')
   scope :by_last_name, lambda { order('LOWER(last_name) asc') }
   scope :by_full_name, lambda { order('LOWER(first_name), LOWER(last_name), id asc') }
+  scope :by_email, ->(email) { where(email: email.to_s.downcase) }
+  # float compares don't really work
   scope :located_at, lambda {|lat, lng| where(lat: lat, lng: lng)}
 
   validates_presence_of :first_name, :last_name, :email
-  validates_inclusion_of :gender, { :in => GENDERS,
-    :message => :select }
+  validates_inclusion_of :gender, :in => Registration::GENDERS, :message => :select, allow_nil: true
 
   CSV_FIELDS = %w(full_name email highest_level gender address postal_code city country home_phone mobile_phone work_phone)
   ADDRESS_FIELDS = [:address, :postal_code, :city, :country]
-  
+  REGISTRATION_FIELDS = [:first_name, :last_name, :email, :gender,
+                         :address, :postal_code, :city, :country, :home_phone, :mobile_phone, :work_phone,
+                         :lang, :payment_method, :bank_account_name, :iban, :bic].map(&:to_s).freeze
+
   def full_name
     [first_name, last_name].compact.join(" ")
   end
@@ -141,6 +113,15 @@ class Angel < ActiveRecord::Base
     full_name_with_context.downcase <=> other.full_name_with_context.downcase
   end
 
+  def self.add_to(registration)
+    angel = Angel.by_email(registration.email).first_or_initialize
+    Angel.transaction do
+      angel.update_attributes!(registration.attributes.slice(*REGISTRATION_FIELDS))
+      registration.update_attribute(:angel_id, angel.id)
+    end
+    angel
+  end
+
   private
 
   def self.find_angels_with_same_email_address
@@ -154,10 +135,6 @@ class Angel < ActiveRecord::Base
       where("LOWER(last_name) = ?", angel.last_name.downcase).
       where("LOWER(first_name) = ?", angel.first_name.downcase).
       order('id').all
-  end
-
-  def set_default_values
-    self.lang ||= I18n.locale.to_s
   end
 
   def sanitize_fields

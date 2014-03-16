@@ -4,10 +4,9 @@ require "spec_helper"
 describe Notifier do
   context "#registration_with_template" do
     let(:event) { FactoryGirl.build(:event, display_name: 'Event Name') }
-    let(:angel) { FactoryGirl.build(:angel, first_name: 'Mike', last_name: 'Park', email: 'somewhere@example.com') }
-    let(:registration) { FactoryGirl.build(:registration, angel: angel, event: event, cost: 1.23, registration_code: 'reg_code') }
-    let(:decorated_registration) { registration.decorate }
-
+    let(:registration) { FactoryGirl.build(:registration, first_name: 'Mike', last_name: 'Park',
+                                           email: 'somewhere@example.com', event: event, cost: 1.23,
+                                           registration_code: 'reg_code', event: event) }
     let(:sender) { 'a_person@example.com' }
     let(:interpolated_vars) { "{{person_name}} {{event_name}} {{registration_code}} {{cost}}" }
     let(:email) { FactoryGirl.build(:en_email,
@@ -21,7 +20,7 @@ describe Notifier do
     end
 
     its(:from) { should == [sender] }
-    its(:to) { should == [registration.angel.email] }
+    its(:to) { should == [registration.email] }
     its(:bcc) { should == [sender] }
     [
         ['de', '1,23 €', '1,23 =E2=82=AC='],
@@ -29,11 +28,11 @@ describe Notifier do
     ].each do |(site, subject_cost, body_cost)|
       it "should have #{site} subject" do
         Site.stub(:name).and_return(site)
-        subject.subject.should == "subject #{angel.full_name} #{event.display_name} #{registration.registration_code} #{subject_cost}"
+        subject.subject.should == "subject #{registration.full_name} #{event.display_name} #{registration.registration_code} #{subject_cost}"
       end
       it "should have #{site} body" do
         Site.stub(:name).and_return(site)
-        subject.encoded.should match("body #{angel.full_name} #{event.display_name} #{registration.registration_code} #{body_cost}")
+        subject.encoded.should match("body #{registration.full_name} #{event.display_name} #{registration.registration_code} #{body_cost}")
       end
     end
 

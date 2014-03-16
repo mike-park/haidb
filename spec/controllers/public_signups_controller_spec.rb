@@ -31,7 +31,7 @@ describe PublicSignupsController do
       ps.registration.role.should == Registration::PARTICIPANT
       ps.registration.payment_method == Registration::PAY_DEBT
       ps.registration.should_not be_approved
-      ps.registration.angel.lang.should == 'en'
+      ps.registration.lang.should == 'en'
     end
 
     it "should have DE specific default values" do
@@ -40,7 +40,7 @@ describe PublicSignupsController do
       get :new
       ps = assigns[:public_signup]
       ps.registration.payment_method == Registration::PAY_DEBT
-      ps.registration.angel.lang.should == 'de'
+      ps.registration.lang.should == 'de'
     end
 
     it "should have UK specific default values" do
@@ -49,7 +49,7 @@ describe PublicSignupsController do
       get :new
       ps = assigns[:public_signup]
       ps.registration.payment_method == Registration::PAY_TRANSFER
-      ps.registration.angel.lang.should == 'en'
+      ps.registration.lang.should == 'en'
     end
   end
 
@@ -62,10 +62,11 @@ describe PublicSignupsController do
     end
 
     context "a valid signup" do
-      let(:public_signup) { double("PublicSignup").as_null_object }
+      let(:registration) { double('registration') }
+      let(:public_signup) { double("publicsignup", save: true, registration: registration, send_email: true) }
       before(:each) do
-        public_signup.stub(:save).and_return(true)
         PublicSignup.stub(:new).and_return(public_signup)
+        Angel.stub(:add_to).with(registration)
       end
 
       it "should redirect_to site specific url" do
@@ -90,21 +91,26 @@ describe PublicSignupsController do
         public_signup.should_receive(:send_email).with(EventEmail::SIGNUP)
         post :create
       end
+
+      it "should create a new angel" do
+        Angel.should_receive(:add_to).with(registration)
+        post :create
+      end
     end
 
     context "an invalid signup" do
-      let(:valid_attributes) { {registration_attributes: {payment_method: Registration::PAY_DEBT, angel_attributes: {}}} }
+      let(:invalid_attributes) { {registration_attributes: {payment_method: Registration::PAY_DEBT}} }
       before do
         Site.stub(:name).and_return('de')
       end
 
       it "should render new" do
-        post :create, public_signup: valid_attributes
+        post :create, public_signup: invalid_attributes
         response.should render_template('new')
       end
 
       it "should not send notification email" do
-        post :create, public_signup: valid_attributes
+        post :create, public_signup: invalid_attributes
         ActionMailer::Base.deliveries.count.should == 0
       end
 
@@ -112,16 +118,16 @@ describe PublicSignupsController do
         context "en" do
           before(:each) { I18n.locale = :en }
           it "should have English errors" do
-            post :create, public_signup: valid_attributes
+            post :create, public_signup: invalid_attributes
             invalid_public_signup = assigns[:public_signup]
             invalid_public_signup.errors.messages.should == {
-                :"registration.angel.first_name" => ["can't be blank"],
-                :"registration.angel.last_name" => ["can't be blank"],
+                :"registration.first_name" => ["can't be blank"],
+                :"registration.last_name" => ["can't be blank"],
                 :"registration.bank_account_name" => ["can't be blank"],
                 :"registration.iban" => ["can't be blank"],
                 :"registration.bic" => ["can't be blank"],
-                :"registration.angel.email" => ["can't be blank"],
-                :"registration.angel.gender" => ["must be selected"],
+                :"registration.email" => ["can't be blank"],
+                :"registration.gender" => ["must be selected"],
                 :"registration.event" => ["must be selected"],
                 :terms_and_conditions => ["must be accepted"]
             }
@@ -130,13 +136,13 @@ describe PublicSignupsController do
         context "de" do
           before(:each) { I18n.locale = :de }
           it "should have German errors" do
-            post :create, public_signup: valid_attributes
+            post :create, public_signup: invalid_attributes
             invalid_public_signup = assigns[:public_signup]
             invalid_public_signup.errors.messages.should == {
-                :"registration.angel.first_name" => ["muss ausgefüllt werden"],
-                :"registration.angel.last_name" => ["muss ausgefüllt werden"],
-                :"registration.angel.email" => ["muss ausgefüllt werden"],
-                :"registration.angel.gender" => ["muss ausgewählt werden"],
+                :"registration.first_name" => ["muss ausgefüllt werden"],
+                :"registration.last_name" => ["muss ausgefüllt werden"],
+                :"registration.email" => ["muss ausgefüllt werden"],
+                :"registration.gender" => ["muss ausgewählt werden"],
                 :"registration.event" => ["muss ausgewählt werden"],
                 :"registration.bank_account_name" => ["muss ausgefüllt werden"],
                 :"registration.bic" => ["muss ausgefüllt werden"],

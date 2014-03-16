@@ -1,9 +1,9 @@
 #search
   = semantic_form_for [:office, @search], :url => url_for, :html => { :method => :get } do|f|
-    = f.select :angel_country_eq, options_for_map_countries(f), {}, {:onchange => 'this.form.submit()'}
+    = f.select :country_eq, options_for_map_countries(f), {}, {:onchange => 'this.form.submit()'}
     = f.select :role_eq, options_for_map_role(f), {}, {:onchange => 'this.form.submit()'}
     = f.select :lift_contains, options_for_map_lift(f), {}, {:onchange => 'this.form.submit()'}
     .search_field.and_submit
-      = f.text_field :angel_city_or_angel_postal_code_contains, :placeholder => 'City or PLZ', :class => 'search_box'
+      = f.text_field :city_or_postal_code_contains, :placeholder => 'City or PLZ', :class => 'search_box'
       <input type="submit" value="" class="search_submit">
 

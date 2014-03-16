@@ -4,7 +4,7 @@ require 'spec_helper'
 describe "GET /public_signups/new" do
   def should_have_common_elements
     page.should have_selector('form')
-    page.should have_field('public_signup[registration_attributes][angel_attributes][first_name]')
+    page.should have_field('public_signup[registration_attributes][first_name]')
   end
 
   def visit_de_in_english
@@ -104,7 +104,10 @@ describe "POST /public_signups" do
     click_button "Sign me up!"
     #save_and_open_page
     should_have_n_records(1)
-    Angel.first.lang.should == 'en'
+    angel = Angel.first
+    angel.lang.should == 'en'
+    angel.first_name.should == 'John'
+    angel.last_name.should == 'Smith'
   end
 
   context "de site" do
@@ -116,6 +119,7 @@ describe "POST /public_signups" do
 
     it "should save a German signup" do
       visit "/de"
+      # noinspection RubyArgCount
       select(future_event.display_name, from: "Event")
       fill_in "Vorname", with: "John"
       fill_in "Name", with: 'Smith'

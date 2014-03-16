@@ -1,7 +1,7 @@
 module Office::Registrations::MapHelper
 
   def options_for_map_countries(form)
-    country_codes = angels.map(&:country).compact.uniq
+    country_codes = registrations.map(&:country).compact.uniq
     countries = Carmen::countries.select do |pair| name, code = pair
       country_codes.include?(code)
     end

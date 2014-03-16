@@ -27,6 +27,7 @@ class Event < ActiveRecord::Base
   validates_numericality_of :next_registration_code, :participant_cost, :team_cost, allow_blank: true, allow_nil: true,
                             greater_than_or_equal_to: 0
   before_validation :reset_next_registration_code, if: lambda { |e| e.next_registration_code.blank? }
+  after_save :update_highest_level
 
   accepts_nested_attributes_for :event_emails
 
@@ -75,23 +76,11 @@ class Event < ActiveRecord::Base
 
   private
 
+  def update_highest_level
+    angels.each(&:cache_highest_level) if changed.include?('level')
+  end
+
   def reset_next_registration_code
     self.next_registration_code = nil
   end
 end
-
-
-
-# == Schema Information
-#
-# Table name: events
-#
-#  id           :integer         not null, primary key
-#  display_name :string(255)     not null
-#  category     :string(255)     not null
-#  level        :integer         default(0)
-#  start_date   :date            not null
-#  created_at   :datetime
-#  updated_at   :datetime
-#
-

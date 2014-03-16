@@ -6,26 +6,6 @@ require 'spec_helper'
 
 describe Angel do
   context "#new validation" do
-    [:en, :de].each do |locale|
-      context "language #{locale}" do
-        before(:each) { I18n.locale = locale }
-        it "should initialize lang with locale" do
-          default_angel = Angel.new
-          default_angel.lang.should == locale.to_s
-        end
-      end
-    end
-
-    context "locale lang en" do
-      before(:each) { I18n.locale = :en }
-      it "should not overwrite saved lang" do
-        valid_angel = FactoryGirl.create(:angel, :lang => :de)
-        valid_angel.lang.should == :de
-        found_angel = Angel.find(valid_angel)
-        found_angel.lang.should == 'de'
-      end
-    end
-
     it "is valid with min attributes" do
       valid_angel = FactoryGirl.create(:angel)
       valid_angel.should be_valid
@@ -51,9 +31,9 @@ describe Angel do
       in_valid_angel.should_not be_valid
     end
 
-    it "is invalid without gender" do
-      in_valid_angel = FactoryGirl.build(:angel, :gender => '')
-      in_valid_angel.should_not be_valid
+    it "is valid without gender" do
+      valid_angel = FactoryGirl.build(:angel, :gender => nil)
+      valid_angel.should be_valid
     end
 
     it "is invalid with other build" do
@@ -62,7 +42,7 @@ describe Angel do
     end
 
     it "is valid with each gender" do
-      Angel::GENDERS.each do |gender|
+      Registration::GENDERS.each do |gender|
         valid_angel = FactoryGirl.build(:angel, :gender => gender)
         valid_angel.should be_valid
       end
@@ -78,8 +58,8 @@ describe Angel do
           invalid_angel.errors.messages.should == {
               :first_name => ["can't be blank"],
               :last_name => ["can't be blank"],
-              :email => ["can't be blank"],
-              :gender => ["must be selected"]}
+              :email => ["can't be blank"]
+          }
         end
       end
 
@@ -91,8 +71,8 @@ describe Angel do
           invalid_angel.errors.messages.should == {
               :first_name => ["muss ausgefüllt werden"],
               :last_name => ["muss ausgefüllt werden"],
-              :email => ["muss ausgefüllt werden"],
-              :gender => ["muss ausgewählt werden"]}
+              :email => ["muss ausgefüllt werden"]
+          }
         end
       end
     end
@@ -119,6 +99,15 @@ describe Angel do
 
     it "should have a full_address" do
       angel.send(:full_address).should == "Somewhere 140, 12345, Berlin, DE"
+    end
+  end
+
+  context "add_to" do
+    let(:registration) { FactoryGirl.create(:registration) }
+    it "should create a new angel" do
+      Angel.count.should == 0
+      Angel.add_to(registration)
+      Angel.count.should == 1
     end
   end
 

@@ -10,7 +10,7 @@ class PublicSignup < ActiveRecord::Base
   PENDING = 'pending'
   STATUSES = [PENDING, WAITLISTED, APPROVED]
 
-  default_scope includes(:registration => [ :angel ])
+  default_scope includes(:registration)
   scope :pending, where("public_signups.status = ?", PENDING)
   scope :waitlisted, where("public_signups.status = ?", WAITLISTED)
   scope :approved, where("public_signups.status = ?", APPROVED)
@@ -35,7 +35,6 @@ class PublicSignup < ActiveRecord::Base
     self.status = APPROVED
     registration.approve
     save!
-    Angel.merge_and_delete_duplicates_of(angel)
   end
 
   def set_waitlisted!

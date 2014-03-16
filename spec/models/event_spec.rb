@@ -89,16 +89,23 @@ describe Event do
     end
   end
 
-  context "observer" do
-    it "should call angel cache_highest_level when event level changed" do
-      event = FactoryGirl.create(:event1)
-      angel = double('angel')
-      angel.stub(:cache_highest_level)
+  context "update_highest_level" do
+    let(:event) { FactoryGirl.create(:event1, start_date: Date.today) }
+    let(:angel) { double('angel', cache_highest_level: true) }
+
+    before do
       event.stub(:angels).and_return([angel])
+    end
 
+    it "should call angel.cache_highest_level when event level changed" do
       angel.should_receive(:cache_highest_level)
-
       event.level = 2
+      event.save
+    end
+
+    it "should not call angel.cache_highest_level when event level has not changed" do
+      angel.should_not_receive(:cache_highest_level)
+      event.start_date = Date.yesterday
       event.save
     end
   end

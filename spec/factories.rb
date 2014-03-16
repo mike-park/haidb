@@ -88,9 +88,21 @@ FactoryGirl.define do
 
   factory :registration do
     event
-    angel
+    first_name 'Mike'
+    sequence(:last_name) {|n| "Lastname#{n}" }
+    sequence(:email) { |n| "angel#{n}@example.com" }
+    gender 'Male'
 
     factory :full_registration do
+      angel
+      address { angel.address }
+      postal_code { angel.postal_code }
+      city { angel.city }
+      country { angel.country }
+      home_phone { angel.home_phone }
+      mobile_phone { angel.mobile_phone }
+      work_phone { angel.work_phone }
+      lang { angel.lang }
       special_diet true
       backjack_rental true
       sunday_stayover true

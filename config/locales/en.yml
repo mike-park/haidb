@@ -7,11 +7,10 @@ en:
   enums:
     select: 'Select..'
     error: 'Your form is missing some information. Please check and resubmit.'
-    angel:
+    registration:
       gender:
         female: 'Female'
         male: 'Male'
-    registration:
       special_diet:
         none: "None"
         vegie: "Vegetarian"

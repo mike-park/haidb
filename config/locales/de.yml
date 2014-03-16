@@ -10,11 +10,10 @@ de:
   enums:
     select: 'Wählen..'
     error: 'Bitte überprüfen Sie die folgenden Felder'
-    angel:
+    registration:
       gender:
         female: 'weiblich'
         male: 'männlich'
-    registration:
       special_diet:
         none: "Normal"
         vegie: "Vegetarisch"

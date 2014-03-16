@@ -11,18 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140211040334) do
+ActiveRecord::Schema.define(:version => 20140316051723) do
 
   create_table "angels", :force => true do |t|
-    t.string   "display_name",                 :null => false
+    t.string   "display_name",                     :null => false
     t.string   "first_name"
-    t.string   "last_name",                    :null => false
-    t.string   "gender",                       :null => false
+    t.string   "last_name",                        :null => false
+    t.string   "gender",                           :null => false
     t.string   "address"
     t.string   "postal_code"
     t.string   "city"
     t.string   "country"
-    t.string   "email",                        :null => false
+    t.string   "email",                            :null => false
     t.string   "home_phone"
     t.string   "mobile_phone"
     t.string   "work_phone"
@@ -30,10 +30,14 @@ ActiveRecord::Schema.define(:version => 20140211040334) do
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "highest_level", :default => 0
+    t.integer  "highest_level",     :default => 0
     t.float    "lat"
     t.float    "lng"
     t.text     "gravatar"
+    t.string   "payment_method"
+    t.string   "bank_account_name"
+    t.string   "iban"
+    t.string   "bic"
   end
 
   add_index "angels", ["id"], :name => "index_angels_on_id"
@@ -174,7 +178,7 @@ ActiveRecord::Schema.define(:version => 20140211040334) do
   end
 
   create_table "registrations", :force => true do |t|
-    t.integer  "angel_id",                                                                        :null => false
+    t.integer  "angel_id"
     t.integer  "event_id",                                                                        :null => false
     t.string   "role",                                                 :default => "Participant", :null => false
     t.boolean  "special_diet",                                         :default => false
@@ -203,6 +207,24 @@ ActiveRecord::Schema.define(:version => 20140211040334) do
     t.decimal  "cost",                  :precision => 10, :scale => 2
     t.decimal  "paid",                  :precision => 10, :scale => 2
     t.decimal  "owed",                  :precision => 10, :scale => 2
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "gender"
+    t.string   "address"
+    t.string   "postal_code"
+    t.string   "city"
+    t.string   "country"
+    t.string   "email"
+    t.string   "home_phone"
+    t.string   "mobile_phone"
+    t.string   "work_phone"
+    t.string   "lang"
+    t.string   "highest_level"
+    t.string   "highest_location"
+    t.string   "highest_date"
+    t.string   "registration_code"
+    t.float    "lat"
+    t.float    "lng"
   end
 
   add_index "registrations", ["angel_id"], :name => "index_registrations_on_angel_id"

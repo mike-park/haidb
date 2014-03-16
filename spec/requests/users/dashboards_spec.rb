@@ -9,7 +9,7 @@ describe "users/dashboards" do
   context "with a valid login" do
     let(:user) { FactoryGirl.create(:user) }
     let(:angel) { FactoryGirl.create(:angel, email: user.email)}
-    let(:registration) { FactoryGirl.create(:registration, angel: angel) }
+    let(:registration) { FactoryGirl.create(:registration, angel: angel, email: user.email) }
 
     before do
       user_login(user)

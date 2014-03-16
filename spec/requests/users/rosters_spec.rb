@@ -10,9 +10,8 @@ describe "users/rosters" do
 
   context "with a valid login" do
     let(:user) { FactoryGirl.create(:user) }
-    let(:angel) { FactoryGirl.create(:angel, email: user.email)}
     let(:event) { FactoryGirl.create(:event) }
-    let(:registration) { FactoryGirl.create(:registration, event: event, angel: angel) }
+    let(:registration) { FactoryGirl.create(:registration, event: event, email: user.email) }
 
     before do
       user_login(user)
@@ -33,13 +32,13 @@ describe "users/rosters" do
       registration.update_attributes(approved: true, completed: true)
       visit users_roster_path(id: event.id)
       page.should_not have_selector('body', text: 'You are not authorized to access this page')
-      page.should have_selector('td', text: angel.full_name)
-      page.should have_selector('td', text: angel.email)
+      page.should have_selector('td', text: registration.full_name)
+      page.should have_selector('td', text: registration.email)
     end
 
     it "should not show the roster if we are not part of the event" do
       registration.update_attributes(approved: true, completed: true)
-      angel.update_attribute(:email, 'not_ours@example.com')
+      registration.update_attribute(:email, 'not_ours@example.com')
       visit users_roster_path(id: event.id)
       page.should have_selector('body', text: 'You are not authorized to access this page')
     end

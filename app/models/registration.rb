@@ -4,12 +4,13 @@ class Registration < ActiveRecord::Base
 
   has_many :payments, dependent: :destroy
 
-  store :options, accessors: [:highest_level, :highest_location, :highest_date, :registration_code]
+  store :options, accessors: []
 
   before_save :assign_defaults, on: :create
   before_save SundayChoiceCallbacks
   before_save :update_payment_summary
-  after_destroy :delete_public_signup
+  after_destroy :delete_public_signup, :update_highest_level
+  after_save :update_highest_level
 
   # role types
   PARTICIPANT = 'Participant'
@@ -33,13 +34,15 @@ class Registration < ActiveRecord::Base
   HOW_HEAR = ['Friend', 'Advertisement', 'Web Search', 'Enquired Nov 2010 Priceless wksp']
   PREVIOUS_EVENT = ['No', 'Intro', 'Mini-workshop', 'Open Community Day', 'Weekend Workshop']
 
+  FEMALE = 'Female'
+  MALE = 'Male'
+  GENDERS = [FEMALE, MALE]
+
   belongs_to :angel, :inverse_of => :registrations
   belongs_to :event, :inverse_of => :registrations
   belongs_to :public_signup, :inverse_of => :registration
 
-  accepts_nested_attributes_for :angel
-
-  scope :ok, includes([:angel, :event]).where(:approved => true)
+  scope :ok, where(:approved => true)
   scope :pending, where(:approved => false)
 
   scope :team, ok.where(:role => TEAM)
@@ -49,7 +52,7 @@ class Registration < ActiveRecord::Base
   scope :facilitators, ok.where(:role => FACILITATOR)
   scope :where_role, lambda { |role| ok.where(:role => role) }
 
-  scope :where_email, lambda { |email| includes([:angel, :event]).where('angels.email = ?', email) }
+  scope :where_email, ->(email) { where(email: email) }
 
   scope :upcoming_events, lambda { includes(:event).where('events.start_date > ?', Date.current) }
   scope :past_events, lambda { includes(:event).where('events.start_date <= ?', Date.current) }
@@ -62,19 +65,19 @@ class Registration < ActiveRecord::Base
   scope :sunday_meals, where(:sunday_meal => true)
   scope :clothing_conversations, where(:clothing_conversation => true)
   scope :reg_fee_receiveds, where(:reg_fee_received => true)
-  scope :females, where(:angels => {:gender => Angel::FEMALE})
-  scope :males, where(:angels => {:gender => Angel::MALE})
-  scope :by_first_name, includes(:angel).order('LOWER(angels.first_name) asc')
+  scope :females, where(:gender => FEMALE)
+  scope :males, where(:gender => MALE)
+  scope :by_first_name, order('LOWER(first_name) asc')
   scope :by_start_date, includes(:event).order('events.start_date desc')
   scope :by_start_date_asc, includes(:event).order('events.start_date asc')
   scope :completed, where(:completed => true)
+  scope :located_at, lambda {|lat, lng| where(lat: lat, lng: lng)}
 
-  validates_uniqueness_of :angel_id, {
-    :scope => :event_id,
-    :message => 'already registered for this event'
-  }
+  validates_presence_of :first_name, :last_name, :email
+  validates_inclusion_of :gender, :in => GENDERS, :message => :select
 
-  validates_presence_of :angel
+  validates_uniqueness_of :angel_id, :scope => :event_id, :message => 'already registered for this event', allow_nil: true
+
   validates_presence_of :event, {
     :message => :select
   }
@@ -98,8 +101,11 @@ class Registration < ActiveRecord::Base
   validates_numericality_of :cost, allow_nil: true
 
   delegate :level, :start_date, :to => :event
-  delegate :lat, :lng, :full_name, :gender, :email, :to => :angel
-  
+
+  def full_name
+    [first_name, last_name].compact.join(" ")
+  end
+
   def event_name
     event.display_name
   end
@@ -115,9 +121,9 @@ class Registration < ActiveRecord::Base
     "#{event_name} registration of #{full_name}"
   end
 
-  # return angel lang or default to 'en'
+  # return lang or default to 'en'
   def lang
-    (angel && angel.lang) || 'en'
+    read_attribute(:lang) || 'en'
   end
 
   def send_email(type)
@@ -159,7 +165,15 @@ class Registration < ActiveRecord::Base
     start_date <=> other.start_date
   end
 
+  def geocoded?
+    lat.present? && lng.present?
+  end
+
   private
+
+  def update_highest_level
+    angel.cache_highest_level if angel
+  end
 
   def delete_public_signup
     PublicSignup.delete(public_signup_id) if public_signup_id

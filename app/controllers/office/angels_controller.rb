@@ -9,7 +9,7 @@ class Office::AngelsController < Office::ApplicationController
     params[:search] ||= params[:id] ? {id_eq: params[:id]} : {}
     @search = Angel.search(params[:search])
     @json = @search.all.to_gmaps4rails do |angel, marker|
-      marker.infowindow render_to_string(:partial => '/office/shared/map_info',
+      marker.infowindow render_to_string(:partial => '/office/angels/map_info',
                                          :locals => { angels: Angel.located_at(angel.lat, angel.lng) })
       marker.title angel.full_name
     end

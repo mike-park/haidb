@@ -2,36 +2,9 @@
 require 'spec_helper'
 
 describe PublicSignup do
-  context "testing basic transactions" do
-    it "has none to begin with" do
-      PublicSignup.count.should == 0
-      Registration.count.should == 0
-      Angel.count.should == 0
-    end
-
-    it "has one after adding one" do
-      FactoryGirl.create(:public_signup)
-      PublicSignup.count.should == 1
-      Registration.count.should == 1
-      Angel.count.should == 1
-    end
-
-    it "has none after one was created in a previous example" do
-      PublicSignup.count.should == 0
-      Registration.count.should == 0
-      Angel.count.should == 0
-    end
-  end
-
   context "#new validations" do
-    it "should have nested registration and angel after new" do
-      public_signup = PublicSignup.new(registration_attributes: { angel_attributes: {}})
-      public_signup.registration.should be
-      public_signup.registration.angel.should be
-    end
-
     it "should have default values after new" do
-      public_signup = PublicSignup.new(registration_attributes: { angel_attributes: {}})
+      public_signup = PublicSignup.new(registration_attributes: {})
       public_signup.registration.role.should == Registration::PARTICIPANT
       public_signup.registration.should_not be_approved
       public_signup.registration.payment_method.should_not be
@@ -41,17 +14,6 @@ describe PublicSignup do
     it "should be valid with min attributes" do
       valid_ps = FactoryGirl.build(:public_signup)
       valid_ps.should be_valid
-    end
-
-    it "should accept nested parameters for registration" do
-      reg_attr = FactoryGirl.attributes_for(:full_registration)
-      angel_attr = FactoryGirl.attributes_for(:full_angel)
-      registration = Registration.new(reg_attr)
-      angel = Angel.new(angel_attr)
-      public_signup = PublicSignup.new
-      public_signup.assign_attributes(:registration_attributes => reg_attr.merge(angel_attributes: angel_attr))
-      public_signup.registration.inspect.should == registration.inspect
-      public_signup.registration.angel.inspect.should == angel.inspect
     end
 
     context "language of messages" do

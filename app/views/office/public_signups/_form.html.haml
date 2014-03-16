@@ -8,9 +8,7 @@
     = r.association :event, options_for_signup_events_select(r)
     = r.input :role, options_for_role(r)
 
-    = r.simple_fields_for :angel do |a|
-      = render 'office/angels/fields', :f => a
-
+    = render 'office/registrations/fields_contact', :form => r
     = render 'office/registrations/fields_requests', :form => r
     = render 'office/registrations/fields_highest_level', :form => r if Site.uk?
     = render 'office/registrations/fields_payment', :form => r

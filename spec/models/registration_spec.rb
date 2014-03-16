@@ -21,14 +21,14 @@ describe Registration do
     end
 
     it "is invalid without fields" do
-      [:role, :angel, :event].each do |field|
+      [:gender, :first_name, :last_name, :role, :event].each do |field|
         in_valid_registration = FactoryGirl.build(:registration, field => nil)
         in_valid_registration.should_not be_valid
       end
     end
 
     it "is invalid with random list item" do
-      [:role, :lift, :sunday_choice].each do |field|
+      [:role, :lift, :sunday_choice, :gender].each do |field|
         in_valid_registration = FactoryGirl.build(:registration, field => 'Random')
         in_valid_registration.should_not be_valid
       end
@@ -38,7 +38,9 @@ describe Registration do
       lists = {
           :role => Registration::ROLES,
           :lift => Registration::LIFTS,
-          :sunday_choice => Registration::SUNDAY_CHOICES
+          :sunday_choice => Registration::SUNDAY_CHOICES,
+          :gender => Registration::GENDERS
+
       }
       lists.each do |field, values|
         values.each do |value|
@@ -68,20 +70,15 @@ describe Registration do
     end
 
     it "should be invalid to register the same angel for the same workshop twice" do
-      first_registration = FactoryGirl.create(:registration)
+      angel = FactoryGirl.create(:angel)
+      first_registration = FactoryGirl.create(:registration, angel: angel)
       second_registration = FactoryGirl.build(:registration,
-                                              :angel => first_registration.angel,
+                                              :angel => angel,
                                               :event => first_registration.event)
       second_registration.should_not be_valid
       second_registration.errors.messages.should == {
           :angel_id => ["already registered for this event"]
       }
-    end
-
-    it "should accept nested attributes for angel" do
-      angel = FactoryGirl.build(:angel)
-      registration = Registration.new(:angel_attributes => angel.attributes)
-      registration.angel.inspect.should == angel.inspect
     end
 
     it "should accept pre-existing angel for new registration" do
@@ -108,8 +105,11 @@ describe Registration do
         it "should have English errors" do
           invalid_registration = Registration.create
           invalid_registration.errors.messages.should == {
-              :angel => ["can't be blank"],
-              :event => ["must be selected"]
+              :email => ["can't be blank"],
+              :event => ["must be selected"],
+              :first_name => ["can't be blank"],
+              :gender => ["must be selected"],
+              :last_name => ["can't be blank"]
           }
         end
       end
@@ -119,8 +119,11 @@ describe Registration do
         it "should have German errors" do
           invalid_registration = Registration.create
           invalid_registration.errors.messages.should == {
-              :angel => ["muss ausgefüllt werden"],
-              :event => ["muss ausgewählt werden"]
+              :email => ["muss ausgefüllt werden"],
+              :event => ["muss ausgewählt werden"],
+              :first_name => ["muss ausgefüllt werden"],
+              :gender => ["muss ausgewählt werden"],
+              :last_name => ["muss ausgefüllt werden"]
           }
         end
       end
@@ -131,13 +134,8 @@ describe Registration do
     it "should delegate these fields" do
       registration = FactoryGirl.build(:full_registration)
       event = registration.event
-      angel = registration.angel
       registration.level.should == event.level
       registration.event_name.should == event.display_name
-      registration.full_name.should == angel.full_name
-      registration.gender.should == angel.gender
-      registration.lang.should == angel.lang
-      registration.email.should == angel.email
     end
   end
 
@@ -230,8 +228,8 @@ describe Registration do
 
   context "scopes" do
     it "should return them in first name order" do
-      r1 = FactoryGirl.create(:registration, :angel => FactoryGirl.build(:angel, :first_name => 'Z'))
-      r2 = FactoryGirl.create(:registration, :angel => FactoryGirl.build(:angel, :first_name => 'A'))
+      r1 = FactoryGirl.create(:registration, :first_name => 'Z')
+      r2 = FactoryGirl.create(:registration, :first_name => 'A')
       Registration.by_first_name.all.should == [r2, r1]
     end
 
@@ -256,33 +254,21 @@ describe Registration do
     end
   end
 
-  context "observer" do
-    it "should call angel cache_highest_level when registration saved" do
-      registration = FactoryGirl.create(:registration)
-      registration.angel.stub(:cache_highest_level)
+  context "update_highest_level" do
+    let(:angel) { FactoryGirl.build(:angel) }
+    let(:registration) { FactoryGirl.build(:registration, angel: angel) }
 
-      registration.angel.should_receive(:cache_highest_level)
-
-      registration.save
+    before do
+      angel.should_receive(:cache_highest_level).twice
     end
 
-    it "should call angel cache_highest_level when registration deleted" do
-      registration = FactoryGirl.create(:registration)
-      registration.angel.stub(:cache_highest_level)
-
-      registration.angel.should_receive(:cache_highest_level)
-
+    it "should call angel.cache_highest_level when registration saved & destroyed" do
+      registration.save
       registration.destroy
     end
   end
 
   context "record counts" do
-    it "should increase when adding a registration" do
-      registration = FactoryGirl.create(:registration)
-      Angel.should have(1).record
-      Registration.should have(1).record
-      Event.should have(1).record
-    end
     it "should destroy public_signup when registration is destroyed" do
       public_signup = FactoryGirl.create(:public_signup)
       PublicSignup.should have(1).record
@@ -298,11 +284,8 @@ describe Registration do
   context "emails" do
     let(:registration) { FactoryGirl.create(:registration) }
     context "lang" do
-      it "should return the angel lang" do
-        registration.lang.should == registration.angel.lang
-      end
       it "should default to en lang" do
-        registration.angel.lang = nil
+        registration.lang = nil
         registration.lang.should == 'en'
       end
     end

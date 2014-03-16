@@ -1,5 +1,17 @@
 module Office::RegistrationsHelper
 
+  def options_for_gender(form)
+    choices = [[I18n.t(:'enums.registration.gender.female'), Registration::FEMALE],
+               [I18n.t(:'enums.registration.gender.male'), Registration::MALE]]
+    { :as => :radio, :label => 'Gender', :required => true,
+      :collection => choices}
+  end
+
+  def options_for_lang(form)
+    choices = [%w(Deutsch de), %w(English en)]
+    { :as => :radio, :label => 'Language', :collection => choices}
+  end
+
   def options_for_terms_and_conditions(form)
     { :as => :boolean,
       :wrapper_html => {:style => 'padding-left: 0;'}
@@ -115,5 +127,39 @@ module Office::RegistrationsHelper
 
   def color_dot(state)
     content_tag(:span, "", class: "dot dot-#{state ? 'green' : 'red'}")
+  end
+
+  # return address in html display format
+  def compact_address(object, separator = tag(:br))
+    code = (object.country || Carmen.default_country || '').strip.upcase
+    address = if %w(US GB).include?(code)
+                h("#{object.address}\n#{object.city}\n#{object.postal_code}")
+              elsif %w(AU CA).include?(code)
+                h("#{object.address}\n#{object.city} #{object.postal_code}")
+              else
+                h("#{object.address}\n#{object.postal_code} #{object.city}")
+              end
+    if (code != Carmen.default_country) &&
+        (country = Carmen.country_name(code, :locale => I18n.locale))
+      address << "\n#{country}"
+    end
+    if address.present?
+      address.gsub("\n", separator).html_safe
+    else
+      ""
+    end
+  end
+
+  def compact_phones(object, text_only = false)
+    separator = text_only ? "\n" : tag(:br)
+    phones = []
+    %w(home mobile work).each do |ph|
+      number = object.read_attribute("#{ph}_phone")
+      unless number.blank?
+        label = t("enums.registration.roster.#{ph}")
+        phones << "#{label}: " + (text_only ? number : link_to(number, "tel:#{number}"))
+      end
+    end
+    phones.join(separator).html_safe
   end
 end
