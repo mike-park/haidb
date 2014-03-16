@@ -4,18 +4,8 @@ class Office::RegistrationsController < Office::ApplicationController
   def index
     respond_to do |format|
       format.html
-      format.csv do
-        send_data Angel.to_csv(registrations.ok.all.map(&:angel)), {
-            :filename => "#{event.display_name} contacts.csv",
-            :type => :csv
-        }
-      end
-      format.vcard do
-        send_data Angel.to_vcard(registrations.ok.all.map(&:angel)), {
-            :filename => "#{event.display_name} contacts.vcf",
-            :type => :vcard
-        }
-      end
+      format.csv { send_data Registration.to_csv(registrations.ok), filename: "#{event.display_name}.csv", type: :csv }
+      format.vcard { send_data Registration.to_vcard(registrations.ok), filename: "#{event.display_name}.vcf", type: :vcard }
     end
   end
 

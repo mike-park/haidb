@@ -1,8 +1,16 @@
 class Registration < ActiveRecord::Base
   acts_as_audited
   include Mappable
+  include Vcardable
+  include Csvable
 
-  has_many :payments, dependent: :destroy
+  csv_fields :role, :full_name, :email, :gender,
+             :address, :postal_code, :city, :country,
+             :home_phone, :mobile_phone, :work_phone,
+             :payment_method, :bank_account_name, :iban, :bic, :registration_code,
+             :cost, :paid, :owed,
+             :approved, :completed,
+             :notes
 
   store :options, accessors: []
 
@@ -38,6 +46,7 @@ class Registration < ActiveRecord::Base
   MALE = 'Male'
   GENDERS = [FEMALE, MALE]
 
+  has_many :payments, dependent: :destroy
   belongs_to :angel, :inverse_of => :registrations
   belongs_to :event, :inverse_of => :registrations
   belongs_to :public_signup, :inverse_of => :registration

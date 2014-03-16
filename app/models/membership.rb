@@ -1,5 +1,8 @@
 class Membership < ActiveRecord::Base
   acts_as_audited
+  include Csvable
+
+  csv_fields :full_name, :email, :status, :active_on, :retired_on
 
   belongs_to :angel
   store :options, accessors: []
@@ -20,7 +23,7 @@ class Membership < ActiveRecord::Base
   }
   validates_uniqueness_of :angel_id, scope: :retired_on, if: lambda { |m| m.retired_on.nil? }
 
-  delegate :full_name_with_context, :<=>, :email, :highest_level, :registrations, to: :angel
+  delegate :full_name_with_context, :<=>, :full_name, :email, :highest_level, :registrations, to: :angel
 
   # registrations
 

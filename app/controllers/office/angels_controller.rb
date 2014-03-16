@@ -39,7 +39,7 @@ class Office::AngelsController < Office::ApplicationController
   def show
     respond_to do |format|
       format.html
-      format.vcard { send_data angel.to_vcard, :filename => "#{angel.full_name}.vcf", :type => :vcard }
+      format.vcard { send_data angel.to_vcard, filename: "#{angel.full_name}.vcf", type: :vcard }
     end
   end
 
@@ -64,18 +64,8 @@ class Office::AngelsController < Office::ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv do
-        send_data Angel.to_csv(@search.all), {
-          :filename => 'contacts.csv',
-          :type => :csv
-        }
-      end
-      format.vcard do
-        send_data Angel.to_vcard(@search.all), {
-          :filename => 'contacts.vcf',
-          :type => :vcard
-        }
-      end
+      format.csv   { send_data Angel.to_csv(@search.all), filename: 'contacts.csv', type: :csv }
+      format.vcard { send_data Angel.to_vcard(@search.all), filename: 'contacts.vcf', type: :vcard }
     end
   end
 

@@ -4,18 +4,8 @@ class Office::MembershipsController < Office::ApplicationController
   def index
     respond_to do |format|
       format.html
-      format.csv do
-        send_data Angel.to_csv(team_members), {
-            :filename => filename('.csv'),
-            :type => :csv
-        }
-      end
-      format.vcard do
-        send_data Angel.to_vcard(team_members), {
-            :filename => filename('.vcf'),
-            :type => :vcard
-        }
-      end
+      format.csv { send_data Membership.to_csv(@memberships), filename: "memberships.csv", type: :csv }
+      format.vcard { send_data Angel.to_vcard(angels), filename: "memberships.vcf", type: :vcard }
     end
   end
 
@@ -57,6 +47,10 @@ class Office::MembershipsController < Office::ApplicationController
   end
 
   private
+
+  def angels
+    @memberships.map(&:angel).uniq
+  end
 
   def select_members
     status = if %w(active retired all).include?(params[:status])

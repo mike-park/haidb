@@ -1,51 +1,20 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-# special notes: angel is autogeocoded before saving. should stub out this need unless
-# actually testing geocoding
-
 describe Angel do
   context "#new validation" do
-    it "is valid with min attributes" do
-      valid_angel = FactoryGirl.create(:angel)
-      valid_angel.should be_valid
-    end
-
-    it "is valid with all attributes" do
-      valid_angel = FactoryGirl.create(:full_angel)
-      valid_angel.should be_valid
-    end
-
-    it "is invalid without first_name" do
-      in_valid_angel = FactoryGirl.build(:angel, :first_name => '')
-      in_valid_angel.should_not be_valid
-    end
-
-    it "is invalid without last_name" do
-      in_valid_angel = FactoryGirl.build(:angel, :last_name => '')
-      in_valid_angel.should_not be_valid
-    end
-
-    it "is invalid without email" do
-      in_valid_angel = FactoryGirl.build(:angel, :email => '')
-      in_valid_angel.should_not be_valid
-    end
-
-    it "is valid without gender" do
-      valid_angel = FactoryGirl.build(:angel, :gender => nil)
-      valid_angel.should be_valid
-    end
-
-    it "is invalid with other build" do
-      in_valid_angel = FactoryGirl.build(:angel, :gender => 'Other')
-      in_valid_angel.should_not be_valid
-    end
-
-    it "is valid with each gender" do
-      Registration::GENDERS.each do |gender|
-        valid_angel = FactoryGirl.build(:angel, :gender => gender)
-        valid_angel.should be_valid
+    [:last_name, :email].each do |name|
+      it "is invalid without #{name}" do
+        build(:angel, name => nil).should_not be_valid
       end
+    end
+
+    it "must have a valid gender" do
+      build(:angel, gender: Registration::MALE).should be_valid
+      build(:angel, gender: Registration::FEMALE).should be_valid
+      build(:angel, gender: 'Other').should_not be_valid
+      build(:angel, gender: '').should_not be_valid
+      build(:angel, gender: nil).should be_valid
     end
 
     context "language of messages" do
@@ -56,7 +25,6 @@ describe Angel do
         it "should have English errors" do
           invalid_angel = Angel.create
           invalid_angel.errors.messages.should == {
-              :first_name => ["can't be blank"],
               :last_name => ["can't be blank"],
               :email => ["can't be blank"]
           }
@@ -69,7 +37,6 @@ describe Angel do
         it "should have German errors" do
           invalid_angel = Angel.create
           invalid_angel.errors.messages.should == {
-              :first_name => ["muss ausgefüllt werden"],
               :last_name => ["muss ausgefüllt werden"],
               :email => ["muss ausgefüllt werden"]
           }
@@ -118,13 +85,6 @@ describe Angel do
       a = FactoryGirl.create(:angel, :last_name => 'Animal')
       all = Angel.by_last_name.all
       all.should == [a, b, z]
-    end
-  end
-
-  context "vcards" do
-    it "should generate a valid vcard" do
-      angel = FactoryGirl.build(:full_angel)
-      angel.to_vcard.should == "BEGIN:VCARD\nVERSION:3.0\nN:Park;Mike;;;\nFN:Mike Park\nADR;TYPE=home,pref:;;Somewhere 140;Berlin;;12345;DE\nEMAIL;TYPE=home:mikep@quake.net\nTEL;TYPE=home:030 12345\nTEL;TYPE=mobile:0151 1234\nTEL;TYPE=work:+49 151 5678\nNOTE:some long\\nmessage\\nthat is multiline\\n\nEND:VCARD\n"
     end
   end
 
@@ -181,13 +141,6 @@ describe Angel do
 
       Angel.should have(:no).records
       Registration.should have(:no).records
-    end
-  end
-
-  context "to_csv" do
-    let(:angel) { FactoryGirl.create(:full_angel) }
-    it "should convert angel to_csv" do
-      Angel.to_csv([angel]).should == "\"Full name\",\"Email\",\"Highest level\",\"Gender\",\"Address\",\"Postal code\",\"City\",\"Country\",\"Home phone\",\"Mobile phone\",\"Work phone\"\n\"Mike Park\",\"mikep@quake.net\",\"0\",\"Male\",\"Somewhere 140\",\"12345\",\"Berlin\",\"DE\",\"030 12345\",\"0151 1234\",\"+49 151 5678\"\n"
     end
   end
 

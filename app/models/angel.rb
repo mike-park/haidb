@@ -1,8 +1,12 @@
-require 'csv'
-
 class Angel < ActiveRecord::Base
   acts_as_audited except: [:gravatar]
   include Mappable
+  include Vcardable
+  include Csvable
+
+  csv_fields :full_name, :email, :highest_level, :gender,
+             :address, :postal_code, :city, :country,
+             :home_phone, :mobile_phone, :work_phone, :notes
 
   before_save :sanitize_fields, :update_display_name, :update_gravatar
 
@@ -20,7 +24,6 @@ class Angel < ActiveRecord::Base
   validates_presence_of :last_name, :email
   validates_inclusion_of :gender, :in => Registration::GENDERS, :message => :select, allow_nil: true
 
-  CSV_FIELDS = %w(full_name email highest_level gender address postal_code city country home_phone mobile_phone work_phone)
   REGISTRATION_FIELDS = [:first_name, :last_name, :email, :gender,
                          :address, :postal_code, :city, :country, :home_phone, :mobile_phone, :work_phone,
                          :lang, :payment_method, :bank_account_name, :iban, :bic].map(&:to_s).freeze
@@ -40,57 +43,6 @@ class Angel < ActiveRecord::Base
       update_attribute(:highest_level, level)
     end
     level
-  end
-
-  def self.csv_header
-    CSV_FIELDS.map { |f| f.humanize }
-  end
-  
-  def self.to_csv(array)
-    CSV.generate(:force_quotes => true, :encoding => 'utf-8') do |csv|
-      csv << csv_header
-      array.each do |a|
-        csv << a.get_fields(CSV_FIELDS)
-      end
-    end
-  end
-  
-  def get_fields(fields)
-    fields.map { |f| self.send(f) }
-  end
-
-  def self.to_vcard(array)
-    array.map(&:to_vcard).join
-  end
-
-  def to_vcard
-    Vcard::Vcard::Maker.make2 do |maker|
-      maker.add_name do |name|
-        name.given = first_name || ''
-        name.family = last_name || ''
-      end
-
-      maker.add_addr do |addr|
-        addr.preferred = true
-        addr.location = 'home'
-        addr.street = address || ''
-        addr.postalcode = postal_code || ''
-        addr.locality = city || ''
-        addr.country = country || ''
-      end
-
-      if email.present? && email != 'unknown'
-        maker.add_email(email) { |e| e.location = 'home' }
-      end
-
-      %w(home mobile work).each do |ptype|
-        if (value = read_attribute("#{ptype}_phone")).present?
-          maker.add_tel(value) { |p| p.location = ptype }
-        end
-      end
-
-      maker.add_note(notes) if notes.present?
-    end.to_s
   end
 
   def self.merge_and_delete_duplicates
