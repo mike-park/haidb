@@ -1,5 +1,5 @@
 class Angel < ActiveRecord::Base
-  acts_as_audited except: [:gravatar]
+  acts_as_audited except: [:gravatar, :highest_level, :lat, :lng]
   include Mappable
   include Vcardable
   include Csvable
@@ -10,7 +10,7 @@ class Angel < ActiveRecord::Base
 
   before_save :sanitize_fields, :update_display_name, :update_gravatar
 
-  has_many :registrations, :inverse_of => :angel, :dependent => :destroy
+  has_many :registrations, :inverse_of => :angel, dependent: :nullify
   has_many :memberships, inverse_of: :angel, dependent: :destroy
   has_many :events, :through => :registrations
 
