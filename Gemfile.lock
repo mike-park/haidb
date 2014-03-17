@@ -55,7 +55,6 @@ GEM
     acts_as_audited (2.0.0)
       rails (>= 3.0.3)
     addressable (2.2.8)
-    annotate (2.4.0)
     arel (3.0.3)
     atomic (1.1.15)
     awesome_print (1.0.2)
@@ -266,7 +265,6 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_audited
-  annotate
   awesome_print
   better_errors
   binding_of_caller

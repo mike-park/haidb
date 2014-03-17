@@ -96,7 +96,6 @@ end
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'annotate'
   gem 'awesome_print'
   gem 'haml-rails'
 
