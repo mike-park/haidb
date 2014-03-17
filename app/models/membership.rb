@@ -21,7 +21,8 @@ class Membership < ActiveRecord::Base
   validates_inclusion_of :status, {
       :in => STATUSES, :message => :select
   }
-  validates_uniqueness_of :angel_id, scope: :retired_on, if: lambda { |m| m.retired_on.nil? }
+  validates_uniqueness_of :angel_id, scope: :retired_on, message: 'Already has an active membership',
+                          if: lambda { |m| m.retired_on.nil? }
 
   delegate :full_name_with_context, :<=>, :full_name, :email, :highest_level, :registrations, to: :angel
 
