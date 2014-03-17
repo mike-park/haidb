@@ -10,7 +10,7 @@ class Office::MembershipsController < Office::ApplicationController
   end
 
   def new
-    @membership = Membership.new(active_on: Date.current)
+    @membership = Membership.new(angel_id: params[:angel_id], active_on: Date.current)
   end
 
   def create
