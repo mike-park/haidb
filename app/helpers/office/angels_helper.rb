@@ -29,4 +29,10 @@ module Office::AngelsHelper
       content_tag(:i, membership.status)
     end
   end
+
+  def link_to_angel(angel)
+    link_to(office_angel_path(angel)) do
+      content_tag(:span, angel.full_name) + gravatar_image(angel.gravatar)
+    end
+  end
 end

@@ -1,5 +1,5 @@
 class SummaryAngelDecorator < Draper::Decorator
-  delegate :full_name, :id, :email
+  delegate :full_name, :id, :email, :gravatar
 
   def address
     h.compact_address(model)

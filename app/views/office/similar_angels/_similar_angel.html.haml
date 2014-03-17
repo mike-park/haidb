@@ -3,8 +3,11 @@
 
   - similar_angel.angels.sort.each do |angel|
     .angel
-      #{angel.full_name}
-      %p= angel.email
+      %p= gravatar_image(angel.gravatar)
+      %p
+        = angel.full_name
+        %br
+        = angel.email
       %p= angel.address
       %p= angel.phones
       %p

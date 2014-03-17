@@ -4,7 +4,11 @@
       %th Title
       %th Level
       %th Role
-      %th{:width => '60%'} Notes
+      %th Cost
+      %th Paid
+      %th Owed
+      %th.center Approved
+      %th.center Completed
       %th
   %tbody
     - registrations.each do |r|
@@ -12,5 +16,9 @@
         %td= link_to_show(office_event_registration_path(r.event, r), r.event_name)
         %td= r.level
         %td= r.role
-        %td= r.notes
+        %td= local_currency r.cost
+        %td= local_currency r.paid
+        %td= local_currency r.owed
+        %td.center= color_dot(r.approved)
+        %td.center= color_dot(r.completed)
         %td.link= link_to_destroy office_angel_registration_path(r.angel, r)

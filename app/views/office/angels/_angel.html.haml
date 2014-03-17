@@ -22,11 +22,13 @@
         .row-fluid
           .span4= compact_address(angel)
           .span2= link_to(icon('icon-map-marker') + "Map", map_office_angels_path(id: angel), class: 'btn') if angel.geocoded?
+    %tr
+      %th Payment
+      %td= compact_payment(angel)
 
     %tr
       %th Notes
       %td= angel.notes
-    - if local_assigns.has_key? :show_highest_level
-      %tr
-        %th Highest Level
-        %td= angel.highest_level
+    %tr
+      %th Highest Level
+      %td= angel.highest_level

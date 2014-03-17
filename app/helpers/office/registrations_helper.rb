@@ -162,4 +162,17 @@ module Office::RegistrationsHelper
     end
     phones.join(separator).html_safe
   end
+
+  def compact_payment(object, text_only = false)
+    separator = text_only ? "\n" : tag(:br)
+    rows = []
+    [:payment_method, :bank_account_name, :iban, :bic].each do |name|
+      value = object.send(name)
+      if value.present?
+        label = t("formatastic.labels.#{name}")
+        rows << "#{label}: #{value}"
+      end
+    end
+    rows.join(separator).html_safe
+  end
 end

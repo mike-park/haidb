@@ -1,0 +1,16 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th Status
+      %th Active
+      %th Retired
+      %th Participant Cost
+      %th Team Cost
+  %tbody
+    - memberships.each do |m|
+      %tr
+        %td= link_to_show(office_membership_path(m), m.status)
+        %td= local_date m.active_on
+        %td= local_date m.retired_on
+        %td= local_currency m.participant_cost
+        %td= local_currency m.team_cost

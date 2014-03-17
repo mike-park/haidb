@@ -1,12 +1,14 @@
-%table.table.table-striped
+%table.table.table-striped.tablesorter
   %thead
     %tr
       %th Title
-      %td Date
-      %th{:width => '60%'} Notes
+      %th Level
+      %th.center Approved
+      %th.center Completed
   %tbody
     - registrations.each do |r|
       %tr
         %td= link_to_show(office_event_registration_path(r.event, r), r.event_name)
-        %td= l r.start_date
-        %td= r.notes
+        %td= r.level
+        %td.center= color_dot(r.approved)
+        %td.center= color_dot(r.completed)

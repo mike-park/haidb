@@ -6,15 +6,25 @@
 
     %h2 Details for #{angel.display_name}
 
-    = render 'angel', :angel => angel, :show_highest_level => true
+    = render angel
     = render 'office/shared/audits', :audits => angel.audits.descending if angel.audits.any?
+
+  .content
+    = controls do |c|
+      - add_button_to(c, 'Add membership', :angel_id => angel, :controller => :memberships)
+
+    - if angel.memberships.size > 0
+      %h3 #{pluralize(angel.memberships.size, 'Membership')}
+      = render 'memberships', memberships: angel.memberships
+    - else
+      %h3 No memberships.
 
   .content
     = controls do |c|
       - add_button_to(c, 'Add registration', :angel_id => angel, :controller => :registrations)
 
-    - if registrations.count > 0
-      %h3 Registered for #{pluralize(registrations.count, 'event')}
+    - if registrations.size > 0
+      %h3 Registered for #{pluralize(registrations.size, 'event')}
       = render 'registrations', :registrations => registrations
     - else
       %h3 Not registered for any events.

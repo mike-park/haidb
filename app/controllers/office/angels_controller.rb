@@ -50,10 +50,6 @@ class Office::AngelsController < Office::ApplicationController
 
   protected
 
-  def map_info_window_url(angel)
-    map_info_office_angels_url(:lat => angel.lat, :lng => angel.lng)
-  end
-
   def find_angels(rows, sort)
     params[:rows] ||= rows
     params[:search] ||= {}

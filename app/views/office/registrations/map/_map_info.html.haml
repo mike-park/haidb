@@ -1,6 +1,7 @@
 %table.table.table-striped
   %thead
     %tr
+      %th Img
       %th Name
       %th Email
       %th Address
@@ -8,6 +9,7 @@
   %tbody
     - registrations.each do |r|
       %tr
+        %td= gravatar_image(r.angel.gravatar) if r.angel
         %td= link_to_show(office_event_registration_path(r.event, r), r.full_name)
         %td= r.email
         %td= compact_address(r)

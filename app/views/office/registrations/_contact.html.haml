@@ -6,9 +6,7 @@
   %tbody
     %tr
       %th Name
-      %td
-        = r.full_name
-        = gravatar_image(r.angel.gravatar) if r.angel
+      %td= r.angel ? link_to_angel(r.angel) : r.full_name
     %tr
       %th Email
       %td= r.email

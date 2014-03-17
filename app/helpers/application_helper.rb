@@ -79,6 +79,10 @@ module ApplicationHelper
     number_to_currency(number, locale: locale) if number
   end
 
+  def local_date(date)
+    localize(date) if date
+  end
+
   private
 
   def new_label(label, order)

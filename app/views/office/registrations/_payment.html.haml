@@ -27,12 +27,12 @@
           %td= r.registration_code
         %tr
           %th Cost
-          %td.qty= local_currency r.cost
+          %td= local_currency r.cost
         %tr
           %th Paid
-          %td.qty= local_currency r.paid
+          %td= local_currency r.paid
         %tr
           %th Owes
-          %td.qty= local_currency r.owed
+          %td= local_currency r.owed
 
 = render 'office/payments/payments', payments: registration.payments if registration.payments.any?

@@ -4,10 +4,7 @@
   %tbody
     %tr
       %th Name
-      %td
-        = link_to office_angel_path(membership.angel) do
-          = membership.angel.full_name
-          = gravatar_image(membership.angel.gravatar)
+      %td= link_to_angel(membership.angel)
     %tr
       %th Status
       %td= membership.status
