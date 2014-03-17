@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe Users::RegistrationsController do
+describe Users::Devise::RegistrationsController do
 
   context 'POST create' do
     let(:password) { "123456789" }
@@ -16,7 +16,7 @@ describe Users::RegistrationsController do
       expect(ActionMailer::Base.deliveries.count).to eq(1)
     end
     it "should redirect to signup path" do
-      response.should redirect_to(new_users_signed_up_path)
+      response.should redirect_to(users_signup_requested_path)
     end
   end
 

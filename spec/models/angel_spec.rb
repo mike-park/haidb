@@ -131,16 +131,19 @@ describe Angel do
   end
 
   context "record counts" do
-    it "should also delete registrations" do
+    it "should not delete registrations" do
       angel = FactoryGirl.create(:angel)
       registration = FactoryGirl.create(:registration, :angel => angel)
       Angel.should have(1).record
       Registration.should have(1).record
+      expect(registration.angel).to eql(angel)
 
       angel.destroy
 
       Angel.should have(:no).records
-      Registration.should have(:no).records
+      Registration.should have(1).records
+      registration = Registration.first
+      expect(registration.angel_id).to be_nil
     end
   end
 

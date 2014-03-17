@@ -6,6 +6,6 @@ class RosterPolicy < ApplicationPolicy
   end
 
   def show?
-    record.has_email?(user.email)
+    user.angel && record.has_angel?(user.angel)
   end
 end

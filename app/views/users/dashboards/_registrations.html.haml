@@ -2,13 +2,13 @@
   %thead
     %tr
       %th Date
-      %th Event
+      %th Workshop
       %th Role
       %th
   %tbody
     - registrations.each do |registration|
       %tr
-        %td= l registration.start_date
+        %td= local_date registration.start_date
         %td= registration.event_name
         %td= registration.role
         %td= link_to('Roster', users_roster_path(id: registration.event)) if policy(Roster.new(registration.event)).show?

@@ -1,4 +1,4 @@
-class Users::RostersController < Users::ApplicationController
+class Users::RostersController < Users::SignedInController
   def show
     @roster = Roster.find(params[:id])
     authorize @roster

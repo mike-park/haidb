@@ -7,4 +7,24 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
+  belongs_to :angel, inverse_of: :user
+  has_many :registrations, through: :angel
+  has_many :events, :through => :registrations
+  has_many :memberships, through: :angel
+
+  def full_name
+    angel ? angel.full_name : email
+  end
+
+  private
+
+  def after_confirmation
+    super
+    attach_angel unless angel
+  end
+
+  def attach_angel
+    self.angel = Angel.by_email(email).first
+    save!
+  end
 end

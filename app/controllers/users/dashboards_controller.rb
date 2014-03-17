@@ -1,7 +1,18 @@
-class Users::DashboardsController < Users::ApplicationController
+class Users::DashboardsController < Users::SignedInController
   def index
-    registrations = Registration.where_email(current_user.email)
-    @pending = registrations.pending.upcoming_events.by_start_date_asc
-    @approved = registrations.ok.by_start_date
+    @registrations = {
+        upcoming: upcoming_registrations,
+        past: past_registrations
+    }
+  end
+
+  private
+
+  def upcoming_registrations
+    current_user.registrations.upcoming_events.by_start_date_asc
+  end
+
+  def past_registrations
+    current_user.registrations.past_events.by_start_date
   end
 end

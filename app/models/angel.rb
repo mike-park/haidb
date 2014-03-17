@@ -13,6 +13,7 @@ class Angel < ActiveRecord::Base
   has_many :registrations, :inverse_of => :angel, dependent: :nullify
   has_many :memberships, inverse_of: :angel, dependent: :destroy
   has_many :events, :through => :registrations
+  has_one :user, inverse_of: :angel
 
   #default_scope order('LOWER(first_name) asc')
   scope :by_last_name, lambda { order('LOWER(last_name) asc') }

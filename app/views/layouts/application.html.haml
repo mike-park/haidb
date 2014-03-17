@@ -1,7 +1,9 @@
-!!!
+!!! 5
+- title = "HAI #{Site.name.upcase} Workshops"
 %html
   %head
-    %title= "HAI #{Site.name.upcase} Sign-in"
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    %title= title
     %link{:href => "/favicon-#{Site.name}.ico", :rel => "shortcut icon"}
     = csrf_meta_tag
     = stylesheet_link_tag "office/application"
@@ -9,7 +11,7 @@
     = javascript_include_tag 'office/application'
     :css
       #container {
-        width: 480px;
+        max-width: 600px;
         margin: 0 auto;
       }
 
@@ -40,10 +42,9 @@
           height: 100px;
         }
 
-  %body
+  %body{class: page_class}
     .header
-      %h1
-        HAI #{Site.name.upcase} Registration System
+      %h1= title
 
     #container
       .row-fluid

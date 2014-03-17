@@ -15,16 +15,18 @@ class Roster
     @event.display_name
   end
 
-  def emails
-    registrations.map {|r| r.email }
-  end
-
-  def has_email?(email)
-    emails.include?(email)
+  def has_angel?(angel)
+    angels.include?(angel)
   end
 
   # -> "roster"
   def to_partial_path
     self.class.to_s.downcase
+  end
+
+  private
+
+  def angels
+    registrations.map(&:angel)
   end
 end

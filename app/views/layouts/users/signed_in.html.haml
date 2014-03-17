@@ -1,22 +1,21 @@
-!!! Strict
+!!! 5
 %html
   %head
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
-    %title= @title || "HAI #{Site.name.upcase} System"
+    %title= @title || "HAI #{Site.name.upcase} Workshops"
     %link{:href => "/favicon-#{Site.name}.ico", :rel => "shortcut icon"}/
     = stylesheet_link_tag "office/application"
     %script{src:"//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
     = javascript_include_tag 'office/application'
     = csrf_meta_tag
     = yield :head
-  %body
+  %body{class: page_class}
     .navbar
       .navbar-inner
         .container-fluid
           %a.brand HAI #{Site.name.upcase}
           = tabs
           = link_to_logout(destroy_user_session_path)
-
 
     .container-fluid
       .flashes
@@ -25,19 +24,9 @@
             = link_to("&times;".html_safe, '#', data: {dismiss: 'alert'}, class: 'close')
             %strong= msg
 
-
-    - render 'secondary_navigation'
-
     .container-fluid
-      - if content_for?(:secondary_navigation)
-        .row-fluid
-          .block.span2
-            = yield :secondary_navigation
-          .span10
-            = yield
-      - else
-        .row-fluid
-          .span12
-            = yield
+      .row-fluid
+        .span12
+          = yield
 
     = yield :javascripts

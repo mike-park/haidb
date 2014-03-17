@@ -1,11 +1,13 @@
 .block
   .content
     %p
-      %strong Hi #{current_user.email}, we have the following registrations recorded for you.
+      %strong Hi #{current_user.full_name}, you have the following registrations
 
-    %h6= pluralize(@pending.size, 'pending registration')
-    = render 'registrations', registrations: @pending if @pending.any?
+    - r = @registrations[:upcoming]
+    %h6= pluralize(r.size, 'upcoming workshop')
+    = render 'registrations', registrations: r if r.any?
 
   .content
-    %h6 Signed up for #{pluralize(@approved.size, 'event')}
-    = render 'registrations', registrations: @approved if @approved.any?
+    - r = @registrations[:past]
+    %h6 #{pluralize(r.size, 'past workshop')}
+    = render 'registrations', registrations: r if r.any?

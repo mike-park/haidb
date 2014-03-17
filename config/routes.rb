@@ -1,6 +1,9 @@
 Haidb::Application.routes.draw do
-  devise_for :staffs	# office people
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :staffs # office people
+  devise_for :users, controllers: {
+      registrations: 'users/devise/registrations',
+      confirmations: 'users/devise/confirmations'
+  }
 
   filter :locale
 
@@ -70,9 +73,10 @@ Haidb::Application.routes.draw do
   end
 
   namespace :users do
+    get 'signup_requested', to: 'not_signed_in#signup_requested'
+    get 'confirmed', to: 'not_signed_in#confirmed'
     resources :dashboards, only: [:index]
     resources :rosters, only: [:show]
-    resources :signed_up, only: [:new]
     root to: 'dashboards#index'
   end
 

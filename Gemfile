@@ -114,6 +114,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'email_spec'
   # required only while rubymine defaults to checking 'rspec run under bundler'
   gem 'zeus', '~> 0.13.4.pre2'
 end

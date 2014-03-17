@@ -1,51 +1,55 @@
 require 'spec_helper'
 
-describe "users/rosters" do
+describe "rosters" do
   let(:does_not_exist_id) { 999 }
 
-  it "should redirect to login page" do
-    visit users_roster_path(id: does_not_exist_id)
-    page.should have_selector('h2', text: 'Sign in')
+  context "without a login" do
+    it "should redirect to new session" do
+      visit users_roster_path(id: does_not_exist_id)
+      page.should have_css('.sessions.new')
+    end
   end
 
   context "with a valid login" do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:event) { FactoryGirl.create(:event) }
-    let(:registration) { FactoryGirl.create(:registration, event: event, email: user.email) }
+    let(:angel) { create(:angel) }
+    let(:registration) { create(:registration, angel: angel) }
+    let(:event) { registration.event }
+    let(:user) { create(:user, angel: angel) }
+    let(:no_auth) { 'You are not authorized to access this page' }
 
     before do
       user_login(user)
     end
 
+    it "should handle invalid roster ids" do
+      visit users_roster_path(id: does_not_exist_id)
+      page.should have_content(no_auth)
+    end
+
     it "should not show the roster" do
       visit users_roster_path(id: event.id)
-      page.should have_selector('body', text: 'You are not authorized to access this page')
+      page.should have_content(no_auth)
     end
 
     it "should not show the roster, even when approved." do
       registration.update_attribute(:approved, true)
       visit users_roster_path(id: event.id)
-      page.should have_selector('body', text: 'You are not authorized to access this page')
+      page.should have_content(no_auth)
     end
 
     it "should show the roster, when approved & completed." do
       registration.update_attributes(approved: true, completed: true)
       visit users_roster_path(id: event.id)
-      page.should_not have_selector('body', text: 'You are not authorized to access this page')
+      page.should_not have_content(no_auth)
       page.should have_selector('td', text: registration.full_name)
       page.should have_selector('td', text: registration.email)
     end
 
     it "should not show the roster if we are not part of the event" do
       registration.update_attributes(approved: true, completed: true)
-      registration.update_attribute(:email, 'not_ours@example.com')
+      registration.update_attribute(:angel, build(:angel))
       visit users_roster_path(id: event.id)
-      page.should have_selector('body', text: 'You are not authorized to access this page')
-    end
-
-    it "should handle invalid roster ids" do
-      visit users_roster_path(id: does_not_exist_id)
-      page.should have_selector('body', text: "Couldn't find Event with id=#{does_not_exist_id}")
+      page.should have_content(no_auth)
     end
   end
 end

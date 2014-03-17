@@ -7,7 +7,7 @@ describe Membership do
       I18n.locale = :en
       membership = FactoryGirl.create(:membership)
       membership = FactoryGirl.build(:membership, angel: membership.angel, status: Membership::STATUSES.first)
-      expect { membership.save! }.to raise_exception(ActiveRecord::RecordInvalid, /Angel id has already been taken/)
+      expect { membership.save! }.to raise_exception(ActiveRecord::RecordInvalid, /Already has an active membership/)
     end
 
     it 'should allow memberships with 1 active' do
