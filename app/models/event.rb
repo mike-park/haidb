@@ -74,6 +74,10 @@ class Event < ActiveRecord::Base
     next_registration_code.present?
   end
 
+  def participants
+    registrations.participants
+  end
+
   private
 
   def update_highest_level

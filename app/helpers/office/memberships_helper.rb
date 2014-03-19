@@ -1,4 +1,14 @@
 module Office::MembershipsHelper
+  def options_for_membership_select(form)
+    { :as => :select, :label => 'Angel', :collection => Membership.by_full_name, label_method: :full_name_with_context, value_method: :id }
+  end
+
+  def members_for_select
+    [['Quick Add Member', '']] + Membership.by_full_name.map do |membership|
+      [membership.full_name_with_context, membership.id]
+    end
+  end
+
   def options_for_membership_status(form)
     { :as => :radio, :collection => Membership::STATUSES }
   end
@@ -10,12 +20,7 @@ module Office::MembershipsHelper
     milestones.map do |milestone|
       found = dates.find_all { |d| d >= milestone }
       dates -= found
-      td_colorize(found.length)
+      td_colorize(found.length, 'center')
     end.join("").html_safe
-  end
-
-  def td_colorize(count)
-    color = count > 0 ? 'dot-green' : 'dot-red'
-    content_tag(:td, count, class: "center #{color}")
   end
 end

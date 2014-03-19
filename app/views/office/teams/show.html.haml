@@ -2,6 +2,6 @@
   .content
     = controls do |c|
       - add_button_to(c, :edit)
-      - add_button_to(c, :delete)
 
     = render @team
+    = render 'quick_add', team: @team

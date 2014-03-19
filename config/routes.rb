@@ -50,6 +50,7 @@ Haidb::Application.routes.draw do
 
     resources :memberships
     resources :teams do
+      resources :members
       collection do
         get 'past'
       end

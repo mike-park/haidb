@@ -16,6 +16,7 @@ class Membership < ActiveRecord::Base
 
   scope :active, lambda { where(retired_on: nil).where('active_on <= ?', Date.current) }
   scope :retired, lambda { where('retired_on <= ?', Date.current) }
+  scope :by_full_name, -> { includes(:angel).order('angels.first_name, angels.last_name asc') }
 
   validates_presence_of :angel
   validates_inclusion_of :status, {
@@ -24,9 +25,11 @@ class Membership < ActiveRecord::Base
   validates_uniqueness_of :angel_id, scope: :retired_on, message: 'Already has an active membership',
                           if: lambda { |m| m.retired_on.nil? }
 
-  delegate :full_name_with_context, :<=>, :full_name, :email, :highest_level, :registrations, to: :angel
+  delegate :<=>, :full_name, :email, :highest_level, :registrations, to: :angel
 
-  # registrations
+  def full_name_with_context
+    "#{full_name} - #{status}"
+  end
 
   def on_team
     registrations.completed.team.by_start_date

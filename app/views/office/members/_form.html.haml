@@ -1,0 +1,8 @@
+= simple_form_for([:office, @team, @member], html: {class: 'form form-horizontal'}) do |f|
+  .form-inputs
+    = f.association :membership, options_for_membership_select(f)
+    = f.input :role, options_for_member_role(f)
+    = f.input :notes, input_html: { cols: nil, rows: 5}
+
+  .form-actions
+    = f.button :submit
