@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140317161947) do
+ActiveRecord::Schema.define(:version => 20140318140414) do
 
   create_table "angels", :force => true do |t|
     t.string   "display_name",                     :null => false
@@ -259,6 +259,19 @@ ActiveRecord::Schema.define(:version => 20140317161947) do
 
   add_index "staffs", ["email"], :name => "index_staffs_on_email", :unique => true
   add_index "staffs", ["reset_password_token"], :name => "index_staffs_on_reset_password_token", :unique => true
+
+  create_table "teams", :force => true do |t|
+    t.integer  "event_id"
+    t.string   "name",                            :null => false
+    t.date     "date",                            :null => false
+    t.text     "options"
+    t.boolean  "closed",       :default => false
+    t.integer  "desired_size"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "teams", ["event_id"], :name => "index_teams_on_event_id"
 
   create_table "translation_keys", :force => true do |t|
     t.string   "key",        :null => false

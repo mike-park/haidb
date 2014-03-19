@@ -34,10 +34,10 @@ FactoryGirl.define do
   end
 
   factory :email_name do
-    sequence(:name) {|n| "email name#{n}" }
+    sequence(:name) { |n| "email name#{n}" }
   end
 
-  factory :email, aliases: [:en_email]  do
+  factory :email, aliases: [:en_email] do
     email_name
     locale "en"
     subject "Subject"
@@ -62,7 +62,7 @@ FactoryGirl.define do
 
   factory :angel do
     first_name 'Mike'
-    sequence(:last_name) {|n| "Lastname#{n}" }
+    sequence(:last_name) { |n| "Lastname#{n}" }
     sequence(:email) { |n| "angel#{n}@example.com" }
     gender 'Male'
 
@@ -80,7 +80,7 @@ FactoryGirl.define do
       lang :en
     end
   end
-  
+
   factory :public_signup do
     registration
     terms_and_conditions '1'
@@ -89,7 +89,7 @@ FactoryGirl.define do
   factory :registration do
     event
     first_name 'Mike'
-    sequence(:last_name) {|n| "Lastname#{n}" }
+    sequence(:last_name) { |n| "Lastname#{n}" }
     sequence(:email) { |n| "angel#{n}@example.com" }
     gender 'Male'
 
@@ -141,5 +141,11 @@ FactoryGirl.define do
     angel
     status Membership::AWS
   end
+
+  factory :team do
+    name "Team L1"
+    date { Date.tomorrow }
+  end
+
 end
 

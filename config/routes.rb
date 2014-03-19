@@ -49,6 +49,11 @@ Haidb::Application.routes.draw do
     end
 
     resources :memberships
+    resources :teams do
+      collection do
+        get 'past'
+      end
+    end
 
     resources :public_signups do
       collection do
