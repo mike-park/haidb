@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140318140414) do
+ActiveRecord::Schema.define(:version => 20140319103056) do
 
   create_table "angels", :force => true do |t|
     t.string   "display_name",                     :null => false
@@ -118,6 +118,23 @@ ActiveRecord::Schema.define(:version => 20140318140414) do
   end
 
   add_index "histories", ["item", "table", "month", "year"], :name => "index_histories_on_item_and_table_and_month_and_year"
+
+  create_table "members", :force => true do |t|
+    t.integer  "angel_id",      :null => false
+    t.integer  "team_id",       :null => false
+    t.integer  "membership_id", :null => false
+    t.string   "full_name",     :null => false
+    t.string   "gender",        :null => false
+    t.text     "notes"
+    t.string   "role"
+    t.date     "approved_on"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "members", ["angel_id"], :name => "index_members_on_angel_id"
+  add_index "members", ["membership_id"], :name => "index_members_on_membership_id"
+  add_index "members", ["team_id"], :name => "index_members_on_team_id"
 
   create_table "memberships", :force => true do |t|
     t.integer  "angel_id"

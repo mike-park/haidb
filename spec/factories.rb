@@ -147,5 +147,13 @@ FactoryGirl.define do
     date { Date.tomorrow }
   end
 
+  factory :member do
+    angel
+    team
+    membership
+    full_name "John Smith"
+    gender "Male"
+  end
+
 end
 
