@@ -17,6 +17,14 @@ class Office::MembersController < Office::ApplicationController
     @member = team.members.find(params[:id])
   end
 
+  def refresh
+    team.members.each do |member|
+      update_from_membership(member)
+      member.save!
+    end
+    redirect_to [:office, team], notice: 'Membership statuses updated'
+  end
+
   def create
     @member = team.members.build(params[:member])
     update_from_membership(@member)
@@ -29,7 +37,7 @@ class Office::MembersController < Office::ApplicationController
 
   def update
     @member = team.members.find(params[:id])
-
+    update_from_membership(@member)
     if @member.update_attributes(params[:member])
       redirect_to [:office, team], notice: 'Member was successfully updated.'
     else
@@ -51,6 +59,7 @@ class Office::MembersController < Office::ApplicationController
     member.angel = angel
     member.full_name = angel.full_name
     member.gender = angel.gender
+    member.status = member.membership.status
   end
 
   def team

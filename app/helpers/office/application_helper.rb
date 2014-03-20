@@ -29,6 +29,9 @@ module Office::ApplicationHelper
       when /^pdf\b/
         path = url_for(options)
         icon_name = 'icon-print'
+      when /^refresh\b/
+        path = url_for(options)
+        icon_name = 'icon-refresh'
       when /^registrations/
         path = url_for(options)
         icon_name = 'icon-user'

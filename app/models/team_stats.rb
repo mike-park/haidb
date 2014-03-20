@@ -3,8 +3,8 @@ class TeamStats
     @team = team
   end
 
-  def counts(group, type)
-    totals[group][type]
+  def counts(group)
+    totals[group]
   end
 
   def to_partial_path
@@ -24,7 +24,17 @@ class TeamStats
     tt = total_for(@team.members)
     tt[:desired] = @team.desired_size || 0
     tt[:delta] = tt[:total] - tt[:desired]
+    tt.merge!(word_counts(@team.members.map(&:status).compact))
+    tt.merge!(word_counts(@team.members.map(&:role).reject {|w| w.blank?}))
     tt
+  end
+
+  def word_counts(words)
+    words.inject({}) do |memo, word|
+      memo[word] ||= 0
+      memo[word] += 1
+      memo
+    end
   end
 
   def participant_totals

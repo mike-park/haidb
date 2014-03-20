@@ -1,21 +1,35 @@
 - stats = TeamStatsDecorator.new(team_stats)
 .row-fluid
-  .span5
+  .span6
+    %table.table
+      %thead
+        %tr
+          - stats.headings(stats.extra_fields).each do |heading|
+            %th.qty= heading
+      %tbody
+        %tr
+          - stats.counts(stats.extra_fields, :team).each do |count|
+            %td.qty= count
+
+  .span2
+    .team-delta
+      %span{class: stats.full? ? 'dot-green' : 'dot-red'}= stats.delta_with_symbol
+
+
+.row-fluid
+  .span6
     %table.table
       %thead
         %tr
           %th
-          - stats.headings.each do |heading|
+          - stats.headings(stats.fields).each do |heading|
             %th.qty= heading
       %tbody
         %tr
           %td Participants
-          - stats.counts(:participants).each do |count|
+          - stats.counts(stats.fields, :participants).each do |count|
             %td.qty= count
         %tr
           %td Team
-          - stats.counts(:team).each do |count|
+          - stats.counts(stats.fields, :team).each do |count|
             %td.qty= count
-  .span2
-    .team-delta
-      %span{class: stats.full? ? 'dot-green' : 'dot-red'}= stats.delta_with_symbol

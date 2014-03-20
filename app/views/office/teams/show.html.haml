@@ -2,6 +2,7 @@
   .content
     = controls do |c|
       - add_button_to(c, :edit)
+      - add_button_to(c, 'Refresh', method: :post, team_id: @team, controller: 'members', action: 'refresh')
 
     = render @team
     = render 'quick_add', team: @team

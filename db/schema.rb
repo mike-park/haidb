@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140319103056) do
+ActiveRecord::Schema.define(:version => 20140319145645) do
 
   create_table "angels", :force => true do |t|
     t.string   "display_name",                     :null => false
@@ -130,9 +130,11 @@ ActiveRecord::Schema.define(:version => 20140319103056) do
     t.date     "approved_on"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.text     "status"
   end
 
   add_index "members", ["angel_id"], :name => "index_members_on_angel_id"
+  add_index "members", ["gender"], :name => "index_members_on_gender"
   add_index "members", ["membership_id"], :name => "index_members_on_membership_id"
   add_index "members", ["team_id"], :name => "index_members_on_team_id"
 
@@ -245,8 +247,10 @@ ActiveRecord::Schema.define(:version => 20140319103056) do
   end
 
   add_index "registrations", ["angel_id"], :name => "index_registrations_on_angel_id"
+  add_index "registrations", ["approved"], :name => "index_registrations_on_approved"
   add_index "registrations", ["event_id", "role"], :name => "index_registrations_on_role"
   add_index "registrations", ["event_id"], :name => "index_registrations_on_event_id"
+  add_index "registrations", ["gender"], :name => "index_registrations_on_gender"
   add_index "registrations", ["id"], :name => "index_registrations_on_id"
 
   create_table "site_defaults", :force => true do |t|

@@ -3,6 +3,6 @@
     = controls do |c|
       - add_button_to(c, :delete)
 
-    %h2 Editing team member request
+    %h2 Editing #{@member.full_name} team request for #{@team.name}
 
     = render 'form'
