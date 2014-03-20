@@ -1,46 +1,54 @@
 require 'spec_helper'
 
 describe MergeAngels do
-  let(:a) { FactoryGirl.create(:angel, lang: 'en', gender: 'Male', email: 'a-email',
-                               last_name: 'a-lastname', first_name: 'a-firstname')}
-  let(:b) { FactoryGirl.create(:angel, lang: 'de', gender: 'Female', email: 'b-email',
-                               last_name: 'b-lastname', first_name: 'b-firstname')}
-  let(:event1) { FactoryGirl.create(:event1)}
-  let(:event2) { FactoryGirl.create(:event2)}
-  let(:reg1) { FactoryGirl.create(:registration, angel: a, event: event1)}
-  let(:reg2) { FactoryGirl.create(:registration, angel: b, event: event2)}
-  subject { MergeAngels.new([a.id, b.id]) }
+  let(:create_dummies) { [:angel, :registration, :membership, :user].map { |n| create(n) } }
 
   before do
-    a
-    reg1
-    b
-    reg2
+    create_dummies
+    MergeAngels.new(angels).invoke
   end
 
-  it "should have records before merge" do
-    expect(Angel.count).to eql(2)
-    expect(Registration.count).to eql(2)
+  context "counts" do
+    let(:angels) { create_pair(:angel) }
+
+    it { expect(Angel.count).to eq(3) }
+
+    [Registration, Membership, User].each do |model|
+      plurals = model.to_s.downcase.pluralize
+      symbol = model.to_s.downcase.to_sym
+
+      context "has_many #{plurals}" do
+        let(:record1) { create(symbol, angel: create(:angel)) }
+        let(:record2) { create(symbol, angel: create(:angel)) }
+        let(:angels) { [record1.angel, record2.angel] }
+
+        it { expect(angels.first).to_not eq(angels.second) }
+        it { expect(model.count).to eq(3) }
+        it { expect(record1.angel.send(plurals).count).to eq(2) }
+      end
+    end
   end
 
-  it "should merge b attributes into a" do
-    result = subject.invoke
-    expect(result).to be_true
-    expect(Angel.count).to eql(1)
-    angel = Angel.first
-    expect(angel.id).to eql(a.id)
-    expect(angel.lang).to eql('de')
-    expect(angel.gender).to eql('Female')
-    expect(angel.email).to eql('b-email')
-    expect(angel.last_name).to eql('b-lastname')
-    expect(angel.first_name).to eql('b-firstname')
-  end
+  context "attributes" do
+    def all_attributes(value)
+      fields = Angel.new.attributes.keys - MergeAngels::EXCLUDE_FIELDS
+      fields.inject({}) do |memo, field|
+        memo[field] = value
+        memo
+      end
+    end
 
-  it "should transfer b regs to a" do
-    subject.invoke
-    angel = Angel.first
-    expect(angel.registrations.count).to eql(2)
-    expect(angel.registration_ids).to eql([reg1.id, reg2.id])
-  end
+    let(:angel0) { create(:angel, all_attributes('0').merge("gender" => Registration::MALE)) }
+    let(:angel1) { create(:angel, all_attributes('1').merge("gender" => Registration::FEMALE)) }
+    let(:angel2) { create(:angel, all_attributes('2').merge("gender" => Registration::MALE)) }
+    let(:angel3) { create(:angel, all_attributes('3').merge("gender" => Registration::FEMALE)) }
+    let(:angels) { [angel1, angel3, angel2] }
 
+    it { expect(angel0.notes).to eq('0') }
+    it { expect(angel1.notes).to eq('2') }
+
+    it "copies attributes from angel2 to angel1" do
+      expect(angel1.attributes.except(*MergeAngels::EXCLUDE_FIELDS)).to eq(angel2.attributes.except(*MergeAngels::EXCLUDE_FIELDS))
+    end
+  end
 end

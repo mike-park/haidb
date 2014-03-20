@@ -28,4 +28,20 @@ describe User do
       user.confirm!
     end
   end
+
+  context "move_to" do
+    let(:angel) { create(:angel) }
+    let(:other) { create(:user, angel: create(:angel)) }
+    let(:users) { create_list(:user, 2) }
+
+    before do
+      other
+      User.move_to(angel, users.map(&:id))
+      other.reload
+    end
+
+    it { expect(User.count).to eq(3) }
+    it { expect(angel.users.count).to eq(2) }
+    it { expect(other.angel_id).to_not eq(angel.id) }
+  end
 end

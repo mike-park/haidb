@@ -108,6 +108,31 @@ describe Angel do
       all = Angel.by_last_name.all
       all.should == [a, b, z]
     end
+
+    it "should have active_membership" do
+      angel = create(:angel)
+      membership = create(:membership, angel: angel, retired_on: nil)
+      expect(angel.active_membership).to eq(membership)
+    end
+
+    context "duplicates_of" do
+      let(:angel) { create(:angel) }
+
+      before do
+        angel.dup.save!
+      end
+
+      it "should find duplicates" do
+        expect(Angel.duplicates_of(angel).count).to eq(2)
+      end
+
+      [:first_name, :last_name, :email].each do |field|
+        it "should find even with different case of #{field}" do
+          angel.update_attribute(field, angel.send(field).upcase)
+          expect(Angel.duplicates_of(angel).count).to eq(2)
+        end
+      end
+    end
   end
 
   context "registrations" do
@@ -167,56 +192,34 @@ describe Angel do
       registration = Registration.first
       expect(registration.angel_id).to be_nil
     end
+
+    it "should not destroy users" do
+      user = create(:user, angel: create(:angel))
+      expect(user.angel).to be
+      user.angel.destroy
+      user.reload
+      expect(user.angel).to_not be
+    end
   end
 
-  context "with duplicates" do
-    let(:person) { {first_name: 'mike', last_name: 'park', email: 'a@example.com'} }
-    let(:angel1) { FactoryGirl.create(:angel, person.merge(:notes => 1, :home_phone => 'something')) }
-    let(:angel2) { FactoryGirl.create(:angel, person.merge(:notes => 2, :home_phone => nil)) }
-    let(:l1) { FactoryGirl.create(:event1) }
-    let(:l2) { FactoryGirl.create(:event2) }
-    let(:l3) { FactoryGirl.create(:event3) }
-    let(:l5) { FactoryGirl.create(:event5) }
-    before(:each) do
-      FactoryGirl.create(:registration, :event => l1, :angel => angel1, :completed => true)
-      FactoryGirl.create(:registration, :event => l3, :angel => angel1, :completed => true)
-      FactoryGirl.create(:registration, :event => l2, :angel => angel2, :completed => true)
-      FactoryGirl.create(:registration, :event => l5, :angel => angel2, :completed => true)
+
+  context "merge_and_delete_duplicates" do
+    let(:person) { build(:angel, gender: Registration::MALE).attributes.slice(*Angel::REGISTRATION_MATCH_FIELDS) }
+    before do
+      @angels = create_pair(:angel, person)
+      create_list(:angel, 2)
     end
 
-    it { Angel.count.should == 2 }
-    it { Angel.find(1).notes.should == '1' }
-    it { Angel.find(1).home_phone.should == 'something' }
-    it { Angel.find(2).notes.should == '2' }
-    it { Angel.find(2).home_phone.should_not be }
-    it { Event.count.should == 4 }
-    it { Registration.count.should == 4 }
+    it { expect(Angel.count).to eq(4) }
 
-    context "should merged into angel1" do
-      #before(:each) do
-      #  ActiveRecord::Base.logger = Logger.new(STDOUT)
-      #  ActiveRecord::Base.clear_active_connections!
-      #end
+    it "should merge angels" do
+      expect { Angel.merge_and_delete_duplicates }.to change(Angel, :count).by(-1)
+    end
 
-      it "from one other angel" do
-        expect(Angel.merge_and_delete_duplicates_of(angel2)).to be_true
-      end
-
-      context "with changes of" do
-        before(:each) do
-          Angel.merge_and_delete_duplicates_of(angel2)
-          angel1.reload
-        end
-
-        it { Angel.count.should == 1 }
-        it { Angel.find(1).notes.should == '2' }
-        it { Angel.find(1).home_phone.should_not be }
-        it { Angel.find_by_id(2).should_not be }
-        it { Event.count.should == 4 }
-        it { Registration.count.should == 4 }
-        it { angel1.registrations.count.should == 4 }
-        it { angel1.highest_level.should == 5 }
-
+    Angel::REGISTRATION_MATCH_FIELDS.each do |field|
+      it "should not merge when #{field} is different" do
+        @angels[0].update_attribute(field, Registration::FEMALE)
+        expect { Angel.merge_and_delete_duplicates }.to change(Angel, :count).by(0)
       end
     end
   end

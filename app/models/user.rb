@@ -7,10 +7,15 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  belongs_to :angel, inverse_of: :user
+  belongs_to :angel, inverse_of: :users
   has_many :registrations, through: :angel
   has_many :events, :through => :registrations
   has_many :memberships, through: :angel
+
+
+  def self.move_to(angel, ids)
+    where(id: ids).update_all(angel_id: angel.id) if ids.any?
+  end
 
   def full_name
     angel ? angel.full_name : email

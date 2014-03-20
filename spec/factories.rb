@@ -140,6 +140,7 @@ FactoryGirl.define do
   factory :membership do
     angel
     status Membership::AWS
+    active_on { Date.yesterday }
   end
 
   factory :team do

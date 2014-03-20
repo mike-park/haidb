@@ -11,14 +11,15 @@ class Office::SimilarAngelsController < Office::ApplicationController
   end
 
   def create
-    if MergeAngels.new(angel_ids).invoke
-      redirect_to office_similar_angels_path, notice: "Merge was successful"
-    else
-      redirect_to office_similar_angels_path, alert: "Merge was not completed"
-    end
+    angel = MergeAngels.new(angels).invoke
+    redirect_to office_similar_angels_path, notice: "Merged #{angel_ids} into #{angel.full_name}"
   end
 
   private
+
+  def angels
+    Angel.find(angel_ids)
+  end
 
   def angel_ids
     params[:similar_angel] && params[:similar_angel][:angel_ids].split(/\s/).map(&:to_i)

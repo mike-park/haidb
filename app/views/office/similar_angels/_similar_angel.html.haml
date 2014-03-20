@@ -5,7 +5,7 @@
     .angel
       %p= gravatar_image(angel.gravatar)
       %p
-        = angel.full_name
+        = link_to(angel.full_name, office_angel_path(angel))
         %br
         = angel.email
       %p= angel.address

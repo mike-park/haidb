@@ -1,25 +1,39 @@
 class MergeAngels
-  def initialize(angel_ids)
-    @angel_ids = angel_ids.sort
+  EXCLUDE_FIELDS = [:id, :create_at, :updated_at, :highest_level].map(&:to_s).freeze
+
+  attr_reader :angels
+
+  def initialize(angels)
+    @angels = angels.sort { |a, b| a.id <=> b.id }
   end
 
   def invoke
-    base = Angel.find(@angel_ids.shift)
-    return false unless base
-    @angel_ids.each do |angel_id|
-      angel = Angel.find(angel_id)
-      base.attributes = angel.attributes.except(:id, :highest_level, :created_at, :updated_at)
-      # iterate as the same person (in two different angel records)
-      # might be registered for the same event. this ignores registrations
-      # that can't be transferred, they will be destroyed when the dup angel
-      # is destroyed below
-      angel.registrations.each do |r|
-        base.registrations << r
-      end
-      base.save!
+    Angel.transaction do
+      [Registration, Membership, User].each { |model| move_many(model) }
+      duplicate_angels.each { |angel| merge_angel(angel) }
+      Angel.delete(duplicate_angels.map(&:id))
+      first_angel.cache_highest_level
     end
-    Angel.destroy(@angel_ids)
-    base.cache_highest_level
-    true
+    first_angel
+  end
+
+  private
+
+  def first_angel
+    angels.first
+  end
+
+  def duplicate_angels
+    angels.from(1)
+  end
+
+  def merge_angel(angel)
+    first_angel.update_attributes!(angel.attributes.except(*EXCLUDE_FIELDS))
+  end
+
+  def move_many(model)
+    ids_field = model.to_s.downcase + "_ids"
+    ids = angels.map { |a| a.send(ids_field) }.flatten
+    model.send(:move_to, first_angel, ids)
   end
 end

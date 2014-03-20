@@ -111,6 +111,10 @@ class Registration < ActiveRecord::Base
 
   delegate :level, :start_date, :to => :event
 
+  def self.move_to(angel, ids)
+    where(id: ids).update_all(angel_id: angel.id) if ids.any?
+  end
+
   def full_name
     [first_name, last_name].compact.join(" ")
   end
