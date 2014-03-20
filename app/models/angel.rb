@@ -29,6 +29,8 @@ class Angel < ActiveRecord::Base
                          :address, :postal_code, :city, :country, :home_phone, :mobile_phone, :work_phone,
                          :lang, :payment_method, :bank_account_name, :iban, :bic].map(&:to_s).freeze
 
+  REGISTRATION_MATCH_FIELDS = REGISTRATION_FIELDS[0,4]
+
   def full_name
     [first_name, last_name].compact.join(" ")
   end
@@ -62,7 +64,7 @@ class Angel < ActiveRecord::Base
   end
 
   def self.add_to(registration)
-    angel = Angel.by_email(registration.email).first_or_initialize
+    angel = Angel.where(registration.attributes.slice(*REGISTRATION_MATCH_FIELDS)).first_or_initialize
     Angel.transaction do
       angel.update_attributes!(registration.attributes.slice(*REGISTRATION_FIELDS))
       registration.update_attribute(:angel_id, angel.id)

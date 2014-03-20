@@ -70,11 +70,33 @@ describe Angel do
   end
 
   context "add_to" do
-    let(:registration) { FactoryGirl.create(:registration) }
+    let(:registration) { FactoryGirl.create(:registration, gender: Registration::MALE) }
     it "should create a new angel" do
       Angel.count.should == 0
       Angel.add_to(registration)
       Angel.count.should == 1
+    end
+
+    context "assign existing angel" do
+      let(:angel) { build(:angel, registration.attributes.slice(*Angel::REGISTRATION_MATCH_FIELDS)) }
+      it "should assign existing angel" do
+        angel.save!
+        Angel.count.should == 1
+        Angel.add_to(registration)
+        Angel.count.should == 1
+        expect(registration.angel_id).to eq(angel.id)
+      end
+
+      Angel::REGISTRATION_MATCH_FIELDS.each do |field|
+        it "should not assign existing angel when #{field} is different" do
+          angel.send("#{field}=", Registration::FEMALE)
+          angel.save!
+          Angel.count.should == 1
+          Angel.add_to(registration)
+          Angel.count.should == 2
+          expect(registration.angel_id).to_not eq(angel.id)
+        end
+      end
     end
   end
 
