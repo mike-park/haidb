@@ -1,4 +1,16 @@
 // bootstrap configured jquery-ui theme
+
+$deDarker: hsl(12, 4%, 43%) !default;
+$deDark: lighten($deDarker, 15%) !default;
+$de: lighten($deDarker, 30%);
+$deLight: lighten($deDarker, 50%) !default;
+
+
+$navbarBackground:                $deDarker !default;
+$navbarBackgroundHighlight:       $deDark !default;
+$navbarText:                      $deLight !default;
+$navbarLinkColor:                 $deLight !default;
+
 @import 'jquery-ui-1.8.16.custom';
 @import 'bootstrap';
 @import 'bootstrap-responsive';
