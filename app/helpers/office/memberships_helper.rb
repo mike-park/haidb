@@ -4,7 +4,7 @@ module Office::MembershipsHelper
   end
 
   def members_for_select
-    [['Quick Add Member', '']] + Membership.by_full_name.map do |membership|
+    [['Quick Add Active Member', '']] + Membership.active.by_full_name.map do |membership|
       [membership.full_name_with_context, membership.id]
     end
   end
