@@ -48,7 +48,12 @@ Haidb::Application.routes.draw do
       end
     end
 
-    resources :memberships
+    resources :memberships do
+      collection do
+        post 'recalc_status'
+      end
+    end
+
     resources :teams do
       resources :members do
         collection do

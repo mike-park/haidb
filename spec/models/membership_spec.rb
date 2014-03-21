@@ -64,4 +64,16 @@ describe Membership do
       it { expect(angel.active_membership.active_on).to eq(Date.tomorrow) }
     end
   end
+
+  context "self.recalc_status" do
+    let(:membership1) { double("membership1", recalc_status: true) }
+    let(:membership2) { double("membership2", recalc_status: false) }
+    let(:memberships) { [membership1, membership2]}
+    before do
+      Membership.stub(:active).and_return(memberships)
+    end
+    it "should return changed memberships" do
+      expect(Membership.recalc_status).to eq([membership1])
+    end
+  end
 end

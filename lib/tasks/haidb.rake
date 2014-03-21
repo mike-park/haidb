@@ -6,6 +6,13 @@ namespace :haidb do
     end
   end
 
+  namespace :memberships do
+    desc 'Recalc membership status'
+    task recalc: :environment do
+      Membership.recalc_status
+    end
+  end
+
   namespace :audit do
     desc "Trim audit log"
     task trim: :environment do

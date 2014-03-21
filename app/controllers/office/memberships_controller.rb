@@ -46,6 +46,13 @@ class Office::MembershipsController < Office::ApplicationController
     redirect_to office_teams_path
   end
 
+  def recalc_status
+    memberships = Membership.recalc_status
+    message = memberships.map { |m| "#{m.full_name} to #{m.status}" }.join(", ")
+    message = memberships.any? ? "Status recalculated: #{message}" : "No changes recalculated"
+    redirect_to office_memberships_path(status: 'active'), notice: message
+  end
+
   private
 
   def angels
@@ -60,12 +67,12 @@ class Office::MembershipsController < Office::ApplicationController
              end
     @header = "#{status.humanize} Team Members"
     @memberships = case status
-                   when 'retired'
-                     Membership.retired
-                   when 'all'
-                     Membership.all
-                   else
-                     Membership.active
-                 end.sort
+                     when 'retired'
+                       Membership.retired
+                     when 'all'
+                       Membership.all
+                     else
+                       Membership.active
+                   end.sort
   end
 end

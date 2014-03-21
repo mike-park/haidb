@@ -44,6 +44,14 @@ class Membership < ActiveRecord::Base
     most_recent_membership.save!
   end
 
+  def self.recalc_status
+    active.select(&:recalc_status)
+  end
+
+  def recalc_status
+    UpgradeMembership.new(self).invoke
+  end
+
   def full_name_with_context
     "#{full_name} - #{status}"
   end
