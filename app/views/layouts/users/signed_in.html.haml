@@ -14,7 +14,7 @@
       .navbar-inner
         .container-fluid
           %a.brand HAI #{Site.name.upcase}
-          = tabs
+          = tabs(:users)
           = link_to_logout(destroy_user_session_path)
 
     .container-fluid

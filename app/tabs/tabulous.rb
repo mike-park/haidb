@@ -1,201 +1,110 @@
-# Tabulous gives you an easy way to set up tabs for your Rails application.
-#
-#   1. Configure this file.
-#   2. Add <%= tabs %> and <%= subtabs %> in your layout(s) wherever you want
-#      your tabs to appear.
-#   3. Add styles for these tabs in your stylesheets.
-#   4. Profit!
+Tabulous.setup do
 
-Tabulous.setup do |config|
+  tabs(:office) do
 
-  #---------------------------
-  #   HOW TO USE THE TABLES
-  #---------------------------
-  #
-  # The following tables are just an array of arrays.  As such, you can put
-  # any Ruby code into a cell.  For example, you could put "/foo/bar" in
-  # a path cell or you could put "/foo" + "/bar".  You can even wrap up code
-  # in a lambda to be executed later.  These will be executed in the context
-  # of a Rails view meaning they will have access to view helpers.
-  #
-  # However, there is something special about the format of these tables.
-  # Because it would be a pain for you to manually prettify the tables each
-  # time you edit them, there is a special rake task that does this for
-  # you: rake tabs:format.  However, for this prettifier to work properly
-  # you have to follow some special rules:
-  #
-  #   * No comments are allowed between rows.
-  #   * Comments are allowed to the right of rows, except for header rows.
-  #   * The start of a table is signified by a [ all by itself on a line.
-  #   * The end of a table is signified by a ] all by itself on a line.
-  #   * And most importantly: commas that separate cells should be surrounded
-  #     by spaces and commas that are within cells should not.  This gives the
-  #     formatter an easy way to distinguish between cells without having
-  #     to actually parse the Ruby.
-
-  #----------
-  #   TABS
-  #----------
-  #
-  # This is where you define your tabs and subtabs.  The order that the tabs
-  # appear in this list is the order they will appear in your views.  Any
-  # subtabs defined will have the previous tab as their parent.
-  #
-  # TAB NAME
-  #   must end in _tab or _subtab
-  # DISPLAY TEXT
-  #   the text the user sees on the tab
-  # PATH
-  #   the URL that gets sent to the server when the tab is clicked
-  # VISIBLE
-  #   whether to display the tab
-  # ENABLED
-  #   whether the tab is disabled (unclickable)
-
-  config.tabs do
-    if in_office_zone?
-      [
-          #----------------------------------------------------------------------------------------------------#
-          #    TAB NAME              |    DISPLAY TEXT       |    PATH       |    VISIBLE?    |    ENABLED?    #
-          #----------------------------------------------------------------------------------------------------#
-          [:office_dashboards_tab,       'Dashboard',            office_root_path, true, true],
-          [:office_angels_tab,           'Angels',               office_angels_path, true, true],
-          [:office_teams_tab,            'Teams',                office_teams_path, true, true],
-          [:office_memberships_tab,      'Memberships',          office_memberships_path, true, true],
-          [:office_events_tab,           'Events',               office_events_path, true, true],
-          [:office_public_signups_tab,   'Public Signups',       office_public_signups_path, true, true],
-          [:office_site_defaults_tab,    'Site Defaults',        office_site_defaults_path, true, true],
-      ]
-    elsif in_users_zone?
-      [
-          #-----------------------------------------------------------------------------------------------------#
-          #    TAB NAME              |    DISPLAY TEXT        |    PATH       |    VISIBLE?    |    ENABLED?    #
-          #-----------------------------------------------------------------------------------------------------#
-          [:users_dashboards_tab,        'My Events',            users_root_path, true, true],
-      ]
+    office_dashboards_tab do
+      text { 'Dashboard' }
+      link_path { office_root_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when { in_action('any').of_controller('office/dashboards') }
     end
+
+    office_angels_tab do
+      text { 'Angels' }
+      link_path { office_angels_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when { in_action('any').of_controller('office/angels') }
+    end
+
+    office_teams_tab do
+      text { 'Teams' }
+      link_path { office_teams_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when { in_action('any').of_controller('office/teams') }
+    end
+
+    office_memberships_tab do
+      text { 'Memberships' }
+      link_path { office_memberships_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when { in_action('any').of_controller('office/memberships') }
+    end
+
+    office_events_tab do
+      text { 'Events' }
+      link_path { office_events_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when { in_action('any').of_controller('office/events') }
+    end
+
+    office_public_signups_tab do
+      text { 'Public Signups' }
+      link_path { office_public_signups_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when { in_action('any').of_controller('office/public_signups') }
+    end
+
+    office_site_defaults_tab do
+      text { 'Site Defaults' }
+      link_path { office_site_defaults_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when { in_action('any').of_controller('office/site_defaults') }
+    end
+  end
+
+  tabs(:users) do
+    users_dashboards_tab do
+      text { 'Dashboard' }
+      link_path { users_root_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when { in_action('any').of_controller('users/dashboards') }
+    end
+  end
+
+  customize do
+
+    # which class to use to generate HTML
+    # :default, :html5, :bootstrap, or :bootstrap_pill
+    # or create your own renderer class and reference it here
+    renderer :bootstrap
+
+    # whether to allow the active tab to be clicked
+    # defaults to true
+    # active_tab_clickable true
+
+    # what to do when there is no active tab for the current controller action
+    # :render -- draw the tabset, even though no tab is active
+    # :do_not_render -- do not draw the tabset
+    # :raise_error -- raise an error
+    # defaults to :do_not_render
+    # when_action_has_no_tab :do_not_render
+
+    # whether to always add the HTML markup for subtabs, even if empty
+    # defaults to false
+    # render_subtabs_when_empty false
 
   end
 
-  #-------------
-  #   ACTIONS
-  #-------------
+  # The following will insert some CSS straight into your HTML so that you
+  # can quickly prototype an app with halfway-decent looking tabs.
   #
-  # This is where you hook up actions with tabs.  That way tabulous knows
-  # which tab and subtab to mark active when an action is rendered.
-  #
-  # CONTROLLER
-  #   the name of the controller
-  # ACTION
-  #   the name of the action, or :all_actions
-  # TAB
-  #   the name of the tab or subtab that is active when this action is rendered
-
-  config.actions do
-    if in_office_zone?
-      [
-          #-------------------------------------------------------------------#
-          #    CONTROLLER          |    ACTION     |    TAB                   #
-          #-------------------------------------------------------------------#
-          [:registrations,            :all_actions, :office_events_tab],
-          [:angels,                   :all_actions, :office_angels_tab],
-          [:similar_angels,           :all_actions, :office_angels_tab],
-          [:registrations,            :all_actions, :office_events_tab],
-          [:pre,                      :all_actions, :office_events_tab],
-          [:post,                     :all_actions, :office_events_tab],
-          [:completed,                :all_actions, :office_events_tab],
-          [:checked_in,               :all_actions, :office_events_tab],
-          [:payment,                  :all_actions, :office_events_tab],
-          [:checklist,                :all_actions, :office_events_tab],
-          [:roster,                   :all_actions, :office_events_tab],
-          [:map,                      :all_actions, :office_events_tab],
-          [:teams,                    :all_actions, :office_teams_tab],
-          [:memberships,              :all_actions, :office_memberships_tab],
-          [:events,                   :all_actions, :office_events_tab],
-          [:public_signups,           :all_actions, :office_public_signups_tab],
-          [:site_defaults,            :all_actions, :office_site_defaults_tab],
-          [:email_names,              :all_actions, :office_site_defaults_tab],
-          [:registrations,            :all_actions, :office_events_tab],
-          [:dashboards,               :all_actions, :office_dashboards_tab],
-      ]
-    elsif in_users_zone?
-      [
-          #--------------------------------------------------------------------#
-          #    CONTROLLER         |    ACTION       |    TAB                   #
-          #--------------------------------------------------------------------#
-          [:dashboards,               :all_actions, :users_dashboards_tab],
-          [:rosters,                  :all_actions, :users_dashboards_tab],
-      ]
-    end
-
-  end
-
-  #---------------------
-  #   GENERAL OPTIONS
-  #---------------------
-
-  # By default, you cannot click on the active tab.
-  config.active_tab_clickable = true
-
-  # By default, the subtabs HTML element is not rendered if it is empty.
-  config.always_render_subtabs = false
-
-  # Tabulous expects every controller action to be associated with a tab.
-  # When an action does not have an associated tab (or subtab), you can
-  # instruct tabulous how to behave:
-  #config.when_action_has_no_tab = :raise_error      # the default behavior
-  # config.when_action_has_no_tab = :do_not_render  # no tab navigation HTML will be generated
-  config.when_action_has_no_tab = :render # the tab navigation HTML will be generated,
-  # but no tab or subtab will be active
-
-  #--------------------
-  #   MARKUP OPTIONS
-  #--------------------
-
-  # By default, div elements are used in the tab markup.  When html5 is
-  # true, nav elements are used instead.
-  config.html5 = false
-
-  # This gives you control over what class the <ul> element that wraps the tabs
-  # will have.  Good for interfacing with third-party code like Twitter
-  # Bootstrap.
-  config.tabs_ul_class = "nav nav-pills"
-
-  # Set this to true to have subtabs rendered in markup that Twitter Bootstrap
-  # understands.  If this is set to true, you don't need to call subtabs in
-  # your layout, just tabs.
-  config.bootstrap_style_subtabs = true
-
-
-  #-------------------
-  #   STYLE OPTIONS
-  #-------------------
-  #
-  # The markup that is generated has the following properties:
-  #
-  #   Tabs and subtabs that are selected have the class "active".
-  #   Tabs and subtabs that are not selected have the class "inactive".
-  #   Tabs that are disabled have the class "disabled"; otherwise, "enabled".
-  #   Tabs that are not visible do not appear in the markup at all.
-  #
-  # These classes are provided to make it easier for you to create your
-  # own CSS (and JavaScript) for the tabs.
-
-  # Some styles will be generated for you to get you off to a good start.
-  # Scaffolded styles are not meant to be used in production as they
-  # generate invalid HTML markup.  They are merely meant to give you a
-  # head start or an easy way to prototype quickly.  Set this to false if
-  # you are using Twitter Bootstrap.
-  # 
-  config.css.scaffolding = false
-
-  # You can tweak the colors of the generated CSS.
-  #
-  # config.css.background_color = '#ccc'
-  # config.css.text_color = '#444'
-  # config.css.active_tab_color = 'white'
-  # config.css.hover_tab_color = '#ddd'
-  # config.css.inactive_tab_color = '#aaa'
-  # config.css.inactive_text_color = '#888'
+  # This scaffolding should be turned off and replaced by your own custom
+  # CSS before using tabulous in production.
+  # use_css_scaffolding do
+  #   background_color '#ccc'
+  #   text_color '#444'
+  #   active_tab_color '#fff'
+  #   hover_tab_color '#ddd'
+  #   inactive_tab_color '#aaa'
+  #   inactive_text_color '#888'
+  # end
 
 end

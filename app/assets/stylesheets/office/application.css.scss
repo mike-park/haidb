@@ -1,6 +1,6 @@
 // bootstrap configured jquery-ui theme
 
-$deDarker: hsl(12, 4%, 43%) !default;
+$deDarker: #7da72f !default;
 $deDark: lighten($deDarker, 15%) !default;
 $de: lighten($deDarker, 30%);
 $deLight: lighten($deDarker, 50%) !default;

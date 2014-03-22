@@ -35,7 +35,7 @@ gem 'routing-filter'
 # new styling, use twitter bootstrap
 gem 'bootstrap-sass', '>= 2.0.1'
 gem 'simple_form'
-gem 'tabulous'					# menu highlighting
+gem 'tabulous', '~> 2.1.0'					# menu highlighting
 
 # authentication
 gem "devise", "~> 3.2.1"

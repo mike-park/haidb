@@ -32,7 +32,7 @@
       .navbar-inner
         .container-fluid
           %a.brand HAI #{Site.name.upcase}
-          = tabs
+          = tabs(:office)
           = link_to_logout(destroy_staff_session_path)
 
     .container-fluid
