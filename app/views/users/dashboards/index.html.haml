@@ -1,13 +1,3 @@
 .block
   .content
-    %p
-      %strong Hi #{current_user.full_name}, you have the following registrations
-
-    - r = @registrations[:upcoming]
-    %h6= pluralize(r.size, 'upcoming workshop')
-    = render 'registrations', registrations: r if r.any?
-
-  .content
-    - r = @registrations[:past]
-    %h6 #{pluralize(r.size, 'past workshop')}
-    = render 'registrations', registrations: r if r.any?
+    %h2 Welcome back #{current_user.full_name}

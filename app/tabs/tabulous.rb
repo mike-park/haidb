@@ -61,11 +61,19 @@ Tabulous.setup do
 
   tabs(:users) do
     users_dashboards_tab do
-      text { 'Dashboard' }
+      text { 'Home' }
       link_path { users_root_path }
       visible_when { true }
       enabled_when { true }
       active_when { in_action('any').of_controller('users/dashboards') }
+    end
+
+    users_registrations_tab do
+      text { 'Termine' }
+      link_path { users_registrations_path }
+      visible_when { current_user.registrations.any? }
+      enabled_when { true }
+      active_when { %w{registrations rosters}.each {|n| in_action('any').of_controller("users/#{n}")} }
     end
   end
 

@@ -1,0 +1,19 @@
+%table.table.table-striped.tablesorter
+  %caption= pluralize(registrations.size, 'Workshop')
+  %thead
+    %tr
+      %th Date
+      %th Title
+      %th Level
+      %th Role
+      %th.center Approved
+      %th.center Completed
+  %tbody
+    - registrations.each do |r|
+      %tr
+        %td= local_date(r.start_date)
+        %td= r.completed? ? link_to(r.event_name, users_roster_path(id: r.event)) : r.event_name
+        %td= r.level
+        %td= r.role
+        %td.center= color_dot(r.approved)
+        %td.center= color_dot(r.completed)

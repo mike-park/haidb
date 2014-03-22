@@ -91,6 +91,7 @@ Haidb::Application.routes.draw do
     get 'signup_requested', to: 'not_signed_in#signup_requested'
     get 'confirmed', to: 'not_signed_in#confirmed'
     resources :dashboards, only: [:index]
+    resources :registrations, only: [:index]
     resources :rosters, only: [:show]
     root to: 'dashboards#index'
   end
