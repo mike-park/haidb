@@ -21,6 +21,10 @@ class User < ActiveRecord::Base
     angel ? angel.full_name : email
   end
 
+  def active_membership?
+    angel && angel.active_membership
+  end
+
   private
 
   def after_confirmation
