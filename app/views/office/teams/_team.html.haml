@@ -2,9 +2,4 @@
 
 = render team.stats
 = render 'notes', team: team
-.content
-  - if team.members.any?
-    = render 'members', members: team.members
-  - else
-    %i No team members signed up, yet!
-
+= render 'members', members: team.members
