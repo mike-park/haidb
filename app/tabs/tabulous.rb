@@ -15,7 +15,7 @@ Tabulous.setup do
       link_path { office_angels_path }
       visible_when { true }
       enabled_when { true }
-      active_when { in_action('any').of_controller('office/angels') }
+      active_when { %w{angels similar_angels}.each {|n| in_action('any').of_controller("office/#{n}")} }
     end
 
     office_teams_tab do
@@ -23,7 +23,7 @@ Tabulous.setup do
       link_path { office_teams_path }
       visible_when { true }
       enabled_when { true }
-      active_when { in_action('any').of_controller('office/teams') }
+      active_when { %w{teams members}.each {|n| in_action('any').of_controller("office/#{n}")} }
     end
 
     office_memberships_tab do
@@ -39,7 +39,11 @@ Tabulous.setup do
       link_path { office_events_path }
       visible_when { true }
       enabled_when { true }
-      active_when { in_action('any').of_controller('office/events') }
+      active_when do
+        %w{events registrations registrations/completed registrations/checked_in registrations/map payments}.each do |n|
+          in_action('any').of_controller("office/#{n}")
+        end
+      end
     end
 
     office_public_signups_tab do
@@ -55,7 +59,7 @@ Tabulous.setup do
       link_path { office_site_defaults_path }
       visible_when { true }
       enabled_when { true }
-      active_when { in_action('any').of_controller('office/site_defaults') }
+      active_when { %w{site_defaults site_defaults/email_names}.each {|n| in_action('any').of_controller("office/#{n}")} }
     end
   end
 
