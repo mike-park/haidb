@@ -1,0 +1,5 @@
+- member = member.decorate
+.row-fluid.team-member
+  %span.name= member.full_name
+  %span.role= "[#{member.role}]" if member.role.present?
+  %span.notes= "Notes: #{member.notes}" if member.notes.present? && current_user.has_member?(member)

@@ -1,6 +1,6 @@
 - stats = TeamStatsDecorator.new(team_stats)
 .row-fluid
-  .span6
+  .span
     %table.table
       %thead
         %tr
@@ -11,13 +11,12 @@
           - stats.counts(stats.extra_fields, :team).each do |count|
             %td.qty= count
 
-  .span2
-    .team-delta
-      %span{class: stats.full? ? 'dot-green' : 'dot-red'}= stats.delta_with_symbol
+  .span.team-delta
+    %span{class: stats.full? ? 'dot-green' : 'dot-red'}= stats.delta_with_symbol
 
 
 .row-fluid
-  .span6
+  .span
     %table.table
       %thead
         %tr

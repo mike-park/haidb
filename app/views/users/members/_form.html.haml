@@ -1,0 +1,7 @@
+= simple_form_for member, url: users_team_member_path(member.team), html: {class: 'form form-horizontal'} do |f|
+  .form-inputs
+    = f.input :role, options_for_member_role(f)
+    = f.input :notes, input_html: { cols: nil, rows: 5}
+  .form-actions
+    = f.button :submit, 'Update', class: 'btn btn-primary submit'
+    = link_to('Cancel', [:users, member.team], class: 'btn')

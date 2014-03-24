@@ -75,6 +75,26 @@ Tabulous.setup do
       enabled_when { true }
       active_when { %w{registrations rosters}.each {|n| in_action('any').of_controller("users/#{n}")} }
     end
+
+    users_teams_tab do
+      text { 'Team' }
+      link_path { users_teams_path }
+      visible_when { current_user.active_membership? }
+      enabled_when { true }
+      active_when { %w{members teams}.each {|n| in_action('any').of_controller("users/#{n}")} }
+    end
+
+    users_angels_tab do
+      text { 'Profil' }
+      link_path { edit_users_angel_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when do
+        in_actions('edit', 'update', 'show').of_controller("users/angels")
+        in_actions('edit', 'update').of_controller("users/devise/registrations")
+      end
+    end
+
   end
 
   customize do

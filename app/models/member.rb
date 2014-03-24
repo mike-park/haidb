@@ -1,7 +1,7 @@
 class Member < ActiveRecord::Base
-  belongs_to :angel
-  belongs_to :team
-  belongs_to :membership
+  belongs_to :angel, inverse_of: :members
+  belongs_to :team, inverse_of: :members
+  belongs_to :membership, inverse_of: :members
 
   validates_presence_of :angel, :team, :membership, :full_name, :gender
   validates_inclusion_of :gender, :in => Registration::GENDERS, :message => :select

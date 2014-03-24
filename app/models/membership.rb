@@ -5,6 +5,8 @@ class Membership < ActiveRecord::Base
   csv_fields :full_name, :email, :status, :active_on, :retired_on
 
   belongs_to :angel
+  has_many :members, inverse_of: :membership
+
   store :options, accessors: []
 
   # AWS = only AWS

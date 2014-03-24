@@ -1,0 +1,15 @@
+.row-fluid
+  .span
+    %h2= team.name
+  - unless team.closed?
+    .span
+      = render 'member_signup', team: team
+
+.row-fluid
+  = render team.stats
+
+.content
+  - if team.members.any?
+    = render 'members', members: team.members
+  - else
+    %i.no-team-signed-up No team members signed up yet!

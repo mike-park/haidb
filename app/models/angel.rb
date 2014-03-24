@@ -12,6 +12,7 @@ class Angel < ActiveRecord::Base
 
   has_many :registrations, :inverse_of => :angel, dependent: :nullify
   has_many :memberships, inverse_of: :angel, dependent: :destroy
+  has_many :members, inverse_of: :angel
   has_one :active_membership, class_name: 'Membership', conditions: ["retired_on IS NULL"]
   has_many :events, :through => :registrations
   has_many :users, inverse_of: :angel, dependent: :nullify
@@ -30,7 +31,7 @@ class Angel < ActiveRecord::Base
   scope :located_at, lambda { |lat, lng| where(lat: lat, lng: lng) }
 
   validates_presence_of :last_name, :email
-  validates_inclusion_of :gender, :in => Registration::GENDERS, :message => :select, allow_nil: true
+  validates_inclusion_of :gender, :in => Registration::GENDERS, :message => :select
 
   REGISTRATION_FIELDS = [:first_name, :last_name, :email, :gender,
                          :address, :postal_code, :city, :country, :home_phone, :mobile_phone, :work_phone,

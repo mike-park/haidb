@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :registrations, through: :angel
   has_many :events, :through => :registrations
   has_many :memberships, through: :angel
+  has_many :members, through: :angel
+  has_many :teams, through: :members
 
 
   def self.move_to(angel, ids)
@@ -23,6 +25,14 @@ class User < ActiveRecord::Base
 
   def active_membership?
     angel && angel.active_membership
+  end
+
+  def has_member?(member)
+    member_ids.include?(member.id)
+  end
+
+  def on_team?(team)
+    team_ids.include?(team.id)
   end
 
   private

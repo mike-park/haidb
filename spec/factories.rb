@@ -144,8 +144,8 @@ FactoryGirl.define do
   end
 
   factory :team do
-    name "Team L1"
-    date { Date.tomorrow }
+    sequence(:name) { |n| "Team L#{n}" }
+    sequence(:date) { |n| Date.tomorrow + (n*2).weeks }
   end
 
   factory :member do

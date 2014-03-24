@@ -14,7 +14,7 @@ describe Angel do
       build(:angel, gender: Registration::FEMALE).should be_valid
       build(:angel, gender: 'Other').should_not be_valid
       build(:angel, gender: '').should_not be_valid
-      build(:angel, gender: nil).should be_valid
+      build(:angel, gender: nil).should_not be_valid
     end
 
     context "language of messages" do
@@ -26,6 +26,7 @@ describe Angel do
           invalid_angel = Angel.create
           invalid_angel.errors.messages.should == {
               :last_name => ["can't be blank"],
+              :gender => ["must be selected"],
               :email => ["can't be blank"]
           }
         end
@@ -38,6 +39,7 @@ describe Angel do
           invalid_angel = Angel.create
           invalid_angel.errors.messages.should == {
               :last_name => ["muss ausgefüllt werden"],
+              :gender => ["muss ausgewählt werden"],
               :email => ["muss ausgefüllt werden"]
           }
         end

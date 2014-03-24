@@ -1,0 +1,17 @@
+- stats = TeamStatsDecorator.new(team_stats)
+.span
+  %table.table
+    %thead
+      %tr
+        - stats.headings(stats.fields).each do |heading|
+          %th.qty= heading
+        - stats.headings([:desired]).each do |heading|
+          %th.qty= heading
+    %tbody
+      %tr
+        - stats.counts(stats.fields, :team).each do |count|
+          %td.qty= count
+        - stats.counts([:desired], :team).each do |count|
+          %td.qty= count
+.span.team-delta
+  %span{class: stats.full? ? 'dot-green' : 'dot-red'}= stats.delta_with_symbol

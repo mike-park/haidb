@@ -1,0 +1,8 @@
+.block
+  .content
+    %h2 Editing team signup for #{@member.team.name}
+    %p
+      If you can not longer be on team, then please sign off.
+      = link_to 'Remove myself from team', users_team_member_path(@member.team), method: :delete, id: 'remove-link', class: 'btn btn-primary'
+
+    = render 'form', member: @member

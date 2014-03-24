@@ -1,6 +1,6 @@
 class Team < ActiveRecord::Base
   belongs_to :event
-  has_many :members, dependent: :destroy
+  has_many :members, inverse_of: :team, dependent: :destroy
 
   scope :upcoming, -> { where('date >= ?', Date.current) }
   scope :previous, -> { where('date < ?', Date.current) }

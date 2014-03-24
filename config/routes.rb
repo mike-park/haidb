@@ -92,6 +92,10 @@ Haidb::Application.routes.draw do
     get 'confirmed', to: 'not_signed_in#confirmed'
     resources :dashboards, only: [:index]
     resources :registrations, only: [:index]
+    resources :teams, only: [:index, :show] do
+      resource :member, only: [:create, :destroy, :edit, :update]
+    end
+    resource :angel, only: [:new, :create, :edit, :update, :show]
     resources :rosters, only: [:show]
     root to: 'dashboards#index'
   end
