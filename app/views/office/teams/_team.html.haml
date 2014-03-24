@@ -1,7 +1,7 @@
 %h2=link_to(team.name, [:office, team])
 
 = render team.stats
-
+= render 'notes', team: team
 .content
   - if team.members.any?
     = render 'members', members: team.members

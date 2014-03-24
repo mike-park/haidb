@@ -5,6 +5,7 @@
     = f.input :date, :as => :string, input_html: {class: 'date-pick'}, :format => '%d.%m.%Y'
     = f.input :closed if @team.persisted?
     = f.input :desired_size
+    = f.input :notes, input_html: { rows: 5 }
 
   .form-actions
     = f.button :submit

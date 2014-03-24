@@ -1,0 +1,6 @@
+= simple_form_for([:office, team], html: {class: 'form form-inline'}) do |f|
+  .row-fluid
+    .span
+      = f.input :notes, label: false, input_html: { rows: 5, cols: 60, class: 'wide-textarea' }
+    .span
+      = f.button :submit, 'Save notes'

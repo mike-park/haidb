@@ -3,8 +3,8 @@ module Office::MembershipsHelper
     { :as => :select, :label => 'Angel', :collection => Membership.by_full_name, label_method: :full_name_with_context, value_method: :id }
   end
 
-  def members_for_select
-    [['Quick Add Active Member', '']] + Membership.active.by_full_name.map do |membership|
+  def members_for_select(gender)
+    [["Quick Add #{gender} Member", '']] + Membership.active.with_gender(gender).by_full_name.map do |membership|
       [membership.full_name_with_context, membership.id]
     end
   end

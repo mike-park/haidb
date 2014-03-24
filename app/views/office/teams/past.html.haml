@@ -1,4 +1,4 @@
 .block
   .content
     %h2= pluralize(@teams.size, 'Past Team')
-    = render @teams
+    = render 'teams', teams: @teams

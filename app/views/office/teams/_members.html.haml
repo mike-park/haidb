@@ -4,7 +4,9 @@
       %b Females
 
     = render members.females
+    = render 'quick_add', team: @team, gender: Registration::FEMALE
   .span6
     .row-fluid
       %b Males
     = render members.males
+    = render 'quick_add', team: @team, gender: Registration::MALE
