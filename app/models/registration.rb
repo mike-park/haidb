@@ -85,7 +85,7 @@ class Registration < ActiveRecord::Base
   validates_presence_of :first_name, :last_name, :email
   validates_inclusion_of :gender, :in => GENDERS, :message => :select
 
-  validates_uniqueness_of :angel_id, :scope => :event_id, :message => 'already registered for this event', allow_nil: true
+  validates_uniqueness_of :event_id, scope: :angel_id, :message => :already_registered, if: ->(registration) { registration.angel }
 
   validates_presence_of :event, {
     :message => :select
@@ -110,6 +110,13 @@ class Registration < ActiveRecord::Base
   validates_numericality_of :cost, allow_nil: true
 
   delegate :level, :start_date, :to => :event
+
+  REGISTRATION_FIELDS = [:first_name, :last_name, :email, :gender,
+                         :address, :postal_code, :city, :country, :home_phone, :mobile_phone, :work_phone,
+                         :lang, :payment_method, :bank_account_name, :iban, :bic]
+
+  REGISTRATION_MATCH_FIELDS = REGISTRATION_FIELDS[0, 4].map(&:to_s).freeze
+
 
   def self.move_to(angel, ids)
     where(id: ids).update_all(angel_id: angel.id) if ids.any?
@@ -178,7 +185,19 @@ class Registration < ActiveRecord::Base
     start_date <=> other.start_date
   end
 
+  def find_or_initialize_angel
+    angel = find_matching_angel
+    REGISTRATION_FIELDS.each do |field|
+      angel.send("#{field}=", send(field))
+    end
+    self.angel = angel
+  end
+
   private
+
+  def find_matching_angel
+    Angel.where(attributes.slice(*REGISTRATION_MATCH_FIELDS)).first_or_initialize
+  end
 
   def update_highest_level
     angel.cache_highest_level if angel

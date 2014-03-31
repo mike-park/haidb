@@ -62,7 +62,7 @@ describe PublicSignupsController do
     end
 
     context "a valid signup" do
-      let(:registration) { double('registration') }
+      let(:registration) { double('registration', find_or_initialize_angel: true) }
       let(:public_signup) { double("publicsignup", save: true, registration: registration, send_email: true) }
       before(:each) do
         PublicSignup.stub(:new).and_return(public_signup)
@@ -92,9 +92,27 @@ describe PublicSignupsController do
         post :create
       end
 
-      it "should create a new angel" do
-        Angel.should_receive(:add_to).with(registration)
+      it "should receive a call to find angel" do
+        registration.should_receive(:find_or_initialize_angel)
         post :create
+      end
+    end
+
+    context "duplicate signups" do
+      let(:event) { create(:event) }
+      let(:signup) do
+        {
+            public_signup: attributes_for(:public_signup).merge(
+                registration_attributes: attributes_for(:registration).merge(event_id: event.id))
+        }
+      end
+
+      it "should not add the same angel to the same workshop" do
+        post :create, signup
+        expect(Registration.count).to eql(1)
+        post :create, signup
+        ps = assigns[:public_signup]
+        expect(ps.errors.messages.keys).to include(:"registration.event_id")
       end
     end
 

@@ -69,16 +69,20 @@ describe Registration do
       in_valid_registration.should_not be_valid
     end
 
-    it "should be invalid to register the same angel for the same workshop twice" do
-      angel = FactoryGirl.create(:angel)
-      first_registration = FactoryGirl.create(:registration, angel: angel)
-      second_registration = FactoryGirl.build(:registration,
-                                              :angel => angel,
-                                              :event => first_registration.event)
-      second_registration.should_not be_valid
-      second_registration.errors.messages.should == {
-          :angel_id => ["already registered for this event"]
-      }
+    {en: 'already registered for this event', de: 'bereits für dieses Veranstaltung angemeldet'}.each do |lang, message|
+      it "should be invalid to register the same angel for the same workshop twice. lang #{lang}" do
+        I18n.with_locale(lang) do
+          angel = FactoryGirl.create(:angel)
+          first_registration = FactoryGirl.create(:registration, angel: angel)
+          second_registration = FactoryGirl.build(:registration,
+                                                  :angel => angel,
+                                                  :event => first_registration.event)
+          second_registration.should_not be_valid
+          second_registration.errors.messages.should == {
+              :event_id => [message]
+          }
+        end
+      end
     end
 
     it "should accept pre-existing angel for new registration" do
@@ -298,5 +302,40 @@ describe Registration do
       registration.send_email(EventEmail::SIGNUP)
     end
   end
+
+  context "find_or_initialize" do
+    let(:registration) { FactoryGirl.create(:registration, gender: Registration::MALE) }
+    it "should create a new angel" do
+      Angel.count.should == 0
+      registration.find_or_initialize_angel
+      registration.save!
+      Angel.count.should == 1
+    end
+
+    context "assign existing angel" do
+      let(:angel) { build(:angel, registration.attributes.slice(*Registration::REGISTRATION_MATCH_FIELDS)) }
+      it "should assign existing angel" do
+        angel.save!
+        Angel.count.should == 1
+        registration.find_or_initialize_angel
+        registration.save!
+        Angel.count.should == 1
+        expect(registration.angel_id).to eq(angel.id)
+      end
+
+      Registration::REGISTRATION_MATCH_FIELDS.each do |field|
+        it "should not assign existing angel when #{field} is different" do
+          angel.send("#{field}=", Registration::FEMALE)
+          angel.save!
+          Angel.count.should == 1
+          registration.find_or_initialize_angel
+          registration.save!
+          Angel.count.should == 2
+          expect(registration.angel_id).to_not eq(angel.id)
+        end
+      end
+    end
+  end
+
 
 end

@@ -71,37 +71,6 @@ describe Angel do
     end
   end
 
-  context "add_to" do
-    let(:registration) { FactoryGirl.create(:registration, gender: Registration::MALE) }
-    it "should create a new angel" do
-      Angel.count.should == 0
-      Angel.add_to(registration)
-      Angel.count.should == 1
-    end
-
-    context "assign existing angel" do
-      let(:angel) { build(:angel, registration.attributes.slice(*Angel::REGISTRATION_MATCH_FIELDS)) }
-      it "should assign existing angel" do
-        angel.save!
-        Angel.count.should == 1
-        Angel.add_to(registration)
-        Angel.count.should == 1
-        expect(registration.angel_id).to eq(angel.id)
-      end
-
-      Angel::REGISTRATION_MATCH_FIELDS.each do |field|
-        it "should not assign existing angel when #{field} is different" do
-          angel.send("#{field}=", Registration::FEMALE)
-          angel.save!
-          Angel.count.should == 1
-          Angel.add_to(registration)
-          Angel.count.should == 2
-          expect(registration.angel_id).to_not eq(angel.id)
-        end
-      end
-    end
-  end
-
   context "scopes" do
     it "should order by_last_name" do
       z = FactoryGirl.create(:angel, :last_name => 'Zoo')
@@ -206,7 +175,7 @@ describe Angel do
 
 
   context "merge_and_delete_duplicates" do
-    let(:person) { build(:angel, gender: Registration::MALE).attributes.slice(*Angel::REGISTRATION_MATCH_FIELDS) }
+    let(:person) { build(:angel, gender: Registration::MALE).attributes.slice(*Registration::REGISTRATION_MATCH_FIELDS) }
     before do
       @angels = create_pair(:angel, person)
       create_list(:angel, 2)
@@ -218,7 +187,7 @@ describe Angel do
       expect { Angel.merge_and_delete_duplicates }.to change(Angel, :count).by(-1)
     end
 
-    Angel::REGISTRATION_MATCH_FIELDS.each do |field|
+    Registration::REGISTRATION_MATCH_FIELDS.each do |field|
       it "should not merge when #{field} is different" do
         @angels[0].update_attribute(field, Registration::FEMALE)
         expect { Angel.merge_and_delete_duplicates }.to change(Angel, :count).by(0)

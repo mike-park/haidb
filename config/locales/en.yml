@@ -73,3 +73,4 @@ en:
     errors:
       messages:
         select: "must be selected"
+        already_registered: 'already registered for this event'

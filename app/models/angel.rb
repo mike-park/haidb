@@ -33,12 +33,6 @@ class Angel < ActiveRecord::Base
   validates_presence_of :last_name, :email
   validates_inclusion_of :gender, :in => Registration::GENDERS, :message => :select
 
-  REGISTRATION_FIELDS = [:first_name, :last_name, :email, :gender,
-                         :address, :postal_code, :city, :country, :home_phone, :mobile_phone, :work_phone,
-                         :lang, :payment_method, :bank_account_name, :iban, :bic].map(&:to_s).freeze
-
-  REGISTRATION_MATCH_FIELDS = REGISTRATION_FIELDS[0, 4]
-
   def full_name
     [first_name, last_name].compact.join(" ")
   end
@@ -69,15 +63,6 @@ class Angel < ActiveRecord::Base
 
   def <=>(other)
     full_name_with_context.downcase <=> other.full_name_with_context.downcase
-  end
-
-  def self.add_to(registration)
-    angel = Angel.where(registration.attributes.slice(*REGISTRATION_MATCH_FIELDS)).first_or_initialize
-    Angel.transaction do
-      angel.update_attributes!(registration.attributes.slice(*REGISTRATION_FIELDS))
-      registration.update_attribute(:angel_id, angel.id)
-    end
-    angel
   end
 
   private

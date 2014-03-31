@@ -7,8 +7,8 @@ class PublicSignupsController < ApplicationController
 
   def create
     @public_signup = PublicSignup.new(params[:public_signup])
+    @public_signup.registration.find_or_initialize_angel if @public_signup.registration
     if @public_signup.save
-      assign_angel
       send_email
       redirect_to thankyou_url
     else
@@ -28,10 +28,6 @@ class PublicSignupsController < ApplicationController
 
   def send_email
     @public_signup.send_email(EventEmail::SIGNUP)
-  end
-
-  def assign_angel
-    Angel.add_to(@public_signup.registration)
   end
 
   def build_public_signup

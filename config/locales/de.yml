@@ -263,6 +263,7 @@ de:
     format: "%{attribute} %{message}"
 
     messages: &errors_messages
+      already_registered: 'bereits für dieses Veranstaltung angemeldet'
       select: "muss ausgewählt werden"
       inclusion: "ist kein gültiger Wert"
       exclusion: "ist nicht verfügbar"
