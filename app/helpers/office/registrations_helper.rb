@@ -25,7 +25,7 @@ module Office::RegistrationsHelper
   # HACK ALERT! this assumes simple_form
   def options_for_signup_events_select(form)
     { :as => :select, :prompt => I18n.t(:'enums.select'),
-      :collection => form.object.new_record? ? Event.upcoming : Event.with_oldest_last,
+      :collection => Event.with_oldest_last,
       label_method: :display_name, value_method: :id
     }
   end

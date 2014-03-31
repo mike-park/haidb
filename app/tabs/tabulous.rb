@@ -15,7 +15,7 @@ Tabulous.setup do
       link_path { office_angels_path }
       visible_when { true }
       enabled_when { true }
-      active_when { %w{angels similar_angels}.each {|n| in_action('any').of_controller("office/#{n}")} }
+      active_when { %w{angels similar_angels angel_registrations}.each {|n| in_action('any').of_controller("office/#{n}")} }
     end
 
     office_teams_tab do

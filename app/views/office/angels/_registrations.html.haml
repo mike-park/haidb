@@ -21,4 +21,4 @@
         %td= local_currency r.owed
         %td.center= color_dot(r.approved)
         %td.center= color_dot(r.completed)
-        %td.link= link_to_destroy office_angel_registration_path(r.angel, r)
+        %td.link= link_to_destroy [:office, r.angel, r]

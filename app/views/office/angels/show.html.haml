@@ -21,7 +21,7 @@
 
   .content
     = controls do |c|
-      - add_button_to(c, 'Add registration', :angel_id => angel, :controller => :registrations)
+      - add_button_to(c, 'Add registration', :angel_id => angel, :controller => :angel_registrations)
 
     - if registrations.size > 0
       %h3 Registered for #{pluralize(registrations.size, 'event')}
