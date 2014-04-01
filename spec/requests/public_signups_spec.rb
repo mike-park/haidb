@@ -98,7 +98,7 @@ describe "POST /public_signups" do
     fill_in "First name", with: "John"
     fill_in "Last name", with: 'Smith'
     choose('Male')
-    save_and_open_page
+    #save_and_open_page
     choose('Money transfer')
     fill_in "Email", with: "jsmith@example.com"
     check "public_signup_terms_and_conditions"
