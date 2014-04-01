@@ -85,8 +85,9 @@ def should_have_n_records(n)
 end
 
 describe "POST /public_signups" do
-  let(:future_event) {FactoryGirl.create(:future_event)}
+  let(:future_event) { FactoryGirl.create(:future_event) }
   before(:each) do
+    Site.stub(:name).and_return('de')
     future_event
   end
 
@@ -97,43 +98,17 @@ describe "POST /public_signups" do
     fill_in "First name", with: "John"
     fill_in "Last name", with: 'Smith'
     choose('Male')
+    save_and_open_page
     choose('Money transfer')
     fill_in "Email", with: "jsmith@example.com"
     check "public_signup_terms_and_conditions"
 
     click_button "Sign me up!"
-    #save_and_open_page
     should_have_n_records(1)
     angel = Angel.first
     angel.lang.should == 'en'
     angel.first_name.should == 'John'
     angel.last_name.should == 'Smith'
-  end
-
-  context "de site" do
-    before(:each) { Site.stub(:name).and_return('de') }
-
-    it "should save an English signup" do
-      create_en_public_signup
-    end
-
-    it "should save a German signup" do
-      visit "/de"
-      # noinspection RubyArgCount
-      select(future_event.display_name, from: "Event")
-      fill_in "Vorname", with: "John"
-      fill_in "Name", with: 'Smith'
-      choose('männlich')
-      choose('Direkt')
-      fill_in "Emailadresse", with: "jsmith@example.com"
-      check "public_signup_terms_and_conditions"
-
-      click_button "Melden Sie mich an!"
-      Event.all.count.should == 1
-      Registration.all.count.should == 1
-      Angel.all.count.should == 1
-      Angel.first.lang.should == 'de'
-    end
   end
 
   def waitlist_signup
@@ -157,7 +132,28 @@ describe "POST /public_signups" do
     PublicSignup.waitlisted.count.should == 0
     PublicSignup.approved.count.should == 1
     PublicSignup.pending.count.should == 0
+  end
 
+  it "should save an English signup" do
+    create_en_public_signup
+  end
+
+  it "should save a German signup" do
+    visit "/de"
+    # noinspection RubyArgCount
+    select(future_event.display_name, from: "Event")
+    fill_in "Vorname", with: "John"
+    fill_in "Name", with: 'Smith'
+    choose('männlich')
+    choose('Direkt')
+    fill_in "Emailadresse", with: "jsmith@example.com"
+    check "public_signup_terms_and_conditions"
+
+    click_button "Melden Sie mich an!"
+    Event.all.count.should == 1
+    Registration.all.count.should == 1
+    Angel.all.count.should == 1
+    Angel.first.lang.should == 'de'
   end
 
   context "public_signup workflow" do

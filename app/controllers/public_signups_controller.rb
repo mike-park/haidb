@@ -1,8 +1,10 @@
 class PublicSignupsController < ApplicationController
+  layout :layout
+
+  before_filter :adjust_view_path
   before_filter :build_public_signup, only: [:new]
 
   def new
-    render_site_with_template('new')
   end
 
   def create
@@ -16,15 +18,22 @@ class PublicSignupsController < ApplicationController
       unless @public_signup.terms_and_conditions == '1'
         @public_signup.terms_and_conditions = nil
       end
-      render_site_with_template('new')
+      render :new
     end
   end
 
   def show
-    render_site_with_template('thankyou')
   end
 
   private
+
+  def layout
+    "#{Site.name}_site"
+  end
+
+  def adjust_view_path
+    prepend_view_path "app/views/#{Site.name}"
+  end
 
   def send_email
     @public_signup.send_email(EventEmail::SIGNUP)
@@ -35,18 +44,8 @@ class PublicSignupsController < ApplicationController
   end
 
   def thankyou_url
-    SiteDefault.get('public_signup.form.success_url') || public_signup_url(0, template_version: template_version)
+    SiteDefault.get('public_signup.form.success_url') || public_signup_url(0)
   end
-
-  def render_site_with_template(name)
-    @basedir = "public_signups/#{Site.name}"
-    render "#{@basedir}/#{name}", :layout => "#{Site.name}#{template_version}_site"
-  end
-
-  def template_version
-    @version ||= params[:template_version].to_s.match(/\d+/).to_s
-  end
-  helper_method :template_version
 
   def registration
     Registration.new(payment_method: payment_method, lang: lang, event: event)

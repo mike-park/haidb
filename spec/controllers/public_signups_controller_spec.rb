@@ -12,8 +12,7 @@ describe PublicSignupsController do
         # no top level new template, only in subdirectory. 
         [lambda { get :new }, lambda { post :create }].each do |action|
           action.call
-          assigns[:basedir].should == basedir
-          response.should render_template("#{basedir}/new", "layouts/#{name}_site")
+          response.should render_template(layout: "#{name}_site")
         end
       end
     end
@@ -83,8 +82,8 @@ describe PublicSignupsController do
       end
 
       it "should redirect to local url if no specific url exists" do
-        post :create, template_version: '99'
-        response.should redirect_to(public_signup_url(0, template_version: '99'))
+        post :create
+        response.should redirect_to(public_signup_url(0))
       end
 
       it "should send notification email" do

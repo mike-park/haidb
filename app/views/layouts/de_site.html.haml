@@ -8,75 +8,34 @@
     %meta{:content => "Begegnungen in Liebe und Toleranz", :name => "description"}
     %meta{:content => "Liebe, Nähe, Sexualität, Workshops, Veranstaltungen, HAI, Human Awareness Institute, Hand on Heart , Verein, Partnerschaft, Paare, Singles, Selbsterfahrung, Bewußtheit, Therapie, Intimität, Netzwerk, gemeinnützig, Information, Berührung, Stan Dale, Tantra, Selbsterfahrungsworkshops, Paarworkshops, Singleworkshops, Kommunikation, Kommunikationstraining, Life Coaching, sexuelle Probleme, Beziehungsprobleme, Beziehungen, Einsamkeit, Toleranz, Lust, Frauen, Männer, Homosexualität, Bisexualität, Polyamorie, Polyamory, Sinnlichkeit, Wissen, Forschung, Achtsamkeit, Begegnungen, Beratung, Körperkontakt, Herz, Wegweiser, international, Erotik, Leidenschaft, Kontakt, Körper, Körperarbeit, Gefühle", :name => "keywords"}
     %link{:href => "/favicon-de.ico", :rel => "shortcut icon"}
+    %link{:href => '//fonts.googleapis.com/css?family=Open+Sans', rel: 'stylesheet', type: 'text/css'}
     :javascript
       window["_GOOG_TRANS_EXT_VER"] = "1"
     = stylesheet_link_tag 'public_signup/de/main'
     %script{src:"//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
     = javascript_include_tag "public_signup"
     = csrf_meta_tag
+    :css
+      body, #haidbcontainer {
+        font-family: 'Open Sans',Arial, Tahoma, Verdana, FreeSans, sans-serif;
+        font-size: 12px;
+        line-height: 1.7;
+        color: #333;
+      }
+      .public_signup #lang {
+        font-family: 'Open Sans',Arial, Tahoma, Verdana, FreeSans, sans-serif;
+      }
+      #haidbcontainer label {
+        font-weight: normal;
+      }
   %body
-    %div{:style => "position: fixed; left:20px; top:27px;z-index:2"}
-      %img{:alt => "blume", :src => "/images/de/blume.png"}
-    #header
-      #titel www.liebstduschon.de
-    #navmenu
-      %br
-      %table#tablemenu
-        %tbody
-          %tr
-            %td.tdmenu{:colspan => "2"}
-              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=1x0"} Home
-          %tr
-            %td.tdmenu{:colspan => "2"}
-              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=2x0"} HAI&gt;&gt;
-          %tr
-            %td.tdmenu{:colspan => "2"}
-              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=3x0"} Wissen&gt;&gt;
-          %tr
-            %td.tdmenu{:colspan => "2"}
-              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=4x0"} Beratung&gt;&gt;
-          %tr
-            %td.tdmenu{:colspan => "2"}
-              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=5x0"} Die lieben Sinne&gt;&gt;
-          %tr
-            %td.tdmenu{:colspan => "2"}
-              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=6x0"}
-                Kontakt
-          %tr
-            %td.tdmenu{:colspan => "2"}
-              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=7x0"} Impressum
-          %tr
-            %td.tdmenu{:colspan => "2"}
-              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=8x0"} Disclaimer
-          %tr
-            %td.tdmenu{:colspan => "2"}
-              %a.amenu{:href => "http://www.liebstduschon.de/lds/index.php?id=9x0"}
-                %img{:alt => "liebay", :border => "0", :src => "/images/de/liebay.png"}/
-          %tr
-            %td.tdopen{:colspan => "2"}
-              %a.amenuactiv{:href => "https://haidb.heroku.com/de/public_signups/new"} Anmeldung / Signup
-          %tr
-            %td.bull •
-            %td.tdsub
-              %a.amenusub{:href => "https://haidb.heroku.com/en/public_signups/new"} English
-          %tr
-            %td.tdmenu{:colspan => "2"}
-      %br/
-      %center
-        %form{:action => "http://www.liebstduschon.de/lds/index.php?id=search", :method => "POST", :name => "gs"}
-          %input{:name => "suchtext", :size => "17", :type => "text", :value => ""}/
-          %input.search{:name => "senden", :style => "position:relative;top:5px;", :type => "submit", :value => "Stichwortsuche"}/
-    #main
-      #haidbcontainer
-        #flash{ :'padding-left' => '60px' }
-          - flash.each do |key, value|
-            %div{ :class => "flash #{key}" }
-              = value
-              
-        #haidbcontent
-          = yield
-        .clear
+    #haidbcontainer
+      #flash{ :'padding-left' => '60px' }
+        - flash.each do |key, value|
+          %div{ :class => "flash #{key}" }
+            = value
 
-        = debug(params) if Rails.env.development?
-
+      #haidbcontent
+        = yield
+      .clear
   = yield :javascript

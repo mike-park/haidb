@@ -1,8 +1,9 @@
 = semantic_form_for @public_signup do |f|
-  = hidden_field_tag(:template_version, template_version)
   -if @public_signup.errors.any?
     #error_explanation
       %h2= t('enums.error')
+  - else
+    = render 'switch_language'
 
   %p.title
     = _('public_signup.form.title')
@@ -10,7 +11,7 @@
   .instructions= _('public_signup.form.introduction')
 
   = f.semantic_fields_for :registration do |r|
-    = render 'public_signups/uk/registration_form', :r => r
+    = render 'registration_form', :r => r
 
   = f.inputs do
     - if _('public_signup.form.conditions').present?
@@ -20,4 +21,3 @@
       = f.input :terms_and_conditions, as: :hidden, value: 1
 
   = f.actions
-
