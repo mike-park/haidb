@@ -15,27 +15,11 @@
     %script{src:"//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
     = javascript_include_tag "public_signup"
     = csrf_meta_tag
-    :css
-      body, #haidbcontainer {
-        font-family: 'Open Sans',Arial, Tahoma, Verdana, FreeSans, sans-serif;
-        font-size: 12px;
-        line-height: 1.7;
-        color: #333;
-      }
-      .public_signup #lang {
-        font-family: 'Open Sans',Arial, Tahoma, Verdana, FreeSans, sans-serif;
-      }
-      #haidbcontainer label {
-        font-weight: normal;
-      }
   %body
-    #haidbcontainer
-      #flash{ :'padding-left' => '60px' }
-        - flash.each do |key, value|
-          %div{ :class => "flash #{key}" }
-            = value
-
-      #haidbcontent
-        = yield
-      .clear
+    #flash{ :'padding-left' => '60px' }
+      - flash.each do |key, value|
+        %div{ :class => "flash #{key}" }
+          = value
+    = yield
+    .clear
   = yield :javascript

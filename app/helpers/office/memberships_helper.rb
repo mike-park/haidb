@@ -10,7 +10,7 @@ module Office::MembershipsHelper
   end
 
   def options_for_membership_status(form)
-    { :as => :radio, :collection => Membership::STATUSES }
+    { :as => :radio_buttons, :collection => Membership::STATUSES }
   end
 
   def registration_counts_by_milestones(registrations, milestones)

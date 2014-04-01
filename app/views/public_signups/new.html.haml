@@ -1,4 +1,4 @@
-= semantic_form_for @public_signup do |f|
+= simple_form_for(@public_signup, html: {class: 'form-horizontal'}) do |f|
   -if @public_signup.errors.any?
     #error_explanation
       %h2= t('enums.error')
@@ -10,14 +10,14 @@
 
   .instructions= _('public_signup.form.introduction')
 
-  = f.semantic_fields_for :registration do |r|
+  = f.simple_fields_for :registration do |r|
     = render 'registration_form', :r => r
 
-  = f.inputs do
-    - if _('public_signup.form.conditions').present?
-      .instructions= _('public_signup.form.conditions')
-      = f.input :terms_and_conditions, options_for_terms_and_conditions(f)
-    - else
-      = f.input :terms_and_conditions, as: :hidden, value: 1
+  - if _('public_signup.form.conditions').present?
+    .instructions= _('public_signup.form.conditions')
+    = f.input :terms_and_conditions, options_for_terms_and_conditions(f)
+  - else
+    = f.input :terms_and_conditions, as: :hidden, value: 1
 
-  = f.actions
+  .form-actions
+    = f.button :submit

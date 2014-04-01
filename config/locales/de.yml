@@ -42,34 +42,32 @@ de:
         team: 'Team'
         facilitator: 'Leiter'
         password: 'ichbinliebe'
-  formtastic:
+  simple_form:
     labels:
-      event: "Event"
-      first_name: "Vorname"
-      last_name: "Name"
-      email: "Emailadresse"
-      gender: "Geschlecht"
-      address: "Adresse"
-      postal_code: "PLZ"
-      city: "Ort"
-      country: "Land"
-      home_phone: "Haustelefon"
-      mobile_phone: "Handy"
-      work_phone: "Arbeitstelefon"
-      payment_method: "Zahlungsart"
-      bank_account_name: "Name des Konto-Inhabers"
-      bank_name: "Bank"
-      iban: "IBAN"
-      bic: "BIC (SWIFT-Code)"
-      special_diet: "Essenswünche"
-      backjack_rental: "Miet-Backjack"
-      lift: "Mitfahrgelegenheit"
-      sunday_choice: "Sonntag Abendessen"
-      notes: "Anmerkungen"
-      terms_and_conditions: "Hiermit melde ich mich verbindlich an, genehmige den Lastschrifteinzug, b.z.w.überweise direkt aus dem Ausland und akzeptiere die Teilnahmevereinbarung."
-    actions:
-      public_signup:
-        create: "Melden Sie mich an!"
+      defaults:
+        event: "Event"
+        first_name: "Vorname"
+        last_name: "Name"
+        email: "Emailadresse"
+        gender: "Geschlecht"
+        address: "Adresse"
+        postal_code: "PLZ"
+        city: "Ort"
+        country: "Land"
+        home_phone: "Haustelefon"
+        mobile_phone: "Handy"
+        work_phone: "Arbeitstelefon"
+        payment_method: "Zahlungsart"
+        bank_account_name: "Name des Konto-Inhabers"
+        bank_name: "Bank"
+        iban: "IBAN"
+        bic: "BIC (SWIFT-Code)"
+        special_diet: "Essenswünche"
+        backjack_rental: "Miet-Backjack"
+        lift: "Mitfahrgelegenheit"
+        sunday_choice: "Sonntag Abendessen"
+        notes: "Anmerkungen"
+        terms_and_conditions: "Hiermit melde ich mich verbindlich an, genehmige den Lastschrifteinzug, b.z.w.überweise direkt aus dem Ausland und akzeptiere die Teilnahmevereinbarung."
 
   date:
     formats:
@@ -250,14 +248,17 @@ de:
           one:    "Konnte %{model} nicht speichern: ein Fehler."
           other:  "Konnte %{model} nicht speichern: %{count} Fehler."
         body: "Bitte überprüfen Sie die folgenden Felder:"
-  helpers:
-    select:
-      prompt: "Bitte wählen"
 
+  helpers:
     submit:
       create: '%{model} erstellen'
       update: '%{model} aktualisieren'
       submit: '%{model} speichern'
+    select:
+      prompt: "Bitte wählen"
+    submit:
+      public_signup:
+        create: "Melden Sie mich an!"
 
   errors:
     format: "%{attribute} %{message}"

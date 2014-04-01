@@ -3,19 +3,17 @@ module Office::RegistrationsHelper
   def options_for_gender(form)
     choices = [[I18n.t(:'enums.registration.gender.female'), Registration::FEMALE],
                [I18n.t(:'enums.registration.gender.male'), Registration::MALE]]
-    { :as => :radio, :label => 'Gender', :required => true,
+    { :as => :radio_buttons, :label => 'Gender', :required => true,
       :collection => choices}
   end
 
   def options_for_lang(form)
     choices = [%w(Deutsch de), %w(English en)]
-    { :as => :radio, :label => 'Language', :collection => choices}
+    { :as => :radio_buttons, :label => 'Language', :collection => choices}
   end
 
   def options_for_terms_and_conditions(form)
-    { :as => :boolean,
-      :wrapper_html => {:style => 'padding-left: 0;'}
-    }
+    { :as => :boolean }
   end
   
   def options_for_note(form)
@@ -30,17 +28,17 @@ module Office::RegistrationsHelper
     }
   end
 
-  # HACK ALERT! this assumes formtastic.
   def options_for_public_signup_events_select(form)
     { :as => :select, :prompt => I18n.t(:'enums.select'),
-      :collection => Event.upcoming
+      :collection => Event.upcoming,
+      label_method: :display_name, value_method: :id
     }
   end
 
   def options_for_special_diet(form)
     choices = [[I18n.t('enums.registration.special_diet.none'), false],
                [I18n.t('enums.registration.special_diet.vegie'), true]]
-    { :as => :radio, :collection => choices }
+    { :as => :radio_buttons, :collection => choices }
   end
 
   def options_for_payment_method(form, options = {})
@@ -52,7 +50,7 @@ module Office::RegistrationsHelper
     else
       choices = Registration::PAYMENT_METHODS
     end
-    { :as => :radio, :collection => choices }
+    { :as => :radio_buttons, :collection => choices }
   end
 
   def options_for_role(form)
@@ -60,7 +58,7 @@ module Office::RegistrationsHelper
   end
 
   def options_for_status(form)
-    { :as => :radio, :collection => Registration::STATUSES }
+    { :as => :radio_buttons, :collection => Registration::STATUSES }
   end
 
   def options_for_backjack_rental(form, options = {})
@@ -71,7 +69,7 @@ module Office::RegistrationsHelper
     else
       choices = [['No', false], ['Yes', true]]
     end
-    { :as => :radio, :collection => choices }
+    { :as => :radio_buttons, :collection => choices }
   end
 
   def options_for_lift(form)
@@ -80,7 +78,7 @@ module Office::RegistrationsHelper
                 Registration::OFFERED],
                [I18n.t(:'enums.registration.lift.requested'),
                 Registration::REQUESTED]]
-    { :as => :radio, :collection => choices}
+    { :as => :radio_buttons, :collection => choices}
   end
 
   def options_for_sunday_choice(form, options = {})
@@ -97,7 +95,7 @@ module Office::RegistrationsHelper
                  ['Yes', Registration::MEAL],
                  ['incl Stayover', Registration::STAYOVER]]
     end
-    { :as => :radio, :collection => choices }
+    { :as => :radio_buttons, :collection => choices }
   end
 
   # return a delimited list of requests in string form

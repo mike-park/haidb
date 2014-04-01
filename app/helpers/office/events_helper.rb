@@ -1,7 +1,7 @@
 module Office::EventsHelper
 
   def options_for_event_categories(form)
-    { :as => :radio, :collection => Event::CATEGORIES }
+    { :as => :radio_buttons, :collection => Event::CATEGORIES }
   end
 
   def input_for_event_email(form, category)

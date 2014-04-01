@@ -7,7 +7,7 @@ module Office::AngelsHelper
                else
                  %w(GB)
                end
-    { :priority_countries => defaults }
+    { as: :country, :priority => defaults }
   end
 
   # TODO fix

@@ -39,14 +39,17 @@ en:
         team: 'Team'
         facilitator: 'Facilitators'
         password: 'iamlove'
-  formtastic:
+  simple_form:
     labels:
-      lift: "Lift to event site"
-      sunday_choice: "Sunday Supper"
-      terms_and_conditions: "I Accept the Payment and Participation Conditions."
-      iban: "IBAN"
-      bic: "BIC (SWIFT-Code)"
-    actions:
+      defaults:
+        lift: "Lift to event site"
+        sunday_choice: "Sunday Supper"
+        terms_and_conditions: "I Accept the Payment and Participation Conditions."
+        iban: "IBAN"
+        bic: "BIC (SWIFT-Code)"
+
+  helpers:
+    submit:
       public_signup:
         create: "Sign me up!"
 
@@ -54,12 +57,6 @@ en:
   meta:
     language_name: 'English'
   ago: 'ago'
-  layouts:
-    header:
-      patients: "Patients"
-      invoices: "Invoices"
-      payments: "Payments"
-      therapies: "Therapies"
   number:
     format:
       precision: 2

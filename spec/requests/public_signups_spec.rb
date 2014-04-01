@@ -10,29 +10,29 @@ describe "GET /public_signups/new" do
   def visit_de_in_english
     page.should have_selector('label', :text => "First name")
     page.should have_selector('.title', :text => "public_signup.form.title")
-    page.should have_selector('#public_signup_registration_attributes_payment_method_input')
+    page.should have_selector('#public_signup_registration_attributes_payment_method_debt')
     page.should have_link('Deutsch hier an')
-    page.should have_selector('#public_signup_registration_attributes_backjack_rental_input')
+    page.should have_selector('#public_signup_registration_attributes_backjack_rental_false')
     page.should have_selector('option', text: 'Germany')
   end
 
   def visit_de_in_german
     page.should have_selector('label', :text => "Vorname")
     page.should have_selector('.title', :text => "public_signup.form.title")
-    page.should have_selector('#public_signup_registration_attributes_payment_method_input')
+    page.should have_selector('#public_signup_registration_attributes_payment_method_debt')
     page.should have_link('register in English')
     page.should have_selector('label', :text => 'Zahlungsart')
-    page.should have_selector('#public_signup_registration_attributes_backjack_rental_input')
+    page.should have_selector('#public_signup_registration_attributes_backjack_rental_false')
     page.should have_selector('option', text: 'Deutschland')
   end
 
   def visit_uk_in_english
     page.should have_selector('label', :text => "First name")
     page.should have_selector('.title', :text => "public_signup.form.title")
-    page.should have_no_selector('#public_signup_registration_attributes_payment_method_input')
+    page.should have_no_selector('#public_signup_registration_attributes_payment_method_debt')
     page.should have_no_link('Deutsch hier an')
     page.should have_no_content("To pay for the workshop")
-    page.should have_no_selector('#public_signup_registration_attributes_backjack_rental_input')
+    page.should have_no_selector('#public_signup_registration_attributes_backjack_rental_false')
     page.should have_selector('option', text: 'United Kingdom')
   end
 

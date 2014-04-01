@@ -11,16 +11,6 @@ GIT
     gettext_i18n_rails (0.4.5)
       fast_gettext
 
-GIT
-  remote: git://github.com/nurey/formtastic_datepicker_inputs.git
-  revision: 8565cf96369300e39481dfdfceb11a8d99bfcd3f
-  specs:
-    formtastic_datepicker_inputs (1.0.0)
-      actionpack (>= 3.1.1)
-      activesupport (>= 3.1.1)
-      formtastic (>= 2.0.0)
-      i18n (>= 0.4.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -121,8 +111,6 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
-    formtastic (2.1.1)
-      actionpack (~> 3.0)
     gmaps4rails (1.4.8)
       json
     gravatar-ultimate (1.0.3)
@@ -288,8 +276,6 @@ DEPENDENCIES
   faker
   fast_gettext!
   figaro (~> 0.7.0)
-  formtastic
-  formtastic_datepicker_inputs!
   gettext_i18n_rails!
   gmaps4rails
   gravatar-ultimate
