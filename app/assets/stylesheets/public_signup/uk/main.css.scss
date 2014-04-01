@@ -1,0 +1,45 @@
+$baseFontSize: 11px;
+$baseFontFamily: verdana, arial, sans-serif;
+$baseLineHeight: 14px;
+$grayDark: #70695A;
+
+@import 'bootstrap';
+@import 'bootstrap-responsive';
+@import "style";
+@import "colour";
+
+.instructions {
+  border: 1px solid red;
+  padding: 4px;
+  background-color: #fc9;
+  margin: 5px 0;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: bold;
+  color: #c33021;
+  padding-bottom: 10px;
+}
+
+li.error {
+  background-color: #FFE6CC;
+}
+
+#error_explanation h2 {
+  color: red;
+}
+
+#haidbcontainer {
+  font-family: Georgia, serif;
+  font-size: 12px;
+  line-height: 16px;
+
+  label {
+    font-weight: bold;
+  }
+}
+
+h1 {
+  line-height: normal;
+}

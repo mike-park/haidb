@@ -78,7 +78,7 @@ h1, #column2 h1
   color: #CE7014;
 } 
 
-input, textarea
+input, textarea, select
 { background: #FFFFFF;
   color: #70695A;
   border-color: #CAAE90;
