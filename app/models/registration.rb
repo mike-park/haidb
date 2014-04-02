@@ -9,7 +9,7 @@ class Registration < ActiveRecord::Base
              :home_phone, :mobile_phone, :work_phone,
              :payment_method, :bank_account_name, :iban, :bic, :registration_code,
              :cost, :paid, :owed,
-             :approved, :completed,
+             :status, :completed,
              :notes
 
   store :options, accessors: []
@@ -19,6 +19,8 @@ class Registration < ActiveRecord::Base
   before_save :update_payment_summary
   after_destroy :delete_public_signup, :update_highest_level
   after_save :update_highest_level
+
+  STATUSES = [PENDING = 'pending', WAITLISTED = 'waitlisted', APPROVED = 'approved']
 
   # role types
   PARTICIPANT = 'Participant'
@@ -51,8 +53,12 @@ class Registration < ActiveRecord::Base
   belongs_to :event, :inverse_of => :registrations
   belongs_to :public_signup, :inverse_of => :registration
 
-  scope :ok, where(:approved => true)
-  scope :pending, where(:approved => false)
+  scope :where_status, ->(status) { where(status: status) }
+  scope :approved, -> { where_status(APPROVED) }
+  scope :pending, -> { where_status(PENDING) }
+  scope :waitlisted, -> { where_status(WAITLISTED) }
+
+  scope :ok, -> { approved }
 
   scope :team, ok.where(:role => TEAM)
   scope :participants, ok.where(:role => PARTICIPANT)
@@ -84,6 +90,7 @@ class Registration < ActiveRecord::Base
 
   validates_presence_of :first_name, :last_name, :email
   validates_inclusion_of :gender, :in => GENDERS, :message => :select
+  validates_inclusion_of :status, :in => STATUSES, :message => :select
 
   validates_uniqueness_of :event_id, scope: :angel_id, :message => :already_registered, if: ->(registration) { registration.angel }
 
@@ -117,6 +124,11 @@ class Registration < ActiveRecord::Base
 
   REGISTRATION_MATCH_FIELDS = REGISTRATION_FIELDS[0, 4].map(&:to_s).freeze
 
+  STATUSES.each do |state|
+    define_method("#{state}?") do
+      !!(status == state)
+    end
+  end
 
   def self.move_to(angel, ids)
     where(id: ids).update_all(angel_id: angel.id) if ids.any?
@@ -155,10 +167,6 @@ class Registration < ActiveRecord::Base
     end
   end
 
-  def pending?
-    !approved?
-  end
-
   def update_payment_summary
     paid = payments.sum(:amount)
     self.paid = paid == 0 ? nil : paid
@@ -172,7 +180,11 @@ class Registration < ActiveRecord::Base
   end
 
   def approve
-    self.approved = true
+    self.status = APPROVED
+  end
+
+  def waitlist
+    self.status = WAITLISTED
   end
 
   def assign_defaults

@@ -26,13 +26,13 @@ describe "registrations" do
     end
 
     it "should have a roster link" do
-      registration.update_attributes(approved: true, completed: true)
+      registration.update_attributes(completed: true)
       visit users_registrations_path
       page.should have_selector('a', text: registration.event_name)
     end
 
     it "should not have a roster link" do
-      registration.update_attributes(approved: true, completed: false)
+      registration.update_attributes(completed: false)
       visit users_registrations_path
       page.should_not have_selector('a', text: registration.event_name)
     end

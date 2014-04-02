@@ -11,8 +11,8 @@ describe Csvable do
                                notes: "A long\nmessage\nhere") }
   let(:csv) do
     <<EOF
-"Role","Full name","Email","Gender","Address","Postal code","City","Country","Home phone","Mobile phone","Work phone","Payment method","Bank account name","Iban","Bic","Registration code","Cost","Paid","Owed","Approved","Completed","Notes"
-"Participant","Mike Park","name@example.com","","Street Address","plz","Berlin","DE","123","456","789","Cash","M Park","iban","bic","abc","100.0","20.0","80.0","false","false","A long\nmessage\nhere"
+"Role","Full name","Email","Gender","Address","Postal code","City","Country","Home phone","Mobile phone","Work phone","Payment method","Bank account name","Iban","Bic","Registration code","Cost","Paid","Owed","Status","Completed","Notes"
+"Participant","Mike Park","name@example.com","","Street Address","plz","Berlin","DE","123","456","789","Cash","M Park","iban","bic","abc","100.0","20.0","80.0","pending","false","A long\nmessage\nhere"
 EOF
   end
 

@@ -114,9 +114,9 @@ FactoryGirl.define do
       iban 'GR16 0110 1250 0000 0001 2300 695'
       bic 'DEUTDEFF'
       notes "some long\nmessage\nthat is multiline\n"
+      status Registration::APPROVED
       completed true
       checked_in true
-      approved true
       how_hear 'friend'
       previous_event 'weekend workshop'
     end

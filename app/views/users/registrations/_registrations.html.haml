@@ -6,7 +6,7 @@
       %th Title
       %th Level
       %th Role
-      %th.center Approved
+      %th.center Status
       %th.center Completed
   %tbody
     - registrations.each do |r|
@@ -15,5 +15,5 @@
         %td= r.completed? ? link_to(r.event_name, users_roster_path(id: r.event)) : r.event_name
         %td= r.level
         %td= r.role
-        %td.center= color_dot(r.approved)
+        %td.center= r.status
         %td.center= color_dot(r.completed)

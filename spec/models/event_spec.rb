@@ -197,9 +197,9 @@ describe Event do
     let(:event) { build(:event) }
 
     before do
-      create(:registration, event: event)
-      create(:registration, event: event, approved: true)
-      create(:registration, event: event, completed: true, approved: true)
+      create(:registration, event: event, completed: false)
+      create(:registration, event: event, completed: false)
+      create(:registration, event: event, completed: true)
     end
 
     it "should have 1 completed registration" do

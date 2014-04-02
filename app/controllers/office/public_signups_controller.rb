@@ -32,7 +32,7 @@ class Office::PublicSignupsController < Office::ApplicationController
   end
 
   def waitlist
-    public_signup.set_waitlisted!
+    public_signup.waitlist!
     public_signup.send_email(EventEmail::PENDING)
     redirect_to(office_public_signups_url, :notice => "#{public_signup.full_name} has been waitlisted.")
   end

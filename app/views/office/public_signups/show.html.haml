@@ -1,8 +1,9 @@
 .block
   .content
-    - if public_signup.approved?
+    - r = public_signup.registration
+    - if r.approved?
       = controls do |c|
-        - add_button_to(c, 'Show event registrations', :event_id => public_signup.registration.event, :controller => :registrations)
+        - add_button_to(c, 'Show event registrations', :event_id => r.event, :controller => :registrations)
         - add_button_to(c, :waitlist, :action => :waitlist, :icon => 'time', :method => :put)
 
     - else
@@ -11,18 +12,18 @@
 
       = controls do |c|
         - add_button_to(c, :approve, :action => :approve, :icon => 'ok', :method => :put)
-        - if !public_signup.waitlisted?
+        - if !r.waitlisted?
           - add_button_to(c, :waitlist, :action => :waitlist, :icon => 'time', :method => :put)
 
     %h3
-      Registration request for #{public_signup.event_name}
+      Registration request for #{r.event_name}
 
-    - if public_signup.approved?
+    - if r.approved?
       %p Request approved #{time_ago_in_words(public_signup.approved_at)} ago.
     - else
       %p
-        #{public_signup.registration.role} request by
-        #{public_signup.full_name} for
-        #{public_signup.event_name}.  Do you approved?
+        #{r.role} request by
+        #{r.full_name} for
+        #{r.event_name}.  Do you approved?
 
     = render 'public_signup', :public_signup => public_signup

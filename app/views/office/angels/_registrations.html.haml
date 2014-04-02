@@ -7,7 +7,7 @@
       %th Cost
       %th Paid
       %th Owed
-      %th.center Approved
+      %th.center Status
       %th.center Completed
       %th
   %tbody
@@ -19,6 +19,6 @@
         %td= local_currency r.cost
         %td= local_currency r.paid
         %td= local_currency r.owed
-        %td.center= color_dot(r.approved)
+        %td.center= r.status
         %td.center= color_dot(r.completed)
         %td.link= link_to_destroy [:office, r.angel, r]

@@ -6,9 +6,8 @@ describe PublicSignup do
     it "should have default values after new" do
       public_signup = PublicSignup.new(registration_attributes: {})
       public_signup.registration.role.should == Registration::PARTICIPANT
-      public_signup.registration.should_not be_approved
+      public_signup.registration.should be_pending
       public_signup.registration.payment_method.should_not be
-      public_signup.should be_pending
     end
 
     it "should be valid with min attributes" do
@@ -41,30 +40,27 @@ describe PublicSignup do
   context "#approve!" do
     it "should set the approved_at date & mark the registration as approved" do
       ps = FactoryGirl.create(:public_signup)
-      ps.registration.should_not be_approved
-      ps.should be_pending
+      ps.registration.should be_pending
       ps.approved_at.should_not be
       ps.approve!
       ps.approved_at.should be
       ps.registration.should be_approved
-      ps.should be_approved
     end
   end
 
-  context "#set_waitlisted!" do
+  context "#waitlist!" do
     it "should set record as waitlisted" do
       ps = FactoryGirl.create(:public_signup)
-      ps.should be_pending
-      ps.set_waitlisted!
+      ps.registration.should be_pending
+      ps.waitlist!
       ps.approved_at.should_not be
-      ps.registration.should_not be_approved
-      ps.should be_waitlisted
+      ps.registration.should be_waitlisted
     end
   end
 
   context "delegation" do
     it "should handle these fields" do
-      registration = FactoryGirl.build(:registration, :approved => true)
+      registration = FactoryGirl.build(:registration)
       ps = FactoryGirl.build(:public_signup, :registration => registration)
       ps.full_name.should == registration.full_name
       ps.event_name.should == registration.event_name

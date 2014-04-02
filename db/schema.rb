@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140402122013) do
+ActiveRecord::Schema.define(:version => 20140402140657) do
 
   create_table "angels", :force => true do |t|
     t.string   "display_name",                     :null => false
@@ -216,7 +216,6 @@ ActiveRecord::Schema.define(:version => 20140402122013) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "public_signup_id"
-    t.boolean  "approved",                                             :default => false
     t.string   "how_hear"
     t.string   "previous_event"
     t.boolean  "reg_fee_received"
@@ -244,14 +243,15 @@ ActiveRecord::Schema.define(:version => 20140402122013) do
     t.float    "lat"
     t.float    "lng"
     t.string   "special_diet"
+    t.string   "status",                                               :default => "pending"
   end
 
   add_index "registrations", ["angel_id"], :name => "index_registrations_on_angel_id"
-  add_index "registrations", ["approved"], :name => "index_registrations_on_approved"
   add_index "registrations", ["event_id", "role"], :name => "index_registrations_on_role"
   add_index "registrations", ["event_id"], :name => "index_registrations_on_event_id"
   add_index "registrations", ["gender"], :name => "index_registrations_on_gender"
   add_index "registrations", ["id"], :name => "index_registrations_on_id"
+  add_index "registrations", ["status"], :name => "index_registrations_on_status"
 
   create_table "site_defaults", :force => true do |t|
     t.integer  "translation_key_id"

@@ -5,29 +5,17 @@ class PublicSignup < ActiveRecord::Base
   
   attr_accessor :terms_and_conditions
 
-  WAITLISTED = 'waitlisted'
-  APPROVED = 'approved'
-  PENDING = 'pending'
-  STATUSES = [PENDING, WAITLISTED, APPROVED]
-
-  default_scope includes(:registration)
-  scope :pending, where("public_signups.status = ?", PENDING)
-  scope :waitlisted, where("public_signups.status = ?", WAITLISTED)
-  scope :approved, where("public_signups.status = ?", APPROVED)
-  scope :by_created_at, order('public_signups.created_at asc')
+  default_scope -> { includes(:registration) }
+  scope :pending, -> { where(registrations: {status: Registration::PENDING}) }
+  scope :waitlisted, -> { where(registrations: {status: Registration::WAITLISTED}) }
+  scope :approved, -> { where(registrations: {status: Registration::APPROVED}) }
+  scope :by_created_at, -> { order('public_signups.created_at asc') }
 
   accepts_nested_attributes_for :registration
 
   validates_acceptance_of :terms_and_conditions, allow_nil: false, on: :create
-  validates_inclusion_of :status, :in => STATUSES
 
   delegate :full_name, :event_name, :gender, :email, :lang, :angel, :send_email, :reg_fee_received, :clothing_conversation, :to => :registration
-
-  STATUSES.each do |state|
-    define_method("#{state}?") do
-      !!(status == state)
-    end
-  end
 
   def self.group_by_event
     events = by_created_at.inject({}) do |memo, public_signup|
@@ -42,14 +30,12 @@ class PublicSignup < ActiveRecord::Base
   # marks this signup and the embedded registration as approved
   def approve!
     self.approved_at = Time.now
-    self.status = APPROVED
     registration.approve
     save!
   end
 
-  def set_waitlisted!
-    self.status = WAITLISTED
-    registration.approved = false
+  def waitlist!
+    registration.waitlist
     save!
   end
 

@@ -32,13 +32,15 @@ describe "rosters" do
     end
 
     it "should not show the roster, even when approved." do
-      registration.update_attribute(:approved, true)
+      registration.approve
+      registration.save!
       visit users_roster_path(id: event.id)
       page.should have_content(no_auth)
     end
 
     it "should show the roster, when approved & completed." do
-      registration.update_attributes(approved: true, completed: true)
+      registration.approve
+      registration.update_attributes(completed: true)
       visit users_roster_path(id: event.id)
       page.should_not have_content(no_auth)
       page.should have_selector('td', text: registration.full_name)
@@ -46,7 +48,8 @@ describe "rosters" do
     end
 
     it "should not show the roster if we are not part of the event" do
-      registration.update_attributes(approved: true, completed: true)
+      registration.approve
+      registration.update_attributes(completed: true)
       registration.update_attribute(:angel, build(:angel))
       visit users_roster_path(id: event.id)
       page.should have_content(no_auth)

@@ -231,30 +231,51 @@ describe Registration do
   end
 
   context "scopes" do
-    it "should return them in first name order" do
-      r1 = FactoryGirl.create(:registration, :first_name => 'Z')
-      r2 = FactoryGirl.create(:registration, :first_name => 'A')
-      Registration.by_first_name.all.should == [r2, r1]
+    let(:r1) { create(:registration, r1_attributes) }
+    let(:r2) { create(:registration, r2_attributes) }
+    let(:all) { Registration.send(scope).all }
+
+    before do
+      r1
+      r2
     end
 
-    it "should return only approved registrations" do
-      r1 = FactoryGirl.create(:registration, :approved => false)
-      r2 = FactoryGirl.create(:registration, :approved => true)
-      Registration.ok.all.should == [r2]
+    context "by_first_name" do
+      let(:r1_attributes) { {first_name: 'Z'} }
+      let(:r2_attributes) { {first_name: 'A'} }
+      let(:scope) { :by_first_name }
+
+      it { expect(all).to eq([r2, r1]) }
     end
-    it "should return only pending registrations" do
-      r1 = FactoryGirl.create(:registration, :approved => false)
-      r2 = FactoryGirl.create(:registration, :approved => true)
-      Registration.pending.all.should == [r1]
+
+    context "with_status" do
+      let(:r1_attributes) { {status: Registration::PENDING} }
+      let(:r2_attributes) { {status: Registration::WAITLISTED} }
+
+      context "pending" do
+        let(:scope) { :pending }
+        it { expect(all).to eq([r1]) }
+      end
+      context "waitlisted" do
+        let(:scope) { :waitlisted }
+        it { expect(all).to eq([r2]) }
+      end
+      context "approved" do
+        let(:r1_attributes) { {status: Registration::APPROVED} }
+        let(:scope) { :approved }
+        it { expect(all).to eq([r1]) }
+      end
     end
-    it "should return only approved team/participant/facilitator registrations" do
-      r1 = FactoryGirl.create(:registration, :approved => false)
-      t = FactoryGirl.create(:registration, :role => Registration::TEAM, :approved => true)
-      p = FactoryGirl.create(:registration, :role => Registration::PARTICIPANT, :approved => true)
-      f = FactoryGirl.create(:registration, :role => Registration::FACILITATOR, :approved => true)
-      Registration.team.all.should == [t]
-      Registration.facilitators.all.should == [f]
-      Registration.participants.all.should == [p]
+
+    [[:team, Registration::TEAM],
+     [:facilitators, Registration::FACILITATOR],
+     [:participants, Registration::PARTICIPANT]].each do |scope, role|
+      context "#{scope} returns only approved #{role}" do
+        let(:r1_attributes) { {status: Registration::APPROVED, role: role} }
+        let(:r2_attributes) { {status: Registration::PENDING, role: role} }
+        let(:scope) { scope }
+        it { expect(all).to eq([r1]) }
+      end
     end
   end
 
