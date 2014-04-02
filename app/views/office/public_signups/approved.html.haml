@@ -1,7 +1,7 @@
 .block
   .content
 
-    %h2 #{public_signups.count} approved signups
+    %h2 #{@public_signups.count} approved signups
 
-    - if public_signups.count > 0
-      = render 'approved', :approved => public_signups
+    - if @public_signups.count > 0
+      = render 'approved', :approved => @public_signups

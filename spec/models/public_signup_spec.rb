@@ -92,17 +92,21 @@ describe PublicSignup do
       Registration.should have(:no).records
     end
   end
+
+  context "group_by_event" do
+    let(:event1) { create(:event, start_date: Date.today) }
+    let(:event2) { create(:event, start_date: Date.today + 1.week) }
+    let(:public_signup1) { create(:public_signup, registration: create(:registration, event: event2)) }
+    let(:public_signup2) { create(:public_signup, registration: create(:registration, event: event1)) }
+    subject { PublicSignup.group_by_event }
+
+    before do
+      public_signup1
+      public_signup2
+    end
+
+    it "should have two arrays" do
+      expect(subject).to eq([[public_signup2], [public_signup1]])
+    end
+  end
 end
-
-# == Schema Information
-#
-# Table name: public_signups
-#
-#  id          :integer         primary key
-#  ip_addr     :string(255)
-#  created_at  :timestamp
-#  updated_at  :timestamp
-#  approved_at :timestamp
-#  status      :string(255)     default("pending")
-#
-

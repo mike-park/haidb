@@ -29,6 +29,16 @@ class PublicSignup < ActiveRecord::Base
     end
   end
 
+  def self.group_by_event
+    events = by_created_at.inject({}) do |memo, public_signup|
+      event = public_signup.registration.event
+      memo[event] ||= []
+      memo[event] << public_signup
+      memo
+    end
+    events.keys.sort {|a, b| a.start_date <=> b.start_date }.map {|event| events[event] }
+  end
+
   # marks this signup and the embedded registration as approved
   def approve!
     self.approved_at = Time.now

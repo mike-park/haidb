@@ -2,11 +2,11 @@ class Office::PublicSignupsController < Office::ApplicationController
   before_filter :find_signup, :except => [:index, :waitlisted, :approved]
   
   def index
-    @public_signups = PublicSignup.pending.by_created_at
+    @public_signups = PublicSignup.pending.group_by_event
   end
 
   def waitlisted
-    @public_signups = PublicSignup.waitlisted.by_created_at
+    @public_signups = PublicSignup.waitlisted.group_by_event
   end
 
   def approved
@@ -54,9 +54,4 @@ class Office::PublicSignupsController < Office::ApplicationController
     @public_signup ||= PublicSignup.find_by_id(params[:id])
   end
   helper_method :public_signup
-
-  def public_signups
-    @public_signups
-  end
-  helper_method :public_signups
 end

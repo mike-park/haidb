@@ -1,7 +1,8 @@
 .block
   .content
+    %h2
+      #{pluralize(@public_signups.flatten.count, 'signup is', 'signups are')}
+      wait-listed
 
-    %h2 #{public_signups.count} wait listed sign-ups
-
-    - if public_signups.count > 0
-      = render 'public_signup_list', public_signups: public_signups
+    - @public_signups.each do |event_signups|
+      = render 'public_signups', public_signups: event_signups
