@@ -5,8 +5,9 @@
       - add_button_to(c, :delete)
 
     %h2
-      #{registration.event_name}: registration of #{registration.full_name}
+      #{@registration.event_name}: registration of #{@registration.full_name}
 
-    = render 'registration', :registration => registration
-    - if registration.audits.any?
-      = render 'office/shared/audits', :audits => registration.audits.descending
+    = render @registration
+
+    - if @registration.audits.any?
+      = render 'office/shared/audits', :audits => @registration.audits.descending

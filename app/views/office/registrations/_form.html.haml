@@ -1,7 +1,7 @@
-= simple_form_for [:office, parent.ar_object, registration], html: {class: 'form-horizontal'} do |r|
-  -if registration.errors.any?
+= simple_form_for [:office, @event, @registration], html: {class: 'form-horizontal'} do |r|
+  -if @registration.errors.any?
     #error_explanation
-      %h3= "#{pluralize(registration.errors.count, "error")} prohibited this registration from being saved"
+      %h3= "#{pluralize(@registration.errors.count, "error")} prohibited this registration from being saved"
 
   = r.association :angel, options_for_angel_select(r)
   = r.association :event, options_for_signup_events_select(r)
