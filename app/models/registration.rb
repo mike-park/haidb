@@ -68,7 +68,7 @@ class Registration < ActiveRecord::Base
   scope :since, lambda { |date| includes(:event).where('events.start_date >= ?', date) }
   scope :team_workshops, lambda { where(events: {category: Event::TEAM}) }
 
-  scope :special_diets, where(:special_diet => true)
+  scope :special_diets, -> { where("special_diet IS NOT NULL AND TRIM(special_diet) <> ''") }
   scope :backjack_rentals, where(:backjack_rental => true)
   scope :sunday_stayovers, where(:sunday_stayover => true)
   scope :sunday_meals, where(:sunday_meal => true)

@@ -14,9 +14,6 @@ de:
       gender:
         female: 'weiblich'
         male: 'männlich'
-      special_diet:
-        none: "Normal"
-        vegie: "Vegetarisch"
       backjack_rental:
         none: "Nein"
         rent: "Ja, 7€ Preis"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140324164750) do
+ActiveRecord::Schema.define(:version => 20140402122013) do
 
   create_table "angels", :force => true do |t|
     t.string   "display_name",                     :null => false
@@ -200,7 +200,6 @@ ActiveRecord::Schema.define(:version => 20140324164750) do
     t.integer  "angel_id"
     t.integer  "event_id",                                                                        :null => false
     t.string   "role",                                                 :default => "Participant", :null => false
-    t.boolean  "special_diet",                                         :default => false
     t.boolean  "backjack_rental",                                      :default => false
     t.boolean  "sunday_stayover",                                      :default => false
     t.boolean  "sunday_meal",                                          :default => false
@@ -244,6 +243,7 @@ ActiveRecord::Schema.define(:version => 20140324164750) do
     t.string   "registration_code"
     t.float    "lat"
     t.float    "lng"
+    t.string   "special_diet"
   end
 
   add_index "registrations", ["angel_id"], :name => "index_registrations_on_angel_id"

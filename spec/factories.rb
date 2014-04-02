@@ -103,7 +103,7 @@ FactoryGirl.define do
       mobile_phone { angel.mobile_phone }
       work_phone { angel.work_phone }
       lang { angel.lang }
-      special_diet true
+      special_diet 'Vegan'
       backjack_rental true
       sunday_stayover true
       sunday_meal true

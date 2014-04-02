@@ -5,20 +5,19 @@
     %tr
       %th.name Name
       %th Gender
+      %th.center Diet
       - if Site.de?
         %th Pay. Meth
         %th Lift
         %th.center Backjk
         %th.center Stayover
         %th.center Meal
-        %th.center Veg.
         %th.notes Notes
       - elsif Site.uk?
         %th How Hear
         %th Prev. Event
         %th Highest Level Details
         %th Lift
-        %th.center Veg.
         %th.center Cloth. Talk
         %th.center Reg Fee Rec
   %tbody
@@ -26,19 +25,18 @@
       %tr
         %td.name= link_to_show(office_event_registration_path(r.event, r), r.full_name)
         %td.center= r.gender.first
+        %td.center= r.special_diet
         - if Site.de?
           %td= r.payment_method
           %td= r.lift
           %td.center= checkmark_if(r.backjack_rental)
           %td.center= checkmark_if(r.sunday_stayover)
           %td.center= checkmark_if(r.sunday_meal)
-          %td.center= checkmark_if(r.special_diet)
           %td.notes= r.notes
         - elsif Site.uk?
           %td= r.how_hear
           %td= r.previous_event
           %td= [r.highest_level, r.highest_location, r.highest_date].compact.join(" / ")
           %td= r.lift
-          %td.center= checkmark_if(r.special_diet)
           %td.center= checkmark_if(r.clothing_conversation)
           %td.center= checkmark_if(r.reg_fee_received)

@@ -11,9 +11,6 @@ en:
       gender:
         female: 'Female'
         male: 'Male'
-      special_diet:
-        none: "None"
-        vegie: "Vegetarian"
       backjack_rental:
         none: "No"
         rent: "Yes, 7€ rental cost"
@@ -40,6 +37,9 @@ en:
         facilitator: 'Facilitators'
         password: 'iamlove'
   simple_form:
+    hints:
+      defaults:
+        special_diet: 'For example Vegan, Gluten-free, Wheat-free or Dairy-free'
     labels:
       defaults:
         lift: "Lift to event site"

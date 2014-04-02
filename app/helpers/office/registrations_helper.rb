@@ -35,12 +35,6 @@ module Office::RegistrationsHelper
     }
   end
 
-  def options_for_special_diet(form)
-    choices = [[I18n.t('enums.registration.special_diet.none'), false],
-               [I18n.t('enums.registration.special_diet.vegie'), true]]
-    { :as => :radio_buttons, :collection => choices }
-  end
-
   def options_for_payment_method(form, options = {})
     options.reverse_merge! :translate => true
     if options[:translate]
@@ -102,7 +96,7 @@ module Office::RegistrationsHelper
   def registration_requests(registration, delimiter = ", ")
     requests = []
     requests << "backjack rental" if registration.backjack_rental?
-    requests << "vegetarian diet" if registration.special_diet?
+    requests << registration.special_diet if registration.special_diet.present?
     requests << "sunday stayover" if registration.sunday_stayover?
     requests << "sunday meal" if registration.sunday_meal?
     requests << "lift #{registration.lift.downcase}" unless registration.lift.blank?
