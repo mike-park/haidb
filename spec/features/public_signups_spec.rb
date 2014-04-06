@@ -143,7 +143,7 @@ describe "POST /public_signups" do
     # noinspection RubyArgCount
     select(future_event.display_name, from: "Event")
     fill_in "Vorname", with: "John"
-    fill_in "Name", with: 'Smith'
+    fill_in "Name", with: 'Smith', match: :prefer_exact
     choose('männlich')
     choose('Direkt')
     fill_in "Emailadresse", with: "jsmith@example.com"
