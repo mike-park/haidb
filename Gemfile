@@ -98,8 +98,8 @@ group :development, :test do
   gem 'factory_girl_rails'
 
   gem 'selenium-webdriver', '~> 2.41.0'
-  gem "capybara"
-  gem "launchy"
+  gem 'capybara'
+  gem 'launchy'
   gem 'database_cleaner', '~> 1.2.0'
 
   gem 'faker'
@@ -107,6 +107,7 @@ end
 
 group :test do
   gem 'email_spec'
+  gem 'poltergeist'
   # required only while rubymine defaults to checking 'rspec run under bundler'
   gem 'zeus', '~> 0.13.4.pre2'
 end

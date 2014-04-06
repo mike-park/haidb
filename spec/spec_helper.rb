@@ -3,6 +3,8 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require "pundit/rspec"
+require 'capybara/rspec'
+require 'capybara/poltergeist'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
@@ -15,7 +17,17 @@ RSpec.configure do |config|
 
   # my login macros; available in describe not it
   config.extend ControllerMacros, :type => :controller
-  config.include CapybaraMacros, :type => :request
+  config.include CapybaraMacros, :type => :feature
+
+
+  # phantomjs js driver
+  Capybara.javascript_driver = :poltergeist
+
+  Capybara.register_driver :poltergeist_debug do |app|
+    Capybara::Poltergeist::Driver.new(app, :inspector => true)
+  end
+  Capybara.javascript_driver = :poltergeist_debug
+
 
   # database cleanup
   # disable normal rspec transactions
