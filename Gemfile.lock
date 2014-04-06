@@ -13,6 +13,7 @@ GIT
 
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     Ascii85 (1.0.1)
     actionmailer (3.2.17)
@@ -184,6 +185,7 @@ GEM
       activesupport (= 3.2.17)
       bundler (~> 1.0)
       railties (= 3.2.17)
+    rails-assets-angular (1.2.16)
     railties (3.2.17)
       actionpack (= 3.2.17)
       activesupport (= 3.2.17)
@@ -305,6 +307,7 @@ DEPENDENCIES
   pundit (~> 0.2.2)
   rack
   rails (= 3.2.17)
+  rails-assets-angular
   rake
   routing-filter
   rspec-rails

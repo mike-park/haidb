@@ -3,6 +3,7 @@
 //= require office/collapsible
 //= require gmaps4rails/googlemaps.js
 //= require jquery.tablesorter.min
+//= require angular
 //= require_self
 
 
@@ -14,3 +15,12 @@ $(document).ready(function () {
   if (ts.length > 0)
     ts.tablesorter();
 });
+
+angular.module('app', []).
+  controller('Hello', [
+    '$scope', function(
+      $scope
+      ) {
+      $scope.count = 2 + 2
+    }
+  ]);
