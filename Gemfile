@@ -97,13 +97,10 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
 
-  # capybara causes rack 1.2.3 to generate warnings
-  # rack-1.2.3/lib/rack/utils.rb:16: warning: regexp match /.../n against to UTF-8 string
-  # See https://github.com/jnicklas/capybara/issues/243
-  # problem fixed with latest rack (which as of 7/7/11 not available for
-  # rails 3.0.9
+  gem 'selenium-webdriver', '~> 2.41.0'
   gem "capybara"
   gem "launchy"
+  gem 'database_cleaner', '~> 1.2.0'
 
   gem 'faker'
 end
