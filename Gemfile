@@ -15,6 +15,7 @@ group :assets do
   gem 'coffee-rails', "~> 3.2.1"
   gem 'uglifier', '>= 1.0.3'
   gem 'rails-assets-angular'
+  gem 'rails-assets-morris.js'
 end
 
 gem 'jquery-rails'

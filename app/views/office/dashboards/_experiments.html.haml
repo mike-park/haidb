@@ -1,0 +1,12 @@
+%div(ng-app='app')
+
+  %div(ng-controller="Hello" )
+    %h1 Angular count {{ count }}
+
+    %div(hello)
+
+    .col-md-4
+      %section.panel.panel-default
+        .panel-heading Team
+        .panel-body
+          %div(morris-chart data="donutData" type="donut" xkey="year" colors='["#23AE89","#2EC1CC","#FFB61C","#E94B3B"]')

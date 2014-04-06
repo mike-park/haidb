@@ -186,6 +186,13 @@ GEM
       bundler (~> 1.0)
       railties (= 3.2.17)
     rails-assets-angular (1.2.16)
+    rails-assets-jquery (2.1.0)
+    rails-assets-mocha (1.17.1)
+    rails-assets-morris.js (0.5.0)
+      rails-assets-jquery (>= 2.1.0)
+      rails-assets-mocha (~> 1.17.1)
+      rails-assets-raphael (>= 2.0)
+    rails-assets-raphael (2.1.2)
     railties (3.2.17)
       actionpack (= 3.2.17)
       activesupport (= 3.2.17)
@@ -308,6 +315,7 @@ DEPENDENCIES
   rack
   rails (= 3.2.17)
   rails-assets-angular
+  rails-assets-morris.js
   rake
   routing-filter
   rspec-rails
