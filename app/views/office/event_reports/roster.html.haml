@@ -1,0 +1,24 @@
+.block
+  .content
+    = controls do |c|
+      - add_button_to(c, "PDF Format", :format => :pdf)
+
+    %h2 #{@roster.title}
+
+    %p
+      Click PDF Format to generate a printable version. Only angels marked as completed will appear on this roster.
+
+    - registrations = @roster.registrations
+    %table.table.table-bordered
+      %thead
+        %tr.person
+          %th Name & Email
+          %th= t('enums.registration.roster.address')
+          %th= t('enums.registration.roster.phones')
+      %tbody
+        - if registrations.participants.size > 0
+          = render 'roster', role: t('enums.registration.roster.participant'), registrations: registrations.participants
+        - if registrations.team.size > 0
+          = render 'roster', role: t('enums.registration.roster.team'), registrations: registrations.team
+        - if registrations.facilitators.size > 0
+          = render 'roster', role: t('enums.registration.roster.facilitator'), registrations: registrations.facilitators

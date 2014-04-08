@@ -35,12 +35,12 @@ Haidb::Application.routes.draw do
           get 'client_history'
           get 'status'
           get 'checklist'
+          get 'roster'
         end
       end
       resources :registrations, only: [:edit, :update, :destroy, :show] do
         collection do
           get 'payments'
-          get 'roster'
         end
       end
       scope :module => "registrations" do

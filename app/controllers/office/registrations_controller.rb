@@ -23,14 +23,6 @@ class Office::RegistrationsController < Office::ApplicationController
   end
 
 
-  def roster
-    @roster = RosterDecorator.new(Roster.new(event))
-    respond_to do |format|
-      format.html
-      format.pdf { send_data(@roster.to_pdf, filename: @roster.filename, type: :pdf) }
-    end
-  end
-
   private
 
   def registration

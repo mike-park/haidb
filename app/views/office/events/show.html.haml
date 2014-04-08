@@ -12,6 +12,6 @@
       = render 'office/shared/audits', :audits => event.audits.descending
 
     = controls do |c|
-      - c << link_to(icon('icon-user') + "Registrations", office_event_registrations_path(event), class: 'btn')
+      - c << link_to(icon('icon-user') + "Registrations", status_office_event_report_path(event), class: 'btn')
 
     = render 'office/registrations/counts', :registrations => registrations
