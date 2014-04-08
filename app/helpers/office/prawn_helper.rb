@@ -44,7 +44,7 @@ module Office::PrawnHelper
             theme_color = SiteDefault.get('site.theme_color')
             if theme_color
               fill_color theme_color
-              rectangle([bounds.left, bounds.top], bounds.width, 20)
+              rectangle([bounds.left, bounds.top], bounds.width, 25)
               fill
               fill_color "000000"
             end
