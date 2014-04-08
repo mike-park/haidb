@@ -32,11 +32,11 @@ Haidb::Application.routes.draw do
         collection do
           get 'site'
           get 'bank'
+          get 'client_history'
         end
       end
       resources :registrations do
         collection do
-          get 'details'
           get 'payments'
           get 'checklists'
           get 'roster'

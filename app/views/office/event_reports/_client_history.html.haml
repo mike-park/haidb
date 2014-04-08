@@ -1,0 +1,22 @@
+%table.table.table-striped
+  %caption
+    %h4= pluralize(registrations.size, "#{status} #{role} Registration")
+  %thead
+    %tr
+      %th.name Name
+      %th Gender
+      %th How Hear
+      %th Prev. Event
+      %th Highest Level:
+      %th Where
+      %th When
+  %tbody
+    - registrations.by_first_name.each do |r|
+      %tr
+        %td.name= link_to_show(office_event_registration_path(r.event, r), r.full_name)
+        %td.center= r.gender.first
+        %td= r.how_hear
+        %td= r.previous_event
+        %td= r.highest_level
+        %td= r.highest_location
+        %td= r.highest_date

@@ -14,6 +14,12 @@ class Office::EventReportsController < Office::ApplicationController
     standard_response(csv_fields)
   end
 
+  def client_history
+      csv_fields = [:role, :status, :full_name, :email, :gender, :how_hear, :previous_event,
+                    :highest_level, :highest_location, :highest_date]
+    standard_response(csv_fields)
+  end
+
   private
 
   def standard_response(csv_fields)
