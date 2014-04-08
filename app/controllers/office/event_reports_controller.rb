@@ -6,6 +6,14 @@ class Office::EventReportsController < Office::ApplicationController
     standard_response(csv_fields)
   end
 
+  def bank
+    csv_fields = [:role, :status, :full_name, :email,
+                  :address, :postal_code, :city, :country,
+                  :payment_method, :bank_account_name, :iban, :bic,
+                  :registration_code, :cost, :paid, :owed, :completed]
+    standard_response(csv_fields)
+  end
+
   private
 
   def standard_response(csv_fields)

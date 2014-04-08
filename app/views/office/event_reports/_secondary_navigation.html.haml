@@ -6,7 +6,7 @@
     %li= link_to(icon('icon-map-marker') + "Show on Map", office_event_map_index_path(@event))
     %li= link_to(icon('icon-list-alt') + "Details", details_office_event_registrations_path(@event))
     %li= link_to(icon('icon-list-alt') + "Payment Summary", payments_office_event_registrations_path(@event))
-    %li= link_to(icon('icon-list-alt') + "Bank Summary", bank_accounts_office_event_registrations_path(@event))
+    %li= link_to(icon('icon-list-alt') + "Bank", bank_office_event_report_path(@event))
     %li= link_to(icon('icon-list-alt') + "Site", site_office_event_report_path(@event))
     %li= link_to(icon('icon-list-alt') + "Checklist", checklists_office_event_registrations_path(@event))
     %li= link_to(icon('icon-list-alt') + "Roster", roster_office_event_registrations_path(@event))

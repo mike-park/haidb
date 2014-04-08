@@ -31,13 +31,13 @@ Haidb::Application.routes.draw do
       resource :event_report, only: [], as: 'report', path: 'report' do
         collection do
           get 'site'
+          get 'bank'
         end
       end
       resources :registrations do
         collection do
           get 'details'
           get 'payments'
-          get 'bank_accounts'
           get 'checklists'
           get 'roster'
         end
