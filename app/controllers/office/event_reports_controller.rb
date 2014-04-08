@@ -3,7 +3,8 @@ class Office::EventReportsController < Office::ApplicationController
   before_filter :title
 
   def site
-    csv_fields = [:role, :status, :full_name, :email, :gender, :special_diet, :lift, :backjack_rental, :sunday_stayover, :sunday_meal]
+    csv_fields = [:role, :status, :full_name, :email, :gender,
+                  :special_diet, :lift, :backjack_rental, :sunday_stayover, :sunday_meal, :room, :notes]
     standard_response(csv_fields)
   end
 
@@ -11,7 +12,7 @@ class Office::EventReportsController < Office::ApplicationController
     csv_fields = [:role, :status, :full_name, :email,
                   :address, :postal_code, :city, :country,
                   :payment_method, :bank_account_name, :iban, :bic,
-                  :registration_code, :cost, :paid, :owed, :completed]
+                  :registration_code, :cost, :paid, :owed, :completed, :notes]
     standard_response(csv_fields)
   end
 
@@ -22,7 +23,7 @@ class Office::EventReportsController < Office::ApplicationController
   end
 
   def payment
-    csv_fields = [:role, :status, :full_name, :email, :cost, :paid, :owed]
+    csv_fields = [:role, :status, :full_name, :email, :cost, :paid, :owed, :notes]
     standard_response(csv_fields)
   end
 
