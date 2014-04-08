@@ -40,7 +40,7 @@ Tabulous.setup do
       visible_when { true }
       enabled_when { true }
       active_when do
-        %w{events registrations registrations/completed registrations/checked_in registrations/map payments}.each do |n|
+        %w{events event_reports registrations registrations/completed registrations/checked_in registrations/map payments}.each do |n|
           in_action('any').of_controller("office/#{n}")
         end
       end

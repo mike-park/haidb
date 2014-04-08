@@ -26,7 +26,7 @@ class Registration < ActiveRecord::Base
   PARTICIPANT = 'Participant'
   FACILITATOR = 'Facilitator'
   TEAM = 'Team'
-  ROLES = [PARTICIPANT, FACILITATOR, TEAM]
+  ROLES = [PARTICIPANT, TEAM, FACILITATOR]
 
   OFFERED = 'Offered'
   REQUESTED = 'Requested'
@@ -65,7 +65,7 @@ class Registration < ActiveRecord::Base
   scope :non_participants, ok.where("role != ?", PARTICIPANT)
   scope :non_facilitators, ok.where("role != ?", FACILITATOR)
   scope :facilitators, ok.where(:role => FACILITATOR)
-  scope :where_role, lambda { |role| ok.where(:role => role) }
+  scope :where_role, lambda { |role| where(:role => role) }
 
   scope :where_email, ->(email) { where(email: email) }
 

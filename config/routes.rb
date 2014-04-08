@@ -28,6 +28,11 @@ Haidb::Application.routes.draw do
       collection do
         get 'past'
       end
+      resource :event_report, only: [], as: 'report', path: 'report' do
+        collection do
+          get 'site'
+        end
+      end
       resources :registrations do
         collection do
           get 'details'

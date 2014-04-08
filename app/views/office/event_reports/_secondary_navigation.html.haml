@@ -10,9 +10,5 @@
     %li= link_to(icon('icon-list-alt') + "Site", site_office_event_report_path(@event))
     %li= link_to(icon('icon-list-alt') + "Checklist", checklists_office_event_registrations_path(@event))
     %li= link_to(icon('icon-list-alt') + "Roster", roster_office_event_registrations_path(@event))
-    %li.nav-header Actions
-    %li= link_to(icon('icon-edit') + "Mark Checked In", office_event_checked_in_index_path(@event))
-    %li= link_to(icon('icon-edit') + "Mark Completed", office_event_completed_index_path(@event))
     %li.nav-header Export
-    %li= link_to(icon('icon-envelope') + "Address Book", office_event_registrations_path(@event, format: :vcard))
-    %li= link_to(icon('icon-list') + "Spreadsheet", office_event_registrations_path(@event, format: :csv))
+    %li= link_to(icon('icon-list') + "Spreadsheet", url_for(format: :csv))

@@ -1,0 +1,24 @@
+%table.table.table-striped
+  %caption
+    %h4= pluralize(registrations.size, "#{status} #{role} Registration")
+  %thead
+    %tr
+      %th.name Name
+      %th.center Gender
+      %th.center Diet
+      %th.center Lift
+      %th.center Backjk
+      %th.center S. Sleep
+      %th.center S. Meal
+      %th.center Room
+  %tbody
+    - registrations.by_first_name.each do |r|
+      %tr
+        %td.name= link_to_show(office_event_registration_path(r.event, r), r.full_name)
+        %td.center= r.gender.first
+        %td.center= r.special_diet
+        %td.center= r.lift
+        %td.center= checkmark_if(r.backjack_rental)
+        %td.center= checkmark_if(r.sunday_stayover)
+        %td.center= checkmark_if(r.sunday_meal)
+        %td.center= # r.room
