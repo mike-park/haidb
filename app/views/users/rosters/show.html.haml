@@ -7,8 +7,5 @@
 
     %p
       Click PDF Format to generate a printable version.
-      - if @password
-        The PDF file will have a password of
-        %em#password= @password
 
-    = render @roster
+    = render 'roster', registrations: @roster.registrations
