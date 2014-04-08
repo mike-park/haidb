@@ -22,7 +22,6 @@ class Office::RegistrationsController < Office::ApplicationController
     redirect_to(back_url, :notice => 'Registration was successfully deleted.')
   end
 
-
   private
 
   def registration

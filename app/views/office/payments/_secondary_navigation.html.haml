@@ -6,6 +6,6 @@
       #{event.display_name}
     %li= link_to_new(new_office_registration_payment_path(registration), "New Payment")
     %li.nav-header Reports
-    %li= link_to(icon('icon-list-alt') + "Event Payments", payments_office_event_registrations_path(registration.event))
+    %li= link_to(icon('icon-list-alt') + "Event Payments", payment_office_event_report_path(registration.event))
     %li.nav-header Actions
     %li= link_to(icon('icon-edit') + "Edit Registration", edit_office_event_registration_path(registration.event, registration, back_url: url_for))

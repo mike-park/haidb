@@ -2,7 +2,7 @@
   .span6
     %table.table
       %caption
-        %h4= title
+        %h4= pluralize(registrations.size, "#{status} #{role} Registration")
       %thead
         %tr
           %th.name Name

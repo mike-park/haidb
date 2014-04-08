@@ -36,13 +36,10 @@ Haidb::Application.routes.draw do
           get 'status'
           get 'checklist'
           get 'roster'
+          get 'payment'
         end
       end
-      resources :registrations, only: [:edit, :update, :destroy, :show] do
-        collection do
-          get 'payments'
-        end
-      end
+      resources :registrations, only: [:edit, :update, :destroy, :show]
       scope :module => "registrations" do
         resources :completed, :only => [:index, :create, :update]
         resources :checked_in, :only => [:index, :create, :update]

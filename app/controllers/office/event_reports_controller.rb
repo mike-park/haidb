@@ -21,6 +21,11 @@ class Office::EventReportsController < Office::ApplicationController
     standard_response(csv_fields)
   end
 
+  def payment
+    csv_fields = [:role, :status, :full_name, :email, :cost, :paid, :owed]
+    standard_response(csv_fields)
+  end
+
   def status
     respond_to do |format|
       format.html
