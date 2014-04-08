@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   include Pundit
+  before_filter :adjust_view_path
   before_filter :set_user_language
 
   protected
@@ -10,6 +11,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def adjust_view_path
+    prepend_view_path "app/views/#{Site.name}"
+  end
 
   def audit_user
     current_staff

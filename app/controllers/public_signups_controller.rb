@@ -1,7 +1,6 @@
 class PublicSignupsController < ApplicationController
   layout :layout
 
-  before_filter :adjust_view_path
   before_filter :build_public_signup, only: [:new]
 
   def new
@@ -29,10 +28,6 @@ class PublicSignupsController < ApplicationController
 
   def layout
     "#{Site.name}_site"
-  end
-
-  def adjust_view_path
-    prepend_view_path "app/views/#{Site.name}"
   end
 
   def send_email
