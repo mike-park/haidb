@@ -68,7 +68,7 @@ body {
 }
 
 .table {
-  .name { white-space: nowrap; max-width: 100px; overflow: hidden; }
+  .name { white-space: nowrap; width: 150px; overflow: hidden; }
   .date { white-space: nowrap; width: 85px; }
   .notes { max-width: 200px; }
   .qty { text-align: right; }
