@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140402140657) do
+ActiveRecord::Schema.define(:version => 20140408230513) do
 
   create_table "angels", :force => true do |t|
     t.string   "display_name",                     :null => false
@@ -244,6 +244,7 @@ ActiveRecord::Schema.define(:version => 20140402140657) do
     t.float    "lng"
     t.string   "special_diet"
     t.string   "status",                                               :default => "pending"
+    t.string   "room"
   end
 
   add_index "registrations", ["angel_id"], :name => "index_registrations_on_angel_id"

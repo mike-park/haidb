@@ -10,7 +10,8 @@
       %th.center Backjk
       %th.center S. Sleep
       %th.center S. Meal
-      %th.center Room
+      %th Room
+      %th Notes
   %tbody
     - registrations.by_first_name.each do |r|
       %tr
@@ -21,4 +22,5 @@
         %td.center= checkmark_if(r.backjack_rental)
         %td.center= checkmark_if(r.sunday_stayover)
         %td.center= checkmark_if(r.sunday_meal)
-        %td.center= # r.room
+        %td= r.room
+        %td= r.notes
