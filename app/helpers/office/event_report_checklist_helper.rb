@@ -1,6 +1,6 @@
-module Office::Registrations::ChecklistHelper
+module Office::EventReportChecklistHelper
 
-  def checklist_pdf
+  def checklist_pdf(registrations)
     content_for_prawn(:page_layout => :landscape) do |pdf|
       pdf.font "Times-Roman"
       pdf.font_size(10)
