@@ -15,31 +15,22 @@
       %th Notes
       %td= registration.notes
 
-    - if Site.uk?
-      %tr
-        %th How Hear
-        %td= registration.how_hear
-      %tr
-        %th Previous Event
-        %td= registration.previous_event
-      %tr
-        %th Clothing Conversation
-        %td= registration.clothing_conversation
-      %tr
-        %th Fee Received
-        %td= registration.reg_fee_received
-
-- if Site.uk?
-  %table.table.table-key-values
-    %caption
-      %h6 Highest Workshop Information
-    %tbody
-      %tr
-        %th Highest Level
-        %td= registration.highest_level
-      %tr
-        %th Location
-        %td= registration.highest_location
-      %tr
-        %th Date
-        %td= registration.highest_date
+%table.table.table-key-values
+  %caption
+    %h6 Research
+  %tbody
+    %tr
+      %th How Hear
+      %td= registration.how_hear
+    %tr
+      %th Previous Event
+      %td= registration.previous_event
+    %tr
+      %th Highest Level
+      %td= registration.highest_level
+    %tr
+      %th Where
+      %td= registration.highest_location
+    %tr
+      %th When
+      %td= registration.highest_date

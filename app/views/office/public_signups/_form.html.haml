@@ -8,11 +8,7 @@
     = r.association :event, options_for_signup_events_select(r)
     = r.input :role, options_for_role(r)
 
-    = render 'office/registrations/fields_contact', :form => r
-    = render 'office/registrations/fields_requests', :form => r
-    = render 'office/registrations/fields_highest_level', :form => r if Site.uk?
-    = render 'office/registrations/fields_payment', :form => r
-    = render 'office/registrations/field_note', :form => r
+    = render 'office/registrations/fields', :form => r
 
   .form-actions
     = f.button :submit, class: 'btn-primary'

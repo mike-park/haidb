@@ -4,9 +4,8 @@
     %tr
       %th.span3 Name
       %th.span1 Gender
-      - if Site.uk?
-        %th.span2.center Cloth. Talk
-        %th.span2.center Reg Fee Rec
+      %th.span2.center Cloth. Talk
+      %th.span2.center Reg Fee Rec
       %th Added
 
   %tbody
@@ -14,7 +13,6 @@
       %tr
         %td.span3= link_to_show([:office, p], p.full_name)
         %td.span1= p.gender
-        - if Site.uk?
-          %td.span2.center= checkmark_if(p.clothing_conversation)
-          %td.span2.center= checkmark_if(p.reg_fee_received)
+        %td.span2.center= checkmark_if(p.clothing_conversation)
+        %td.span2.center= checkmark_if(p.reg_fee_received)
         %td= time_ago_in_words(p.created_at)
