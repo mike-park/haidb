@@ -23,6 +23,6 @@
         - add_button_to(c, 'Show registrations', :controller => :registrations, :event_id => event)
 
       %h2 
-        #{event.display_name} in #{time_ago_in_words(event.start_date)}
+        #{event.display_name} ~ #{time_ago_in_words(event.start_date)}
 
-      = render 'office/registrations/counts', :registrations => event.registrations.ok
+      = render 'office/event_reports/counts', registrations: event.registrations.approved
