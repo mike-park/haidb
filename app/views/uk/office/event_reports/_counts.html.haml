@@ -1,10 +1,10 @@
 - regs = registrations
 .counts.well
-  %h1= regs.participants.count
+  %h1= regs.participants.size
   %h3 Participants
 
 .counts.well
-  %h1= regs.team.count
+  %h1= regs.team.size
   %h3 Team
 
 .counts
@@ -14,7 +14,7 @@
         %th Total
         %th{:colspan => "2"} Participants
         %th{:colspan => "2"} Team
-        %th Vegetarians
+        %th Special Diet
         %th Clothing Conv.
         %th Reg Fee Rec.
       %tr
@@ -28,11 +28,11 @@
         %th
     %tbody
       %tr
-        %td= regs.count
-        %td= regs.participants.males.count
-        %td= regs.participants.females.count
-        %td= regs.team.males.count
-        %td= regs.team.females.count
-        %td= regs.special_diets.count
-        %td= regs.clothing_conversations.count
-        %td= regs.reg_fee_receiveds.count
+        %td= regs.size
+        %td= regs.participants.males.size
+        %td= regs.participants.females.size
+        %td= regs.team.males.size
+        %td= regs.team.females.size
+        %td= regs.special_diets.size
+        %td= regs.clothing_conversations.size
+        %td= regs.reg_fee_receiveds.size

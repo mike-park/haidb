@@ -1,4 +1,5 @@
 .block
   .content
     %h2 #{@event.display_name} Status Report
+    = render 'counts', registrations: @event.registrations.approved
     = render 'grouped', report: 'status'

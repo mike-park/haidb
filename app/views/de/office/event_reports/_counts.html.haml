@@ -1,10 +1,10 @@
 - regs = registrations
 .counts.well
-  %h1= regs.participants.count
+  %h1= regs.participants.size
   %h3 Participants
 
 .counts.well
-  %h1= regs.team.count
+  %h1= regs.team.size
   %h3 Team
 
 .counts
@@ -22,19 +22,16 @@
         %th Females
         %th Males
         %th Females
-        %th Vegetarian
         %th Backjacks
         %th Stayovers
         %th Meals
     %tbody
       %tr
-        %td= regs.count
-        %td= regs.participants.males.count
-        %td= regs.participants.females.count
-        %td= regs.team.males.count
-        %td= regs.team.females.count
-        %td= regs.special_diets.count
-        %td= regs.backjack_rentals.count
-        %td= regs.sunday_stayovers.count
-        %td= regs.sunday_meals.count
-.clearfix
+        %td= regs.size
+        %td= regs.participants.males.size
+        %td= regs.participants.females.size
+        %td= regs.team.males.size
+        %td= regs.team.females.size
+        %td= regs.backjack_rentals.size
+        %td= regs.sunday_stayovers.size
+        %td= regs.sunday_meals.size
