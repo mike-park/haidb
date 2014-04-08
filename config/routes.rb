@@ -33,9 +33,10 @@ Haidb::Application.routes.draw do
           get 'site'
           get 'bank'
           get 'client_history'
+          get 'status'
         end
       end
-      resources :registrations do
+      resources :registrations, only: [:edit, :update, :destroy, :show] do
         collection do
           get 'payments'
           get 'checklists'

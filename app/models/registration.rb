@@ -4,12 +4,13 @@ class Registration < ActiveRecord::Base
   include Vcardable
   include Csvable
 
-  csv_fields :role, :full_name, :email, :gender,
+  csv_fields :role, :status, :full_name, :email, :gender,
              :address, :postal_code, :city, :country,
              :home_phone, :mobile_phone, :work_phone,
              :payment_method, :bank_account_name, :iban, :bic, :registration_code,
              :cost, :paid, :owed,
-             :status, :completed,
+             :clothing_conversation, :reg_fee_received, :checked_in, :completed,
+             :how_hear, :previous_event, :highest_level, :highest_location, :highest_date,
              :notes
 
   store :options, accessors: []

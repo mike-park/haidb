@@ -20,6 +20,14 @@ class Office::EventReportsController < Office::ApplicationController
     standard_response(csv_fields)
   end
 
+  def status
+    respond_to do |format|
+      format.html
+      format.csv   { send_data Registration.to_csv(event.registrations), filename: csv_file_name, type: :csv }
+      format.vcard { send_data Registration.to_vcard(event.registrations.approved), filename: vcf_file_name, type: :vcard }
+    end
+  end
+
   private
 
   def standard_response(csv_fields)
@@ -31,6 +39,10 @@ class Office::EventReportsController < Office::ApplicationController
 
   def csv_file_name
     "#{event.display_name}_#{action_name}_report.csv"
+  end
+
+  def vcf_file_name
+    "#{event.display_name}.vcf"
   end
 
   def event

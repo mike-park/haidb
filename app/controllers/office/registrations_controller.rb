@@ -2,14 +2,6 @@ class Office::RegistrationsController < Office::ApplicationController
   before_filter :event
   before_filter :registration, only: [:edit, :update, :show, :destroy]
 
-  def index
-    respond_to do |format|
-      format.html
-      format.csv { send_data Registration.to_csv(registrations.ok), filename: "#{event.display_name}.csv", type: :csv }
-      format.vcard { send_data Registration.to_vcard(registrations.ok), filename: "#{event.display_name}.vcf", type: :vcard }
-    end
-  end
-
   def edit
     store_location(params[:back_url])
   end

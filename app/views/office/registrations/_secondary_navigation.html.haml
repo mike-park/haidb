@@ -1,18 +1,6 @@
 = content_for :secondary_navigation do
   %ul.nav.nav-list
-    %li.nav-header= @event.display_name
-    %li= link_to(icon('icon-list-alt') + "Overview", office_event_registrations_path(@event))
-    %li.nav-header Reports
-    %li= link_to(icon('icon-map-marker') + "Show on Map", office_event_map_index_path(@event))
-    %li= link_to(icon('icon-list-alt') + "Client History", client_history_office_event_report_path(@event))
-    %li= link_to(icon('icon-list-alt') + "Payment Summary", payments_office_event_registrations_path(@event))
-    %li= link_to(icon('icon-list-alt') + "Bank", bank_office_event_report_path(@event))
-    %li= link_to(icon('icon-list-alt') + "Site", site_office_event_report_path(@event))
-    %li= link_to(icon('icon-list-alt') + "Checklist", checklists_office_event_registrations_path(@event))
-    %li= link_to(icon('icon-list-alt') + "Roster", roster_office_event_registrations_path(@event))
+    = render 'office/event_reports/reports'
     %li.nav-header Actions
     %li= link_to(icon('icon-edit') + "Mark Checked In", office_event_checked_in_index_path(@event))
     %li= link_to(icon('icon-edit') + "Mark Completed", office_event_completed_index_path(@event))
-    %li.nav-header Export
-    %li= link_to(icon('icon-envelope') + "Address Book", office_event_registrations_path(@event, format: :vcard))
-    %li= link_to(icon('icon-list') + "Spreadsheet", office_event_registrations_path(@event, format: :csv))

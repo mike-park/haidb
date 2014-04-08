@@ -11,7 +11,8 @@ module Csvable
       @csv_fields = names
     end
 
-    def to_csv(array, csv_fields = @csv_fields)
+    def to_csv(array, csv_fields = nil)
+      csv_fields ||= @csv_fields
       return unless csv_fields
       CSV.generate(:force_quotes => true, :encoding => 'utf-8') do |csv|
         csv << csv_header(csv_fields)
