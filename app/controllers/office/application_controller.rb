@@ -9,16 +9,6 @@ class Office::ApplicationController < ApplicationController
 
   private
 
-  def store_location(location)
-    session[:return_to] = location
-  end
-    
-  def stored_location
-    location = session[:return_to]
-    session[:return_to] = nil
-    location
-  end
-
   # wrap block call with language set
   def with_language(language = :en)
     locale = I18n.locale

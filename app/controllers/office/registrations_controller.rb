@@ -3,12 +3,11 @@ class Office::RegistrationsController < Office::ApplicationController
   before_filter :registration, only: [:edit, :update, :show, :destroy]
 
   def edit
-    store_location(params[:back_url])
   end
 
   def update
     if registration.update_attributes(params[:registration])
-      redirect_to(back_url, :notice => 'Registration was successfully updated.')
+      redirect_to([:office, event, registration], :notice => 'Registration was successfully updated.')
     else
       render :edit
     end
@@ -19,17 +18,13 @@ class Office::RegistrationsController < Office::ApplicationController
 
   def destroy
     registration.destroy
-    redirect_to(back_url, :notice => 'Registration was successfully deleted.')
+    redirect_to(status_office_event_report_path(event), :notice => 'Registration was successfully deleted.')
   end
 
   private
 
   def registration
     @registration ||= event.registrations.find(params[:id])
-  end
-
-  def back_url
-    stored_location || office_event_registrations_url(event)
   end
 
   def event
