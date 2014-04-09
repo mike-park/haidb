@@ -25,6 +25,6 @@
 = r.input :previous_event, options_for_previous_event(r)
 
 .instructions= _('public_signup.form.previous_workshop.instructions')
-= r.input :highest_level, label: _('public_signup.form.previous_workshop.highest_level'), input_html: {:size => 5}
-= r.input :highest_location, label: _('public_signup.form.previous_workshop.highest_location'),  input_html: {:size => 30}
-= r.input :highest_date, label: _('public_signup.form.previous_workshop.highest_date'), input_html: {:size => 20}
+= r.input :highest_level, label: SiteDefault.get('public_signup.form.previous_workshop.highest_level'), input_html: {:size => 5}
+= r.input :highest_location, label: SiteDefault.get('public_signup.form.previous_workshop.highest_location'),  input_html: {:size => 30}
+= r.input :highest_date, label: SiteDefault.get('public_signup.form.previous_workshop.highest_date'), input_html: {:size => 20}
