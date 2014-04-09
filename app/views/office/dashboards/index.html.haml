@@ -20,7 +20,7 @@
   .block
     .content
       = controls do |c|
-        - add_button_to(c, 'Show registrations', :controller => :registrations, :event_id => event)
+        - add_button_to(c, 'Show registrations', controller: :event_reports, action: :status, event_id: event)
 
       %h2 
         #{event.display_name} ~ #{time_ago_in_words(event.start_date)}

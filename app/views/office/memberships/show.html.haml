@@ -13,7 +13,7 @@
 
   .content
     = controls do |c|
-      - add_button_to(c, 'Add registration', :angel_id => @membership.angel, :controller => :registrations)
+      - add_button_to(c, 'Add registration', :angel_id => @membership.angel, :controller => :angel_registrations)
 
     - if @membership.on_team.any?
       %h3 On team for #{pluralize(@membership.on_team.length, 'event')}
