@@ -14,7 +14,8 @@ class Membership < ActiveRecord::Base
   # Novice = Accepted and less than X workshops
   # Experienced = >= X workshops
   # TeamCo = duh
-  STATUSES = [AWS='AWS/TWS', PRELIMINARY='Preliminary', NOVICE='Novice', EXPERIENCED='Experienced', TEAMCO='TeamCo']
+  STATUSES = [AWS='AWS/TWS', PRELIMINARY='Preliminary', NOVICE='Novice', EXPERIENCED='Experienced', TEAMCO='TeamCo',
+              FACILITATOR='Facilitator']
 
   scope :active, lambda { where(retired_on: nil) }
   scope :retired, lambda { where('retired_on IS NOT NULL') }
