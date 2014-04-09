@@ -66,6 +66,9 @@ Haidb::Application.routes.draw do
       collection do
         get 'past'
       end
+      member do
+        post 'assign', to: 'team_assignments#create'
+      end
     end
 
     resources :public_signups do

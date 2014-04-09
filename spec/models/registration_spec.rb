@@ -358,5 +358,15 @@ describe Registration do
     end
   end
 
+  context "new_from" do
+    let(:angel) { create(:full_angel) }
+    subject { Registration.new_from(angel) }
+
+    its(:angel) { should eq(angel) }
+
+    Registration::REGISTRATION_FIELDS.each do |field|
+      its(field) { should eq(angel.send(field)) }
+    end
+  end
 
 end

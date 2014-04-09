@@ -1,6 +1,7 @@
 .block
   .content
     = controls do |c|
+      - add_button_to(c, 'Assign', method: :post, id: @team.id, controller: 'team_assignments', action: :create)
       - add_button_to(c, :edit)
       - add_button_to(c, 'Refresh', method: :post, team_id: @team, controller: 'members', action: 'refresh')
 

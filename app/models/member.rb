@@ -12,4 +12,14 @@ class Member < ActiveRecord::Base
 
   ROLES = [TEAMCO="TeamCo", TRANSLATOR="Translator"]
 
+  delegate :team_cost, to: :membership
+
+  def assign_to(event)
+    registration = Registration.new_from(angel)
+    registration.update_attributes(event_id: event.id,
+                                   role: Registration::TEAM,
+                                   status: Registration::APPROVED,
+                                   cost: team_cost)
+    registration
+  end
 end

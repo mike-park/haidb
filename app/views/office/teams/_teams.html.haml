@@ -1,5 +1,7 @@
 - teams.each do |team|
-  %h2=link_to(team.name, [:office, team])
+  %h2
+    = link_to(team.name, [:office, team])
+    = '(Closed)' if team.closed?
   - stats = TeamStatsDecorator.new(team.stats)
   .row-fluid
     .span.team-delta

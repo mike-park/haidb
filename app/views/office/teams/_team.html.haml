@@ -1,4 +1,6 @@
-%h2=link_to(team.name, [:office, team])
+%h2
+  = team.event ? link_to(team.name, [:office, team.event]) : team.name
+  = '(Closed)' if team.closed?
 
 = render team.stats
 = render 'notes', team: team

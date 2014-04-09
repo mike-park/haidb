@@ -135,6 +135,14 @@ class Registration < ActiveRecord::Base
     where(id: ids).update_all(angel_id: angel.id) if ids.any?
   end
 
+  def self.new_from(angel)
+    registration = new(angel: angel)
+    REGISTRATION_FIELDS.each do |field|
+      registration.send("#{field}=", angel.send(field))
+    end
+    registration
+  end
+
   def full_name
     [first_name, last_name].compact.join(" ")
   end
