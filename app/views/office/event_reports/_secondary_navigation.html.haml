@@ -1,6 +1,1 @@
-= content_for :secondary_navigation do
-  %ul.nav.nav-list
-    = render 'reports'
-    %li.nav-header Export
-    %li= link_to(icon('icon-envelope') + "Address Book", status_office_event_report_path(@event, format: :vcard))
-    %li= link_to(icon('icon-list') + "Spreadsheet", url_for(format: :csv))
+= render 'office/registrations/secondary_navigation'

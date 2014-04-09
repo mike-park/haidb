@@ -1,10 +1,10 @@
 %li.nav-header= @event.display_name
 %li= link_to(icon('icon-list-alt') + "Status", status_office_event_report_path(@event))
 %li.nav-header Reports
-%li= link_to(icon('icon-map-marker') + "Show on Map", office_event_map_index_path(@event))
-%li= link_to(icon('icon-list-alt') + "Client History", client_history_office_event_report_path(@event))
-%li= link_to(icon('icon-list-alt') + "Payment", payment_office_event_report_path(@event))
 %li= link_to(icon('icon-list-alt') + "Bank", bank_office_event_report_path(@event))
-%li= link_to(icon('icon-list-alt') + "Site", site_office_event_report_path(@event))
 %li= link_to(icon('icon-list-alt') + "Checklist", checklist_office_event_report_path(@event))
+%li= link_to(icon('icon-list-alt') + "History", client_history_office_event_report_path(@event))
+%li= link_to(icon('icon-map-marker') + "Map", office_event_map_index_path(@event))
+%li= link_to(icon('icon-list-alt') + "Payment", payment_office_event_report_path(@event))
+%li= link_to(icon('icon-list-alt') + "Site", site_office_event_report_path(@event))
 %li= link_to(icon('icon-list-alt') + "Roster", roster_office_event_report_path(@event))

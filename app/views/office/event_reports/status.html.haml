@@ -1,5 +1,9 @@
 .block
   .content
+    = controls do |c|
+      - add_button_to(c, :csv)
+      - add_button_to(c, :vcard)
+
     %h2 #{@event.display_name} Status Report
     = render 'counts', registrations: @event.registrations.approved
     = render 'grouped', report: 'status'

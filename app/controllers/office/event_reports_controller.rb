@@ -30,8 +30,8 @@ class Office::EventReportsController < Office::ApplicationController
   def status
     respond_to do |format|
       format.html
-      format.csv   { send_data Registration.to_csv(event.registrations), filename: csv_file_name, type: :csv }
-      format.vcard { send_data Registration.to_vcard(event.registrations.approved), filename: vcf_file_name, type: :vcard }
+      format.csv   { send_data Registration.to_csv(approved_registrations), filename: csv_file_name, type: :csv }
+      format.vcard { send_data Registration.to_vcard(approved_registrations), filename: vcf_file_name, type: :vcard }
     end
   end
 
@@ -40,20 +40,32 @@ class Office::EventReportsController < Office::ApplicationController
                   :backjack_rental, :sunday_meal, :sunday_stayover, :payment_method]
     respond_to do |format|
       format.html
-      format.csv { send_data Registration.to_csv(event.registrations.approved, csv_fields), filename: csv_file_name, type: :csv }
+      format.csv { send_data Registration.to_csv(approved_registrations, csv_fields), filename: csv_file_name, type: :csv }
       format.pdf { send_data render_to_string(:layout => false), filename: pdf_file_name, type: :pdf }
     end
   end
 
   def roster
+    csv_fields = [:role, :status, :full_name, :email,
+                  :address, :postal_code, :city, :country,
+                  :home_phone, :mobile_phone, :work_phone]
     @roster = RosterDecorator.new(Roster.new(event))
     respond_to do |format|
       format.html
+      format.csv { send_data Registration.to_csv(completed_registrations, csv_fields), filename: csv_file_name, type: :csv }
       format.pdf { send_data(@roster.to_pdf, filename: @roster.filename, type: :pdf) }
     end
   end
 
   private
+
+  def approved_registrations
+    event.registrations.approved.by_first_name
+  end
+
+  def completed_registrations
+    event.completed_registrations.by_first_name
+  end
 
   def title
     @title ||= "#{event.display_name} #{action_name.humanize}"
