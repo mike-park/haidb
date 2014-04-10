@@ -2,7 +2,7 @@
   .content
     - if super_user?
       = controls do |c|
-        - add_button_to(c, :delete)
+        - c << delete_button
 
     %h2 Editing key #{site_default.display_name}
 

@@ -12,7 +12,7 @@ describe "roster" do
     visit subject
     current_path.should == subject
     #save_and_open_page
-    click_link 'PDF Format'
+    click_link 'PDF'
     page.status_code.should == 200
     page.response_headers['Content-Type'].should == 'application/pdf'
     page.response_headers['Content-Transfer-Encoding'].should == 'binary'

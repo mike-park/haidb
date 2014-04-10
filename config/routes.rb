@@ -19,6 +19,7 @@ Haidb::Application.routes.draw do
         get 'map'
         get 'map_info'
       end
+      resources :memberships, only: [:new]
       resources :angel_registrations, path: 'registrations', as: 'registrations', only: [:new, :create, :destroy]
     end
 

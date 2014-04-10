@@ -1,8 +1,7 @@
 .block
   .content
     = controls do |c|
-      - add_button_to(c, :edit)
-      - add_button_to(c, :delete)
+      - c << edit_button
 
     %h2 Membership
 
@@ -13,7 +12,7 @@
 
   .content
     = controls do |c|
-      - add_button_to(c, 'Add registration', :angel_id => @membership.angel, :controller => :angel_registrations)
+      - c << new_button(label: 'New Registration', path: new_office_angel_registration_path(@membership.angel))
 
     - if @membership.on_team.any?
       %h3 On team for #{pluralize(@membership.on_team.length, 'event')}

@@ -1,7 +1,7 @@
 .block
   .content
     = controls do |c|
-      - add_button_to(c, :delete)
+      - c << delete_button
 
     %h2
       #{@registration.event_name}: edit registration of #{@registration.full_name}

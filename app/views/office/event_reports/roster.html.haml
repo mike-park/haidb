@@ -1,8 +1,8 @@
 .block
   .content
     = controls do |c|
-      - add_button_to(c, :csv)
-      - add_button_to(c, "PDF Format", :format => :pdf)
+      - c << csv_button
+      - c << pdf_button
 
     %h2 #{@roster.title}
 

@@ -1,9 +1,9 @@
 .block
   .content
     = controls do |c|
-      - add_button_to(c, :edit)
-      - add_button_to(c, :delete) if super_user?
-      - add_button_to(c, 'Add Key') if super_user?
+      - c << edit_button
+      - (c << delete_button) if super_user?
+      - (c << new_button) if super_user?
 
     %h2 Key #{site_default.display_name}
 

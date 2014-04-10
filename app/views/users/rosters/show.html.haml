@@ -1,7 +1,7 @@
 .block
   .content
     = controls do |c|
-      - add_button_to(c, "PDF Format", :format => :pdf)
+      - c << pdf_button
 
     %h2= @roster.title
 

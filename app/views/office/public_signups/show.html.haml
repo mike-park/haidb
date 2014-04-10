@@ -3,17 +3,17 @@
     - r = public_signup.registration
     - if r.approved?
       = controls do |c|
-        - add_button_to(c, 'Show event registrations', event_id: r.event, controller: :event_reports, action: :status)
-        - add_button_to(c, :waitlist, :action => :waitlist, :icon => 'time', :method => :put)
+        - c << registrations_button(r.event)
+        - c << button_with_options(:waitlist, icon: 'icon-time', html: {method: :put})
 
     - else
       = controls do |c|
-        - add_button_to(c, :edit)
+        - c << edit_button
 
       = controls do |c|
-        - add_button_to(c, :approve, :action => :approve, :icon => 'ok', :method => :put)
+        - c << button_with_options(:approve, icon: 'icon-ok', html: {method: :put})
         - if !r.waitlisted?
-          - add_button_to(c, :waitlist, :action => :waitlist, :icon => 'time', :method => :put)
+          - c << button_with_options(:waitlist, icon: 'icon-time', html: {method: :put})
 
     %h3
       Registration request for #{r.event_name}
