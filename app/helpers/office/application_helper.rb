@@ -4,6 +4,65 @@ module Office::ApplicationHelper
     current_staff && current_staff.super_user?
   end
 
+  def add_button(nav, action, path = nil, html = {})
+    ButtonAction.new(action, path, html).link
+  end
+
+  class ButtonAction
+    ICON_MAP = {
+        refresh: 'refresh',
+        new: 'plus-sign',
+        add: 'plus-sign',
+        edit: 'edit',
+        delete: 'remove-sign',
+        show: 'zoom-in',
+        pdf: 'print',
+        registrations: 'user',
+        vcard: 'envelope',
+        csv: 'list'
+    }
+    TEXT_MAP = { refresh: 'buttons.labels.refresh' }
+
+    attr_reader :action
+
+    def initialize(action, path = nil, html = {})
+      @action = action
+      @path = path
+      @html = html
+    end
+
+    def link
+      link_to(path, html) do
+        icon + text
+      end
+    end
+
+    private
+
+    def icon
+      icon_extension = ICON_MAP[action]
+      icon_extension ? content_tag(:i, nil, class: "icon-#{icon_extension}") : ''
+    end
+
+    def label
+      I18n.translate(TEXT_MAP[action], default: action.to_s.humanize)
+    end
+
+    def html
+      hash = @html
+      hash[:class] = 'btn'
+      if action == :delete
+        hash[:method] = :delete
+        hash[:confirm] = I18n.translate('buttons.labels.are_you_sure', default: 'Are you sure you want to delete this?')
+      end
+      hash
+    end
+
+    def path
+
+    end
+  end
+
   def add_button_to(nav, action, *object)
     html = {class: 'btn'}
     options = object.extract_options!

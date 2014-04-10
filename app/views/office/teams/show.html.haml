@@ -2,7 +2,10 @@
   .content
     = controls do |c|
       - add_button_to(c, 'Assign', method: :post, id: @team.id, controller: 'team_assignments', action: :create)
+      - add_button(c, 'Assign', assign_office_team_path(@team), method: :post)
       - add_button_to(c, :edit)
+      - add_button(c, :edit)
       - add_button_to(c, 'Refresh', method: :post, team_id: @team, controller: 'members', action: 'refresh')
+      - add_button(c, :refresh, refresh_office_team_members_path(@team), method: :post)
 
     = render @team
