@@ -14,7 +14,12 @@ group :assets do
   gem 'sass-rails', "  ~> 3.2.3"
   gem 'coffee-rails', "~> 3.2.1"
   gem 'uglifier', '>= 1.0.3'
+  gem 'rails-assets-jquery'
+  gem 'rails-assets-bootstrap'
   gem 'rails-assets-angular'
+  # problem with //= require angular-strap/angular-strap.tpl.min
+  # config/initializers/angular_strap.rb fixes the problem
+  gem 'rails-assets-angular-strap'
 end
 
 gem 'jquery-rails'
