@@ -1,0 +1,52 @@
+!!! 5
+%html{lang: 'en'}
+  %head
+    %meta{charset: 'utf-8'}
+    %meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
+    %title= @title || "HAI #{Site.name.upcase} System"
+    %link{href: "/favicon-#{Site.name}.ico", rel: 'shortcut icon'}
+    = stylesheet_link_tag 'application'
+    = csrf_meta_tag
+    = yield :head
+    -# HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+    -# WARNING: Respond.js doesn't work if you view the page via file://
+    /[if lt IE 9]
+      %script{src: 'https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'}
+      %script{src: 'https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'}
+  %body
+    .navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          %button(type='button' class='navbar-toggle' data-toggle='collapse' data-target='#navbar-collapse')
+            %span.sr-only Toggle Navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand HAI #{Site.name.upcase}
+        #navbar-collapse.collapse.navbar-collapse
+          = yield :navigation
+    .container
+      .flashes
+        - flash.each do |key, msg|
+          .alert.alert-message.fade.in{title: key.to_s.humanize, class: "#{key}", data: { alert: 'alert'}}
+            = link_to("&times;".html_safe, '#', data: {dismiss: 'alert'}, class: 'close')
+            %strong= msg
+
+
+    - render 'secondary_navigation'
+
+    .container
+      - if content_for?(:secondary_navigation)
+        .row
+          .col-md-2
+            = yield :secondary_navigation
+          .col-md-10
+            = yield
+      - else
+        = yield
+
+    = javascript_include_tag 'application'
+    = yield :javascripts
+    =# for maps4rails
+    = yield :scripts

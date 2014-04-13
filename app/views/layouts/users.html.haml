@@ -1,31 +1,5 @@
-!!! 5
-%html
-  %head
-    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
-    %title= @title || "HAI #{Site.name.upcase} Workshops"
-    %link{:href => "/favicon-#{Site.name}.ico", :rel => "shortcut icon"}/
-    = stylesheet_link_tag 'application'
-    = javascript_include_tag 'application'
-    = csrf_meta_tag
-    = yield :head
-  %body{class: page_class}
-    .navbar
-      .navbar-inner
-        .container-fluid
-          %a.brand HAI #{Site.name.upcase}
-          = tabs(:users)
-          = link_to_logout(destroy_user_session_path)
+- content_for :navigation do
+  = tabs(:users)
+  %p.navbar-text.navbar-right= link_to(current_user.full_name, destroy_user_session_path, class: 'navbar-link')
 
-    .container-fluid
-      .flashes
-        - flash.each do |key, msg|
-          .alert.alert-message.fade.in{title: key.to_s.humanize, class: "#{key}", data: { alert: 'alert'}}
-            = link_to("&times;".html_safe, '#', data: {dismiss: 'alert'}, class: 'close')
-            %strong= msg
-
-    .container-fluid
-      .row-fluid
-        .span12
-          = yield
-
-    = yield :javascripts
+= render 'layouts/layout'

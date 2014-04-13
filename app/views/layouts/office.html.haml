@@ -1,43 +1,5 @@
-!!! 5
-%html{:lang => "en"}
-  %head
-    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
-    %title= @title || "HAI #{Site.name.upcase} System"
-    %link{:href => "/favicon-#{Site.name}.ico", :rel => "shortcut icon"}/
-    = stylesheet_link_tag 'application'
-    = javascript_include_tag 'application'
-    = csrf_meta_tag
-    = yield :head
-  %body
-    .navbar
-      .navbar-inner
-        .container-fluid
-          %a.brand HAI #{Site.name.upcase}
-          = tabs(:office)
-          = link_to_logout(destroy_staff_session_path)
+- content_for :navigation do
+  = tabs(:office)
+  %p.navbar-text.navbar-right= link_to(current_staff.email, destroy_staff_session_path, class: 'navbar-link')
 
-    .container-fluid
-      .flashes
-        - flash.each do |key, msg|
-          .alert.alert-message.fade.in{title: key.to_s.humanize, class: "#{key}", data: { alert: 'alert'}}
-            = link_to("&times;".html_safe, '#', data: {dismiss: 'alert'}, class: 'close')
-            %strong= msg
-
-
-    - render 'secondary_navigation'
-
-    .container-fluid
-      - if content_for?(:secondary_navigation)
-        .row-fluid
-          .block.span2
-            = yield :secondary_navigation
-          .span10
-            = yield
-      - else
-        .row-fluid
-          .span12
-            = yield
-
-    = yield :javascripts
-    =# for maps4rails
-    = yield :scripts
+= render 'layouts/layout'
