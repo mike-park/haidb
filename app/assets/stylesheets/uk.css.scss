@@ -4,9 +4,8 @@ $baseLineHeight: 14px;
 $grayDark: #70695A;
 
 @import 'bootstrap';
-@import 'bootstrap-responsive';
-@import "style";
-@import "colour";
+@import "uk/style";
+@import "uk/colour";
 
 .instructions {
   border: 1px solid red;

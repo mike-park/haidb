@@ -1,5 +1,5 @@
 class Office::ApplicationController < ApplicationController
-  layout 'office/application'
+  layout 'office'
 
   before_filter :authenticate_staff!
 

@@ -1,4 +1,5 @@
 !!! 5
+-# NOT LOGGED IN LAYOUT
 - title = "HAI #{Site.name.upcase} Workshops"
 %html
   %head
@@ -6,9 +7,8 @@
     %title= title
     %link{:href => "/favicon-#{Site.name}.ico", :rel => "shortcut icon"}
     = csrf_meta_tag
-    = stylesheet_link_tag "office/application"
-    %script{src:"//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
-    = javascript_include_tag 'office/application'
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
     :css
       #container {
         max-width: 600px;

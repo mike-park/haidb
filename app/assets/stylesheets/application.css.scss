@@ -5,15 +5,15 @@ $deDark: lighten($deDarker, 15%) !default;
 $de: lighten($deDarker, 30%);
 $deLight: lighten($deDarker, 50%) !default;
 
+$navbarBackground: $deDarker !default;
+$navbarBackgroundHighlight: $deDark !default;
+$navbarText: $deLight !default;
+$navbarLinkColor: $deLight !default;
 
-$navbarBackground:                $deDarker !default;
-$navbarBackgroundHighlight:       $deDark !default;
-$navbarText:                      $deLight !default;
-$navbarLinkColor:                 $deLight !default;
+$navbar-default-color:             $deLight;
+$navbar-default-bg:                $deDarker;
 
-@import 'jquery-ui-1.8.16.custom';
 @import 'bootstrap';
-@import 'bootstrap-responsive';
 @import 'gmaps4rails';
 @import 'tablesorter';
 
@@ -22,20 +22,22 @@ body {
 }
 
 .block {
-  @include border-radius();
-  @include box-shadow();
+//  @include border-radius();
+//  @include box-shadow();
   background-color: white;
   margin-bottom: 20px;
 }
 
 .content {
   padding: 10px;
-  @include clearfix();
+//  @include clearfix();
 }
 
 .action-buttons {
   float: right;
-  a { margin-left: 10px; }
+  a {
+    margin-left: 10px;
+  }
 }
 
 .counts {
@@ -49,38 +51,75 @@ body {
 }
 
 .table-key-values {
-  caption { text-align: left; }
-  th { @include tableColumns(2); }
+  caption {
+    text-align: left;
+  }
+  th {
+    float: none;
+    width: 124px;
+    margin-left: 0;
+  }
 }
 
 /*=============== collapsible blocks */
 *[data-collapsible] {
   cursor: pointer;
-  &:before { content: '►'; }
-  &:hover { background-color: #eee; }
+  &:before {
+    content: '►';
+  }
+  &:hover {
+    background-color: #eee;
+  }
   &.active {
-    &:before { content: '▼'; }
+    &:before {
+      content: '▼';
+    }
   }
 }
 
 .form-filter {
-  div { display: inline-block; }
+  div {
+    display: inline-block;
+  }
 }
 
 .table {
-  .name { white-space: nowrap; width: 150px; overflow: hidden; }
-  .date { white-space: nowrap; width: 85px; }
-  .notes { max-width: 200px; }
-  .qty { text-align: right; }
-  .center {text-align: center; }
-  .owes { background-color: #ffb2b2; }
+  .name {
+    white-space: nowrap;
+    width: 150px;
+    overflow: hidden;
+  }
+  .date {
+    white-space: nowrap;
+    width: 85px;
+  }
+  .notes {
+    max-width: 200px;
+  }
+  .qty {
+    text-align: right;
+  }
+  .center {
+    text-align: center;
+  }
+  .owes {
+    background-color: #ffb2b2;
+  }
 }
 
 .table-toggler {
-  td.green { background-color: green; }
-  td.red { background-color: red; }
-  td { border-bottom: 1px solid #eaeaea; }
-  form { margin: 0; }
+  td.green {
+    background-color: green;
+  }
+  td.red {
+    background-color: red;
+  }
+  td {
+    border-bottom: 1px solid #eaeaea;
+  }
+  form {
+    margin: 0;
+  }
 }
 
 .dot {
@@ -88,8 +127,14 @@ body {
   width: 10px;
   height: 10px;
 }
-.dot-green { background-color: green; }
-.dot-red { background-color: red; }
+
+.dot-green {
+  background-color: green;
+}
+
+.dot-red {
+  background-color: red;
+}
 
 // awesome_print output
 .ap {
@@ -105,7 +150,9 @@ body {
 .map_container {
   // tiwtter bootstrap fix see
   // https://github.com/apneadiving/Google-Maps-for-Rails/wiki/Google-Maps-and-Twitter-Bootstrap
-  img { max-width: none; }
+  img {
+    max-width: none;
+  }
   width: inherit;
 }
 
@@ -116,7 +163,7 @@ body {
 // similar angel pages
 
 .similar-angel {
-  @include clearfix();
+//  @include clearfix();
 
   .angel {
     float: left;
@@ -135,9 +182,15 @@ body {
 }
 
 .team-member {
-  .role { font-weight: bold; }
-  .notes { font-style: italic; }
-  .status { color: #0f8a26; }
+  .role {
+    font-weight: bold;
+  }
+  .notes {
+    font-style: italic;
+  }
+  .status {
+    color: #0f8a26;
+  }
 }
 
 .wide-textarea {

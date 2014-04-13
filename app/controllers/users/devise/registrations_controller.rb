@@ -1,5 +1,5 @@
 class Users::Devise::RegistrationsController < Devise::RegistrationsController
-  layout 'users/signed_in', only: [:edit, :update]
+  layout 'users', only: [:edit, :update]
 
   protected
 

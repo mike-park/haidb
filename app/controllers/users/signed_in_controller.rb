@@ -1,5 +1,5 @@
 class Users::SignedInController < ApplicationController
-  layout 'users/signed_in'
+  layout 'users'
 
   before_filter :authenticate_user!
 

@@ -49,7 +49,7 @@ Haidb::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( public_signup.js office/application.js public_signup/de/main.css public_signup/uk/main.css office/application.css)
+  config.assets.precompile += %w( public_signup.js de.css uk.css)
 
   # gmaps4rails additions (necessary for heroku)
   config.assets.paths << "#{Gmaps4rails::Engine.config.root}/public/stylesheets"
