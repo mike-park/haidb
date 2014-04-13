@@ -1,14 +1,14 @@
-.row-fluid
+.row
   .span
     %h2= team.name
   - unless team.closed?
     .span
       = render 'member_signup', team: team
 
-.row-fluid
+.row
   = render team.stats
 
-.content
+%p
   - if team.members.any?
     = render 'members', members: team.members
   - else

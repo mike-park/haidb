@@ -1,8 +1,8 @@
-= render 'experiments'
+= render 'experiments' if params[:x] == '1'
 
 - if @pending.count > 0
-  .block
-    .content
+  .panel
+    .panel-body
       = controls do |c|
         - c << show_button(label: 'Show Pending Signups', path: office_public_signups_path)
 
@@ -10,8 +10,8 @@
         #{pluralize(@pending.count, "public signup")} pending approval.
 
 - if @waitlisted.count > 0
-  .block
-    .content
+  .panel
+    .panel-body
       = controls do |c|
         - c << show_button(label: 'Show Wait Listed Signups', path: waitlisted_office_public_signups_path)
 
@@ -19,8 +19,8 @@
         #{pluralize(@waitlisted.count, "public signup")} wait listed.
 
 - @events.each do |event|
-  .block
-    .content
+  .panel
+    .panel-body
       = controls do |c|
         - c << registrations_button(event)
 

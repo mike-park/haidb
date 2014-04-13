@@ -7,18 +7,6 @@ body {
   background-color: #eee;
 }
 
-.block {
-//  @include border-radius();
-//  @include box-shadow();
-  background-color: white;
-  margin-bottom: 20px;
-}
-
-.content {
-  padding: 10px;
-//  @include clearfix();
-}
-
 .action-buttons {
   float: right;
   a {

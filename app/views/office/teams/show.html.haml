@@ -1,5 +1,5 @@
-.block
-  .content
+.panel
+  .panel-body
     = controls do |c|
       - c << new_button(label: 'Assign', path: assign_office_team_path(@team), html: {method: :post})
       - c << edit_button

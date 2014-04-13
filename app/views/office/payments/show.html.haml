@@ -1,8 +1,8 @@
-.block
-  .content
+.panel
+  .panel-body
     = controls do |c|
       - c << edit_button
 
-  .content
+  .panel-body
     = render 'payment', payment: @payment
     = render 'office/shared/audits', :audits => @payment.audits.descending if @payment.audits.any?

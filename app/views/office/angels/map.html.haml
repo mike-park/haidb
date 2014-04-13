@@ -1,4 +1,4 @@
-.block
+.panel
   - if @json != "[]"
     = gmaps(markers: { data: @json, options: { do_clustering: true, randomize: false, clusterer_maxZoom: 10 } })
   - else

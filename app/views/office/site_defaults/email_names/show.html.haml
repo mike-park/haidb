@@ -1,5 +1,5 @@
-.block
-  .content
+.panel
+  .panel-body
     = controls do |c|
       - c << edit_button
 
@@ -7,7 +7,7 @@
 
     = render 'email_name', email_name: email_name
 
-  .content
+  .panel-body
     %h2
 
     - if email_name.events.size > 0

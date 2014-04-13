@@ -1,5 +1,5 @@
-.block
-  .content
+.panel
+  .panel-body
     = controls do |c|
       - c << edit_button
 
@@ -8,7 +8,7 @@
     = render angel
     = render 'office/shared/audits', :audits => angel.audits.descending if angel.audits.any?
 
-  .content
+  .panel-body
     = controls do |c|
       - c << new_button(label: 'New Membership', path: new_office_angel_membership_path(angel))
 
@@ -18,7 +18,7 @@
     - else
       %h3 No memberships.
 
-  .content
+  .panel-body
     = controls do |c|
       - c << new_button(label: 'New Registration', path: new_office_angel_registration_path(angel))
 
