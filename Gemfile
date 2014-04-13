@@ -8,24 +8,33 @@ gem "rails", "3.2.17"
 gem 'unicorn'         # web server
 gem 'newrelic_rpm'    # performance monitoring
 
+
 # Gems used only for assets and not required
 # in production environments by default.
+# gems added to Rails.application.config.assets.paths in reverse order (ie last gem has first path)
 group :assets do
-  gem 'sass-rails', "  ~> 3.2.3"
   gem 'coffee-rails', "~> 3.2.1"
   gem 'uglifier', '>= 1.0.3'
+
   gem 'rails-assets-jquery'
-  gem 'rails-assets-bootstrap'
   gem 'rails-assets-angular'
   # problem with //= require angular-strap/angular-strap.tpl.min
   # config/initializers/angular_strap.rb fixes the problem
+  # auto includes rails-assets-bootstrap & rails-assets-jquery
   gem 'rails-assets-angular-strap'
+
+  # ensure jquery matches jquery_ujs version by include after angular-strap
+  # required for jquery_ujs and therefore things link link_to_remote
+  gem 'jquery-rails'
+
+  # bootstrap 3 with sass. must be last to allow sass overrides & mixins
+  gem 'sass'
+  gem 'sass-rails', '>= 3.2'
+  gem 'bootstrap-sass', '~> 3.1.1'
 end
 
-gem 'jquery-rails'
-
 # these add generators that help
-gem 'haml', '>= 3.1.4'
+gem 'haml'
 
 # include lang in url
 gem 'routing-filter'
@@ -34,8 +43,7 @@ gem 'routing-filter'
 # seem to change when they have not
 #gem 'delocalize'
 
-# new styling, use twitter bootstrap
-gem 'bootstrap-sass', '>= 2.0.1'
+# form creation
 gem 'simple_form'
 gem 'tabulous', '~> 2.1.0'					# menu highlighting
 
