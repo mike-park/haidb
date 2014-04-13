@@ -3,11 +3,11 @@
     = link_to(team.name, [:office, team])
     = '(Closed)' if team.closed?
   - stats = TeamStatsDecorator.new(team.stats)
-  .row-fluid
-    .span.team-delta
+  .row
+    .pull-left.team-delta
       %span{class: stats.full? ? 'dot-green' : 'dot-red'}= stats.delta_with_symbol
 
-    .span
+    .pull-left
       %table.table
         %thead
           %tr
@@ -22,5 +22,5 @@
             - stats.counts(stats.extra_fields, :team).each do |count|
               %td.qty= count
   - if team.notes.present?
-    .row-fluid
+    .row
       = "Notes: #{team.notes}"

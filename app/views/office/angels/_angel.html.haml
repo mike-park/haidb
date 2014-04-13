@@ -19,7 +19,7 @@
     %tr
       %th Address
       %td
-        .row-fluid
+        .row
           .span4= compact_address(angel)
           .span2= link_to(icon('icon-map-marker') + "Map", map_office_angels_path(id: angel), class: 'btn') if angel.geocoded?
     %tr

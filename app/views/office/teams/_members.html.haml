@@ -1,7 +1,7 @@
-.row-fluid
-  .span6
+.row
+  .col-sm-6
     = render 'quick_add', team: @team, gender: Registration::FEMALE
     = render members.females
-  .span6
+  .col-sm-6
     = render 'quick_add', team: @team, gender: Registration::MALE
     = render members.males
