@@ -54,7 +54,7 @@ module ButtonHelper
 
   def button_with_options(action, options = {}, &block)
     options[:html] ||= {}
-    options[:html][:class] = 'btn'
+    options[:html][:class] = 'btn btn-primary'
     options[:path] ||= url_for(action: action)
     options[:label] = I18n.translate("buttons.labels.#{action}", default: (options[:label] || action.to_s.humanize))
     options[:icon] ||= "icon-#{action}"
