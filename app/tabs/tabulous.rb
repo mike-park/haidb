@@ -106,7 +106,7 @@ Tabulous.setup do
     # which class to use to generate HTML
     # :default, :html5, :bootstrap, or :bootstrap_pill
     # or create your own renderer class and reference it here
-    renderer :bootstrap
+    renderer :bootstrap_navbar
 
     # whether to allow the active tab to be clicked
     # defaults to true
