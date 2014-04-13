@@ -1,19 +1,5 @@
-// bootstrap configured jquery-ui theme
-
-$deDarker: #7da72f !default;
-$deDark: lighten($deDarker, 15%) !default;
-$de: lighten($deDarker, 30%);
-$deLight: lighten($deDarker, 50%) !default;
-
-$navbarBackground: $deDarker !default;
-$navbarBackgroundHighlight: $deDark !default;
-$navbarText: $deLight !default;
-$navbarLinkColor: $deLight !default;
-
-$navbar-default-color:             $deLight;
-$navbar-default-bg:                $deDarker;
-
 @import 'bootstrap';
+
 @import 'gmaps4rails';
 @import 'tablesorter';
 
