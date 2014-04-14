@@ -1,6 +1,0 @@
-= content_for :secondary_navigation do
-  %ul.nav.nav-list
-    = render 'office/event_reports/reports'
-    %li.nav-header Actions
-    %li= link_to(icon('icon-edit') + "Mark Checked In", office_event_checked_in_index_path(@event))
-    %li= link_to(icon('icon-edit') + "Mark Completed", office_event_completed_index_path(@event))

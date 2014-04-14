@@ -15,7 +15,7 @@ Tabulous.setup do
       link_path { office_angels_path }
       visible_when { true }
       enabled_when { true }
-      active_when { %w{angels similar_angels angel_registrations}.each {|n| in_action('any').of_controller("office/#{n}")} }
+      active_when { %w{angels similar_angels angel_registrations}.each { |n| in_action('any').of_controller("office/#{n}") } }
     end
 
     office_teams_tab do
@@ -31,7 +31,7 @@ Tabulous.setup do
       link_path { office_teams_path }
       visible_when { true }
       enabled_when { true }
-      active_when { %w{teams members}.each {|n| in_action('any').of_controller("office/#{n}")} }
+      active_when { %w{teams members}.each { |n| in_action('any').of_controller("office/#{n}") } }
     end
 
     past_office_teams_subtab do
@@ -55,10 +55,41 @@ Tabulous.setup do
       link_path { office_events_path }
       visible_when { true }
       enabled_when { true }
-      active_when do
-        %w{events event_reports registrations registrations/completed registrations/checked_in registrations/map payments}.each do |n|
-          in_action('any').of_controller("office/#{n}")
-        end
+      active_when { in_action('any').of_controller('office/events') }
+    end
+
+    event_tab do
+      text { @event.display_name }
+      link_path {}
+      visible_when { @event }
+      enabled_when { true }
+      active_when { a_subtab_is_active }
+    end
+
+    status_event_subtab do
+      text { icon('th-list') + ' Status' }
+      link_path { status_office_event_report_path(@event) }
+      visible_when { true }
+      enabled_when { true }
+      active_when { %w{registrations registrations/completed registrations/checked_in payments event_reports registrations/map}.each { |n| in_action('any').of_controller("office/#{n}") } }
+    end
+
+    [[:list_icon, 'Bank', :bank_office_event_report_path],
+     [:list_icon, 'Checklist', :checklist_office_event_report_path],
+     [:list_icon, 'History', :client_history_office_event_report_path],
+     [:map_icon, 'Map', :office_event_map_index_path],
+     [:list_icon, 'Payment', :payment_office_event_report_path],
+     [:list_icon, 'Site', :site_office_event_report_path],
+     [:list_icon, 'Roster', :roster_office_event_report_path],
+     [:edit_icon, 'Mark Checked In', :office_event_checked_in_index_path],
+     [:edit_icon, 'Mark Completed', :office_event_completed_index_path]
+    ].each do |(icon, name, path)|
+      send("#{name.downcase}_event_subtab") do
+        text { send(icon, name) }
+        link_path { send(path, @event) }
+        visible_when { true }
+        enabled_when { true }
+        active_when { true }
       end
     end
 
@@ -75,7 +106,7 @@ Tabulous.setup do
       link_path { office_site_defaults_path }
       visible_when { true }
       enabled_when { true }
-      active_when { %w{site_defaults site_defaults/email_names}.each {|n| in_action('any').of_controller("office/#{n}")} }
+      active_when { %w{site_defaults site_defaults/email_names}.each { |n| in_action('any').of_controller("office/#{n}") } }
     end
   end
 
@@ -93,7 +124,7 @@ Tabulous.setup do
       link_path { users_registrations_path }
       visible_when { current_user.registrations.any? }
       enabled_when { true }
-      active_when { %w{registrations rosters}.each {|n| in_action('any').of_controller("users/#{n}")} }
+      active_when { %w{registrations rosters}.each { |n| in_action('any').of_controller("users/#{n}") } }
     end
 
     users_teams_tab do
@@ -101,7 +132,7 @@ Tabulous.setup do
       link_path { users_teams_path }
       visible_when { current_user.active_membership? }
       enabled_when { true }
-      active_when { %w{members teams}.each {|n| in_action('any').of_controller("users/#{n}")} }
+      active_when { %w{members teams}.each { |n| in_action('any').of_controller("users/#{n}") } }
     end
 
     users_angels_tab do

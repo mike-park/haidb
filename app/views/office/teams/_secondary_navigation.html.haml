@@ -1,7 +1,0 @@
-= content_for :secondary_navigation do
-  %ul.nav.nav-list
-    %li.nav-header Teams
-    %li= link_to_new(new_office_team_path, "New Team")
-    %li.nav-header Reports
-    %li= link_to(icon('icon-list-alt') + "Upcoming Teams", office_teams_path)
-    %li= link_to(icon('icon-list-alt') + "Past Teams", past_office_teams_path)

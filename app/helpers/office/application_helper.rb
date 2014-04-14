@@ -63,8 +63,25 @@ module Office::ApplicationHelper
     end
   end
 
+  def list_icon(label)
+    icon_label('th-list', label)
+  end
+
+  def map_icon(label = 'Map')
+    icon_label('map-marker', label)
+  end
+
+  def edit_icon(label)
+    icon_label('edit', label)
+  end
+
   def icon(name)
+    name = "glyphicon glyphicon-#{name}"
     content_tag(:i, nil, class: name)
+  end
+
+  def icon_label(name, label)
+    icon(name) + " #{label}"
   end
 
   def td_colorize(count, extra_class = '')
