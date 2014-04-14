@@ -23,7 +23,23 @@ Tabulous.setup do
       link_path { office_teams_path }
       visible_when { true }
       enabled_when { true }
+      active_when { a_subtab_is_active }
+    end
+
+    future_office_teams_subtab do
+      text { 'Upcoming' }
+      link_path { office_teams_path }
+      visible_when { true }
+      enabled_when { true }
       active_when { %w{teams members}.each {|n| in_action('any').of_controller("office/#{n}")} }
+    end
+
+    past_office_teams_subtab do
+      text { 'Past' }
+      link_path { past_office_teams_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when { false }
     end
 
     office_memberships_tab do
@@ -106,7 +122,7 @@ Tabulous.setup do
     # which class to use to generate HTML
     # :default, :html5, :bootstrap, or :bootstrap_pill
     # or create your own renderer class and reference it here
-    renderer :bootstrap_navbar
+    renderer :bootstrap_pill_stacked
 
     # whether to allow the active tab to be clicked
     # defaults to true
@@ -117,7 +133,7 @@ Tabulous.setup do
     # :do_not_render -- do not draw the tabset
     # :raise_error -- raise an error
     # defaults to :do_not_render
-    # when_action_has_no_tab :do_not_render
+    when_action_has_no_tab :render
 
     # whether to always add the HTML markup for subtabs, even if empty
     # defaults to false

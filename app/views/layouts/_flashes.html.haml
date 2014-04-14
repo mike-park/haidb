@@ -1,0 +1,5 @@
+.flashes
+  - flash.each do |key, msg|
+    .alert.alert-message.fade.in{title: key.to_s.humanize, class: "#{key}", data: { alert: 'alert'}}
+      = link_to("&times;".html_safe, '#', data: {dismiss: 'alert'}, class: 'close')
+      %strong= msg

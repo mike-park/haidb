@@ -1,5 +1,7 @@
 .panel.panel-default
   .panel-heading
+    = controls do |c|
+      - c << new_button
     %h3= pluralize(@teams.size, 'Upcoming Team')
   .panel-body
     = render 'teams', teams: @teams

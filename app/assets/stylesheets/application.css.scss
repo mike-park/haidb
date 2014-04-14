@@ -1,8 +1,8 @@
+$header_height: 50px;       // top header
 $reverse:               #fff;
 
 @import 'bootstrap';
-@import "flatify/panels";
-@import "flatify/type";
+@import "flatify/flatify";
 @import "pages/teams";
 
 @import 'gmaps4rails';
@@ -43,14 +43,14 @@ body {
 /*=============== collapsible blocks */
 *[data-collapsible] {
   cursor: pointer;
-  &:before {
+  &:after {
     content: '►';
   }
   &:hover {
     background-color: #eee;
   }
   &.active {
-    &:before {
+    &:after {
       content: '▼';
     }
   }
@@ -179,4 +179,10 @@ body {
 caption {
   font-size: larger;
   font-weight: bold;
+}
+
+.subnav {
+  li {
+    padding-left: 40px;
+  }
 }

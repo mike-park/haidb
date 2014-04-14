@@ -14,36 +14,25 @@
     /[if lt IE 9]
       %script{src: 'https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'}
       %script{src: 'https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'}
-  %body{class: page_class}
+  %body(class="#{page_class}" ng-app='app' ng-controller='PageCtl' ng-class='{"on-canvas": nav}')
     .navbar.navbar-default
       .container-fluid
         .navbar-header
-          %button(type='button' class='navbar-toggle' data-toggle='collapse' data-target='#navbar-collapse')
+          %button(type='button' class='navbar-toggle' ng-click='toggleNav()')
             %span.sr-only Toggle Navigation
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
           %a.navbar-brand HAI #{Site.name.upcase}
-        #navbar-collapse.collapse.navbar-collapse
-          = yield :navigation
-    .container
-      .flashes
-        - flash.each do |key, msg|
-          .alert.alert-message.fade.in{title: key.to_s.humanize, class: "#{key}", data: { alert: 'alert'}}
-            = link_to("&times;".html_safe, '#', data: {dismiss: 'alert'}, class: 'close')
-            %strong= msg
-
 
     - render 'secondary_navigation'
 
-    .container
-      - if content_for?(:secondary_navigation)
-        .row
-          .col-md-2
-            = yield :secondary_navigation
-          .col-md-10
-            = yield
-      - else
+    #nav-container
+      #nav-wrapper
+        = yield :navigation
+    #content
+      .container-fluid
+        = render 'layouts/flashes'
         = yield
 
     = javascript_include_tag 'application'
