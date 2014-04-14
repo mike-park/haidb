@@ -1,11 +1,9 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << new_button
-
-    %h2
-      Payments by #{registration.full_name} for #{registration.event_name}
-
+    %h3
+      Payments by #{@registration.full_name}
   .panel-body
     = render 'summary'
     = render 'payments', payments: @payments if @payments.any?

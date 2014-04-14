@@ -1,15 +1,15 @@
 .row
-  .span5
+  .col-sm-6
     %table.table.table-key-values
       %caption
-        %h6 Payment Information
+        %h5 Payment Information
       %tbody
         %tr
           %th Name
-          %td= registration.full_name
+          %td= @registration.full_name
         %tr
           %th Event
-          %td= registration.event_name
+          %td= @registration.event_name
         %tr
           %th Date
           %td= l payment.paid_on

@@ -1,11 +1,11 @@
 = content_for :secondary_navigation do
-  %ul.nav.nav-list
-    %li.nav-header
-      #{registration.full_name}
-      %br
-      #{event.display_name}
-    %li= link_to_new(new_office_registration_payment_path(registration), "New Payment")
-    %li.nav-header Reports
-    %li= link_to(icon('icon-list-alt') + "Event Payments", payment_office_event_report_path(registration.event))
-    %li.nav-header Actions
-    %li= link_to(icon('icon-edit') + "Edit Registration", edit_office_event_registration_path(registration.event, registration))
+  -#%ul.nav.nav-list
+  -#  %li.nav-header
+  -#    #{@registration.full_name}
+  -#    %br
+  -#    #{event.display_name}
+  -#  %li= link_to_new(new_office_registration_payment_path(registration), "New Payment")
+  -#  %li.nav-header Reports
+  -#  %li= link_to(icon('icon-list-alt') + "Event Payments", payment_office_event_report_path(registration.event))
+  -#  %li.nav-header Actions
+  -#  %li= link_to(icon('icon-edit') + "Edit Registration", edit_office_event_registration_path(registration.event, registration))

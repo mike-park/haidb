@@ -45,11 +45,11 @@ SimpleForm.setup do |config|
     b.use :error, :wrap_with => { :tag => :span, :class => :error }
   end
 
-  config.wrappers :bootstrap, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
+  config.wrappers :bootstrap, :tag => 'div', :class => 'form-group', :error_class => 'has-error' do |b|
     b.use :html5
     b.use :placeholder
     b.use :label
-    b.wrapper :tag => 'div', :class => 'controls' do |ba|
+    b.wrapper :tag => 'div', :class => 'form-controls' do |ba|
       ba.use :input
       ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
       ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }

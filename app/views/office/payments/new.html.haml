@@ -1,5 +1,6 @@
-.panel
-  .panel-body
-    %h2 New payment by #{registration.full_name} for #{registration.event_name}
+.panel.panel-default
+  .panel-heading
+    %h3 New payment by #{@registration.full_name} for #{@registration.event_name}
 
+  .panel-body
     = render 'form'

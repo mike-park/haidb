@@ -1,7 +1,8 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << edit_button
+    %h3 Payment on #{local_date(@payment.paid_on)}
 
   .panel-body
     = render 'payment', payment: @payment

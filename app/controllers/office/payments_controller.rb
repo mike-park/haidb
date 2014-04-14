@@ -1,4 +1,6 @@
 class Office::PaymentsController < Office::ApplicationController
+  before_filter :event
+
   def index
     @payments = payments.by_date
   end
@@ -44,14 +46,12 @@ class Office::PaymentsController < Office::ApplicationController
   protected
 
   def event
-    registration.event
+    @event ||= registration.event
   end
-  helper_method :event
 
   def registration
     @registration ||= Registration.find(params[:registration_id])
   end
-  helper_method :registration
 
   def payments
     registration.payments

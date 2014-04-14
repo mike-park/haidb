@@ -1,4 +1,4 @@
-= simple_form_for [:office, registration, @payment], html: {class: 'form-horizontal'} do |f|
+= simple_form_for [:office, @registration, @payment], html: {class: 'form-horizontal'} do |f|
   -if @payment.errors.any?
     #error_explanation
       %h3= "#{pluralize(@payment.errors.count, "error")} prohibited this payment from being saved"
