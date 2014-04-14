@@ -1,26 +1,8 @@
 - teams.each do |team|
-  %h2
-    = link_to(team.name, [:office, team])
-    = '(Closed)' if team.closed?
   - stats = TeamStatsDecorator.new(team.stats)
-  .row
-    .pull-left.team-delta
-      %span{class: stats.full? ? 'dot-green' : 'dot-red'}= stats.delta_with_symbol
-
-    .pull-left
-      %table.table
-        %thead
-          %tr
-            %th.qty Participants
-            %th.qty Team Tot.
-            - stats.headings(stats.extra_fields).each do |heading|
-              %th.qty= heading
-        %tbody
-          %tr
-            %td.qty= team.stats.counts(:participants)[:total]
-            %td.qty= team.stats.counts(:team)[:total]
-            - stats.counts(stats.extra_fields, :team).each do |count|
-              %td.qty= count
-  - if team.notes.present?
-    .row
-      = "Notes: #{team.notes}"
+  = link_to([:office, team]) do
+    .mini-box
+      %span.box-icon{class: stats.full? ? 'bg-success' : 'bg-danger'}
+        = stats.delta_with_symbol
+      .box-info
+        %p.size-h4= team.name

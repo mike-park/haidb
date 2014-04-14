@@ -1,4 +1,9 @@
+$reverse:               #fff;
+
 @import 'bootstrap';
+@import "flatify/panels";
+@import "flatify/type";
+@import "pages/teams";
 
 @import 'gmaps4rails';
 @import 'tablesorter';
