@@ -10,7 +10,8 @@ describe PublicSignupsController do
         Site.stub(:name).and_return(name)
         basedir = "public_signups/#{name}"
         # no top level new template, only in subdirectory. 
-        [lambda { get :new }, lambda { post :create }].each do |action|
+        [lambda { get :new, public_signup: {first_name: 'x'} },
+         lambda { post :create, public_signup: {first_name: 'x'} }].each do |action|
           action.call
           response.should render_template(layout: "#{name}_site")
         end
@@ -56,13 +57,14 @@ describe PublicSignupsController do
     before(:each) { I18n.locale = :en }
 
     it "should create public_signup object" do
-      post :create
+      post :create, public_signup: {first_name: 'x'}
       assigns[:public_signup].should be
     end
 
     context "a valid signup" do
       let(:registration) { double('registration', find_or_initialize_angel: true) }
       let(:public_signup) { double("publicsignup", save: true, registration: registration, send_email: true) }
+      let(:params) { { public_signup: { first_name: 'x'}}}
       before(:each) do
         PublicSignup.stub(:new).and_return(public_signup)
         Angel.stub(:add_to).with(registration)
@@ -76,24 +78,24 @@ describe PublicSignupsController do
                                 translations_attributes: [
                                     {locale: 'en', text: success_url}
                                 ]})
-        post :create
+        post :create, params
         response.should redirect_to(success_url)
         SiteDefault.destroy_all
       end
 
       it "should redirect to local url if no specific url exists" do
-        post :create
+        post :create, params
         response.should redirect_to(public_signup_url(0))
       end
 
       it "should send notification email" do
         public_signup.should_receive(:send_email).with(EventEmail::SIGNUP)
-        post :create
+        post :create, params
       end
 
       it "should receive a call to find angel" do
         registration.should_receive(:find_or_initialize_angel)
-        post :create
+        post :create, params
       end
     end
 

@@ -7,7 +7,7 @@ class PublicSignupsController < ApplicationController
   end
 
   def create
-    @public_signup = PublicSignup.new(params[:public_signup])
+    @public_signup = PublicSignup.new(ps_params)
     @public_signup.registration.find_or_initialize_angel if @public_signup.registration
     if @public_signup.save
       send_email
@@ -25,6 +25,17 @@ class PublicSignupsController < ApplicationController
   end
 
   private
+
+  def ps_params
+    params.require(:public_signup).
+        permit(:terms_and_conditions,
+               registration_attributes: [:event_id, :backjack_rental, :sunday_stayover, :sunday_meal,
+                                         :sunday_choice, :lift, :payment_method, :iban, :bank_account_name,
+                                         :bank_name, :bic, :notes, :how_hear, :previous_event, :first_name,
+                                         :last_name, :gender, :address, :postal_code, :city, :country,
+                                         :email, :home_phone, :mobile_phone, :work_phone, :lang, :highest_level,
+                                         :highest_location, :highest_date, :special_diet])
+  end
 
   def layout
     "#{Site.name}_site"

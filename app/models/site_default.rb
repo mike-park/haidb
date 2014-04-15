@@ -2,13 +2,12 @@ class SiteDefault < ActiveRecord::Base
   audited
   before_destroy :destroy_translations
   after_initialize :setup_nested_models
-  before_validation :remove_empty_translations
   after_save :clear_caches
   after_destroy :clear_caches
 
   belongs_to :translation_key, :dependent => :destroy
 
-  accepts_nested_attributes_for :translation_key
+  accepts_nested_attributes_for :translation_key, reject_if: :all_blank
 
   validates_presence_of :description
 
@@ -83,10 +82,6 @@ class SiteDefault < ActiveRecord::Base
 
   def destroy_translations
     translations.all.map(&:destroy)
-  end
-
-  def remove_empty_translations
-    translations.delete_if { |t| t.locale.blank? && t.text.blank? }
   end
 
   def setup_nested_models
