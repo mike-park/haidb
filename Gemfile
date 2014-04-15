@@ -70,11 +70,6 @@ gem 'audited-activerecord', github: 'mike-park/audited', branch: 'rails4'
 # hoptoad error reporting
 gem 'hoptoad_notifier'
 
-# replacement/alternative I18n (requires protected_attributes)
-gem 'protected_attributes'
-gem 'fast_gettext', :git => 'git://github.com/grosser/fast_gettext.git'
-gem 'gettext_i18n_rails', :git => 'git://github.com/grosser/gettext_i18n_rails.git'
-
 gem 'will_paginate'
 
 # access gravatar images

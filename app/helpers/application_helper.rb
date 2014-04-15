@@ -3,6 +3,10 @@ module ApplicationHelper
     I18n.locale.to_s == lang.to_s
   end
 
+  def sd(key)
+    SiteDefault.get(key)
+  end
+
   ROW_COUNT_SELECTION = [5, 10, 30, 200]
 
   def options_for_row_count

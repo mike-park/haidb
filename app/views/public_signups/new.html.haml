@@ -6,15 +6,15 @@
     = render 'switch_language'
 
   %p.title
-    = _('public_signup.form.title')
+    = sd('public_signup.form.title')
 
-  .instructions= _('public_signup.form.introduction')
+  .instructions= sd('public_signup.form.introduction')
 
   = f.simple_fields_for(:registration, f.options.slice(:wrapper_mappings)) do |r|
     = render 'registration_form', :r => r
 
-  - if _('public_signup.form.conditions').present?
-    .instructions= _('public_signup.form.conditions')
+  - if sd('public_signup.form.conditions').present?
+    .instructions= sd('public_signup.form.conditions')
     = f.input :terms_and_conditions, options_for_terms_and_conditions(f)
   - else
     = f.input :terms_and_conditions, as: :hidden, value: 1

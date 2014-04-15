@@ -1,17 +1,4 @@
 GIT
-  remote: git://github.com/grosser/fast_gettext.git
-  revision: 05ff682b94f16da39eeb13dca89311192fe2f3c6
-  specs:
-    fast_gettext (0.8.1)
-
-GIT
-  remote: git://github.com/grosser/gettext_i18n_rails.git
-  revision: 9ac015c67b865aaea85391c493ecb37ef0b55a4c
-  specs:
-    gettext_i18n_rails (1.0.4)
-      fast_gettext (>= 0.4.8)
-
-GIT
   remote: git://github.com/mike-park/audited.git
   revision: 155010ac4b6902257990998909a5b83710cd6b4d
   branch: rails4
@@ -184,8 +171,6 @@ GEM
     prawn (0.12.0)
       pdf-reader (>= 0.9.0)
       ttfunk (~> 1.0.2)
-    protected_attributes (1.0.7)
-      activemodel (>= 4.0.1, < 5.0)
     pundit (0.2.2)
       activesupport (>= 3.0.0)
     rack (1.5.2)
@@ -310,9 +295,7 @@ DEPENDENCIES
   email_spec
   factory_girl_rails
   faker
-  fast_gettext!
   figaro (~> 0.7.0)
-  gettext_i18n_rails!
   gmaps4rails
   gravatar-ultimate
   haml
@@ -325,7 +308,6 @@ DEPENDENCIES
   pg
   poltergeist
   prawn
-  protected_attributes
   pundit (~> 0.2.2)
   rack
   rails (= 4.1.0)

@@ -1,26 +1,12 @@
-# == Schema Information
-# Schema version: 20110320131630
-#
-# Table name: site_defaults
-#
-#  id                 :integer         primary key
-#  translation_key_id :integer
-#  description        :text
-#  created_at         :timestamp
-#  updated_at         :timestamp
-#
-
 class SiteDefault < ActiveRecord::Base
   audited
   before_destroy :destroy_translations
   after_initialize :setup_nested_models
   before_validation :remove_empty_translations
-  after_save :clear_translation_caches
-  after_destroy :clear_translation_caches
+  after_save :clear_caches
+  after_destroy :clear_caches
 
   belongs_to :translation_key, :dependent => :destroy
-
-  default_scope -> {includes(:translation_key => [:translations])}
 
   accepts_nested_attributes_for :translation_key
 
@@ -28,14 +14,17 @@ class SiteDefault < ActiveRecord::Base
 
   delegate :translations, :to => :translation_key
 
-  def display_name
-    translation_key.key
+  def self.get(key)
+    cache[key.to_s]
   end
 
-  # get key via auto-translation of FastGettext. return nil if not set. (by default translation returns the key)
-  def self.get(key)
-    value = _(key)
-    value == key ? nil : value
+  def self.cache(locale = I18n.locale)
+    @caches ||= {}
+    @caches[locale] ||= TranslationText.cache(locale)
+  end
+
+  def self.clear_caches
+    @caches = {}
   end
 
   def self.dump(filename)
@@ -70,6 +59,14 @@ class SiteDefault < ActiveRecord::Base
     end
   end
 
+  def display_name
+    translation_key.key
+  end
+
+  def clear_caches
+    self.class.clear_caches
+  end
+
   private
 
   def self.read_config(filename)
@@ -82,15 +79,6 @@ class SiteDefault < ActiveRecord::Base
     File.open(filename, "w") do |file|
       file.write(config.to_yaml)
     end
-  end
-
-  def clear_translation_caches
-    # delete all cached app translations
-    FastGettext.caches[FastGettext.default_text_domain] = {}
-    # and force reload of cache of cache
-    FastGettext.text_domain = FastGettext.text_domain
-    # currently this has no effect; but technically it should be the correct way to reset translations
-    I18n.reload!
   end
 
   def destroy_translations
@@ -109,5 +97,4 @@ class SiteDefault < ActiveRecord::Base
       end
     end
   end
-
 end

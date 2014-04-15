@@ -3,7 +3,7 @@
 
 = r.input :first_name,  :input_html => {:size => 20}
 = r.input :last_name,   :input_html => {:size => 20}
-.instructions= _('public_signup.form.gender')
+.instructions= sd('public_signup.form.gender')
 = r.input :gender, options_for_gender(r)
 = r.input :email,   :input_html => {:size => 30}
 = r.input :address,   :input_html => {:size => 30}
@@ -14,12 +14,12 @@
 = r.input :mobile_phone,  :input_html => {:size => 20}
 = r.input :work_phone,  :input_html => {:size => 20}
 
-.instructions= _('public_signup.form.workshop_information')
+.instructions= sd('public_signup.form.workshop_information')
 = r.input :backjack_rental, options_for_backjack_rental(r)
 = r.input :sunday_choice, options_for_sunday_choice(r)
 = r.input :lift, options_for_lift(r)
 
-.instructions= _('public_signup.form.payment')
+.instructions= sd('public_signup.form.payment')
 = r.input :payment_method, options_for_payment_method(r)
 
 #debt
@@ -27,7 +27,7 @@
   = r.input :iban, :input_html => {:size => 20}
   = r.input :bic, :input_html => {:size => 20}
 
-.instructions= _('public_signup.form.note')
+.instructions= sd('public_signup.form.note')
 = r.input :notes, options_for_note(r)
 
 - content_for :javascript do
