@@ -1,8 +1,9 @@
-.panel
-  .panel-body
-    %h2
-      #{pluralize(@public_signups.flatten.count, 'signup is', 'signups are')}
-      pending approval
+.panel.panel-default
+  .panel-heading
+    = controls do |c|
+      - c << new_button(path: new_public_signup_path)
+    %h3= pluralize(@public_signups.flatten.size, 'Pending signup')
 
+  .panel-body
     - @public_signups.each do |event_signups|
       = render 'public_signups', public_signups: event_signups

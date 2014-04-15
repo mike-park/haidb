@@ -1,6 +1,14 @@
-.panel
-  - if @json != "[]"
-    = gmaps(markers: { data: @json, options: { do_clustering: true, randomize: false, clusterer_maxZoom: 10 } })
-  - else
-    = no_angels_on_map
-  = render 'filter'
+.panel.panel-default
+  .panel-heading
+    = controls do |c|
+      - c << csv_button
+      - c << vcard_button
+      - c << list_button
+
+    %h3 Mapping #{pluralize(@q.result.size, 'Angel')}
+  .panel-body
+    - if @json != "[]"
+      = gmaps({markers: { data: @json, options: { do_clustering: true, randomize: false, clusterer_maxZoom: 10 }}}, false, true)
+    - else
+      = no_angels_on_map
+    = render 'filter'

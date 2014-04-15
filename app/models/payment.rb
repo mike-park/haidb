@@ -1,7 +1,6 @@
 class Payment < ActiveRecord::Base
-  acts_as_audited
+  audited
   belongs_to :registration
-  attr_accessible :amount, :note, :paid_on
 
   validates_presence_of :paid_on, :amount
   validates_numericality_of :amount

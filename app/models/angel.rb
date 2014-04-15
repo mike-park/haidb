@@ -1,5 +1,5 @@
 class Angel < ActiveRecord::Base
-  acts_as_audited except: [:gravatar, :highest_level, :lat, :lng]
+  audited except: [:gravatar, :highest_level, :lat, :lng]
   include Mappable
   include Vcardable
   include Csvable
@@ -13,7 +13,7 @@ class Angel < ActiveRecord::Base
   has_many :registrations, :inverse_of => :angel, dependent: :nullify
   has_many :memberships, inverse_of: :angel, dependent: :destroy
   has_many :members, inverse_of: :angel
-  has_one :active_membership, class_name: 'Membership', conditions: ["retired_on IS NULL"]
+  has_one :active_membership, -> { where('retired_on IS NULL') }, class_name: 'Membership'
   has_many :events, :through => :registrations
   has_many :users, inverse_of: :angel, dependent: :nullify
 

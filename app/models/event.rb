@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  acts_as_audited
+  audited
 
   LIS = 'HAI LIS Workshop'
   TEAM = 'Team Workshop'
@@ -12,13 +12,13 @@ class Event < ActiveRecord::Base
   store :options, accessors: [:next_registration_code]
 
   has_many :registrations, :inverse_of => :event, :dependent => :destroy
-  has_many :completed_registrations, conditions: { completed: true }, class_name: 'Registration'
+  has_many :completed_registrations, -> { where(completed: true) }, class_name: 'Registration'
   has_many :angels, :through => :registrations
 
   has_many :event_emails, :dependent => :destroy
-  has_many :email_names, :through => :event_emails, :uniq => true
+  has_many :email_names, -> { distinct }, :through => :event_emails
 
-  scope :with_oldest_last, order('start_date desc')
+  scope :with_oldest_last, -> {order('start_date desc')}
   scope :upcoming, lambda { order('start_date asc').where('start_date >= ?', Date.today)}
   scope :current, lambda { order('start_date asc').where('start_date >= ?', Date.today - 1.week)}
 

@@ -1,5 +1,5 @@
 class PublicSignup < ActiveRecord::Base
-  acts_as_audited
+  audited
 
   has_one :registration, :inverse_of => :public_signup, :dependent => :destroy
   

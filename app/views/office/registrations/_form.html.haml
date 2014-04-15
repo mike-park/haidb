@@ -1,4 +1,4 @@
-= simple_form_for [:office, @event, @registration], html: {class: 'form-horizontal'} do |r|
+= vertical_form [:office, @event, @registration] do |r|
   -if @registration.errors.any?
     #error_explanation
       %h3= "#{pluralize(@registration.errors.count, "error")} prohibited this registration from being saved"
@@ -9,7 +9,6 @@
 
   = render 'fields', form: r
 
-  .form-actions
-    = r.button :submit, class: 'btn-primary'
+  = r.button :submit
 
 

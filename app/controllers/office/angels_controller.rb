@@ -6,11 +6,11 @@ class Office::AngelsController < Office::ApplicationController
   end
 
   def map
-    params[:search] ||= params[:id] ? {id_eq: params[:id]} : {}
-    @search = Angel.search(params[:search])
-    @json = @search.all.to_gmaps4rails do |angel, marker|
+    params[:q] ||= params[:id] ? {id_eq: params[:id]} : {}
+    @q = Angel.search(params[:q])
+    @json = @q.result.to_gmaps4rails do |angel, marker|
       marker.infowindow render_to_string(:partial => '/office/angels/map_info',
-                                         :locals => { angels: Angel.located_at(angel.lat, angel.lng) })
+                                         :locals => {angels: Angel.located_at(angel.lat, angel.lng)})
       marker.title angel.full_name
     end
   end
@@ -52,16 +52,16 @@ class Office::AngelsController < Office::ApplicationController
 
   def find_angels(rows, sort)
     params[:rows] ||= rows
-    params[:search] ||= {}
-    params[:search][:meta_sort] ||= sort
-    @search = Angel.search(params[:search])
-    @angels = @search.paginate(:page => params[:page],
-                               :per_page => params[:rows])
+    params[:q] ||= {}
+    params[:q][:meta_sort] ||= sort
+    @q = Angel.search(params[:q])
+    @angels = @q.result.paginate(:page => params[:page],
+                          :per_page => params[:rows])
 
     respond_to do |format|
       format.html
-      format.csv   { send_data Angel.to_csv(@search.all), filename: 'contacts.csv', type: :csv }
-      format.vcard { send_data Angel.to_vcard(@search.all), filename: 'contacts.vcf', type: :vcard }
+      format.csv { send_data Angel.to_csv(@q.result), filename: 'contacts.csv', type: :csv }
+      format.vcard { send_data Angel.to_vcard(@q.result), filename: 'contacts.vcf', type: :vcard }
     end
   end
 
@@ -74,15 +74,18 @@ class Office::AngelsController < Office::ApplicationController
   def angels
     @angels
   end
+
   helper_method :angels
 
   def registrations
     @registrations ||= angel.registrations.ok.by_start_date
   end
+
   helper_method :registrations
 
   def angel
     @angel ||= Angel.find_by_id(params[:id])
   end
+
   helper_method :angel
 end

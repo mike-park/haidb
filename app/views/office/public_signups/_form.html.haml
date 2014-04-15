@@ -1,16 +1,14 @@
-= simple_form_for [:office, public_signup], html: {class: 'form-horizontal'} do |f|
+= vertical_form [:office, public_signup] do |f|
   -if public_signup.errors.any?
     #error_explanation
       %h2
         #{pluralize(public_signup.errors.count, "error")} prohibited this registration from being saved
 
-  = f.simple_fields_for :registration do |r|
+  = f.simple_fields_for(:registration, f.options.slice(:wrapper_mappings)) do |r|
     = r.association :event, options_for_signup_events_select(r)
     = r.input :role, options_for_role(r)
 
     = render 'office/registrations/fields', :form => r
 
-  .form-actions
-    = f.button :submit, class: 'btn-primary'
-    or #{link_to('Cancel', [:office, public_signup])}
-
+  = f.button :submit
+  or #{link_to('Cancel', [:office, public_signup])}

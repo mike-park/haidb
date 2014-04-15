@@ -123,7 +123,7 @@ module Office::RegistrationsHelper
 
   # return address in html display format
   def compact_address(object, separator = tag(:br))
-    code = (object.country || Carmen.default_country || '').strip.upcase
+    code = object.country.strip.upcase
     address = if %w(US GB).include?(code)
                 h("#{object.address}\n#{object.city}\n#{object.postal_code}")
               elsif %w(AU CA).include?(code)
@@ -131,10 +131,8 @@ module Office::RegistrationsHelper
               else
                 h("#{object.address}\n#{object.postal_code} #{object.city}")
               end
-    if (code != Carmen.default_country) &&
-        (country = Carmen.country_name(code, :locale => I18n.locale))
-      address << "\n#{country}"
-    end
+    country = Carmen::Country.coded(code)
+    (address << "\n#{country.name}") if country
     if address.present?
       address.gsub("\n", separator).html_safe
     else

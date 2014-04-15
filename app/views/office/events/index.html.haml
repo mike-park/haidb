@@ -1,3 +1,8 @@
-.panel
+.panel.panel-default
+  .panel-heading
+    = controls do |c|
+      - c << new_button
+    %h3 Upcoming #{pluralize(@events.size, 'Event')}
+
   .panel-body
-    = render 'events', :events => events, caption: pluralize(events.count, 'future event')
+    = render 'events', :events => @events

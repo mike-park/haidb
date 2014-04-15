@@ -1,8 +1,7 @@
 module Office::AngelsHelper
 
   def options_for_country(form)
-    Carmen.default_locale = I18n.locale
-    defaults = if I18n.locale.to_s == 'de'
+    defaults = if Site.de?
                  %w(DE AT NL GB)
                else
                  %w(GB)

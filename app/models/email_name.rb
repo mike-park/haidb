@@ -2,7 +2,7 @@ class EmailName < ActiveRecord::Base
   has_many :emails, :dependent => :destroy
 
   has_many :event_emails, :dependent => :destroy
-  has_many :events, :through => :event_emails, :uniq => true
+  has_many :events, -> { distinct }, :through => :event_emails
 
   validates_presence_of :name
 

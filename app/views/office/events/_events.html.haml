@@ -1,13 +1,11 @@
 %table.table.table-striped
-  %caption
-    %h3= caption
   %thead
     %tr
-      %th= sort_link @search, :display_name, 'Name'
-      %th= sort_link @search, :start_date
-      %th= sort_link @search, :next_registration_code, 'Reg Code'
-      %th= sort_link @search, :participant_cost, 'Part. cost'
-      %th= sort_link @search, :team_cost
+      %th= sort_link @q, :display_name, 'Name'
+      %th= sort_link @q, :start_date
+      %th= sort_link @q, :next_registration_code, 'Reg Code'
+      %th= sort_link @q, :participant_cost, 'Part. cost'
+      %th= sort_link @q, :team_cost
       %th.qty Total
       %th.qty Participants
       %th.qty Team
@@ -23,7 +21,7 @@
         %td.qty= e.registrations.ok.count
         %td.qty= e.registrations.ok.participants.count
         %td.qty= e.registrations.ok.team.count
-        %td= link_to(icon('icon-user') + "Registrations", status_office_event_report_path(e))
+        %td= registrations_button(e)
 
 = render 'filter'
 

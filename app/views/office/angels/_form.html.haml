@@ -1,4 +1,4 @@
-= simple_form_for([:office, angel], html: {class: 'form-horizontal'}) do |f|
+= vertical_form([:office, angel]) do |f|
   = render 'office/registrations/fields_contact', :form => f
   = f.input :payment_method, options_for_payment_method(f, :translate => false)
   = f.input :bank_account_name,  :input_html => {:size => 30}
@@ -6,5 +6,4 @@
   = f.input :bic,  :input_html => {:size => 30}
   = f.input :highest_level
   = f.input :notes, :input_html => {:cols => 25, :rows => 3}
-  .form-actions
-    = f.button :submit, class: 'btn-primary'
+  = f.button :submit

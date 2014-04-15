@@ -1,11 +1,9 @@
-Haidb::Application.routes.draw do
+Rails.application.routes.draw do
   devise_for :staffs # office people
   devise_for :users, controllers: {
       registrations: 'users/devise/registrations',
       confirmations: 'users/devise/confirmations'
   }
-
-  filter :locale
 
   root :to => "public_signups#new"
 
@@ -54,7 +52,7 @@ Haidb::Application.routes.draw do
 
     resources :memberships do
       collection do
-        post 'recalc_status'
+        post 'refresh'
       end
     end
 

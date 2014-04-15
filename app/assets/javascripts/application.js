@@ -4,7 +4,6 @@
 //= require gmaps4rails/googlemaps.js
 //= require jquery.tablesorter.min
 //= require angular
-//= require angular-strap
 //= require ./angular/app
 //= require_self
 

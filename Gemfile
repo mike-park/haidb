@@ -4,48 +4,41 @@ source 'https://rails-assets.org'
 ruby '2.0.0'
 gem "rake"
 gem 'rack'
-gem "rails", "3.2.17"
+gem "rails", '4.1.0'
 gem 'unicorn'         # web server
 gem 'newrelic_rpm'    # performance monitoring
 
+# remove when find_by_xx cleaned up
+gem 'activerecord-deprecated_finders'
 
-# Gems used only for assets and not required
-# in production environments by default.
 # gems added to Rails.application.config.assets.paths in reverse order (ie last gem has first path)
-group :assets do
-  gem 'coffee-rails', "~> 3.2.1"
-  gem 'uglifier', '>= 1.0.3'
+gem 'coffee-rails'
+gem 'uglifier', '>= 1.0.3'
 
-  gem 'rails-assets-jquery'
-  gem 'rails-assets-angular'
-  # problem with //= require angular-strap/angular-strap.tpl.min
-  # config/initializers/angular_strap.rb fixes the problem
-  # auto includes rails-assets-bootstrap & rails-assets-jquery
-  gem 'rails-assets-angular-strap'
+gem 'rails-assets-jquery'
+gem 'rails-assets-angular'
+# problem with //= require angular-strap/angular-strap.tpl.min
+# config/initializers/angular_strap.rb fixes the problem
+# auto includes rails-assets-bootstrap & rails-assets-jquery
+# gem 'rails-assets-angular-strap'
 
-  # ensure jquery matches jquery_ujs version by include after angular-strap
-  # required for jquery_ujs and therefore things link link_to_remote
-  gem 'jquery-rails'
+# ensure jquery matches jquery_ujs version by include after angular-strap
+# required for jquery_ujs and therefore things link link_to_remote
+gem 'jquery-rails'
 
-  # bootstrap 3 with sass. must be last to allow sass overrides & mixins
-  gem 'sass'
-  gem 'sass-rails', '>= 3.2'
-  gem 'bootstrap-sass', '~> 3.1.1'
-end
+# bootstrap 3 with sass. must be last to allow sass overrides & mixins
+gem 'sass'
+gem 'sass-rails', '>= 3.2'
+gem 'bootstrap-sass', '~> 3.1.1'
 
 # these add generators that help
 gem 'haml'
 
-# include lang in url
-gem 'routing-filter'
-
-# handles I18n for dates and times, has bug in fields_changed? which makes fields
-# seem to change when they have not
-#gem 'delocalize'
-
 # form creation
-gem 'simple_form'
-gem 'tabulous', '~> 2.1.0'					# menu highlighting
+gem 'simple_form', '~> 3.1.0.rc1'
+
+# menu highlighting
+gem 'tabulous', '~> 2.1.0', github: 'mike-park/tabulous'
 
 # authentication
 gem "devise", "~> 3.2.1"
@@ -56,39 +49,33 @@ gem 'pundit', '~> 0.2.2'
 gem 'draper'
 
 # simple model searching
-gem "meta_search"
+gem 'ransack'
+
 # vcard export
 gem 'vcard'
 # country select list
-gem 'carmen', "~> 0.2.13"
+gem 'carmen-rails', '~> 1.0.0'
 # pdf export
 gem 'prawn'
 # map rendering
 gem 'gmaps4rails'
 
-# xls export
-# dont use
-# Office::RegistrationsController# (ActionView::Template::Error) "incompatible character encodings: ASCII-8BIT and US-ASCII"
-#gem "ekuseru"
-
 # template language for emails
 gem 'liquid'
 
 # audit tracking of model changes
-gem 'acts_as_audited'
+gem 'audited', github: 'mike-park/audited', branch: 'rails4'
+gem 'audited-activerecord', github: 'mike-park/audited', branch: 'rails4'
 
 # hoptoad error reporting
 gem 'hoptoad_notifier'
 
-# replacement/alternative I18n
+# replacement/alternative I18n (requires protected_attributes)
+gem 'protected_attributes'
 gem 'fast_gettext', :git => 'git://github.com/grosser/fast_gettext.git'
 gem 'gettext_i18n_rails', :git => 'git://github.com/grosser/gettext_i18n_rails.git'
 
-gem "will_paginate"
-
-# speed up asset precompilation on heroku
-gem 'dalli', '~> 2.6.4'
-gem 'memcachier', '~> 0.0.2'
+gem 'will_paginate'
 
 # access gravatar images
 gem 'gravatar-ultimate'
@@ -101,7 +88,7 @@ gem 'figaro', '~> 0.7.0'
 
 group :development do
   gem 'better_errors'
-  gem "binding_of_caller"
+  gem 'binding_of_caller'
 end
 
 group :development, :test do

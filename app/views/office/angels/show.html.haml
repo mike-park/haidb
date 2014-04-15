@@ -2,6 +2,7 @@
   .panel-body
     = controls do |c|
       - c << edit_button
+      - (c << map_button(path: map_office_angels_path(id: angel))) if angel.geocoded?
 
     %h2 Details for #{angel.display_name}
 

@@ -1,5 +1,5 @@
 class Membership < ActiveRecord::Base
-  acts_as_audited
+  audited
   include Csvable
 
   csv_fields :full_name, :email, :status, :active_on, :retired_on

@@ -15,10 +15,10 @@ class Office::Registrations::MapController < Office::RegistrationsController
   }
 
   def index
-    params[:search] ||= params[:id] ? {id_eq: params[:id]} : {}
-    @search = registrations.search(params[:search])
+    params[:q] ||= params[:id] ? {id_eq: params[:id]} : {}
+    @q = registrations.search(params[:q])
 
-    @json = @search.all.to_gmaps4rails do |reg, marker|
+    @json = @q.result.to_gmaps4rails do |reg, marker|
       marker.infowindow render_to_string(:partial => '/office/registrations/map/map_info',
                                          :locals => { registrations: registrations_at(reg.lat, reg.lng) })
       marker.picture(registration_picture(reg))

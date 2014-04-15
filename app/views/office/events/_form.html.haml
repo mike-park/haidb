@@ -1,4 +1,4 @@
-= simple_form_for([:office, event], html: {class: 'form form-horizontal'}) do |f|
+= vertical_form([:office, event]) do |f|
   = f.input :display_name
   = f.input :start_date, :as => :string, input_html: {class: 'date-pick'}, :format => '%d.%m.%Y'
   = f.input :category, options_for_event_categories(f)
@@ -9,5 +9,4 @@
   = input_for_event_email(f, EventEmail::SIGNUP)
   = input_for_event_email(f, EventEmail::PENDING)
   = input_for_event_email(f, EventEmail::APPROVED)
-  .form-actions
-    = f.button :submit, class: 'btn-primary'
+  = f.button :submit

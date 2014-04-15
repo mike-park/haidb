@@ -2,11 +2,11 @@ class Office::SiteDefaultsController < Office::ApplicationController
   before_filter :find_site_default, :except => [:index, :new, :create]
   
   def index
-    params[:search] ||= {}
-    params[:search][:meta_sort] ||= 'translation_key_key asc'
+    params[:q] ||= {}
+    params[:q][:meta_sort] ||= 'translation_key_key asc'
     params[:rows] ||= 10
-    @search = SiteDefault.search(params[:search])
-    @site_defaults = @search.paginate(:page => params[:page],
+    @q = SiteDefault.search(params[:q])
+    @site_defaults = @q.result.paginate(:page => params[:page],
                                       :per_page => params[:rows])
   end
 

@@ -1,20 +1,12 @@
 <h2>Set your password</h2>
 
-<%= simple_form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
+<%= vertical_form resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
   <%= f.hidden_field :invitation_token %>
 
     <%= f.error_notification %>
 
-    <div class="form-inputs">
-      <%= f.input :password, :required => true %>
-    </div>
-
-    <div class="form-inputs">
-      <%= f.input :password_confirmation, :required => true %>
-    </div>
-
-    <div class="form-actions">
-      <%= f.button :submit, "Set my password" %>
-    </div>
+    <%= f.input :password, :required => true %>
+    <%= f.input :password_confirmation, :required => true %>
+    <%= f.button :submit, "Set my password" %>
 
 <% end %>

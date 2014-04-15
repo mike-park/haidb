@@ -1,6 +1,3 @@
-= simple_form_for([:office, team], html: {class: 'form form-inline'}) do |f|
-  .row
-    .span
-      = f.input :notes, label: false, input_html: { rows: 5, cols: 60, class: 'wide-textarea' }
-    .span
-      = f.button :submit, 'Save notes'
+= vertical_form([:office, team], html: {class: 'form-inline'}) do |f|
+  = f.input :notes, label: false, input_html: { rows: 5, cols: 60, class: 'wide-textarea' }
+  = f.button :submit, 'Save notes'

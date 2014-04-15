@@ -1,23 +1,24 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     - r = public_signup.registration
     - if r.approved?
       = controls do |c|
         - c << registrations_button(r.event)
-        - c << button_with_options(:waitlist, icon: 'icon-time', html: {method: :put})
+        - c << button_with_options(:waitlist, icon: 'glyphicon glyphicon-time', html: {method: :put})
 
     - else
       = controls do |c|
         - c << edit_button
 
       = controls do |c|
-        - c << button_with_options(:approve, icon: 'icon-ok', html: {method: :put})
+        - c << button_with_options(:approve, icon: 'glyphicon glyphicon-ok', html: {method: :put})
         - if !r.waitlisted?
-          - c << button_with_options(:waitlist, icon: 'icon-time', html: {method: :put})
+          - c << button_with_options(:waitlist, icon: 'glyphicon glyphicon-time', html: {method: :put})
 
     %h3
       Registration request for #{r.event_name}
 
+  .panel-body
     - if r.approved?
       %p Request approved #{time_ago_in_words(public_signup.approved_at)} ago.
     - else

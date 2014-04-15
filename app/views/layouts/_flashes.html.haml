@@ -1,5 +1,8 @@
-.flashes
-  - flash.each do |key, msg|
-    .alert.alert-message.fade.in{title: key.to_s.humanize, class: "#{key}", data: { alert: 'alert'}}
-      = link_to("&times;".html_safe, '#', data: {dismiss: 'alert'}, class: 'close')
-      %strong= msg
+- if flash.alert
+  .alert.alert-danger(ng-controller="AlertCtl" ng-show="visible" )
+    %button(type="button" class="close" aria-hidden="true" ng-click="visible=!visible") &times;
+    %strong= flash.alert
+- if flash.notice
+  .alert.alert-success(ng-controller="AlertCtl" ng-show="visible" )
+    %button(type="button" class="close" aria-hidden="true" ng-click="visible=!visible") &times;
+    %strong= flash.notice

@@ -1,8 +1,5 @@
-= simple_form_for([:office, @team, @member], html: {class: 'form form-horizontal'}) do |f|
-  .form-inputs
-    = f.input :membership_id, as: :hidden
-    = f.input :role, options_for_member_role(f)
-    = f.input :notes, input_html: { cols: nil, rows: 5}
-
-  .form-actions
-    = f.button :submit
+= vertical_form([:office, @team, @member]) do |f|
+  = f.input :membership_id, as: :hidden
+  = f.input :role, options_for_member_role(f)
+  = f.input :notes, input_html: { cols: nil, rows: 5}
+  = f.button :submit

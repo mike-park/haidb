@@ -36,26 +36,26 @@ module ApplicationHelper
 
   # generate edit link with icon
   def link_to_edit(path)
-    link_to icon('icon-edit'), path, title: 'Edit this record'
+    link_to icon('edit'), path, title: 'Edit this record'
   end
 
   # show link with icon
   def link_to_show(path, message = "".html_safe)
-    link_to icon('icon-zoom-in') + message, path, title: 'Show more information'
+    link_to icon('zoom-in') + message, path, title: 'Show more information'
   end
 
   # new link with icon
   def link_to_new(path, message = "".html_safe)
-    link_to icon('icon-plus-sign') + message, path, title: 'Create a new record'
+    link_to icon('plus-sign') + message, path, title: 'Create a new record'
   end
 
   # destroy link with icon
   def link_to_destroy(path)
-    link_to icon('icon-remove-sign'), path, :confirm => 'Are you sure?', :method => :delete, title: 'Delete this record'
+    link_to icon('remove-sign'), path, :confirm => 'Are you sure?', :method => :delete, title: 'Delete this record'
   end
 
   def link_to_registrations(path)
-    link_to icon('icon-user'), path, title: 'Show registrations'
+    link_to icon('user'), path, title: 'Show registrations'
   end
 
   # return object model name. ie Angel object => 'angel'

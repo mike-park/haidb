@@ -1,7 +1,7 @@
 .row
-  .span6
+  .col-md-6
     .pagination
       = form_tag url_for, :method => :get, :class => 'form form-inline' do
         = select_tag :rows, options_for_row_count, :onchange => 'this.form.submit()'
-  .span6
+  .col-md-6
     = page_navigation_links table

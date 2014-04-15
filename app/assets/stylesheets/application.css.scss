@@ -3,9 +3,8 @@ $reverse:               #fff;
 
 @import 'bootstrap';
 @import "flatify/flatify";
-@import "pages/teams";
+@import "pages/*";
 
-@import 'gmaps4rails';
 @import 'tablesorter';
 
 body {

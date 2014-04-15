@@ -11,10 +11,15 @@ angular.module('app', [])
 .controller('PageCtl', [
     '$scope', '$location',
     ($scope, $location) ->
-      console.log($location)
       $scope.nav = false
       $scope.toggleNav = ->
         $scope.nav = !$scope.nav
+  ])
+
+.controller('AlertCtl', [
+    '$scope',
+    ($scope) ->
+      $scope.visible = true
   ])
 
 .directive('hello', [ ->

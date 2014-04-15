@@ -1,6 +1,6 @@
 module ButtonHelper
   def new_button(options = {})
-    options[:icon] ||= 'icon-plus-sign'
+    options[:icon] ||= 'glyphicon glyphicon-plus-sign'
     button_with_options(:new, options)
   end
 
@@ -9,7 +9,7 @@ module ButtonHelper
   end
 
   def delete_button(options = {})
-    options[:icon] ||= 'icon-remove-sign'
+    options[:icon] ||= 'glyphicon glyphicon-remove-sign'
     options[:label] ||= 'Delete'
     options[:html] ||= {}
     options[:html][:method] = :delete
@@ -17,15 +17,23 @@ module ButtonHelper
     button_with_options(:destroy, options)
   end
 
+  def refresh_button(options = {})
+    options[:icon] ||= 'glyphicon glyphicon-refresh'
+    options[:label] ||= 'Refresh'
+    options[:html] ||= {}
+    options[:html][:method] = :post
+    button_with_options(:refresh, options)
+  end
+
   def show_button(options = {})
     options[:label] ||= 'Show'
-    options[:icon] ||= 'icon-zoom-in'
+    options[:icon] ||= 'glyphicon glyphicon-zoom-in'
     button_with_options(:show, options)
   end
 
   def registrations_button(event)
     options = {}
-    options[:icon] = 'icon-user'
+    options[:icon] = 'glyphicon glyphicon-user'
     options[:label] = 'Registrations'
     options[:path] = status_office_event_report_path(event)
     button_with_options(:registrations, options)
@@ -33,36 +41,50 @@ module ButtonHelper
 
   def csv_button(options = {})
     options[:label] ||= 'Spreadsheet'
-    options[:icon] ||= 'icon-list'
-    options[:path] ||= url_for(format: :csv)
+    options[:icon] ||= 'glyphicon glyphicon-th-list'
+    options[:path] ||= url_for(params.merge(format: :csv))
     button_with_options(:csv, options)
   end
 
   def pdf_button(options = {})
     options[:label] ||= 'PDF'
-    options[:icon] ||= 'icon-print'
-    options[:path] ||= url_for(format: :pdf)
+    options[:icon] ||= 'glyphicon glyphicon-print'
+    options[:path] ||= url_for(params.merge(format: :pdf))
     button_with_options(:pdf, options)
   end
 
   def vcard_button(options = {})
     options[:label] ||= 'Address Book'
-    options[:icon] ||= 'icon-envelope'
-    options[:path] ||= url_for(format: :vcard)
+    options[:icon] ||= 'glyphicon glyphicon-envelope'
+    options[:path] ||= url_for(params.merge(format: :vcard))
     button_with_options(:vcard, options)
+  end
+
+  def map_button(options = {})
+    options[:label] ||= 'Map'
+    options[:icon] ||= 'glyphicon glyphicon-map-marker'
+    options[:path] ||= url_for(params.merge(action: :map))
+    button_with_options(:map, options)
+  end
+
+  def list_button(options = {})
+    options[:label] ||= 'List'
+    options[:icon] ||= 'glyphicon glyphicon-th-list'
+    options[:path] ||= url_for(params.merge(action: :index))
+    button_with_options(:map, options)
   end
 
   def button_with_options(action, options = {}, &block)
     options[:html] ||= {}
-    options[:html][:class] = 'btn btn-primary'
+    options[:html][:class] = 'btn btn-info'
     options[:path] ||= url_for(action: action)
     options[:label] = I18n.translate("buttons.labels.#{action}", default: (options[:label] || action.to_s.humanize))
-    options[:icon] ||= "icon-#{action}"
+    options[:icon] ||= "glyphicon glyphicon-#{action}"
 
     yield(options) if block_given?
 
     link_to(options[:path], options[:html]) do
-      content_tag(:i, nil, class: options[:icon]) + options[:label]
+      content_tag(:i, nil, class: options[:icon]) + " #{options[:label]}"
     end
   end
 end

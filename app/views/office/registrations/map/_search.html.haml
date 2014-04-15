@@ -1,5 +1,5 @@
 #search
-  = simple_form_for [:office, @search], :url => url_for, :html => { :method => :get } do|f|
+  = search_form_for [:office, @q], :url => url_for, :html => { :method => :get } do|f|
     = f.select :country_eq, options_for_map_countries(f), {}, {:onchange => 'this.form.submit()'}
     = f.select :role_eq, options_for_map_role(f), {}, {:onchange => 'this.form.submit()'}
     = f.select :lift_contains, options_for_map_lift(f), {}, {:onchange => 'this.form.submit()'}

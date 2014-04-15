@@ -1,4 +1,6 @@
-.panel
-  .panel-body
-    = render 'events', :events => events, caption: pluralize(events.count, 'past event')
+.panel.panel-default
+  .panel-heading
+    %h3 Past #{pluralize(@events.size, 'Event')}
 
+  .panel-body
+    = render 'events', :events => @events

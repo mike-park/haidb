@@ -2,11 +2,11 @@
   %thead
     %tr
       %th Img
-      %th= sort_link @search, :first_name, 'Name'
-      %th= sort_link @search, :email
-      %th= sort_link @search, :city, 'Address'
-      %th= sort_link @search, :home_phone, 'Phones'
-      %th= sort_link @search, :highest_level
+      %th= sort_link @q, :first_name, 'Name'
+      %th= sort_link @q, :email
+      %th= sort_link @q, :city, 'Address'
+      %th= sort_link @q, :home_phone, 'Phones'
+      %th= sort_link @q, :highest_level
 
   %tbody
     - angels.each do |a|

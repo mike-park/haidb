@@ -1,5 +1,11 @@
-.panel
-  .panel-body
-    %h2 Contact List
+.panel.panel-default
+  .panel-heading
+    = controls do |c|
+      - c << new_button
+      - c << csv_button
+      - c << vcard_button
+      - c << map_button
+    %h3 Contact List
 
+  .panel-body
     = render 'list', :angels => angels

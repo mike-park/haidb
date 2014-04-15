@@ -39,11 +39,11 @@ class Office::EventsController < Office::ApplicationController
   protected
 
   def find_events_where(where1, where2, orderby)
-    params[:search] ||= {}
-    params[:search][:meta_sort] ||= orderby
+    params[:q] ||= {}
+    params[:q][:meta_sort] ||= orderby
     params[:rows] ||= 10
-    @search = Event.where(where1, where2).search(params[:search])
-    @events = @search.paginate(:page => params[:page], :per_page => params[:rows])
+    @q = Event.where(where1, where2).search(params[:q])
+    @events = @q.result.paginate(:page => params[:page], :per_page => params[:rows])
   end
 
   def find_event
@@ -51,11 +51,6 @@ class Office::EventsController < Office::ApplicationController
       redirect_to(office_events_url, :alert => 'You must select an event first.')
     end
   end
-
-  def events
-    @events
-  end
-  helper_method :events
 
   def registrations
     @registrations ||= event.registrations.ok.by_first_name

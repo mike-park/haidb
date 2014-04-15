@@ -1,4 +1,4 @@
-= simple_form_for([:office, @membership], html: {class: 'form-horizontal'}) do |f|
+= vertical_form([:office, @membership]) do |f|
   = f.association :angel, options_for_angel_select(f)
   = f.input :status, options_for_membership_status(f)
   = f.input :active_on, :as => :string, input_html: {class: 'date-pick'}, :format => '%d.%m.%Y'
@@ -6,5 +6,4 @@
   = f.input :participant_cost
   = f.input :team_cost
   = f.input :notes, :input_html => {:cols => 25, :rows => 3}
-  .form-actions
-    = f.button :submit, class: 'btn-primary'
+  = f.button :submit

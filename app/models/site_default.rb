@@ -11,7 +11,7 @@
 #
 
 class SiteDefault < ActiveRecord::Base
-  acts_as_audited
+  audited
   before_destroy :destroy_translations
   after_initialize :setup_nested_models
   before_validation :remove_empty_translations
@@ -20,7 +20,7 @@ class SiteDefault < ActiveRecord::Base
 
   belongs_to :translation_key, :dependent => :destroy
 
-  default_scope includes(:translation_key => [:translations])
+  default_scope -> {includes(:translation_key => [:translations])}
 
   accepts_nested_attributes_for :translation_key
 

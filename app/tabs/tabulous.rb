@@ -12,10 +12,26 @@ Tabulous.setup do
 
     office_angels_tab do
       text { 'Angels' }
+      link_path {  }
+      visible_when { true }
+      enabled_when { true }
+      active_when { a_subtab_is_active }
+    end
+
+    index_office_angel_subtab do
+      text { list_icon('Contact List') }
       link_path { office_angels_path }
       visible_when { true }
       enabled_when { true }
-      active_when { %w{angels similar_angels angel_registrations}.each { |n| in_action('any').of_controller("office/#{n}") } }
+      active_when { %w{angels angel_registrations}.each { |n| in_action('any').of_controller("office/#{n}") } }
+    end
+
+    similar_office_angel_subtab do
+      text { list_icon('Similar Angels') }
+      link_path { office_similar_angels_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when { in_action('any').of_controller("office/similar_angels") }
     end
 
     office_teams_tab do
@@ -43,19 +59,59 @@ Tabulous.setup do
     end
 
     office_memberships_tab do
-      text { 'Memberships' }
+      text { list_icon('Memberships') }
       link_path { office_memberships_path }
       visible_when { true }
       enabled_when { true }
-      active_when { in_action('any').of_controller('office/memberships') }
+      active_when { a_subtab_is_active }
+    end
+
+    active_office_memberships_subtab do
+      text { list_icon('Active') }
+      link_path { office_memberships_path(status: 'active') }
+      visible_when { true }
+      enabled_when { true }
+      active_when { in_action('any').of_controller("office/memberships") }
+    end
+
+    retired_office_memberships_subtab do
+      text { list_icon('Retired') }
+      link_path { office_memberships_path(status: 'retired') }
+      visible_when { true }
+      enabled_when { true }
+      active_when { false }
+    end
+
+    all_office_memberships_subtab do
+      text { list_icon('All') }
+      link_path { office_memberships_path(status: 'all') }
+      visible_when { true }
+      enabled_when { true }
+      active_when { false }
     end
 
     office_events_tab do
       text { 'Events' }
+      link_path {  }
+      visible_when { true }
+      enabled_when { true }
+      active_when { a_subtab_is_active }
+    end
+
+    future_office_events_subtab do
+      text { 'Upcoming' }
       link_path { office_events_path }
       visible_when { true }
       enabled_when { true }
-      active_when { in_action('any').of_controller('office/events') }
+      active_when { in_action('any').of_controller("office/events") }
+    end
+
+    past_office_events_subtab do
+      text { 'Past' }
+      link_path { past_office_events_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when { false }
     end
 
     event_tab do
@@ -94,12 +150,37 @@ Tabulous.setup do
     end
 
     office_public_signups_tab do
-      text { 'Public Signups' }
+      text { list_icon('Public Signups') }
+      link_path {  }
+      visible_when { true }
+      enabled_when { true }
+      active_when { a_subtab_is_active }
+    end
+
+    pending_office_public_signups_subtab do
+      text { list_icon('Pending') }
       link_path { office_public_signups_path }
       visible_when { true }
       enabled_when { true }
-      active_when { in_action('any').of_controller('office/public_signups') }
+      active_when { in_action('any').of_controller("office/public_signups") }
     end
+
+    waitlisted_office_public_signups_subtab do
+      text { list_icon('Wait List') }
+      link_path { waitlisted_office_public_signups_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when { false }
+    end
+
+    approved_office_public_signups_subtab do
+      text { list_icon('Approved') }
+      link_path { approved_office_public_signups_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when { false }
+    end
+
 
     office_site_defaults_tab do
       text { 'Site Defaults' }

@@ -46,10 +46,10 @@ class Office::MembershipsController < Office::ApplicationController
     redirect_to office_teams_path
   end
 
-  def recalc_status
+  def refresh
     memberships = Membership.recalc_status
     message = memberships.map { |m| "#{m.full_name} to #{m.status}" }.join(", ")
-    message = memberships.any? ? "Status recalculated: #{message}" : "No changes recalculated"
+    message = memberships.any? ? "Status refreshed: #{message}" : "No changes"
     redirect_to office_memberships_path(status: 'active'), notice: message
   end
 

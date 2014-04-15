@@ -1,11 +1,8 @@
-= simple_form_for([:office, @team], html: {class: 'form form-horizontal'}) do |f|
-  .form-inputs
-    = f.association :event, options_for_signup_events_select(f).merge(hint: 'If selected, event name and date will be used below')
-    = f.input :name
-    = f.input :date, :as => :string, input_html: {class: 'date-pick'}, :format => '%d.%m.%Y'
-    = f.input :closed if @team.persisted?
-    = f.input :desired_size
-    = f.input :notes, input_html: { rows: 5 }
-
-  .form-actions
-    = f.button :submit
+= vertical_form([:office, @team]) do |f|
+  = f.association :event, options_for_signup_events_select(f).merge(hint: 'If selected, event name and date will be used below')
+  = f.input :name
+  = f.input :date, :as => :string, input_html: {class: 'date-pick'}, :format => '%d.%m.%Y'
+  = f.input :closed if @team.persisted?
+  = f.input :desired_size
+  = f.input :notes, input_html: { rows: 5 }
+  = f.button :submit

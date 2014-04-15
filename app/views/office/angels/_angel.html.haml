@@ -18,14 +18,10 @@
       %td= compact_phones(angel)
     %tr
       %th Address
-      %td
-        .row
-          .span4= compact_address(angel)
-          .span2= link_to(icon('icon-map-marker') + "Map", map_office_angels_path(id: angel), class: 'btn') if angel.geocoded?
+      %td= compact_address(angel)
     %tr
       %th Payment
       %td= compact_payment(angel)
-
     %tr
       %th Notes
       %td= angel.notes

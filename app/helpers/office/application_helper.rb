@@ -1,5 +1,33 @@
 module Office::ApplicationHelper
 
+  def vertical_form(path_or_resource, options = {}, &block)
+    wrapper = {
+        wrapper: :vertical_form,
+        wrapper_mappings: {
+            check_boxes: :vertical_radio_and_checkboxes,
+            radio_buttons: :vertical_radio_and_checkboxes,
+            file: :vertical_file_input,
+            boolean: :vertical_boolean
+        }}
+    options = options.merge(wrapper)
+    simple_form_for(path_or_resource, options, &block)
+  end
+
+  def horizontal_form(path_or_resource, options = {}, &block)
+    wrapper = {
+        wrapper: :horizontal_form,
+        wrapper_mappings: {
+            check_boxes: :horizontal_radio_and_checkboxes,
+            radio_buttons: :horizontal_radio_and_checkboxes,
+            file: :horizontal_file_input,
+            boolean: :horizontal_boolean
+        }}
+    options = options.merge(wrapper)
+    options[:html] ||= {}
+    options[:html][:class] = "form-horizontal #{options[:html][:class]}"
+    simple_form_for(path_or_resource, options, &block)
+  end
+
   def super_user?
     current_staff && current_staff.super_user?
   end
@@ -12,7 +40,7 @@ module Office::ApplicationHelper
         options[name] = list.join(',')
       end
     end
-    label = icon('icon-envelope') + "Email #{count}"
+    label = icon('envelope') + "Email #{count}"
     options[:class] = 'btn'
     nav << mail_to(current_staff.email, label, options)
   end
@@ -73,6 +101,10 @@ module Office::ApplicationHelper
 
   def edit_icon(label)
     icon_label('edit', label)
+  end
+
+  def refresh_icon(label = 'Refresh')
+    icon_label('refresh', label)
   end
 
   def icon(name)

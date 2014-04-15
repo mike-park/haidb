@@ -1,10 +1,13 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
-      - add_email_button_to(c, bcc: @memberships.map(&:email))
+      - c << new_button
+      - c << csv_button
+      - c << vcard_button
+      - c << refresh_button
+    %h3= @header
 
-    %h2= @header
-
+  .panel-body
     %table.table.tablesorter
       %caption
         %h3= pluralize(@memberships.length, 'Team Member')
