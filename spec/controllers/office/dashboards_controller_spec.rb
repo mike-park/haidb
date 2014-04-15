@@ -5,7 +5,7 @@ describe Office::DashboardsController do
     describe "GET index" do
       it "should redirect to login page" do
         get :index
-        response.should redirect_to("/en/staffs/sign_in")
+        response.should redirect_to("/staffs/sign_in")
       end
     end
   end

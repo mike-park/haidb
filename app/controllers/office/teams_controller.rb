@@ -20,7 +20,7 @@ class Office::TeamsController < Office::ApplicationController
   end
 
   def create
-    @team = Team.new(params[:team])
+    @team = Team.new(team_params)
     set_defaults(@team)
     if @team.save
       redirect_to [:office, @team], notice: 'Team was successfully created.'
@@ -32,7 +32,7 @@ class Office::TeamsController < Office::ApplicationController
   def update
     @team = Team.find(params[:id])
 
-    if @team.update_attributes(params[:team])
+    if @team.update(team_params)
       redirect_to [:office, @team], notice: 'Team was successfully updated.'
     else
       render action: "edit"
@@ -47,6 +47,10 @@ class Office::TeamsController < Office::ApplicationController
   end
 
   private
+
+  def team_params
+    params.require(:team).permit(:event_id, :name, :date, :closed, :desired_size, :notes)
+  end
 
   def set_defaults(team)
     event = team.event

@@ -87,14 +87,14 @@ describe Office::TeamsController do
       it "assigns a newly created but unsaved team as @team" do
         # Trigger the behavior that occurs when invalid params are submitted
         Team.any_instance.stub(:save).and_return(false)
-        post :create, {:team => { }}, valid_session
+        post :create, {:team => { name: 'x'}}, valid_session
         assigns(:team).should be_a_new(Team)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Team.any_instance.stub(:save).and_return(false)
-        post :create, {:team => {  }}, valid_session
+        post :create, {:team => { name: 'x' }}, valid_session
         response.should render_template("new")
       end
     end
@@ -108,7 +108,7 @@ describe Office::TeamsController do
         # specifies that the Team created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Team.any_instance.should_receive(:update_attributes).with({ "name" => "X" })
+        Team.any_instance.should_receive(:update).with({ "name" => "X" })
         put :update, {:id => team.to_param, :team => { "name" => "X" }}, valid_session
       end
 
