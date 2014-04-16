@@ -201,6 +201,10 @@ class Registration < ActiveRecord::Base
     toggle!(:completed) if approved?
   end
 
+  def toggle_checked_in
+    toggle!(:checked_in) if approved?
+  end
+
   def assign_defaults
     assign_default_cost unless cost
     assign_registration_code if registration_code.blank?

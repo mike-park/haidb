@@ -25,6 +25,11 @@ class Office::RegistrationsController < Office::ApplicationController
     redirect_to(completed_office_event_report_path(@event), :notice => 'Toggled registration')
   end
 
+  def checked_in
+    @registration.toggle_checked_in
+    redirect_to(checked_in_office_event_report_path(@event), :notice => 'Toggled registration')
+  end
+
   private
 
   def registration_params

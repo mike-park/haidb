@@ -2,13 +2,13 @@
   %thead
     %tr
       %th.name Name
-      %th= render 'header_th', :label => 'Not Checked In', :value => 'nc'
-      %th= render 'header_th', :label => 'Checked In', :value => 'checked_in'
-      %th Toggle
+      %th Not Checked In
+      %th Checked In
+      %th
   %tbody
-    - registrations.each do |r|
+    - registrations.by_first_name.each do |r|
       %tr
         %td.name= r.full_name
         = content_tag(:td, '', r.checked_in? ? {} : {class: 'red'})
         = content_tag(:td, '', r.checked_in? ? {class: 'green'} : {})
-        %td= checked_in_toggle(r)
+        %td= link_to('Toggle', checked_in_office_registration_path(r), class: 'btn btn-default', method: :post)

@@ -1,0 +1,6 @@
+.panel.panel-default
+  .panel-heading
+    %h3 #{@event.display_name} Checked In Report
+
+  .panel-body
+    = render 'checked_in', registrations: @registrations

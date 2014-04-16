@@ -137,7 +137,7 @@ Tabulous.setup do
      [:list_icon, 'Payment', :payment_office_event_report_path],
      [:list_icon, 'Site', :site_office_event_report_path],
      [:list_icon, 'Roster', :roster_office_event_report_path],
-     [:edit_icon, 'Mark Checked In', :office_event_checked_in_index_path],
+     [:edit_icon, 'Checked In', :checked_in_office_event_report_path],
      [:edit_icon, 'Completed', :completed_office_event_report_path]
     ].each do |(icon, name, path)|
       send("#{name.downcase}_event_subtab") do

@@ -43,12 +43,10 @@ Rails.application.routes.draw do
           get 'payment'
           get 'map'
           get 'completed'
+          get 'checked_in'
         end
       end
       resources :registrations, only: [:edit, :update, :destroy, :show]
-      scope :module => "registrations" do
-        resources :checked_in, :only => [:index, :create, :update]
-      end
     end
 
     resources :memberships do
@@ -89,6 +87,7 @@ Rails.application.routes.draw do
     resources :registrations do
       member do
         post 'completed'
+        post 'checked_in'
       end
       resources :payments
     end
