@@ -10,4 +10,8 @@ class Site
   def self.de?
     self.name == 'de'
   end
+
+  def self.available_locales
+    de? ? %w(en de) : %w(en)
+  end
 end

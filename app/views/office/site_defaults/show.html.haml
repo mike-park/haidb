@@ -1,10 +1,8 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << edit_button
-      - (c << delete_button) if super_user?
-      - (c << new_button) if super_user?
+    %h3 #{@site_default.display_name}
 
-    %h2 Key #{site_default.display_name}
-
-    = render 'site_default', :site_default => site_default
+  .panel-body
+    = render @site_default

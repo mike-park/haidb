@@ -7,9 +7,11 @@ class SiteDefault < ActiveRecord::Base
 
   belongs_to :translation_key, :dependent => :destroy
 
-  accepts_nested_attributes_for :translation_key, reject_if: :all_blank
+  accepts_nested_attributes_for :translation_key
 
   validates_presence_of :description
+
+  scope :by_key, -> { includes(:translation_key).order('translation_keys.key asc') }
 
   delegate :translations, :to => :translation_key
 
@@ -30,18 +32,18 @@ class SiteDefault < ActiveRecord::Base
     attrs = []
     SiteDefault.all.each do |s|
       attrs << {
-          :description => s.description,
-          :translation_key_attributes => {
-              :key => s.translation_key.key,
-              :translations_attributes => translations_attributes(s.translations)
+          description: s.description,
+          translation_key_attributes: {
+              key: s.translation_key.key,
+              translations_attributes: map_translations_attributes(s.translations)
           }
       }
     end
-    config = { Site.name.to_sym => attrs }
+    config = {Site.name.to_sym => attrs}
     write_config(filename, config)
   end
 
-  def self.translations_attributes(translations)
+  def self.map_translations_attributes(translations)
     attr = {}
     translations.each_with_index do |t, i|
       attr[i] = t.attributes.slice('locale', 'text')
@@ -87,7 +89,7 @@ class SiteDefault < ActiveRecord::Base
   def setup_nested_models
     unless translation_key
       build_translation_key
-      I18n.available_locales.each do |locale|
+      Site.available_locales.each do |locale|
         translation_key.translations.build(:locale => locale)
       end
     end

@@ -1,13 +1,6 @@
 class Office::SiteDefaultsController < Office::ApplicationController
-  before_filter :find_site_default, :except => [:index, :new, :create]
-  
   def index
-    params[:q] ||= {}
-    params[:q][:meta_sort] ||= 'translation_key_key asc'
-    params[:rows] ||= 10
-    @q = SiteDefault.search(params[:q])
-    @site_defaults = @q.result.paginate(:page => params[:page],
-                                      :per_page => params[:rows])
+    @site_defaults = SiteDefault.by_key
   end
 
   def new
@@ -15,7 +8,7 @@ class Office::SiteDefaultsController < Office::ApplicationController
   end
 
   def create
-    @site_default = SiteDefault.new(params[:site_default])
+    @site_default = SiteDefault.new(site_default_params)
 
     if @site_default.save
       redirect_to([:office, @site_default], :notice => 'New default was successfully created.')
@@ -24,37 +17,35 @@ class Office::SiteDefaultsController < Office::ApplicationController
     end
   end
 
+  def edit
+    @site_default = SiteDefault.find(params[:id])
+  end
+
   def update
-    if site_default.update_attributes(params[:site_default])
-      redirect_to([:office, site_default], :notice => 'Default was successfully updated.')
+    @site_default = SiteDefault.find(params[:id])
+    if @site_default.update(site_default_params)
+      redirect_to([:office, @site_default], :notice => 'Default was successfully updated.')
     else
       render :edit
     end
   end
 
+  def show
+    @site_default = SiteDefault.find(params[:id])
+  end
+
   def destroy
+    site_default = SiteDefault.find(params[:id])
     site_default.destroy
     redirect_to(office_site_defaults_url, :notice => 'Default was successfully deleted.')
   end
 
-  protected
+  private
 
-  def find_site_default
-    unless site_default
-      redirect_to(office_site_defaults_url, :alert => 'You must select a default first.')
-    end
+  def site_default_params
+    params.require(:site_default).
+        permit(:description,
+               translation_key_attributes: [:id, :key,
+                                            translations_attributes: [:id, :translation_key_id, :text, :locale]])
   end
-
-  def site_default
-    @site_default ||= SiteDefault.find_by_id(params[:site_default_id] || params[:id])
-  end
-  helper_method :site_default
-  hide_action :site_default
-
-  def site_defaults
-    @site_defaults
-  end
-  helper_method :site_defaults
-  hide_action :site_defaults
-  
 end

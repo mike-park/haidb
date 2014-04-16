@@ -91,15 +91,19 @@ module Office::ApplicationHelper
     end
   end
 
-  def list_icon(label)
+  def list_icon(label = 'List')
     icon_label('th-list', label)
+  end
+
+  def envelope_icon(label = 'Email')
+    icon_label('envelope', label)
   end
 
   def map_icon(label = 'Map')
     icon_label('map-marker', label)
   end
 
-  def edit_icon(label)
+  def edit_icon(label = 'Edit')
     icon_label('edit', label)
   end
 

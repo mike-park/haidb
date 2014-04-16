@@ -2,7 +2,7 @@
 class TranslationKey < ActiveRecord::Base
   has_many :translations, :class_name => 'TranslationText', :dependent => :destroy
 
-  accepts_nested_attributes_for :translations, :allow_destroy => true
+  accepts_nested_attributes_for :translations
 
   validates_uniqueness_of :key
   validates_presence_of :key

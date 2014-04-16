@@ -13,7 +13,7 @@ module ButtonHelper
     options[:label] ||= 'Delete'
     options[:html] ||= {}
     options[:html][:method] = :delete
-    options[:html][:confirm] ||= I18n.translate('buttons.label.are_you_sure', default: 'Are you sure you want to delete this?')
+    options[:html][:'data-confirm'] ||= I18n.translate('buttons.label.are_you_sure', default: 'Are you sure you want to delete this?')
     button_with_options(:destroy, options)
   end
 

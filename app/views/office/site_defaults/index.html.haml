@@ -1,4 +1,8 @@
-.panel
+.panel.panel-default
+  .panel-heading
+    = controls do |c|
+      - c << new_button
+    %h3= pluralize(@site_defaults.size, 'Key')
+
   .panel-body
-    %h2= pluralize(site_defaults.count, 'default')
-    = render 'site_defaults', :site_defaults => site_defaults
+    = render 'site_defaults', site_defaults: @site_defaults

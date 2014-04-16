@@ -1,4 +1,4 @@
-= vertical_form([:office, site_default]) do |f|
+= vertical_form([:office, @site_default]) do |f|
   - if super_user?
     = f.simple_fields_for :translation_key do |k|
       = k.input :key
@@ -8,10 +8,7 @@
 
   = f.simple_fields_for :translation_key do |k|
     = k.simple_fields_for :translations do |t|
-      - if super_user?
-        = t.input :locale
-        = t.input :text
-      - else
-        = t.input :text, :label => "Language: #{t.object.locale}"
+      = t.input :locale, as: :hidden
+      = t.input :text, :label => "Language: #{t.object.locale}", input_html: { rows: 8}
 
   = f.button :submit

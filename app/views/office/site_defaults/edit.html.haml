@@ -1,9 +1,10 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     - if super_user?
       = controls do |c|
         - c << delete_button
 
-    %h2 Editing key #{site_default.display_name}
+    %h3 Edit #{@site_default.display_name}
 
+  .panel-body
     = render 'form'

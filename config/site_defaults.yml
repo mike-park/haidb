@@ -52,20 +52,28 @@
     :translations_attributes:
       0:
         locale: en
-        text: Payment Details
+        text: 'The payment of the workshop is via direct debit. The workshop fee is
+          235 EUR at Level 1, Level 2-8 275 EUR. The fee of 110 EUR for accommodation
+          and meals is NOT included. Accommodation and meals are to be paid directly
+          in cash to the Seminarhaus Schöppingen, at the beginning of the workshop.
+          <br /> <br /> For registrations from outside the EU zone, please transfer
+          the workshop fee to <br /> <br /> Bank Account: HAND ON HEART e.V. in Hamburg,
+          Wohlwillstrasse 1, Germany<br /> Bank: HASPA in Hamburg, Wohlwillstrasse
+          49-50, Germany<br/> BIC (SWIFT-Code): HASPDEHHXXX<br /> International Account
+          Number (IBAN): DE93 2005 0550 1251 1238 55<br />'
       1:
         locale: de
         text: "Die Bezahlung des Workshops erfolgt über Lastschrifteinzug. Sie können
-          den Auftrag zum Lastschrifteinzug hier abgeben oder über das Anmeldeformular
-          per Post zurücksenden. Die Workshopgebühren betragen 235 EUR bei Level 1,
-          bei Level 2-8 275 EUR. In den Gebühren sind die 110 EUR für Unterkunft und
-          Verpflegung NICHT miteingeschlossen. Diese sind bei Workshopbeginn direkt
-          als Bargeld an das Seminarhaus Schöppingen zu entrichten.\r\n<br />\r\n<br
-          />\r\nBei Anmeldungen aus dem deutschsprachigen Ausland: Bitte überweisen
-          Sie die Workshopgebühr selber an\r\n<br />\r\n<br />\r\nBank Account: HAND
-          ON HEART e.V. in Hamburg, Wohlwillstrasse 1, Germany<br />\r\nBank: HASPA
-          in Hamburg, Wohlwillstrasse 49-50, Germany (BIC HASPDEHHXXX)<br />\r\nInternational
-          Account Number (IBAN) DE93 2005 0550 1251 1238 55<br />\r\n\r\n"
+          den Auftrag zum Lastschrifteinzug hier abgeben. Die Workshopgebühren betragen
+          235 EUR bei Level 1, bei Level 2-8 275 EUR. In den Gebühren sind die 110
+          EUR für Unterkunft und Verpflegung NICHT miteingeschlossen. Diese sind bei
+          Workshopbeginn direkt als Bargeld an das Seminarhaus Schöppingen zu entrichten.\r\n<br
+          />\r\n<br />\r\nBei Anmeldungen aus dem Ausland, bitte überweisen Sie die
+          Workshopgebühr selber an.\r\n<br />\r\n<br />\r\nBank Account: HAND ON HEART
+          e.V. in Hamburg, Wohlwillstrasse 1, Germany<br />\r\nBank: HASPA in Hamburg,
+          Wohlwillstrasse 49-50, Germany<br/>\r\nBIC (SWIFT-Code): HASPDEHHXXX<br
+          />\r\nInternational Account Number (IBAN): DE93 2005 0550 1251 1238 55<br
+          />\r\n\r\n\r\n"
 - :description: Text block that appears when payment by post is selected.
   :translation_key_attributes:
     :key: public_signup.form.payment_by_post
@@ -153,6 +161,17 @@
       1:
         locale: de
         text: 99cc33
+- :description: 'The From: email address used by registration notification emails.
+    Should be a plain address. ie someone@example.com'
+  :translation_key_attributes:
+    :key: email.registrations.from_address
+    :translations_attributes:
+      0:
+        locale: en
+        text: registrations@haidb.info
+      1:
+        locale: de
+        text: registrations@haidb.info
 :uk:
 - :description: Title line of the public signup form.
   :translation_key_attributes:

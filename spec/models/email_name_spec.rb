@@ -19,7 +19,7 @@ describe EmailName do
   it ".add_missing_locales adds missing locales" do
     en = EmailName.new
     available_locales = ['en','de','fr']
-    I18n.stub(:available_locales).and_return(available_locales)
+    Site.stub(:available_locales).and_return(available_locales)
     en.emails.size.should == 0
     en.emails.build(locale: 'de')
     en.add_missing_locales

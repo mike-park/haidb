@@ -59,7 +59,7 @@ Tabulous.setup do
     end
 
     office_memberships_tab do
-      text { list_icon('Memberships') }
+      text { 'Memberships' }
       link_path { office_memberships_path }
       visible_when { true }
       enabled_when { true }
@@ -150,7 +150,7 @@ Tabulous.setup do
     end
 
     office_public_signups_tab do
-      text { list_icon('Public Signups') }
+      text { 'Public Signups' }
       link_path {  }
       visible_when { true }
       enabled_when { true }
@@ -187,8 +187,26 @@ Tabulous.setup do
       link_path { office_site_defaults_path }
       visible_when { true }
       enabled_when { true }
+      active_when { a_subtab_is_active }
+    end
+
+    keys_office_site_defaults_subtab do
+      text { list_icon('Keys') }
+      link_path { office_site_defaults_path }
+      visible_when { true }
+      enabled_when { true }
       active_when { %w{site_defaults site_defaults/email_names}.each { |n| in_action('any').of_controller("office/#{n}") } }
     end
+
+    templates_office_site_defaults_subtab do
+      text { envelope_icon('Emails') }
+      link_path { office_site_defaults_email_names_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when { false }
+    end
+
+
   end
 
   tabs(:users) do

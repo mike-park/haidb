@@ -44,13 +44,15 @@ module ApplicationHelper
   end
 
   # show link with icon
-  def link_to_show(path, message = "".html_safe)
-    link_to icon('zoom-in') + message, path, title: 'Show more information'
+  def link_to_show(path, message = '')
+    message = icon('zoom-in') + ' ' + message
+    link_to message, path, title: 'Show more information'
   end
 
   # new link with icon
-  def link_to_new(path, message = "".html_safe)
-    link_to icon('plus-sign') + message, path, title: 'Create a new record'
+  def link_to_new(path, message = '')
+    message = icon('plus-sign') + ' ' + message
+    link_to message, path, title: 'Create a new record'
   end
 
   # destroy link with icon

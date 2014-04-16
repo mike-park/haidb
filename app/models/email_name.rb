@@ -10,7 +10,7 @@ class EmailName < ActiveRecord::Base
                                 :reject_if => lambda {|attr| attr['subject'].blank? && attr['body'].blank? }
 
   def add_missing_locales
-    missing_locales = I18n.available_locales - available_locales
+    missing_locales = Site.available_locales - available_locales
     missing_locales.each do |locale|
       emails.build(locale: locale)
     end

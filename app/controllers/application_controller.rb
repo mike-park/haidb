@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   include Pundit
-  before_filter :adjust_view_path
-  before_filter :set_user_language
+  before_action :adjust_view_path
+  before_action :set_user_language
 
   protected
 
@@ -36,11 +36,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_user_language
-    if (locale = params[:locale])
-      if I18n.available_locales.include?(locale.to_sym) ||
-          I18n.available_locales.include?(locale)
-        I18n.locale = locale.to_sym
-      end
+    locale = params[:locale]
+    if locale && Site.available_locales.include?(locale)
+      I18n.locale = locale.to_sym
     end
   end
 
