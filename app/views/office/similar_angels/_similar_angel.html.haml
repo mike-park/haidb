@@ -1,22 +1,23 @@
 .similar-angel
-  %h3.title= similar_angel.title
+  .panel.panel-default
+    .panel-heading
+      = controls do |c|
+        - c << button_with_options(:merge, path: url_for(angel_ids: similar_angel.angel_ids), html: {method: :post})
+      %h3.title= similar_angel.title
 
-  - similar_angel.angels.sort.each do |angel|
-    .angel
-      %p= gravatar_image(angel.gravatar)
-      %p
-        = link_to(angel.full_name, office_angel_path(angel))
-        %br
-        = angel.email
-      %p= angel.address
-      %p= angel.phones
-      %p
-        Id: #{angel.id}
-        %br
-        Created: #{angel.created_at}
-        %br
-        Updated: #{angel.updated_at}
-
-  = vertical_form :similar_angel, path: office_similar_angels_path, method: :post do |f|
-    = f.hidden_field :angel_ids, value: similar_angel.angel_ids
-    = f.submit('Merge')
+    .panel-body
+      - similar_angel.angels.sort.each do |angel|
+        .angel
+          %p= gravatar_image(angel.gravatar)
+          %p
+            = link_to(angel.full_name, office_angel_path(angel))
+            %br
+            = angel.email
+          %p= angel.address
+          %p= angel.phones
+          %p
+            Id: #{angel.id}
+            %br
+            Created: #{angel.created_at}
+            %br
+            Updated: #{angel.updated_at}

@@ -26,9 +26,9 @@ Tabulous.setup do
       active_when { %w{angels angel_registrations}.each { |n| in_action('any').of_controller("office/#{n}") } }
     end
 
-    similar_office_angel_subtab do
+    similar_by_name_office_angel_subtab do
       text { list_icon('Similar Angels') }
-      link_path { office_similar_angels_path }
+      link_path { office_similar_angels_name_path }
       visible_when { true }
       enabled_when { true }
       active_when { in_action('any').of_controller("office/similar_angels") }

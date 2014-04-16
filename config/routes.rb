@@ -21,7 +21,10 @@ Rails.application.routes.draw do
       resources :angel_registrations, path: 'registrations', as: 'registrations', only: [:new, :create, :destroy]
     end
 
-    resources :similar_angels, only: [:index, :create]
+    get '/similar_angels/name', to: 'similar_angels#match_by_name'
+    post '/similar_angels/name', to: 'similar_angels#merge'
+    get '/similar_angels/email', to: 'similar_angels#match_by_email'
+    post '/similar_angels/email', to: 'similar_angels#merge'
 
     resources :events do
       collection do

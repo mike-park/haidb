@@ -121,22 +121,29 @@ module Office::RegistrationsHelper
     content_tag(:span, "", class: "dot dot-#{state ? 'green' : 'red'}")
   end
 
-  # return address in html display format
-  def compact_address(object, separator = tag(:br))
-    code = object.country.strip.upcase
-    address = if %w(US GB).include?(code)
-                h("#{object.address}\n#{object.city}\n#{object.postal_code}")
+  def compact_address(object)
+    code = object.country
+    code ||= Site.de? ? 'DE' : 'GB'
+    code = code.strip.upcase
+    address = [object.address]
+    address += if %w(US GB).include?(code)
+                [object.city, object.postal_code]
               elsif %w(AU CA).include?(code)
-                h("#{object.address}\n#{object.city} #{object.postal_code}")
+                ["#{object.city} #{object.postal_code}"]
               else
-                h("#{object.address}\n#{object.postal_code} #{object.city}")
+                ["#{object.postal_code} #{object.city}"]
               end
-    country = Carmen::Country.coded(code)
-    (address << "\n#{country.name}") if country
-    if address.present?
-      address.gsub("\n", separator).html_safe
-    else
-      ""
+    address = address.compact.reject(&:blank?)
+    if address.any?
+      country = Carmen::Country.coded(code)
+      address += [country.name] if country
+    end
+    address
+  end
+
+  def br(array)
+    if array && array.any?
+      array.compact.map {|e| h(e) }.join(tag(:br)).html_safe
     end
   end
 

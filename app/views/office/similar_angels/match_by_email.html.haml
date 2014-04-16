@@ -1,0 +1,8 @@
+.panel.panel-default
+  .panel-heading
+    = controls do |c|
+      - c << button_with_options(:match_by_name)
+    %h3 Angels similar by email
+
+  .panel-body
+    = render @similar_angels

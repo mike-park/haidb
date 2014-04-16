@@ -35,7 +35,7 @@ class Membership < ActiveRecord::Base
   def self.move_to(angel, ids)
     return unless ids.any?
 
-    memberships = where(id: ids).by_active_on_desc
+    memberships = where(id: ids).by_active_on_desc.to_a
     most_recent_membership = memberships.shift
     retired_on = most_recent_membership.active_on || Date.current
     memberships.each do |membership|

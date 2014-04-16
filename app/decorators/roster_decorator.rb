@@ -70,7 +70,7 @@ class RosterDecorator < Draper::Decorator
     roster.registrations.where_role(role).by_first_name.each do |r|
       table << ["#{r.full_name}\n" +
                     r.email,
-                h.map_address(h.compact_address(r, "\n")),
+                h.map_address(h.compact_address(r).join("\n")),
                 h.compact_phones(r, true)
       ]
     end

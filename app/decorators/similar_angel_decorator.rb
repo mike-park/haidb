@@ -3,6 +3,6 @@ class SimilarAngelDecorator < Draper::Decorator
   decorates_association :angels, with: SummaryAngelDecorator
 
   def angel_ids
-    angels.map(&:id).join(" ")
+    angels.map(&:id).join(",")
   end
 end
