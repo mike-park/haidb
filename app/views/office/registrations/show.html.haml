@@ -1,12 +1,15 @@
-.panel
-  .panel-body
+- r = @registration
+
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << edit_button
+      - (c << map_button(path: office_event_map_index_path(r.event, id: r))) if r.geocoded?
 
-    %h2
-      #{@registration.event_name}: registration of #{@registration.full_name}
+    %h3= r.full_name
 
-    = render @registration
+  .panel-body
+    = render r
 
-    - if @registration.audits.any?
-      = render 'office/shared/audits', :audits => @registration.audits.descending
+    - if r.audits.any?
+      = render 'office/shared/audits', :audits => r.audits.descending
