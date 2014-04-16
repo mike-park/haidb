@@ -1,8 +1,9 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << new_button
 
-    %h2 Emails
+    %h3 Emails
 
+  .panel-body
     = render 'email_names', email_names: @email_names

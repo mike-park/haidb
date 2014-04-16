@@ -6,5 +6,5 @@
   %tbody
     - email_names.each do |email_name|
       %tr
-        %td= link_to_show(office_site_defaults_email_name_path(email_name), email_name.name)
+        %td= link_to(email_name.name, office_site_defaults_email_name_path(email_name))
         %td= email_name.events.size

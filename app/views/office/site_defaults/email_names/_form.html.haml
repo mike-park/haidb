@@ -1,24 +1,25 @@
 %p
   The subject and body fields can have special words which substitute for values in the registration record.
   The special fields are:
-  %dt= "{{person_name}}"
-  %dd The full name of the registrant. ie Mike Park
-  %dt= "{{event_name}}"
-  %dd The name of the event. ie Level 1: 2014-02-01
-  %dt= "{{registration_code}}"
-  %dd The auto-assigned registration code. This is only available in confirmation emails.
-  %dt= "{{cost}}"
-  %dd The cost assigned to this registration. ie 110.00 €
+  %dl.dl-horizontal(ng-non-bindable)
+    %dt= "{{person_name}}"
+    %dd The full name of the registrant. ie Mike Park
+    %dt= "{{event_name}}"
+    %dd The name of the event. ie Level 1: 2014-02-01
+    %dt= "{{registration_code}}"
+    %dd The auto-assigned registration code. This is only available in confirmation emails.
+    %dt= "{{cost}}"
+    %dd The cost assigned to this registration. ie 110.00 €
 
-= vertical_form([:office, :site_defaults, email_name]) do |f|
+= vertical_form([:office, :site_defaults, @email_name]) do |f|
   = f.input :name
   = f.simple_fields_for(:emails, f.options.slice(:wrapper_mappings)) do |l|
-    %fieldset
-      Language #{l.object.locale}
-      - if l.object.persisted?
-        = l.input :_destroy, :as => :boolean, :label => 'Delete this language'
-      = l.input :locale, :as => :hidden
-      = l.input :email_name_id, :as => :hidden
-      = l.input :subject
-      = l.input :body
+    .panel.panel-default
+      .panel-heading
+        %h4 Language #{l.object.locale}
+      .panel-body(ng-non-bindable)
+        = l.input :locale, :as => :hidden
+        = l.input :email_name_id, :as => :hidden
+        = l.input :subject
+        = l.input :body, input_html: {rows: 10}
   = f.button :submit, 'Save template'

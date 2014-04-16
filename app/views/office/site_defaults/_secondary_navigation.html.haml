@@ -1,8 +1,0 @@
-= content_for :secondary_navigation do
-  %ul.nav.nav-list
-    %li.nav-header Site Defaults
-    - if super_user?
-      %li= link_to_new(new_office_site_default_path, "New Key")
-    %li.nav-header Reports
-    %li= link_to(icon('icon-list-alt') + "Keys", office_site_defaults_path)
-    %li= link_to(icon('icon-envelope') + "Email Templates", office_site_defaults_email_names_path)

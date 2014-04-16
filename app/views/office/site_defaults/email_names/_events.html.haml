@@ -3,10 +3,8 @@
     %tr
       %th Name
       %th Level
-      %th
   %tbody
     - events.each do |event|
       %tr
         %td= link_to(event.display_name, office_event_path(event))
         %td= event.level
-        %td.link= link_to_edit edit_office_event_path(event)

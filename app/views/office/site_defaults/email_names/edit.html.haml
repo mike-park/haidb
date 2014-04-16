@@ -1,8 +1,9 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << delete_button
 
-    %h2 Edit Email
+    %h3 Edit #{@email_name.name}
 
-    = render 'form', email_name: email_name
+  .panel-body
+    = render 'form'
