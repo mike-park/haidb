@@ -1,30 +1,31 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << edit_button
-      - (c << map_button(path: map_office_angels_path(id: angel))) if angel.geocoded?
+      - (c << map_button(path: map_office_angels_path(id: @angel))) if @angel.geocoded?
 
-    %h2 Details for #{angel.display_name}
-
-    = render angel
-    = render 'office/shared/audits', :audits => angel.audits.descending if angel.audits.any?
+    %h3 #{@angel.display_name}
 
   .panel-body
-    = controls do |c|
-      - c << new_button(label: 'New Membership', path: new_office_angel_membership_path(angel))
+    = render @angel
+    = render 'office/shared/audits', :audits => @angel.audits.descending if @angel.audits.any?
 
-    - if angel.memberships.size > 0
-      %h3 #{pluralize(angel.memberships.size, 'Membership')}
-      = render 'memberships', memberships: angel.memberships
-    - else
-      %h3 No memberships.
+    .panel.panel-default
+      .panel-heading
+        = controls do |c|
+          - c << new_button(label: 'New Membership', path: new_office_angel_membership_path(@angel))
+        %h4 #{pluralize(@angel.memberships.size, 'Membership')}
 
-  .panel-body
-    = controls do |c|
-      - c << new_button(label: 'New Registration', path: new_office_angel_registration_path(angel))
+      - if @angel.memberships.size > 0
+        .panel-body
+          = render 'memberships', memberships: @angel.memberships
 
-    - if registrations.size > 0
-      %h3 Registered for #{pluralize(registrations.size, 'event')}
-      = render 'registrations', :registrations => registrations
-    - else
-      %h3 Not registered for any events.
+    .panel.panel-default
+      .panel-heading
+        = controls do |c|
+          - c << new_button(label: 'New Registration', path: new_office_angel_registration_path(@angel))
+        %h4 #{pluralize(@angel.registrations.size, 'registration')}
+
+      - if @angel.registrations.size > 0
+        .panel-body
+          = render 'registrations', registrations: @angel.registrations

@@ -9,9 +9,8 @@
       %th Owed
       %th.center Status
       %th.center Completed
-      %th
   %tbody
-    - registrations.each do |r|
+    - registrations.by_start_date.each do |r|
       %tr
         %td= link_to_show(office_event_registration_path(r.event, r), r.event_name)
         %td= r.level
@@ -21,4 +20,3 @@
         %td= local_currency r.owed
         %td.center= r.status
         %td.center= color_dot(r.completed)
-        %td.link= link_to_destroy [:office, r.angel, r]

@@ -16,10 +16,9 @@
           = link_to_show(office_angel_path(a), a.full_name)
           = angel_membership_status(a)
         %td= a.email
-        %td= compact_address(a)
+        %td= br(compact_address(a))
         %td= compact_phones(a)
         %td= a.highest_level
-
 
 = render 'filter'
 

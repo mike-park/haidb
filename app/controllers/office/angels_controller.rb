@@ -1,8 +1,17 @@
 class Office::AngelsController < Office::ApplicationController
-  before_filter :find_angel, :except => [:index, :map, :map_info, :new, :create]
-
   def index
-    find_angels(10, 'updated_at.desc')
+    params[:rows] ||= 10
+    params[:q] ||= {}
+    params[:q][:meta_sort] ||= 'updated_at.desc'
+    @q = Angel.search(params[:q])
+    @angels = @q.result.paginate(:page => params[:page],
+                                 :per_page => params[:rows])
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data Angel.to_csv(@q.result), filename: 'contacts.csv', type: :csv }
+      format.vcard { send_data Angel.to_vcard(@q.result), filename: 'contacts.vcf', type: :vcard }
+    end
   end
 
   def map
@@ -20,7 +29,7 @@ class Office::AngelsController < Office::ApplicationController
   end
 
   def create
-    @angel = Angel.new(params[:angel])
+    @angel = Angel.new(angel_params)
     if @angel.save
       redirect_to([:office, @angel], :notice => 'Angel was successfully created.')
     else
@@ -28,64 +37,39 @@ class Office::AngelsController < Office::ApplicationController
     end
   end
 
+  def edit
+    @angel = Angel.find(params[:id])
+  end
+
   def update
-    if angel.update_attributes(params[:angel])
-      redirect_to([:office, angel], :notice => 'Angel was successfully updated.')
+    @angel = Angel.find(params[:id])
+    if @angel.update(angel_params)
+      redirect_to([:office, @angel], :notice => 'Angel was successfully updated.')
     else
       render :edit
     end
   end
 
   def show
+    @angel = Angel.find(params[:id])
     respond_to do |format|
       format.html
-      format.vcard { send_data angel.to_vcard, filename: "#{angel.full_name}.vcf", type: :vcard }
+      format.vcard { send_data @angel.to_vcard, filename: "#{@angel.full_name}.vcf", type: :vcard }
     end
   end
 
   def destroy
+    angel = Angel.find(params[:id])
     angel.destroy
     redirect_to(office_angels_url, :notice => 'Angel was successfully deleted.')
   end
 
-  protected
+  private
 
-  def find_angels(rows, sort)
-    params[:rows] ||= rows
-    params[:q] ||= {}
-    params[:q][:meta_sort] ||= sort
-    @q = Angel.search(params[:q])
-    @angels = @q.result.paginate(:page => params[:page],
-                          :per_page => params[:rows])
-
-    respond_to do |format|
-      format.html
-      format.csv { send_data Angel.to_csv(@q.result), filename: 'contacts.csv', type: :csv }
-      format.vcard { send_data Angel.to_vcard(@q.result), filename: 'contacts.vcf', type: :vcard }
-    end
+  def angel_params
+    params.require(:angel).permit(:payment_method, :iban, :bank_account_name,
+                                  :bic, :notes, :first_name,
+                                  :last_name, :gender, :address, :postal_code, :city, :country,
+                                  :email, :home_phone, :mobile_phone, :work_phone, :lang, :highest_level)
   end
-
-  def find_angel
-    unless angel
-      redirect_to(office_angels_url, :alert => 'You must select an angel first.')
-    end
-  end
-
-  def angels
-    @angels
-  end
-
-  helper_method :angels
-
-  def registrations
-    @registrations ||= angel.registrations.ok.by_start_date
-  end
-
-  helper_method :registrations
-
-  def angel
-    @angel ||= Angel.find_by_id(params[:id])
-  end
-
-  helper_method :angel
 end

@@ -7,7 +7,7 @@
       %th Participant Cost
       %th Team Cost
   %tbody
-    - memberships.each do |m|
+    - memberships.by_active_on_desc.each do |m|
       %tr
         %td= link_to_show(office_membership_path(m), m.status)
         %td= local_date m.active_on

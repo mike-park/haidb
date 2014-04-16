@@ -1,4 +1,4 @@
-= vertical_form([:office, angel]) do |f|
+= vertical_form([:office, @angel]) do |f|
   = render 'office/registrations/fields_contact', :form => f
   = f.input :payment_method, options_for_payment_method(f, :translate => false)
   = f.input :bank_account_name,  :input_html => {:size => 30}
