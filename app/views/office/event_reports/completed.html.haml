@@ -1,0 +1,9 @@
+.panel.panel-default
+  .panel-heading
+    %h3 #{@event.display_name} Completion Report
+
+  .panel-body
+    %p
+      Only Angels marked completed appear in the Workshop Roster.
+
+    = render 'completed', registrations: @registrations

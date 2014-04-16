@@ -29,6 +29,9 @@ Rails.application.routes.draw do
       collection do
         get 'past'
       end
+      member do
+        post 'completed'
+      end
       resource :event_report, only: [], as: 'report', path: 'report' do
         collection do
           get 'site'
@@ -39,11 +42,11 @@ Rails.application.routes.draw do
           get 'roster'
           get 'payment'
           get 'map'
+          get 'completed'
         end
       end
       resources :registrations, only: [:edit, :update, :destroy, :show]
       scope :module => "registrations" do
-        resources :completed, :only => [:index, :create, :update]
         resources :checked_in, :only => [:index, :create, :update]
       end
     end
@@ -84,6 +87,9 @@ Rails.application.routes.draw do
     end
     resources :site_defaults
     resources :registrations do
+      member do
+        post 'completed'
+      end
       resources :payments
     end
     resources :dashboards, only: [:index]

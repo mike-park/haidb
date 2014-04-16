@@ -36,6 +36,11 @@ class Office::EventsController < Office::ApplicationController
     redirect_to(office_events_url, :notice => 'Event was successfully deleted.')
   end
 
+  def completed
+    @event.registrations.each(&:toggle_completed)
+    redirect_to(completed_office_event_report_path(@event), notice: 'Toggled event')
+  end
+
   protected
 
   def find_events_where(where1, where2, orderby)

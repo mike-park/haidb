@@ -102,6 +102,10 @@ class Office::EventReportsController < Office::ApplicationController
     end
   end
 
+  def completed
+    @registrations = approved_registrations
+  end
+
   private
 
   def approved_registrations

@@ -189,8 +189,16 @@ class Registration < ActiveRecord::Base
     self.status = APPROVED
   end
 
+  def approved?
+    status == APPROVED
+  end
+
   def waitlist
     self.status = WAITLISTED
+  end
+
+  def toggle_completed
+    toggle!(:completed) if approved?
   end
 
   def assign_defaults

@@ -2,13 +2,13 @@
   %thead
     %tr
       %th.name Name
-      %th= render 'header_th', :label => 'Not Completed', :value => 'nc'
-      %th= render 'header_th', :label => 'Completed', :value => 'completed'
-      %th Toggle
+      %th Not Completed
+      %th Completed
+      %th= link_to('Toggle All', completed_office_event_path(@event), class: 'btn btn-warning', method: :post)
   %tbody
     - registrations.by_first_name.each do |r|
       %tr
         %td.name= r.full_name
         = content_tag(:td, '', r.completed? ? {} : {class: 'red'})
         = content_tag(:td, '', r.completed? ? {class: 'green'} : {})
-        %td= completed_toggle(r)
+        %td= link_to('Toggle', completed_office_registration_path(r), class: 'btn btn-default', method: :post)
