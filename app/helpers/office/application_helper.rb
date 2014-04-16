@@ -81,16 +81,6 @@ module Office::ApplicationHelper
     end
   end
 
-  def secondary_navigation
-    links = []
-    content_for :secondary_navigation do
-      content_tag(:ul, class: 'nav nav-list') do
-        yield links
-        links.map { |link| content_tag(:li, link) }.join.html_safe
-      end
-    end
-  end
-
   def list_icon(label = 'List')
     icon_label('th-list', label)
   end
