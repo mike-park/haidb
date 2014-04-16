@@ -46,7 +46,6 @@ Rails.application.routes.draw do
           get 'checked_in'
         end
       end
-      resources :registrations, only: [:edit, :update, :destroy, :show]
     end
 
     resources :memberships do

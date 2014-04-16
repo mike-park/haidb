@@ -1,4 +1,4 @@
-= vertical_form([:office, event]) do |f|
+= vertical_form([:office, @event]) do |f|
   = f.input :display_name
   = f.input :start_date, :as => :string, input_html: {class: 'date-pick'}, :format => '%d.%m.%Y'
   = f.input :category, options_for_event_categories(f)

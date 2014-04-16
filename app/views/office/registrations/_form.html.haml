@@ -1,4 +1,4 @@
-= vertical_form [:office, @event, @registration] do |r|
+= vertical_form [:office, @registration] do |r|
   -if @registration.errors.any?
     #error_explanation
       %h3= "#{pluralize(@registration.errors.count, "error")} prohibited this registration from being saved"

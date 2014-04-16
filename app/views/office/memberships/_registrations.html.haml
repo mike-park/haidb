@@ -8,7 +8,7 @@
   %tbody
     - registrations.each do |r|
       %tr
-        %td= link_to_show(office_event_registration_path(r.event, r), r.event_name)
+        %td= link_to_show(office_registration_path(r), r.event_name)
         %td= r.level
         %td.center= r.status
         %td.center= color_dot(r.completed)
