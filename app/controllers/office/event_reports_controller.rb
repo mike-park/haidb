@@ -17,8 +17,8 @@ class Office::EventReportsController < Office::ApplicationController
   end
 
   def client_history
-      csv_fields = [:role, :status, :full_name, :email, :gender, :how_hear, :previous_event,
-                    :highest_level, :highest_location, :highest_date]
+    csv_fields = [:role, :status, :full_name, :email, :gender, :how_hear, :previous_event,
+                  :highest_level, :highest_location, :highest_date]
     standard_response(csv_fields)
   end
 
@@ -30,7 +30,7 @@ class Office::EventReportsController < Office::ApplicationController
   def status
     respond_to do |format|
       format.html
-      format.csv   { send_data Registration.to_csv(approved_registrations), filename: csv_file_name, type: :csv }
+      format.csv { send_data Registration.to_csv(approved_registrations), filename: csv_file_name, type: :csv }
       format.vcard { send_data Registration.to_vcard(approved_registrations), filename: vcf_file_name, type: :vcard }
     end
   end
@@ -57,6 +57,51 @@ class Office::EventReportsController < Office::ApplicationController
     end
   end
 
+  concerning :Maps do
+
+    # copied from http://google-maps-icons.googlecode.com/files/XXX.png so we can use https
+    PARKANDRIDE_PICTURE = {picture: '/images/parkandride.png', width: 32, height: 37}
+    SITE_PICTURE = {picture: '/images/moderntower.png', width: 32, height: 37}
+    CAR_PICTURE = {picture: '/images/car.png', width: 32, height: 37}
+
+    TEAM_PICTURE = {picture: '/images/team.png', width: 19, height: 34}
+    FACILITATOR_PICTURE = {picture: '/images/facilitator.png', width: 19, height: 34}
+    PARTICIPANT_PICTURE = {picture: '/images/participant.png', width: 19, height: 34}
+
+    ROLE_TO_PICTURE = {Registration::TEAM => TEAM_PICTURE,
+                       Registration::FACILITATOR => FACILITATOR_PICTURE,
+                       Registration::PARTICIPANT => PARTICIPANT_PICTURE
+    }
+
+    def map
+      params[:q] ||= {}
+      @q = event.registrations.search(params[:q])
+      @json = @q.result.to_gmaps4rails do |reg, marker|
+        marker.infowindow render_to_string(:partial => '/office/event_reports/map_info',
+                                           :locals => {registrations: registrations_at(reg.lat, reg.lng)})
+        marker.picture(registration_picture(reg))
+        marker.title reg.full_name
+      end
+    end
+
+    private
+
+    def registration_picture(registration)
+      case registration.lift
+        when Registration::REQUESTED
+          PARKANDRIDE_PICTURE
+        when Registration::OFFERED
+          CAR_PICTURE
+        else
+          ROLE_TO_PICTURE[registration.role]
+      end
+    end
+
+    def registrations_at(lat, lng)
+      event.registrations.located_at(lat, lng)
+    end
+  end
+
   private
 
   def approved_registrations
@@ -74,7 +119,7 @@ class Office::EventReportsController < Office::ApplicationController
   def standard_response(csv_fields)
     respond_to do |format|
       format.html
-      format.csv   { send_data Registration.to_csv(event.registrations, csv_fields), filename: csv_file_name, type: :csv }
+      format.csv { send_data Registration.to_csv(event.registrations, csv_fields), filename: csv_file_name, type: :csv }
     end
   end
 

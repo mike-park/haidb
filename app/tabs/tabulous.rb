@@ -133,7 +133,7 @@ Tabulous.setup do
     [[:list_icon, 'Bank', :bank_office_event_report_path],
      [:list_icon, 'Checklist', :checklist_office_event_report_path],
      [:list_icon, 'History', :client_history_office_event_report_path],
-     [:map_icon, 'Map', :office_event_map_index_path],
+     [:map_icon,  'Map', :map_office_event_report_path],
      [:list_icon, 'Payment', :payment_office_event_report_path],
      [:list_icon, 'Site', :site_office_event_report_path],
      [:list_icon, 'Roster', :roster_office_event_report_path],

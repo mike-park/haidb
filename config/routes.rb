@@ -15,7 +15,6 @@ Rails.application.routes.draw do
     resources :angels do
       collection do
         get 'map'
-        get 'map_info'
       end
       resources :memberships, only: [:new]
       resources :angel_registrations, path: 'registrations', as: 'registrations', only: [:new, :create, :destroy]
@@ -39,17 +38,13 @@ Rails.application.routes.draw do
           get 'checklist'
           get 'roster'
           get 'payment'
+          get 'map'
         end
       end
       resources :registrations, only: [:edit, :update, :destroy, :show]
       scope :module => "registrations" do
         resources :completed, :only => [:index, :create, :update]
         resources :checked_in, :only => [:index, :create, :update]
-        resources :map, :only => [:index] do
-          collection do
-            get 'map_info'
-          end
-        end
       end
     end
 

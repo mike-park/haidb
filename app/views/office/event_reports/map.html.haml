@@ -1,0 +1,11 @@
+.panel.panel-default
+  .panel-heading
+    %h3 Mapping #{pluralize(@q.result.size, 'registration')}
+
+  .panel-body
+    = gmaps({markers: {data: @json, options: {do_clustering: true, randomize: false, clusterer_maxZoom: 5}}}, false, true)
+    = search_form_for [:office, @q], :url => url_for, :html => { :method => :get } do|f|
+      = f.select :role_eq, options_for_map_role(f), {}, {:onchange => 'this.form.submit()'}
+      = f.select :lift_cont, options_for_map_lift(f), {}, {:onchange => 'this.form.submit()'}
+      = f.text_field :city_or_postal_code_cont, :placeholder => 'City or PLZ', :class => 'search_box'
+      = f.submit

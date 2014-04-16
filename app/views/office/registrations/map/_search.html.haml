@@ -1,5 +1,0 @@
-= search_form_for [:office, @q], :url => url_for, :html => { :method => :get } do|f|
-  = f.select :role_eq, options_for_map_role(f), {}, {:onchange => 'this.form.submit()'}
-  = f.select :lift_cont, options_for_map_lift(f), {}, {:onchange => 'this.form.submit()'}
-  = f.text_field :city_or_postal_code_cont, :placeholder => 'City or PLZ', :class => 'search_box'
-  = f.submit

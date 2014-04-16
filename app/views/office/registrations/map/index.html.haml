@@ -1,7 +1,0 @@
-.panel.panel-default
-  .panel-heading
-    %h3 Mapping #{pluralize(@registrations.size, 'registration')}
-
-  .panel-body
-    = gmaps({markers: {data: @json, options: {do_clustering: true, randomize: false, clusterer_maxZoom: 5}}}, false, true)
-    = render 'search'
