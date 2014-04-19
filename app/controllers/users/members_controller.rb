@@ -9,7 +9,7 @@ class Users::MembersController < Users::SignedInController
   end
 
   def update
-    message = if member.update_attributes(params[:member])
+    message = if member.update(member_params)
                 'Successfully updated'
               else
                 'Could not be updated'
@@ -47,5 +47,9 @@ class Users::MembersController < Users::SignedInController
 
   def membership
     angel.active_membership
+  end
+
+  def member_params
+    params.require(:member).permit(:role, :notes)
   end
 end

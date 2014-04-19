@@ -38,7 +38,7 @@ describe 'members' do
       it "should add notes" do
         find('.edit-signup').click
         fill_in 'member[notes]', with: 'a long note'
-        find('.submit').click
+        click_button('Update')
         expect(page).to have_content('Notes: a long note')
       end
 

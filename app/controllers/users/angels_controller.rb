@@ -8,7 +8,7 @@ class Users::AngelsController < Users::SignedInController
   end
 
   def create
-    @angel = Angel.new(params[:angel])
+    @angel = Angel.new(angel_params)
     @angel.email = current_user.email
     if @angel.save
       current_user.update_attribute(:angel_id, @angel.id)
@@ -20,10 +20,19 @@ class Users::AngelsController < Users::SignedInController
 
   def update
     @angel = current_user.angel
-    if @angel.update_attributes(params[:angel])
+    if @angel.update(angel_params)
       redirect_to users_dashboards_path, notice: 'Profil has been updated'
     else
       render 'edit'
     end
+  end
+
+  private
+
+  def angel_params
+    params.require(:angel).permit(:payment_method, :iban, :bank_account_name,
+                                  :bic, :notes, :first_name,
+                                  :last_name, :gender, :address, :postal_code, :city, :country,
+                                  :home_phone, :mobile_phone, :work_phone, :lang)
   end
 end
