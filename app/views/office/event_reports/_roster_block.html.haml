@@ -7,5 +7,5 @@
       #{r.full_name}
       %br
       #{r.email}
-    %td= br(compact_address(r))
-    %td= compact_phones(r)
+    %td= simple_format(compact_address(r))
+    %td= simple_format(compact_phones(r), {}, sanitize: false)

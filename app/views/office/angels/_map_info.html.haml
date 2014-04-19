@@ -12,5 +12,5 @@
         %td= gravatar_image(a.gravatar)
         %td= link_to_show(office_angel_path(a), a.full_name)
         %td= a.email
-        %td= br(compact_address(a))
-        %td= compact_phones(a)
+        %td= simple_format(compact_address(a))
+        %td= simple_format(compact_phones(a), {}, sanitize: false)

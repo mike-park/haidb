@@ -12,7 +12,7 @@
       %td= r.email
     %tr
       %th Phones
-      %td= compact_phones(r)
+      %td= simple_format(compact_phones(r), {}, sanitize: false)
     %tr
       %th Address
-      %td= br(compact_address(r))
+      %td= simple_format(compact_address(r))

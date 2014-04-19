@@ -2,11 +2,11 @@ class SummaryAngelDecorator < Draper::Decorator
   delegate :full_name, :id, :email, :gravatar
 
   def address
-    h.br(h.compact_address(model))
+    h.simple_format(h.compact_address(model))
   end
 
   def phones
-    h.compact_phones(model)
+    h.simple_format(compact_phones(model))
   end
 
   def created_at

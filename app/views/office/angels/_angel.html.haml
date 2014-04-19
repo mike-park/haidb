@@ -13,10 +13,10 @@
       %td= angel.email
     %tr
       %th Phones
-      %td= compact_phones(angel)
+      %td= simple_format(compact_phones(angel), {}, sanitize: false)
     %tr
       %th Address
-      %td= br(compact_address(angel))
+      %td= simple_format(compact_address(angel))
     %tr
       %th Payment
       %td= compact_payment(angel)

@@ -138,26 +138,19 @@ module Office::RegistrationsHelper
       country = Carmen::Country.coded(code)
       address += [country.name] if country
     end
-    address
+    address.join("\n")
   end
 
-  def br(array)
-    if array && array.any?
-      array.compact.map {|e| h(e) }.join(tag(:br)).html_safe
-    end
-  end
-
-  def compact_phones(object, text_only = false)
-    separator = text_only ? "\n" : tag(:br)
+  def compact_phones(object)
     phones = []
     %w(home mobile work).each do |ph|
       number = object.read_attribute("#{ph}_phone")
       unless number.blank?
         label = t("enums.registration.roster.#{ph}")
-        phones << "#{label}: " + (text_only ? number : link_to(number, "tel:#{number}"))
+        phones << "#{label}: " + link_to(number, "tel:#{number}")
       end
     end
-    phones.join(separator).html_safe
+    phones.join("\n")
   end
 
   def compact_payment(object, text_only = false)
