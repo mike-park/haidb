@@ -1,14 +1,16 @@
 class PublicSignupsController < ApplicationController
   layout :layout
 
-  before_filter :build_public_signup, only: [:new]
-
   def new
+    @public_signup = PublicSignup.new(registration: registration)
   end
 
   def create
-    @public_signup = PublicSignup.new(ps_params)
-    @public_signup.registration.find_or_initialize_angel if @public_signup.registration
+    @public_signup = PublicSignup.new(public_signup_params)
+    if @public_signup.registration
+      set_user_language(@public_signup.registration.lang)
+      @public_signup.registration.find_or_initialize_angel
+    end
     if @public_signup.save
       send_email
       redirect_to thankyou_url
@@ -21,12 +23,12 @@ class PublicSignupsController < ApplicationController
     end
   end
 
-  def show
+  def thank_you
   end
 
   private
 
-  def ps_params
+  def public_signup_params
     params.require(:public_signup).
         permit(:terms_and_conditions,
                registration_attributes: [:event_id, :backjack_rental, :sunday_stayover, :sunday_meal,
@@ -45,12 +47,8 @@ class PublicSignupsController < ApplicationController
     @public_signup.send_email(EventEmail::SIGNUP)
   end
 
-  def build_public_signup
-    @public_signup = PublicSignup.new(registration: registration)
-  end
-
   def thankyou_url
-    SiteDefault.get('public_signup.form.success_url') || public_signup_url(0)
+    SiteDefault.get('public_signup.form.success_url') || thank_you_public_signups_path(locale: lang)
   end
 
   def registration

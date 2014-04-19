@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   root :to => "public_signups#new"
 
   # participant signup
-  resources :public_signups, :only => [:new, :create, :show]
+  resources :public_signups, only: [:new, :create] do
+    collection do
+      get 'thank_you'
+    end
+  end
 
   namespace :office do
 

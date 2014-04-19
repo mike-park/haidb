@@ -35,8 +35,7 @@ class ApplicationController < ActionController::Base
     scope == :staff ? staff_root_path : users_root_path
   end
 
-  def set_user_language
-    locale = params[:locale]
+  def set_user_language(locale = params[:locale])
     if locale && Site.available_locales.include?(locale)
       I18n.locale = locale.to_sym
     end

@@ -4,7 +4,8 @@ module ApplicationHelper
   end
 
   def sd(key)
-    SiteDefault.get(key)
+    value = SiteDefault.get(key)
+    value.html_safe if value
   end
 
   ROW_COUNT_SELECTION = [5, 10, 30, 200]

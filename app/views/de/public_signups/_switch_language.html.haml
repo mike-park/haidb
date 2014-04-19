@@ -1,7 +1,7 @@
 %p.switch-language
   - if language?(:de)
     If you prefer you may
-    = link_to('register in English.', new_public_signup_path(:locale => :en))
+    = link_to('register in English.', new_public_signup_path(locale: :en))
   - else
     Bitte melden Sie sich in
-    = link_to('Deutsch hier an.', new_public_signup_path(:locale => :de))
+    = link_to('Deutsch hier an.', new_public_signup_path(locale: :de))
