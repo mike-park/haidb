@@ -38,6 +38,8 @@ class ApplicationController < ActionController::Base
   def set_user_language(locale = params[:locale])
     if locale && Site.available_locales.include?(locale)
       I18n.locale = locale.to_sym
+    else
+      I18n.locale = I18n.default_locale
     end
   end
 
