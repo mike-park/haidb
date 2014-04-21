@@ -21,6 +21,8 @@ module Mappable
 
   # return true if new geocode is NOT necessary
   def gmaps
+    return true if self.class.disable_mappable
+
     if geocoded? && !address_has_changed?
       true
     else
@@ -29,7 +31,9 @@ module Mappable
   end
   attr_writer :gmaps
 
-
   module ClassMethods
+    def disable_mappable
+      return true if Rails.env.test?
+    end
   end
 end
