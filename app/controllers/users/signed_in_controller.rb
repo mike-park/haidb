@@ -8,7 +8,7 @@ class Users::SignedInController < ApplicationController
   private
 
   def user_not_authorized(exception)
-    flash[:error] = 'You are not authorized to access this page.'
+    flash[:alert] = 'You are not authorized to access page.'
     redirect_to(request.referrer || users_root_path)
   end
 end
