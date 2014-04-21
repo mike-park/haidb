@@ -1,6 +1,17 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
+describe 'existing de link' do
+  before do
+    Site.stub(name: 'de')
+  end
+
+  it "should render de language" do
+    visit '/de/public_signups/new?template_version=2'
+    expect(page).to have_content('If you prefer you may register in English.')
+  end
+end
+
 describe 'with site defaults' do
   before do
     SiteDefault.stub(get: 'something')
