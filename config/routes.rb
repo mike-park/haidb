@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   }
 
   root :to => "public_signups#new"
+  get '/de/*ignore' => redirect('/?locale=de')
+  get '/en/*ignore' => redirect('/?locale=en')
 
   # participant signup
   resources :public_signups, only: [:new, :create] do
