@@ -16,17 +16,11 @@ class Roster
   end
 
   def has_angel?(angel)
-    angels.include?(angel)
+    @event.completed_angel_ids.include?(angel.id)
   end
 
   # -> "roster"
   def to_partial_path
     self.class.to_s.downcase
-  end
-
-  private
-
-  def angels
-    registrations.map(&:angel)
   end
 end

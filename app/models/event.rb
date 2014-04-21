@@ -14,6 +14,7 @@ class Event < ActiveRecord::Base
   has_many :registrations, :inverse_of => :event, :dependent => :destroy
   has_many :completed_registrations, -> { where(completed: true) }, class_name: 'Registration'
   has_many :angels, :through => :registrations
+  has_many :completed_angels, through: :completed_registrations, source: :angel
 
   has_many :event_emails, :dependent => :destroy
   has_many :email_names, -> { distinct }, :through => :event_emails
