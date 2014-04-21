@@ -15,7 +15,7 @@ describe "rosters" do
     let(:registration) { create(:registration, angel: angel) }
     let(:event) { registration.event }
     let(:user) { create(:user, angel: angel) }
-    let(:no_auth) { 'You are not authorized to access this page' }
+    let(:no_auth) { 'You are not authorized to access page' }
 
     before do
       user_login(user)
@@ -56,5 +56,3 @@ describe "rosters" do
     end
   end
 end
-
-
