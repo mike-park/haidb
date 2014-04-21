@@ -237,7 +237,7 @@ Tabulous.setup do
     users_angels_tab do
       text { 'Profil' }
       link_path { edit_users_angel_path }
-      visible_when { true }
+      visible_when { current_user.angel }
       enabled_when { true }
       active_when do
         in_actions('edit', 'update', 'show').of_controller("users/angels")
