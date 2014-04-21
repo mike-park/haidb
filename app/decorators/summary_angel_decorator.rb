@@ -6,7 +6,7 @@ class SummaryAngelDecorator < Draper::Decorator
   end
 
   def phones
-    h.simple_format(compact_phones(model))
+    h.simple_format(h.compact_phones(model))
   end
 
   def created_at
