@@ -62,30 +62,50 @@ describe Event do
     end
   end
 
-  context "event scopes" do
-    before(:all) do
-      @e1 = FactoryGirl.create(:event, :start_date => Date.new(2010, 12, 1))
-      @e2 = FactoryGirl.create(:event, :start_date => Date.tomorrow)
-      @e3 = FactoryGirl.create(:event, :start_date => Date.new(2009, 6, 29))
-      @e4 = FactoryGirl.create(:event, :start_date => Date.new(2020, 12, 31))
-      @e5 = FactoryGirl.create(:event, :start_date => Date.today - 5.days)
-    end
-    after(:all) do
-      Event.delete_all
+  context "scopes" do
+
+    context "events" do
+      before(:all) do
+        @e1 = FactoryGirl.create(:event, :start_date => Date.new(2010, 12, 1))
+        @e2 = FactoryGirl.create(:event, :start_date => Date.tomorrow)
+        @e3 = FactoryGirl.create(:event, :start_date => Date.new(2009, 6, 29))
+        @e4 = FactoryGirl.create(:event, :start_date => Date.new(2020, 12, 31))
+        @e5 = FactoryGirl.create(:event, :start_date => Date.today - 5.days)
+      end
+      after(:all) do
+        Event.delete_all
+      end
+
+      it "should order by oldest last" do
+        all = Event.with_oldest_last.all
+        all.should == [@e4, @e2, @e5, @e1, @e3]
+      end
+
+      it "should have only future events in order as they will occur" do
+        all = Event.upcoming.all
+        all.should == [@e2, @e4]
+      end
+
+      it "should have only 3 current events" do
+        Event.current.all.should == [@e5, @e2, @e4]
+      end
     end
 
-    it "should order by oldest last" do
-      all = Event.with_oldest_last.all
-      all.should == [@e4, @e2, @e5, @e1, @e3]
-    end
+    context "completed_{registrations, angels}" do
+      let(:event) { create(:event) }
+      let(:registration) { create(:registration, event: event, completed: true, angel: create(:angel)) }
 
-    it "should have only future events in order as they will occur" do
-      all = Event.upcoming.all
-      all.should == [@e2, @e4]
-    end
+      before do
+        create(:registration, event: event, angel: create(:angel))
+      end
 
-    it "should have only 3 current events" do
-      Event.current.all.should == [@e5, @e2, @e4]
+      it "should have a completed_registration" do
+        expect(event.completed_registrations).to eq([registration])
+      end
+
+      it "should have a completed angel" do
+        expect(event.completed_angels).to eq([registration.angel])
+      end
     end
   end
 
