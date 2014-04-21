@@ -2,12 +2,9 @@ require 'spec_helper'
 
 describe RosterPolicy do
   subject { RosterPolicy.new(user, roster) }
-  let(:roster) { Roster.new(double('event')) }
+  let(:event) { double('event', completed_angel_ids: [angel.id]) }
+  let(:roster) { Roster.new(event) }
   let(:angel) { create(:angel) }
-
-  before do
-    roster.stub(angels: [angel])
-  end
 
   context "angel in roster" do
     let(:user) { build(:user, angel: angel) }
