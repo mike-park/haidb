@@ -2,6 +2,10 @@
 require 'spec_helper'
 
 describe PublicSignupsController do
+  before do
+    I18n.locale = I18n.default_locale
+  end
+
   context "site specific switching" do
     render_views
 
@@ -10,8 +14,8 @@ describe PublicSignupsController do
         Site.stub(:name).and_return(name)
         basedir = "public_signups/#{name}"
         # no top level new template, only in subdirectory. 
-        [lambda { get :new, public_signup: {first_name: 'x'} },
-         lambda { post :create, public_signup: {first_name: 'x'} }].each do |action|
+        [lambda { get :new, public_signup: {x: 'x'} },
+         lambda { post :create, public_signup: {x: 'x'} }].each do |action|
           action.call
           response.should render_template(layout: "#{name}_site")
         end
@@ -19,156 +23,145 @@ describe PublicSignupsController do
     end
   end
 
-  describe "GET new" do
+  context "GET new" do
     it "should be successful" do
       get :new
       response.should be_success
     end
 
-    it "should have common default values" do
-      get :new
-      ps = assigns[:public_signup]
-      ps.registration.role.should == Registration::PARTICIPANT
-      ps.registration.payment_method == Registration::PAY_DEBT
-      ps.registration.should_not be_approved
-      ps.registration.lang.should == 'en'
-    end
+    context "default values" do
+      subject { assigns[:public_signup].registration }
+      let(:site) { 'de' }
+      let(:options) { {} }
 
-    it "should have DE specific default values" do
-      Site.stub(:name).and_return('de')
-      I18n.locale = :de
-      get :new
-      ps = assigns[:public_signup]
-      ps.registration.payment_method == Registration::PAY_DEBT
-      ps.registration.lang.should == 'de'
-    end
+      before do
+        Site.stub(name: site)
+        get :new, options
+      end
 
-    it "should have UK specific default values" do
-      Site.stub(:name).and_return('uk')
-      I18n.locale = :en
-      get :new
-      ps = assigns[:public_signup]
-      ps.registration.payment_method == Registration::PAY_TRANSFER
-      ps.registration.lang.should == 'en'
+      context "common default values" do
+        its(:role) { Registration::PARTICIPANT }
+        its(:approved) { false }
+      end
+
+      context "site DE specific default values" do
+        let(:site) { 'de' }
+
+        its(:payment_method) { eq(Registration::PAY_DEBT) }
+        its(:lang) { eq('de') }
+
+        context "with lang en" do
+          let(:options) { {locale: 'en'} }
+
+          its(:lang) { eq('en') }
+        end
+      end
+
+      context "site UK specific default values" do
+        let(:site) { 'uk' }
+
+        its(:payment_method) { eq(Registration::PAY_TRANSFER) }
+        its(:lang) { eq('en') }
+      end
     end
   end
 
-  describe "POST create" do
-    before(:each) { I18n.locale = :en }
+  context "POST create" do
+    let(:event) { create(:event) }
 
-    it "should create public_signup object" do
-      post :create, public_signup: {first_name: 'x'}
-      assigns[:public_signup].should be
-    end
-
-    context "a valid signup" do
-      let(:registration) { double('registration', find_or_initialize_angel: true) }
-      let(:public_signup) { double("publicsignup", save: true, registration: registration, send_email: true) }
-      let(:params) { { public_signup: { first_name: 'x'}}}
-      before(:each) do
-        PublicSignup.stub(:new).and_return(public_signup)
-        Angel.stub(:add_to).with(registration)
-      end
-
-      it "should redirect_to site specific url" do
-        success_url = 'https://somewhere.over.the.mountain/'
-        SiteDefault.create!(description: 'desc',
-                            translation_key_attributes: {
-                                key: 'public_signup.form.success_url',
-                                translations_attributes: [
-                                    {locale: 'en', text: success_url}
-                                ]})
-        post :create, params
-        response.should redirect_to(success_url)
-        SiteDefault.destroy_all
-      end
-
-      it "should redirect to local url if no specific url exists" do
-        post :create, params
-        response.should redirect_to(public_signup_url(0))
-      end
-
-      it "should send notification email" do
-        public_signup.should_receive(:send_email).with(EventEmail::SIGNUP)
-        post :create, params
-      end
-
-      it "should receive a call to find angel" do
-        registration.should_receive(:find_or_initialize_angel)
-        post :create, params
-      end
-    end
-
-    context "duplicate signups" do
-      let(:event) { create(:event) }
-      let(:signup) do
+    context "with a valid signup" do
+      let(:signup_params) do
         {
             public_signup: attributes_for(:public_signup).merge(
                 registration_attributes: attributes_for(:registration).merge(event_id: event.id))
         }
       end
 
-      it "should not add the same angel to the same workshop" do
-        post :create, signup
-        expect(Registration.count).to eql(1)
-        post :create, signup
-        ps = assigns[:public_signup]
-        expect(ps.errors.messages.keys).to include(:"registration.event_id")
+      it "should send notification email" do
+        PublicSignup.any_instance.should_receive(:send_email).with(EventEmail::SIGNUP)
+        post :create, signup_params
       end
+
+      it "should receive a call to find angel" do
+        Registration.any_instance.should_receive(:find_or_initialize_angel)
+        post :create, signup_params
+      end
+
+      context "redirection" do
+        it "should redirect_to site defaults url" do
+          SiteDefault.stub(:get).with('public_signup.form.success_url') { "success_url" }
+          post :create, signup_params
+          response.should redirect_to("success_url")
+        end
+
+        it "should redirect to default en url when no site default" do
+          post :create, signup_params
+          response.should redirect_to(thank_you_public_signups_path(locale: 'en'))
+        end
+
+        context "site de" do
+          before do
+            Site.stub(name: 'de')
+          end
+
+          %w(en de).each do |lang|
+            it "should redirect to #{lang} url" do
+              signup_params[:public_signup][:registration_attributes][:lang] = lang
+              post :create, signup_params
+              response.should redirect_to(thank_you_public_signups_path(locale: lang))
+            end
+          end
+        end
+      end
+
+      context "duplicate signups" do
+
+        it "should not add the same angel to the same workshop" do
+          post :create, signup_params
+          expect(Registration.count).to eql(1)
+          post :create, signup_params
+          ps = assigns[:public_signup]
+          expect(ps.errors.messages.keys).to include(:"registration.event_id")
+        end
+      end
+
     end
 
     context "an invalid signup" do
-      let(:invalid_attributes) { {registration_attributes: {payment_method: Registration::PAY_DEBT}} }
+      let(:signup_params) do
+        {
+            public_signup: attributes_for(:public_signup).merge(
+                registration_attributes: {event_id: event.id})
+        }
+      end
+
       before do
-        Site.stub(:name).and_return('de')
+        Site.stub(name: 'de')
       end
 
       it "should render new" do
-        post :create, public_signup: invalid_attributes
+        post :create, signup_params
         response.should render_template('new')
       end
 
       it "should not send notification email" do
-        post :create, public_signup: invalid_attributes
-        ActionMailer::Base.deliveries.count.should == 0
+        PublicSignup.any_instance.should_not_receive(:send_email)
+        post :create, signup_params
       end
 
       context "language of messages" do
+        let(:first_name) { assigns[:public_signup].errors.messages[:'registration.first_name'] }
+        before do
+          signup_params[:public_signup][:registration_attributes][:lang] = lang
+          post :create, signup_params
+        end
         context "en" do
-          before(:each) { I18n.locale = :en }
-          it "should have English errors" do
-            post :create, public_signup: invalid_attributes
-            invalid_public_signup = assigns[:public_signup]
-            invalid_public_signup.errors.messages.should == {
-                :"registration.first_name" => ["can't be blank"],
-                :"registration.last_name" => ["can't be blank"],
-                :"registration.bank_account_name" => ["can't be blank"],
-                :"registration.iban" => ["can't be blank"],
-                :"registration.bic" => ["can't be blank"],
-                :"registration.email" => ["can't be blank"],
-                :"registration.gender" => ["must be selected"],
-                :"registration.event" => ["must be selected"],
-                :terms_and_conditions => ["must be accepted"]
-            }
-          end
+          let(:lang) { 'en' }
+          it { expect(first_name).to eq(["can't be blank"]) }
         end
         context "de" do
-          before(:each) { I18n.locale = :de }
-          it "should have German errors" do
-            post :create, public_signup: invalid_attributes
-            invalid_public_signup = assigns[:public_signup]
-            invalid_public_signup.errors.messages.should == {
-                :"registration.first_name" => ["muss ausgefüllt werden"],
-                :"registration.last_name" => ["muss ausgefüllt werden"],
-                :"registration.email" => ["muss ausgefüllt werden"],
-                :"registration.gender" => ["muss ausgewählt werden"],
-                :"registration.event" => ["muss ausgewählt werden"],
-                :"registration.bank_account_name" => ["muss ausgefüllt werden"],
-                :"registration.bic" => ["muss ausgefüllt werden"],
-                :"registration.iban" => ["muss ausgefüllt werden"],
-                :terms_and_conditions => ["muss akzeptiert werden"]
-            }
-          end
+          let(:lang) { 'de' }
+          it { expect(first_name).to eq(["muss ausgefüllt werden"]) }
         end
       end
     end
