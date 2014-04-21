@@ -1,28 +1,9 @@
-%table.table.table-striped
-  %thead
-    %tr
-      %th= sort_link @q, :display_name, 'Name'
-      %th= sort_link @q, :start_date
-      %th= sort_link @q, :next_registration_code, 'Reg Code'
-      %th= sort_link @q, :participant_cost, 'Part. cost'
-      %th= sort_link @q, :team_cost
-      %th.qty Total
-      %th.qty Participants
-      %th.qty Team
-      %th
-  %tbody
-    - events.each do |e|
-      %tr
-        %td= link_to_show(office_event_path(e), e.display_name)
-        %td= l e.start_date
-        %td.qty= e.next_registration_code
-        %td.qty= local_currency e.participant_cost
-        %td.qty= local_currency e.team_cost
-        %td.qty= e.registrations.ok.count
-        %td.qty= e.registrations.ok.participants.count
-        %td.qty= e.registrations.ok.team.count
-        %td= registrations_button(e)
-
-= render 'filter'
-
-= render 'office/shared/table_options', :table => events
+- events.each do |event|
+  .mini-box
+    = link_to(status_office_event_report_path(event)) do
+      %span.box-icon.bg-success
+        = event.registrations.participants.count
+    .box-info
+      %p= local_date(event.start_date)
+      = link_to(office_event_path(event)) do
+        %p.size-h4= event.display_name

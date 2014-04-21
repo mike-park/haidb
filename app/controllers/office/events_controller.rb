@@ -1,12 +1,10 @@
 class Office::EventsController < Office::ApplicationController
-  before_filter :find_event, :except => [:index, :past, :new, :create]
-  
   def index
-    find_events_where("start_date > ?", Date.current, "start_date.asc")
+    @events = Event.upcoming
   end
 
   def past
-    find_events_where("start_date < ?", Date.tomorrow, "start_date.desc")
+    @events = Event.past
   end
 
   def new
@@ -14,7 +12,7 @@ class Office::EventsController < Office::ApplicationController
   end
 
   def create
-    @event = Event.new(params[:event])
+    @event = Event.new(event_params)
 
     if @event.save
       redirect_to([:office, @event], :notice => 'Event was successfully created.')
@@ -23,47 +21,38 @@ class Office::EventsController < Office::ApplicationController
     end
   end
 
+  def edit
+    @event = Event.find(params[:id])
+  end
+
   def update
-    if event.update_attributes(params[:event])
-      redirect_to([:office, event], :notice => 'Event was successfully updated.')
+    @event = Event.find(params[:id])
+    if @event.update(event_params)
+      redirect_to([:office, @event], :notice => 'Event was successfully updated.')
     else
       render :edit
     end
   end
 
+  def show
+    @event = Event.find(params[:id])
+  end
+
   def destroy
+    event = Event.find(params[:id])
     event.destroy
     redirect_to(office_events_url, :notice => 'Event was successfully deleted.')
   end
 
   def completed
-    @event.registrations.each(&:toggle_completed)
-    redirect_to(completed_office_event_report_path(@event), notice: 'Toggled event')
+    event = Event.find(params[:id])
+    event.registrations.each(&:toggle_completed)
+    redirect_to(completed_office_event_report_path(event), notice: 'Toggled event')
   end
 
-  protected
+  private
 
-  def find_events_where(where1, where2, orderby)
-    params[:q] ||= {}
-    params[:q][:meta_sort] ||= orderby
-    params[:rows] ||= 10
-    @q = Event.where(where1, where2).search(params[:q])
-    @events = @q.result.paginate(:page => params[:page], :per_page => params[:rows])
+  def event_params
+    params.require(:event).permit!
   end
-
-  def find_event
-    unless event
-      redirect_to(office_events_url, :alert => 'You must select an event first.')
-    end
-  end
-
-  def registrations
-    @registrations ||= event.registrations.ok.by_first_name
-  end
-  helper_method :registrations
-
-  def event
-    @event ||= Event.find_by_id(params[:id])
-  end
-  helper_method :event
 end

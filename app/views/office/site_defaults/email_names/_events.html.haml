@@ -1,10 +1,3 @@
-%table.table.table-striped
-  %thead
-    %tr
-      %th Name
-      %th Level
-  %tbody
-    - events.each do |event|
-      %tr
-        %td= link_to(event.display_name, office_event_path(event))
-        %td= event.level
+.list-group
+  - events.each do |event|
+    = link_to(event.display_name, office_event_path(event), class: 'list-group-item')

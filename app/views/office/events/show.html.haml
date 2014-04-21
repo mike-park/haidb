@@ -1,12 +1,13 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
-      - c << registrations_button(event)
+      - c << registrations_button(@event)
       - c << edit_button
 
-    %h2 #{event.display_name}
+    %h3 #{@event.display_name}
 
-    = render 'event', :event => event
+  .panel-body
+    = render 'event', event: @event
 
-    - if event.audits.any?
-      = render 'office/shared/audits', :audits => event.audits.descending
+    - if @event.audits.any?
+      = render 'office/shared/audits', audits: @event.audits.descending

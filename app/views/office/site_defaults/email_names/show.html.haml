@@ -6,7 +6,7 @@
     %h3 Email #{@email_name.name}
 
   .panel-body
-    = render 'email_name', email_name: @email_name
+    = render @email_name
 
     %h3 Used by #{pluralize(@email_name.events.size, 'event')}
     = render 'events', events: @email_name.events

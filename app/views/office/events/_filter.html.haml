@@ -1,4 +1,0 @@
-= search_form_for @q, url: url_for, html: {class: 'form-inline'} do |f|
-  = f.input :display_name_cont, placeholder: 'Display Name contains', label: false, required: false
-  = f.input :category_eq, collection: Event::CATEGORIES, required: false, prompt: 'Category is', label: false, include_blank: true
-  = f.button :submit, 'Filter'

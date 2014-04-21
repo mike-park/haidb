@@ -1,6 +1,2 @@
-%p
-  %strong Template Name
-  = email_name.name
-
-= render email_name.emails
-
+- email_name.emails.each do |email|
+  = render email

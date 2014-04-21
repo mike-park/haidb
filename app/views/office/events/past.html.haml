@@ -3,4 +3,4 @@
     %h3 Past #{pluralize(@events.size, 'Event')}
 
   .panel-body
-    = render 'events', :events => @events
+    = render 'events', events: @events
