@@ -1,53 +1,44 @@
 require 'spec_helper'
 
 describe SiteDefault do
-  let(:sd) { SiteDefault.create!(description: 'desc',
-                                 translation_key_attributes: {
-                                     key: 'a_key',
-                                     translations_attributes: [
-                                         {locale: 'en', text: 'english'},
-                                         {locale: 'de', text: 'deutsch'}
-                                     ]}) }
-
   before do
-    sd
-  end
-  after do
-    SiteDefault.destroy_all
-  end
-
-  it "should update translation" do
-    I18n.locale = :en
-    I18n.translate('a_key').should == 'english'
-    sd.translation_key.translations[0].update_attributes(text: 'changed')
-    sd.save
-    I18n.translate('a_key').should == 'changed'
+    SiteDefault.create!(description: 'desc',
+                        translation_key_attributes: {
+                            key: 'a_key',
+                            translations_attributes: [
+                                {locale: 'en', text: 'english'},
+                                {locale: 'de', text: 'deutsch'}
+                            ]})
   end
 
   context "get" do
-    it "should return key value" do
+    it "should return en value" do
       I18n.locale = :en
       SiteDefault.get('a_key').should == 'english'
+    end
+
+    it "should return de value" do
       I18n.locale = :de
       SiteDefault.get('a_key').should == 'deutsch'
     end
 
-    it "should return empty values" do
-      SiteDefault.create!(description: 'desc',
-                          translation_key_attributes: {
-                              key: 'empty_key',
-                              translations_attributes: [
-                                  {locale: 'en', text: ''},
-                                  {locale: 'de', text: nil}
-                              ]})
-      I18n.locale = :en
-      SiteDefault.get('empty_key').should == ''
-      I18n.locale = :de
-      SiteDefault.get('empty_key').should_not be
+    it "should return nil values" do
+      TranslationText.update_all(text: nil)
+      expect(SiteDefault.get('a_key')).to be_nil
+    end
+
+    it "should return blank values" do
+      TranslationText.update_all(text: '')
+      expect(SiteDefault.get('a_key')).to eq('')
     end
 
     it "should return nil for missing keys" do
-      SiteDefault.get('a.missing.key').should_not be
+      expect(SiteDefault.get('a.missing.key')).to be_nil
+    end
+
+    it "should return html unchanged" do
+      TranslationText.update_all(text: '<h1>Title</h1>')
+      expect(SiteDefault.get('a_key')).to eq('<h1>Title</h1>')
     end
   end
 end
