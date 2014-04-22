@@ -12,7 +12,7 @@ module Mappable
   end
 
   def full_address
-    ADDRESS_FIELDS.map {|field| read_attribute(field)}.compact.join(", ")
+    ADDRESS_FIELDS.map {|field| send(field)}.reject(&:blank?).join(", ")
   end
 
   def address_has_changed?
@@ -22,12 +22,9 @@ module Mappable
   # return true if new geocode is NOT necessary
   def gmaps
     return true if self.class.disable_mappable
-
-    if geocoded? && !address_has_changed?
-      true
-    else
-      false
-    end
+    return true if full_address.blank?
+    return true if geocoded? && !address_has_changed?
+    false
   end
   attr_writer :gmaps
 

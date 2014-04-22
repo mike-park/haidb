@@ -1,25 +1,14 @@
-%table.table.table-striped
-  %thead
-    %tr
-      %th Img
-      %th= sort_link @q, :first_name, 'Name'
-      %th= sort_link @q, :email
-      %th= sort_link @q, :city, 'Address'
-      %th= sort_link @q, :home_phone, 'Phones'
-      %th= sort_link @q, :highest_level
-
-  %tbody
-    - angels.each do |a|
-      %tr
-        %td= angel_icon(a)
-        %td
-          = link_to_show(office_angel_path(a), a.full_name)
-          = angel_membership_status(a)
-        %td= a.email
-        %td= simple_format(compact_address(a))
-        %td= simple_format(compact_phones(a), {}, sanitize: false)
-        %td= a.highest_level
-
 = render 'filter'
+
+.list-group
+  - angels.each do |a|
+    = link_to(office_angel_path(a), class: 'list-group-item') do
+      .mini-box
+        %span.box-icon
+          = angel_icon(a, 65)
+        .box-info
+          %p.size-h4= a.display_name
+          %p= a.email
+          %p= span_phones(a)
 
 = render 'office/shared/table_options', :table => angels

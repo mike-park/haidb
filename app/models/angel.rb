@@ -1,5 +1,5 @@
 class Angel < ActiveRecord::Base
-  audited except: [:highest_level, :lat, :lng]
+  audited except: [:display_name, :highest_level, :lat, :lng]
   include Mappable
   include Vcardable
   include Csvable
@@ -84,8 +84,9 @@ class Angel < ActiveRecord::Base
 
   # only update if necessary, to avoid extra database traffic
   def update_display_name
-    name = [last_name, first_name].reject { |i| i.blank? }.join(", ")
-    name = [name, city].reject { |i| i.blank? }.join(" - ")
-    self.display_name = name if name != display_name
+    name = [first_name, last_name].reject(&:blank?).join(", ")
+    location = [city, country].reject(&:blank?).join(", ")
+    name = [name, location].reject(&:blank?).join(" - ")
+    self.display_name = name unless name == display_name
   end
 end

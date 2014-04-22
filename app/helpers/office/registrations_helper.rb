@@ -153,6 +153,18 @@ module Office::RegistrationsHelper
     phones.join("\n")
   end
 
+  def span_phones(object)
+    phones = []
+    %w(home mobile work).each do |ph|
+      number = object.send("#{ph}_phone")
+      unless number.blank?
+        label = t("enums.registration.roster.#{ph}")
+        phones << content_tag(:span, "#{label}: #{number}", class: 'phone')
+      end
+    end
+    phones.join("\n").html_safe
+  end
+
   def compact_payment(object, text_only = false)
     separator = text_only ? "\n" : tag(:br)
     rows = []

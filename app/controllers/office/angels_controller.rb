@@ -1,9 +1,13 @@
 class Office::AngelsController < Office::ApplicationController
   def index
     params[:rows] ||= 30
-    params[:q] ||= {}
-    params[:q][:meta_sort] ||= 'updated_at.desc'
-    @q = Angel.search(params[:q])
+    if params[:q]
+      order = 'display_name asc'
+    else
+      params[:q] = {}
+      order = 'updated_at desc'
+    end
+    @q = Angel.order(order).search(params[:q])
     @angels = @q.result.paginate(:page => params[:page],
                                  :per_page => params[:rows])
 

@@ -5,7 +5,8 @@
         = f.input :first_name_cont, placeholder: 'First Name', label: false, required: false
         = f.input :last_name_cont, placeholder: 'Last Name', label: false, required: false
         = f.input :email_cont, as: :string, placeholder: 'Email', label: false, required: false
-        = f.input :city_cont, placeholder: 'City', label: false, required: false
         = f.input :postal_code_start, placeholder: 'Postal Code/PLZ', label: false, required: false
+        = f.input :city_cont, placeholder: 'City', label: false, required: false
+        = f.input :country_cont, as: :string, placeholder: 'Country code ie GB', label: false, required: false
         = f.input :highest_level_eq, placeholder: 'Highest level', label: false, required: false
         = f.button :submit, 'Filter'

@@ -35,8 +35,8 @@ module Office::AngelsHelper
     end
   end
 
-  def angel_icon(angel)
-    url = angel.gravatar.image_url(ssl: true, rescue_errors: true, size: '40', rating: 'x', default: 'mm')
+  def angel_icon(angel, size=40)
+    url = angel.gravatar.image_url(ssl: true, rescue_errors: true, size: size, rating: 'x', default: 'mm')
     tag(:img, src: url, class: 'angel-icon')
   end
 end
