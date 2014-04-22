@@ -1,5 +1,5 @@
 class Angel < ActiveRecord::Base
-  audited except: [:gravatar, :highest_level, :lat, :lng]
+  audited except: [:highest_level, :lat, :lng]
   include Mappable
   include Vcardable
   include Csvable
@@ -8,7 +8,7 @@ class Angel < ActiveRecord::Base
              :address, :postal_code, :city, :country,
              :home_phone, :mobile_phone, :work_phone, :notes
 
-  before_save :sanitize_fields, :update_display_name, :update_gravatar
+  before_save :sanitize_fields, :update_display_name
 
   has_many :registrations, :inverse_of => :angel, dependent: :nullify
   has_many :memberships, inverse_of: :angel, dependent: :destroy
@@ -65,6 +65,10 @@ class Angel < ActiveRecord::Base
     full_name_with_context.downcase <=> other.full_name_with_context.downcase
   end
 
+  def gravatar
+    @gravatar ||= Gravatar.new(email)
+  end
+
   private
 
   def self.find_angels_with_same_email_address
@@ -83,13 +87,5 @@ class Angel < ActiveRecord::Base
     name = [last_name, first_name].reject { |i| i.blank? }.join(", ")
     name = [name, city].reject { |i| i.blank? }.join(" - ")
     self.display_name = name if name != display_name
-  end
-
-  def update_gravatar
-    self.gravatar = data_uri(Gravatar.new(email).image_data(rescue_errors: true, size: '40', rating: 'x', default: 'mm'))
-  end
-
-  def data_uri(data, type = "image/jpg")
-    "data:" + type + ";base64," + Base64.encode64(data).rstrip if data.present?
   end
 end

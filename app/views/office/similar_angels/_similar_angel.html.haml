@@ -8,7 +8,7 @@
     .panel-body
       - similar_angel.angels.sort.each do |angel|
         .angel
-          %p= gravatar_image(angel.gravatar)
+          %p= angel_icon(angel)
           %p
             = link_to(angel.full_name, office_angel_path(angel))
             %br

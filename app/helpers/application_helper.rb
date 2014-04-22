@@ -70,11 +70,6 @@ module ApplicationHelper
     model.class.to_s.downcase
   end
 
-  def gravatar_image(data)
-    return unless data.present?
-    tag(:img, src: data)
-  end
-
   def local_currency(number)
     locale = Site.de? ? 'de' : 'en-GB'
     number_to_currency(number, locale: locale) if number
