@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  audited
+  audited except: [:options]
 
   LIS = 'HAI LIS Workshop'
   TEAM = 'Team Workshop'

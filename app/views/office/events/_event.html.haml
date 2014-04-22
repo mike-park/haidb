@@ -23,16 +23,3 @@
     %tr
       %th Team Cost
       %td= local_currency event.team_cost
-
-- categories = EventEmail::CATEGORIES.select {|category| event.find_event_email(category) }
-- if categories.any?
-  %h6 Event Email Templates
-  .tabbable
-    %ul.nav.nav-tabs
-      - categories.each_with_index do |category, index|
-        %li{class: index == 0 ? 'active' : ""}= link_to(category, "##{category}", data: {toggle: 'tab'})
-    .tab-content
-      - categories.each_with_index do |category, index|
-        .tab-pane{id: category, class: index == 0 ? 'active' : ""}
-          - event_email = event.find_event_email(category)
-          = render event_email.email_name if event_email && event_email.email_name
