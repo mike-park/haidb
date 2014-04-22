@@ -160,20 +160,20 @@ describe Event do
 
   context "emails" do
     let(:category) { EventEmail::CATEGORIES.first }
-    let(:event_email) { double("event_email") }
-    subject { FactoryGirl.create(:event) }
+    let(:locale) { 'en' }
+    let(:event) { create(:event) }
+    let(:email) { create(:email, locale: locale)}
 
-    before(:each) do
-      subject.event_emails.stub(:find_by_category).with(category).and_return(event_email)
+    before do
+      event.event_emails << create(:event_email, category: category, email_name: email.email_name)
     end
 
     it "should return email of matching email category & locale" do
-      event_email.should_receive(:email).with('en').and_return('found')
-      subject.email(category, 'en').should == 'found'
+      expect(event.email(category, locale)).to eq(email)
     end
+
     it "should return name of matching email category" do
-      event_email.should_receive(:name).and_return('name')
-      subject.email_name(category).should == 'name'
+      expect(event.email_name(category)).to eq(email.email_name.name)
     end
   end
 

@@ -51,7 +51,7 @@ class Office::PublicSignupsController < Office::ApplicationController
   end
 
   def public_signup
-    @public_signup ||= PublicSignup.find_by_id(params[:id])
+    @public_signup ||= PublicSignup.where(id: params[:id]).first
   end
   helper_method :public_signup
 end

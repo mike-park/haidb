@@ -64,6 +64,6 @@ class PublicSignupsController < ApplicationController
   end
 
   def event
-    params[:event_id] && Event.upcoming.find_by_id(params[:event_id])
+    params[:event_id] && Event.upcoming.where(id: params[:event_id]).first
   end
 end

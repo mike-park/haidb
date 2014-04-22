@@ -42,7 +42,7 @@ class Event < ActiveRecord::Base
   end
 
   def find_event_email(email_category)
-    event_emails.find_by_category(email_category)
+    event_emails.with_category(email_category).first
   end
 
   def upcoming?

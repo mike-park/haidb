@@ -19,7 +19,7 @@ class EmailName < ActiveRecord::Base
   end
   
   def email(locale)
-    emails.find_by_locale(locale)
+    emails.where(locale: locale).first
   end
 
   private
