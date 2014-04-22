@@ -68,7 +68,9 @@ module Office::ApplicationHelper
   end
 
   def page_navigation_links(pages)
-    will_paginate(pages, :class => 'pagination', :inner_window => 2, :outer_window => 0, :renderer => BootstrapLinkRenderer, :previous_label => '&larr;'.html_safe, :next_label => '&rarr;'.html_safe)
+    will_paginate(pages, class: 'pagination', inner_window: 2, outer_window: 0,
+                  renderer: BootstrapPagination::Rails,
+                  previous_label: '&larr;'.html_safe, next_label: '&rarr;'.html_safe)
   end
 
   # routines originally in activo-rails or mmenu. now rewritten for bootstrap

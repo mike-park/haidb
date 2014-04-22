@@ -70,7 +70,8 @@ gem 'audited-activerecord', github: 'mike-park/audited', branch: 'rails4'
 # hoptoad error reporting
 gem 'hoptoad_notifier'
 
-gem 'will_paginate'
+# pagination
+gem 'will_paginate-bootstrap'
 
 # access gravatar images
 gem 'gravatar-ultimate'
