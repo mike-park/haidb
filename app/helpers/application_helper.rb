@@ -8,14 +8,6 @@ module ApplicationHelper
     value.html_safe if value
   end
 
-  ROW_COUNT_SELECTION = [5, 10, 30, 200]
-
-  def options_for_row_count
-    list = ROW_COUNT_SELECTION.map {|r| ["#{r} per page", r]}
-    rows = params[:rows] || 10
-    options_for_select(list, rows)
-  end
-
   def map_address(addr, options = {})
     q = addr.gsub("\n", ",")
     options[:tag] ||= :a

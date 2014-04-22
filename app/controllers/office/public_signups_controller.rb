@@ -10,7 +10,7 @@ class Office::PublicSignupsController < Office::ApplicationController
   end
 
   def approved
-    params[:rows] ||= 10
+    params[:rows] ||= 30
     params[:q] ||= {}
     params[:q][:meta_sort] ||= 'approved_at.desc'
     @q = PublicSignup.approved.search(params[:q])

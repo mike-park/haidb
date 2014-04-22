@@ -1,6 +1,6 @@
 class Office::AngelsController < Office::ApplicationController
   def index
-    params[:rows] ||= 10
+    params[:rows] ||= 30
     params[:q] ||= {}
     params[:q][:meta_sort] ||= 'updated_at.desc'
     @q = Angel.search(params[:q])
