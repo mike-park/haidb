@@ -1,9 +1,9 @@
-- events.each do |event|
-  .mini-box
-    = link_to(status_office_event_report_path(event)) do
-      %span.box-icon.bg-success
-        = event.registrations.participants.count
-    .box-info
-      %p= local_date(event.start_date)
-      = link_to(office_event_path(event)) do
-        %p.size-h4= event.display_name
+.list-group
+  - events.each do |event|
+    = link_to(office_event_path(event), class: 'list-group-item') do
+      .mini-box
+        %span.box-icon.bg-success
+          = event.registrations.participants.count
+        .box-info
+          %p= local_date(event.start_date)
+          %p.size-h4= event.display_name
