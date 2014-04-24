@@ -1,7 +1,11 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << csv_button
 
-    %h2 #{@event.display_name} Bank Report
-    = render 'grouped', report: 'bank'
+    %h3 Bank Report
+
+  .panel-body
+    .row
+      .col-lg-8
+        = render 'grouped', report: 'bank'

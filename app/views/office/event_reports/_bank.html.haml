@@ -1,22 +1,16 @@
-%table.table.table-striped
-  %caption
+.panel.panel-default
+  .panel-heading
     %h4= pluralize(registrations.size, "#{status} #{role} Registration")
-  %thead
-    %tr
-      %th.name Name
-      %th Code
-      %th Cost
-      %th Pay. Meth
-      %th Acc. Name
-      %th IBAN
-      %th BIC
-  %tbody
-    - registrations.by_first_name.each do |r|
-      %tr
-        %td.name= link_to_show(office_registration_path(r), r.full_name)
-        %td= r.registration_code
-        %td= local_currency r.cost
-        %td= r.payment_method
-        %td= [r.bank_account_name, r.bank_name].compact.join(' / ')
-        %td= r.iban
-        %td= r.bic
+
+  .panel-body
+    .list-group
+      - registrations.by_first_name.each do |r|
+        = link_to(office_registration_path(r), class: 'list-group-item') do
+          %p
+            %span.size-h4= r.full_name
+            %span.pull-right= local_currency r.cost
+          %p
+            %span= r.registration_code
+            %span= r.bank_account_name
+            %span= r.iban
+            %span= r.bic
