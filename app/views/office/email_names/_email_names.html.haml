@@ -1,0 +1,3 @@
+.list-group
+  - email_names.each do |email_name|
+    = link_to(email_name.name, office_email_name_path(email_name), class: 'list-group-item')

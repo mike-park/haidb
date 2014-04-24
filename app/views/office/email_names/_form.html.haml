@@ -11,7 +11,7 @@
     %dt= "{{cost}}"
     %dd The cost assigned to this registration. ie 110.00 €
 
-= vertical_form([:office, :site_defaults, @email_name]) do |f|
+= vertical_form([:office, @email_name]) do |f|
   = f.input :name
   = f.simple_fields_for(:emails, f.options.slice(:wrapper_mappings)) do |l|
     .panel.panel-default

@@ -198,9 +198,9 @@ Tabulous.setup do
       active_when { %w{site_defaults site_defaults/email_names}.each { |n| in_action('any').of_controller("office/#{n}") } }
     end
 
-    templates_office_site_defaults_subtab do
+    emails_office_site_defaults_subtab do
       text { envelope_icon('Emails') }
-      link_path { office_site_defaults_email_names_path }
+      link_path { office_email_names_path }
       visible_when { true }
       enabled_when { true }
       active_when { false }

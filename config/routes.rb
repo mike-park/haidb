@@ -85,9 +85,7 @@ Rails.application.routes.draw do
       end
     end
 
-    namespace :site_defaults do
-      resources :email_names
-    end
+    resources :email_names
     resources :site_defaults
     resources :registrations do
       member do
