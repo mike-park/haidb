@@ -1,22 +1,12 @@
-%table.table.table-striped
-  %thead
-    %tr
-      %th Title
-      %th Level
-      %th Role
-      %th Cost
-      %th Paid
-      %th Owed
-      %th.center Status
-      %th.center Completed
-  %tbody
-    - registrations.by_start_date.each do |r|
-      %tr
-        %td= link_to_show(office_registration_path(r), r.event_name)
-        %td= r.level
-        %td= r.role
-        %td= local_currency r.cost
-        %td= local_currency r.paid
-        %td= local_currency r.owed
-        %td.center= r.status
-        %td.center= color_dot(r.completed)
+.list-group
+  - registrations.by_start_date.each do |r|
+    = link_to(office_registration_path(r), class: 'list-group-item') do
+      .mini-box
+        %span.box-icon{class: r.completed? ? 'bg-success' : 'bg-warning'}
+        .box-info
+          %p
+            %span.size-h4= r.event_name
+            %span= r.status unless r.approved?
+          %p= r.role
+          - if r.owed
+            %p= "Owes: #{local_currency r.owed}"
