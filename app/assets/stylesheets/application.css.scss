@@ -18,14 +18,12 @@ body {
   }
 }
 
-.counts {
+.statistic {
   float: left;
-  text-align: center;
-  margin-right: 10px;
-  th, td {
-    text-align: center;
-    background-color: #f5f5f5;
-  }
+  margin-right: 15px;
+  margin-bottom: 15px;
+  width: 220px;
+  border: 1px #DDDDDD solid;
 }
 
 .table-key-values {
@@ -188,4 +186,22 @@ caption {
 
 .phone {
   white-space: nowrap;
+}
+
+.navbar-nav {
+  // Uncollapse the nav always
+  float: left;
+  margin: 0;
+
+  > li {
+    float: left;
+    > a {
+      padding-top:    $navbar-padding-vertical;
+      padding-bottom: $navbar-padding-vertical;
+    }
+  }
+
+  &.navbar-right:last-child {
+    margin-right: -$navbar-padding-horizontal;
+  }
 }
