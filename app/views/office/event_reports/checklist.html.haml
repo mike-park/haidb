@@ -1,8 +1,10 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << csv_button
       - c << pdf_button
 
-    %h2 #{@event.display_name} Checklist
-    = render 'checklist', registrations: @event.registrations.approved, status: Registration::APPROVED, role: ''
+    %h3 Checklist
+
+  .panel-body
+    = render 'checklist', event: @event

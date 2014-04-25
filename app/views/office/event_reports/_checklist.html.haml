@@ -1,28 +1,30 @@
-%table.table.table-striped
-  %caption
-    %h4= pluralize(registrations.size, "#{status} #{role} Registration")
-  %thead
-    %tr.person
-      %th.checkin Da?
-      %th.count Nbrs
-      %th.name Name
-      %th.backjack BJ
-      %th.sundaydinner SD
-      %th.sundaystayover SS
-      %th.paymentmethod Pay.Meth.
-      %th.payments Payments
-      %th.notes Notes
-  %tbody
-    - count = 0
-    - yes= "✓"
-    - registrations.by_first_name.each do |r|
-      %tr.person
-        %td.checkin &nbsp;
-        %td.count= count=count+1
-        %td.name= r.full_name
-        %td.backjack= checkmark_if(r.backjack_rental)
-        %td.sundaydinner= checkmark_if(r.sunday_meal)
-        %td.sundaystayover= checkmark_if(r.sunday_stayover)
-        %td.paymentmethod= r.payment_method
-        %td.payments &nbsp;
-        %td.notes &nbsp;
+- scope = event.registrations.approved.by_first_name
+.table-responsive
+  %table.table.table-striped
+    %caption
+      %h4= pluralize(scope.size, "#{Registration::APPROVED} Registration")
+    %thead
+      %tr
+        %th Da?
+        %th Nbrs
+        %th.name Name
+        %th BJ
+        %th SD
+        %th SS
+        %th Pay.Meth.
+        %th Payments
+        %th.notes Notes
+    %tbody
+      - count = 0
+      - yes= "✓"
+      - scope.each do |r|
+        %tr
+          %td &nbsp;
+          %td= count=count+1
+          %td.name= r.full_name
+          %td= checkmark_if(r.backjack_rental)
+          %td= checkmark_if(r.sunday_meal)
+          %td= checkmark_if(r.sunday_stayover)
+          %td= r.payment_method
+          %td &nbsp;
+          %td.notes &nbsp;

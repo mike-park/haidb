@@ -61,8 +61,7 @@ body {
 
 .table {
   .name {
-    white-space: nowrap;
-    width: 150px;
+    max-width: 150px;
     overflow: hidden;
   }
   .date {
