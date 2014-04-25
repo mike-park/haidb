@@ -6,7 +6,7 @@
       %th Checked In
       %th
   %tbody
-    - registrations.by_first_name.each do |r|
+    - event.registrations.approved.by_first_name.each do |r|
       %tr
         %td.name= r.full_name
         = content_tag(:td, '', r.checked_in? ? {} : {class: 'red'})
