@@ -121,6 +121,10 @@ module Office::RegistrationsHelper
     content_tag(:span, "", class: "dot dot-#{state ? 'green' : 'red'}")
   end
 
+  def label_state(text, state)
+    content_tag(:span, text, class: "label label-#{state ? 'success' : 'danger'}")
+  end
+
   def compact_address(object)
     code = object.country
     code ||= Site.de? ? 'DE' : 'GB'

@@ -1,0 +1,15 @@
+- count = scope.count
+- if count > 0
+  .mini-box.statistic
+    %span.box-icon.bg-info
+      = count
+    .box-info
+      %p.size-h4= label
+      %p
+        %span
+          Male
+          %strong= scope.males.count
+        %br
+        %span
+          Female
+          %strong= scope.females.count

@@ -6,6 +6,8 @@ class PublicSignup < ActiveRecord::Base
   attr_accessor :terms_and_conditions
 
   default_scope -> { includes(:registration) }
+  scope :males, -> { where(registrations: {gender: Registration::MALE}) }
+  scope :females, -> { where(registrations: {gender: Registration::FEMALE}) }
   scope :pending, -> { where(registrations: {status: Registration::PENDING}) }
   scope :waitlisted, -> { where(registrations: {status: Registration::WAITLISTED}) }
   scope :approved, -> { where(registrations: {status: Registration::APPROVED}) }

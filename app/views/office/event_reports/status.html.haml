@@ -1,9 +1,11 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << csv_button
       - c << vcard_button
 
-    %h2 #{@event.display_name} Status Report
-    = render 'counts', registrations: @event.registrations.approved
+    %h3 Status Report
+
+  .panel-body
+    = render 'counts', event: @event
     = render 'grouped', report: 'status'

@@ -1,16 +1,10 @@
-.panel.panel-default
-  .panel-heading
-    %h4= pluralize(registrations.size, "#{status} #{role} Registration")
-
-  .panel-body
-    .list-group
-      - registrations.by_first_name.each do |r|
-        = link_to(office_registration_path(r), class: 'list-group-item') do
-          %p
-            %span.size-h4= r.full_name
-            %span.pull-right= local_currency r.cost
-          %p
-            %span= r.registration_code
-            %span= r.bank_account_name
-            %span= r.iban
-            %span= r.bic
+- registrations.each do |r|
+  = link_to(office_registration_path(r), class: 'list-group-item') do
+    %p
+      %span.size-h4= r.full_name
+      %span.pull-right= local_currency r.cost
+    %p
+      %span= r.registration_code
+      %span= r.bank_account_name
+      %span= r.iban
+      %span= r.bic

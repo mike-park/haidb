@@ -1,0 +1,13 @@
+- r = event.registrations
+.row
+  .col-xs-12
+    = render 'gender_statistic', label: 'Approved', scope: r.approved
+    = render 'gender_statistic', label: 'Pending', scope: r.pending
+    = render 'gender_statistic', label: 'Wait Listed', scope: r.waitlisted
+    = render 'gender_statistic', label: 'Participants', scope: r.participants
+    = render 'gender_statistic', label: 'Team', scope: r.team
+
+    = render 'statistic', label: 'Backjack Rentals', count: r.backjack_rentals.count
+    = render 'statistic', label: 'Sunday Stayovers', count: r.sunday_stayovers.count
+    = render 'statistic', label: 'Sunday Meals', count: r.sunday_meals.count
+    = render 'statistic', label: 'Special Diets', count: r.special_diets.count

@@ -1,20 +1,10 @@
-%table.table.table-striped
-  %caption
-    %h4= pluralize(registrations.size, "#{status} #{role} Registration")
-  %thead
-    %tr
-      %th.name Name
-      %th Gender
-      %th.center Cloth. Talk
-      %th.center Reg Fee Rec
-      %th.center= "Checked&nbsp;In".html_safe
-      %th.center Completed
-  %tbody
-    - registrations.by_first_name.each do |r|
-      %tr
-        %td.name= link_to_show(office_registration_path(r), r.full_name)
-        %td.center= r.gender.first
-        %td.center= color_dot(r.clothing_conversation)
-        %td.center= color_dot(r.reg_fee_received)
-        %td.center= color_dot(r.checked_in?)
-        %td.center= color_dot(r.completed?)
+- registrations.each do |r|
+  = link_to(office_registration_path(r), class: 'list-group-item') do
+    %p
+      %span.size-h4= r.full_name
+      %span.pull-right= r.gender.first
+    %p
+      %span= label_state('Clothing Conversation', r.clothing_conversation)
+      %span= label_state('Reg Fee Paid', r.reg_fee_received)
+      %span= label_state('Checked In', r.checked_in?)
+      %span= label_state('Completed', r.completed?)

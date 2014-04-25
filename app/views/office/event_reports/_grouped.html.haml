@@ -1,4 +1,13 @@
 - Registration::ROLES.each do |role|
   - Registration::STATUSES.reverse.each do |status|
-    - registrations = @event.registrations.where_role(role).where_status(status)
-    = render report, registrations: registrations, role: role, status: status if registrations.any?
+    - registrations = @event.registrations.where_role(role).where_status(status).by_first_name
+    - if registrations.any?
+      .row
+        .col-lg-8
+          .panel.panel-default
+            .panel-heading
+              %h4= pluralize(registrations.size, "#{status} #{role} Registration")
+
+            .panel-body
+              .list-group
+                = render report, registrations: registrations, role: role, status: status
