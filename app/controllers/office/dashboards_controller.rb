@@ -1,7 +1,6 @@
 class Office::DashboardsController < Office::ApplicationController
   def index
-    @pending = PublicSignup.pending
-    @waitlisted = PublicSignup.waitlisted
-    @events = Event.current.first(2)
+    @last_event = Event.past.first
+    @upcoming_events = Event.upcoming
   end
 end

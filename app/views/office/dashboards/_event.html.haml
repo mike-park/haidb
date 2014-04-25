@@ -1,0 +1,17 @@
+- scope = event.registrations.participants
+- count = scope.count
+.mini-box
+  %span.box-icon.bg-info
+    = count
+  .box-info
+    %p
+      %span.size-h4= event.display_name
+      %span.label.label-info.pull-right= time_ago_in_words(event.start_date)
+    %p
+      %span
+        Male
+        %strong= scope.males.count
+      %br
+      %span
+        Female
+        %strong= scope.females.count
