@@ -4,4 +4,4 @@
       - c << csv_button
 
     %h2 #{@event.display_name} Client History Report
-    = render 'grouped', report: 'client_history'
+    = render 'grouped', report: 'client_history', event: @event

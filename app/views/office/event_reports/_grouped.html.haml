@@ -1,6 +1,6 @@
 - Registration::ROLES.each do |role|
   - Registration::STATUSES.reverse.each do |status|
-    - registrations = @event.registrations.where_role(role).where_status(status).by_first_name
+    - registrations = event.registrations.where_role(role).where_status(status).by_first_name
     - if registrations.any?
       .row
         .col-lg-8
