@@ -23,5 +23,5 @@
         .panel-body
           .list-group
             - @upcoming_events.each do |event|
-              = link_to(status_office_event_report_path(@last_event), class: 'list-group-item') do
+              = link_to(status_office_event_report_path(event), class: 'list-group-item') do
                 = render 'event', event: event
