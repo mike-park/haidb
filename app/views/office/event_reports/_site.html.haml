@@ -1,26 +1,14 @@
-%table.table.table-striped
-  %caption
-    %h4= pluralize(registrations.size, "#{status} #{role} Registration")
-  %thead
-    %tr
-      %th.name Name
-      %th.center Gender
-      %th.center Diet
-      %th.center Lift
-      %th.center Backjk
-      %th.center S. Sleep
-      %th.center S. Meal
-      %th Room
-      %th Notes
-  %tbody
-    - registrations.by_first_name.each do |r|
-      %tr
-        %td.name= link_to_show(office_registration_path(r), r.full_name)
-        %td.center= r.gender.first
-        %td.center= r.special_diet
-        %td.center= r.lift
-        %td.center= checkmark_if(r.backjack_rental)
-        %td.center= checkmark_if(r.sunday_stayover)
-        %td.center= checkmark_if(r.sunday_meal)
-        %td= r.room
-        %td= r.notes
+- registrations.each do |r|
+  = link_to(office_registration_path(r), class: 'list-group-item') do
+    %p
+      %span.size-h4= r.full_name
+      %span.pull-right
+        %span= label_state(r.gender, true)
+        %span= label_state("Diet: #{r.special_diet}", true) if r.special_diet.present?
+        %span= label_state("Lift: #{r.lift}", true) if r.lift.present?
+        %span= label_state('Backjack', true) if r.backjack_rental
+        %span= label_state('Sunday Stayover', true) if r.sunday_stayover
+        %span= label_state('Sunday Meal', true) if r.sunday_meal
+        %span= label_state("Room: #{r.room}", true) if r.room.present?
+    - if r.notes.present?
+      %p= r.notes

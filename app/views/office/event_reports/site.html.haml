@@ -1,7 +1,9 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << csv_button
 
-    %h2 #{@event.display_name} Site Report
+    %h3 Site Report
+
+  .panel-body
     = render 'grouped', report: 'site', event: @event
