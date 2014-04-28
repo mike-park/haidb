@@ -1,12 +1,16 @@
-<h2>Set your password</h2>
+<div class="devise panel center-block">
+  <div class="panel-body">
+    <h2>Set your password</h2>
 
-<%= vertical_form resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
-  <%= f.hidden_field :invitation_token %>
+    <%= vertical_form resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :put} do |f| %>
+      <%= f.hidden_field :invitation_token %>
 
-    <%= f.error_notification %>
+      <%= f.error_notification %>
 
-    <%= f.input :password, :required => true %>
-    <%= f.input :password_confirmation, :required => true %>
-    <%= f.button :submit, "Set my password" %>
+      <%= f.input :password, :required => true %>
+      <%= f.input :password_confirmation, :required => true %>
+      <%= f.button :submit, "Set my password" %>
 
-<% end %>
+    <% end %>
+  </div>
+</div>

@@ -26,13 +26,19 @@
           %a.navbar-brand HAI #{Site.name.upcase}
           = yield :header
 
-    #nav-container
-      #nav-wrapper
-        = yield :navigation
-    #content
-      .container-fluid
+    - if content_for?(:navigation)
+      #nav-container
+        #nav-wrapper
+          = yield :navigation
+      #content
+        .container-fluid
+          = render 'layouts/flashes'
+          = yield
+    - else
+      .container
         = render 'layouts/flashes'
         = yield
+
 
     = javascript_include_tag 'application'
     = yield :javascripts

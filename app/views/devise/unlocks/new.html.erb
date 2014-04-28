@@ -1,11 +1,15 @@
-<h2>Resend unlock instructions</h2>
+<div class="devise panel center-block">
+  <div class="panel-body">
+    <h2>Resend unlock instructions</h2>
 
-<%= vertical_form(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= f.error_notification %>
-  <%= f.full_error :unlock_token %>
+    <%= vertical_form(resource, :as => resource_name, :url => unlock_path(resource_name), :html => {:method => :post}) do |f| %>
+      <%= f.error_notification %>
+      <%= f.full_error :unlock_token %>
 
-  <%= f.input :email, :required => true, :autofocus => true %>
-  <%= f.button :submit, "Resend unlock instructions" %>
-<% end %>
+      <%= f.input :email, :required => true, :autofocus => true %>
+      <%= f.button :submit, "Resend unlock instructions" %>
+    <% end %>
 
-<%= render "devise/shared/links" %>
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

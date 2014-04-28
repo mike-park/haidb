@@ -1,12 +1,16 @@
-<h2>Sign up</h2>
+<div class="devise panel center-block">
+  <div class="panel-body">
+    <h2>Sign up</h2>
 
-<%= vertical_form(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
+    <%= vertical_form(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+      <%= f.error_notification %>
 
-  <%= f.input :email, :required => true, :autofocus => true %>
-  <%= f.input :password, :required => true %>
-  <%= f.input :password_confirmation, :required => true %>
-  <%= f.button :submit, "Sign up", id: 'signup-button' %>
-<% end %>
+      <%= f.input :email, :required => true, :autofocus => true %>
+      <%= f.input :password, :required => true %>
+      <%= f.input :password_confirmation, :required => true %>
+      <%= f.button :submit, "Sign up", id: 'signup-button' %>
+    <% end %>
 
-<%= render "devise/shared/links" %>
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
