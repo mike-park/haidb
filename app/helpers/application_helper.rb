@@ -36,12 +36,6 @@ module ApplicationHelper
     link_to icon('edit'), path, title: 'Edit this record'
   end
 
-  # show link with icon
-  def link_to_show(path, message = '')
-    message = icon('zoom-in') + ' ' + message
-    link_to message, path, title: 'Show more information'
-  end
-
   # new link with icon
   def link_to_new(path, message = '')
     message = icon('plus-sign') + ' ' + message

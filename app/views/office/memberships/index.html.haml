@@ -28,7 +28,7 @@
       %tbody
         - @memberships.each do |member|
           %tr
-            %td= link_to_show(office_membership_path(member), member.full_name_with_context)
+            %td= link_to(member.full_name_with_context, office_membership_path(member))
             %td= member.status
             %td.center= member.highest_level
             %td.qty= member.on_team.size

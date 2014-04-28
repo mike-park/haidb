@@ -10,7 +10,7 @@
     - registrations.each do |r|
       %tr
         %td= angel_icon(r.angel) if r.angel
-        %td= link_to_show(office_registration_path(r), r.full_name)
+        %td= link_to(r.full_name, office_registration_path(r))
         %td= r.email
         %td= simple_format(compact_address(r))
         %td= simple_format(compact_phones(r), {}, sanitize: false)

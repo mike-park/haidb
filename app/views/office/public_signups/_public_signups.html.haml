@@ -11,7 +11,7 @@
   %tbody
     - public_signups.each do |p|
       %tr
-        %td.span3= link_to_show([:office, p], p.full_name)
+        %td.span3= link_to(p.full_name, [:office, p])
         %td.span1= p.gender
         %td.span2.center= checkmark_if(p.clothing_conversation)
         %td.span2.center= checkmark_if(p.reg_fee_received)

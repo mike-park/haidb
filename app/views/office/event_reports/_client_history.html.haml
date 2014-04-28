@@ -14,7 +14,7 @@
     %tbody
       - registrations.by_first_name.each do |r|
         %tr
-          %td.name= link_to_show(office_registration_path(r), r.full_name)
+          %td.name= link_to(r.full_name, office_registration_path(r))
           %td.center= r.gender.first
           %td= r.how_hear
           %td= r.previous_event
