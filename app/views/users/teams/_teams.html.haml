@@ -1,19 +1,6 @@
-.row
-  .span
-    %table.table
-      %caption= pluralize(teams.size, 'Upcoming Team')
-      %thead
-        %tr
-          %th Title
-          %th.qty Desired
-          %th.qty Actual
-          %th.qty Delta
-          %th
-      %tbody
-        - teams.each do |team|
-          %tr
-            %td= link_to(team.name, [:users, team])
-            %td.qty= team.stats.counts(:team)[:desired]
-            %td.qty= team.stats.counts(:team)[:total]
-            %td.qty= team.stats.counts(:team)[:delta]
-            %td= render 'member_signup', team: team unless team.closed?
+.list-group
+  - teams.each do |team|
+    = link_to([:users, team], class: 'list-group-item') do
+      = team.name
+      - if current_user.on_team?(team)
+        %span.badge On Team

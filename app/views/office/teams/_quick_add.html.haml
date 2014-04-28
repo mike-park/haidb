@@ -1,3 +1,3 @@
 - member = team.members.build
-= vertical_form([:office, team, member], html: {class: 'form-inline'}) do |f|
+= vertical_form([:office, team, member], html: {class: 'form-inline list-group-item'}) do |f|
   = f.select :membership_id, members_for_select(gender), {}, {:onchange => 'this.form.submit()'}

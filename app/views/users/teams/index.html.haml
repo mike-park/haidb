@@ -1,6 +1,6 @@
 .panel.panel-default
   .panel-heading
-    %h3 Teams
+    %h3= pluralize(@teams.size, 'Upcoming Team')
 
   .panel-body
     = render 'teams', teams: @teams

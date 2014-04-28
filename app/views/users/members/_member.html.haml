@@ -1,5 +1,6 @@
 - member = member.decorate
-.row.team-member
-  %span.name= member.full_name
-  %span.role= "[#{member.role}]" if member.role.present?
-  %span.notes= "Notes: #{member.notes}" if member.notes.present? && current_user.has_member?(member)
+.list-group-item
+  %div{class: "#{current_user.has_member?(member) ? 'bg-success' : ''}"}
+    %span.name= member.full_name
+    %span.role= "[#{member.role}]" if member.role.present?
+    %span.notes= "Notes: #{member.notes}" if member.notes.present? && current_user.has_member?(member)

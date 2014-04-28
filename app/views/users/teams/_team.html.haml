@@ -1,15 +1,2 @@
-.row
-  .span
-    %h2= team.name
-  - unless team.closed?
-    .span
-      = render 'member_signup', team: team
-
-.row
-  = render team.stats
-
-%p
-  - if team.members.any?
-    = render 'members', members: team.members
-  - else
-    %i.no-team-signed-up No team members signed up yet!
+= render 'counts', team: team
+= render 'members', members: team.members

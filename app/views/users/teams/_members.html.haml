@@ -1,9 +1,9 @@
 .row
-  .span6
-    .row
-      %b Females
-    = render members.females
-  .span6
-    .row
-      %b Males
-    = render members.males
+  .col-sm-6
+    .team-member.list-group
+      %strong.list-group-item Females
+      = render members.females
+  .col-sm-6
+    .team-member.list-group
+      %strong.list-group-item Males
+      = render members.males

@@ -1,6 +1,6 @@
 - member = member.decorate
-.row.team-member
-  %span.name= link_to(member.full_name, [:edit, :office, member.team, member])
+= link_to([:edit, :office, member.team, member], class: 'list-group-item') do
+  %span.name= member.full_name
   %span.role= "[#{member.role}]" if member.role.present?
   %span.status= member.status
   %span.notes= member.notes

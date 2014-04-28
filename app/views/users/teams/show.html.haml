@@ -1,6 +1,11 @@
 .panel.panel-default
   .panel-heading
-    %h3 Team
+    .pull-right
+      = render 'member_signup', team: @team
+    %h3
+      = @team.name
+      - if @team.closed?
+        %span.small Closed
 
   .panel-body
     = render @team

@@ -1,4 +1,6 @@
-- if current_user.on_team?(team)
+- if team.closed?
+  -# no signup or changes allowed
+- elsif current_user.on_team?(team)
   = link_to 'Edit Signup', [:edit, :users, team, :member], class: 'btn btn-primary edit-signup'
 - else
   = link_to 'Signup', [:users, team, :member], method: :post, class: 'btn btn-primary create-signup'

@@ -1,0 +1,5 @@
+- stats = team.stats
+.row
+  .col-xs-12
+    = render 'gender_statistic', label: 'Participants', scope: team.event.participants
+    = render 'gender_statistic', label: 'Team', scope: team.members
