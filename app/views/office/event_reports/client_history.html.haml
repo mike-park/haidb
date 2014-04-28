@@ -1,7 +1,9 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << csv_button
 
-    %h2 #{@event.display_name} Client History Report
+    %h3 Client History Report
+
+  .panel-body
     = render 'grouped', report: 'client_history', event: @event
