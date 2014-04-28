@@ -1,27 +1,21 @@
 = render 'experiments' if params[:x] == '1'
 
-.panel.panel-default
-  .panel-heading
-    %h3 Dashboard
+- if @last_event
+  .panel.panel-default
+    .panel-heading
+      %h4 Last Event
 
-  .panel-body
+    .panel-body
+      .list-group
+        = link_to(status_office_event_report_path(@last_event), class: 'list-group-item') do
+          = render 'event', event: @last_event
 
-    - if @last_event
-      .panel.panel-default
-        .panel-heading
-          %h4 Last Event
-
-        .panel-body
-          .list-group
-            = link_to(status_office_event_report_path(@last_event), class: 'list-group-item') do
-              = render 'event', event: @last_event
-
-    - if @upcoming_events.any?
-      .panel.panel-default
-        .panel-heading
-          %h4= pluralize(@upcoming_events.size, 'Upcoming Event')
-        .panel-body
-          .list-group
-            - @upcoming_events.each do |event|
-              = link_to(status_office_event_report_path(event), class: 'list-group-item') do
-                = render 'event', event: event
+- if @upcoming_events.any?
+  .panel.panel-default
+    .panel-heading
+      %h4= pluralize(@upcoming_events.size, 'Upcoming Event')
+    .panel-body
+      .list-group
+        - @upcoming_events.each do |event|
+          = link_to(status_office_event_report_path(event), class: 'list-group-item') do
+            = render 'event', event: event

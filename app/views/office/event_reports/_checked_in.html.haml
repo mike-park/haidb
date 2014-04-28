@@ -1,4 +1,4 @@
-%table.table-condensed.table-toggler
+%table.table.table-toggler
   %thead
     %tr
       %th.name Name
@@ -11,4 +11,4 @@
         %td.name= r.full_name
         = content_tag(:td, '', r.checked_in? ? {} : {class: 'red'})
         = content_tag(:td, '', r.checked_in? ? {class: 'green'} : {})
-        %td= link_to('Toggle', checked_in_office_registration_path(r), class: 'btn btn-default', method: :post)
+        %td= link_to('Toggle', checked_in_office_registration_path(r), class: 'btn btn-default btn-sm', method: :post)

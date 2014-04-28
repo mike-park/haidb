@@ -6,26 +6,25 @@
 
     %h3 #{@angel.display_name}
 
-  .panel-body
-    = render @angel
-    = render 'office/shared/audits', :audits => @angel.audits.descending if @angel.audits.any?
+  = render @angel
+  = render 'office/shared/audits', :audits => @angel.audits.descending if @angel.audits.any?
 
-    .panel.panel-default
-      .panel-heading
-        = controls do |c|
-          - c << new_button(label: 'New Membership', path: new_office_angel_membership_path(@angel))
-        %h4 #{pluralize(@angel.memberships.size, 'Membership')}
+  .panel.panel-default
+    .panel-heading
+      = controls do |c|
+        - c << new_button(label: 'New Membership', path: new_office_angel_membership_path(@angel))
+      %h4 #{pluralize(@angel.memberships.size, 'Membership')}
 
-      - if @angel.memberships.size > 0
-        .panel-body
-          = render 'memberships', memberships: @angel.memberships
+    - if @angel.memberships.size > 0
+      .panel-body
+        = render 'memberships', memberships: @angel.memberships
 
-    .panel.panel-default
-      .panel-heading
-        = controls do |c|
-          - c << new_button(label: 'New Registration', path: new_office_angel_registration_path(@angel))
-        %h4 #{pluralize(@angel.registrations.size, 'registration')}
+  .panel.panel-default
+    .panel-heading
+      = controls do |c|
+        - c << new_button(label: 'New Registration', path: new_office_angel_registration_path(@angel))
+      %h4 #{pluralize(@angel.registrations.size, 'registration')}
 
-      - if @angel.registrations.size > 0
-        .panel-body
-          = render 'registrations', registrations: @angel.registrations
+    - if @angel.registrations.size > 0
+      .panel-body
+        = render 'registrations', registrations: @angel.registrations

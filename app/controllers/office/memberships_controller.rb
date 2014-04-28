@@ -68,7 +68,7 @@ class Office::MembershipsController < Office::ApplicationController
              else
                'active'
              end
-    @header = "#{status.humanize} Team Members"
+    @header = "#{status.humanize} Team Member"
     @memberships = case status
                      when 'retired'
                        Membership.retired

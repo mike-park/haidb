@@ -2,6 +2,5 @@
   .panel-heading
     %h3= pluralize(@public_signups.count, 'Approved signup')
 
-  .panel-body
-    - if @public_signups.size > 0
-      = render 'approved', :approved => @public_signups
+  - if @public_signups.size > 0
+    = render 'approved', :approved => @public_signups

@@ -1,6 +1,6 @@
 .panel.panel-default
   .panel-heading
-    %h3 Your registrations
+    %h3= pluralize(@registrations.size, 'Registration')
 
   .panel-body
     %p

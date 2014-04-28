@@ -1,9 +1,9 @@
-- Registration::ROLES.each do |role|
-  - Registration::STATUSES.reverse.each do |status|
-    - registrations = event.registrations.where_role(role).where_status(status).by_first_name
-    - if registrations.any?
-      .row
-        .col-lg-8
+.row
+  .col-lg-8
+    - Registration::ROLES.each do |role|
+      - Registration::STATUSES.reverse.each do |status|
+        - registrations = event.registrations.where_role(role).where_status(status).by_first_name
+        - if registrations.any?
           .panel.panel-default
             .panel-heading
               %h4= pluralize(registrations.size, "#{status} #{role} Registration")
