@@ -1,5 +1,4 @@
 - content_for :navigation do
   = tabs(:users)
-  %p.navbar-text.navbar-right= link_to(current_user.full_name, destroy_user_session_path, class: 'navbar-link')
 
 = render 'layouts/layout'

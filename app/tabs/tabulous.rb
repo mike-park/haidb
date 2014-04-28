@@ -206,6 +206,14 @@ Tabulous.setup do
       active_when { false }
     end
 
+    office_logout_tab do
+      text { "Logout<br>#{current_staff.email}" }
+      link_path { destroy_staff_session_path }
+      http_verb { :delete }
+      visible_when { true }
+      enabled_when { true }
+      active_when { false }
+    end
 
   end
 
@@ -243,6 +251,15 @@ Tabulous.setup do
         in_actions('edit', 'update', 'show').of_controller("users/angels")
         in_actions('edit', 'update').of_controller("users/devise/registrations")
       end
+    end
+
+    users_logout_tab do
+      text { "Logout<br>#{current_user.full_name}" }
+      link_path { destroy_user_session_path }
+      http_verb { :delete }
+      visible_when { true }
+      enabled_when { true }
+      active_when { false }
     end
 
   end

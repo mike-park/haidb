@@ -1,6 +1,5 @@
 - content_for :navigation do
   = tabs(:office)
-  %p.navbar-text.navbar-right= link_to(current_staff.email, destroy_staff_session_path, class: 'navbar-link')
 
 - content_for :header do
   %ul.nav.navbar-nav
