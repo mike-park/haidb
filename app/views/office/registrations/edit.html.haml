@@ -1,9 +1,9 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << delete_button
 
-    %h2
-      #{@registration.event_name}: edit registration of #{@registration.full_name}
+    %h3 Edit registration of #{@registration.full_name}
 
+  .panel-body
     = render 'form'
