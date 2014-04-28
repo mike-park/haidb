@@ -84,7 +84,7 @@ class Angel < ActiveRecord::Base
 
   # only update if necessary, to avoid extra database traffic
   def update_display_name
-    name = [first_name, last_name].reject(&:blank?).join(", ")
+    name = [first_name, last_name].reject(&:blank?).join(" ")
     location = [city, country].reject(&:blank?).join(", ")
     name = [name, location].reject(&:blank?).join(" - ")
     self.display_name = name unless name == display_name

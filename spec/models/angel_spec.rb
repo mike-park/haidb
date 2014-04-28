@@ -55,7 +55,7 @@ describe Angel do
     }
 
     it "should have a display_name" do
-      angel.display_name.should == "Park, Mike - Berlin"
+      angel.display_name.should == "Mike Park - Berlin, DE"
     end
 
     it "should have a full_name" do
