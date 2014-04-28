@@ -1,8 +1,9 @@
-- teams.each do |team|
-  - stats = TeamStatsDecorator.new(team.stats)
-  = link_to([:office, team]) do
-    .mini-box
-      %span.box-icon{class: stats.full? ? 'bg-success' : 'bg-danger'}
-        = stats.delta_with_symbol
-      .box-info
-        %p.size-h4= team.name
+.list-group
+  - teams.each do |team|
+    - stats = TeamStatsDecorator.new(team.stats)
+    = link_to([:office, team], class: 'list-group-item') do
+      .mini-box
+        %span.box-icon{class: stats.full? ? 'bg-success' : 'bg-danger'}
+          = stats.delta_with_symbol
+        .box-info
+          %p.size-h4= team.name
