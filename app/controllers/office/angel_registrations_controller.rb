@@ -6,7 +6,7 @@ class Office::AngelRegistrationsController < Office::ApplicationController
   end
 
   def create
-    @registration = new_registration(params[:registration])
+    @registration = new_registration(registration_params)
     @registration.angel = angel
     @registration.approve
     if @registration.save
@@ -23,6 +23,10 @@ class Office::AngelRegistrationsController < Office::ApplicationController
   end
 
   private
+
+  def registration_params
+    params.require(:registration).permit!
+  end
 
   def build_registration_from_angel(angel)
     registration = new_registration
