@@ -45,7 +45,7 @@ describe 'members' do
       it "should remove user from team" do
         find('.edit-signup').click
         click_link 'remove-link'
-        expect(page).to have_css('.no-team-signed-up')
+        expect(page).to have_content('You have been removed')
       end
     end
   end

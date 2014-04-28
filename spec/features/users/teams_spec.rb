@@ -49,11 +49,6 @@ describe "teams" do
         expect(page).to have_content(team3.name)
       end
 
-      it "should have 1 signup button" do
-        expect(page).to have_link('Signup', href: users_team_member_path(team2))
-        expect(page).to_not have_link('Signup', href: users_team_member_path(team3))
-      end
-
       it "should have links to view the teams" do
         expect(page).to have_link(team2.name, href: users_team_path(team2))
         expect(page).to have_link(team3.name, href: users_team_path(team3))
