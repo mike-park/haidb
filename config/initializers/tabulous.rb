@@ -6,7 +6,7 @@ module Tabulous
     def tab_link_with_subtabs(tab)
       html = ''
       html << %Q{<a data-collapsible href="#">#{tab_text(tab)} </a>}
-      html << %Q{<ul class="nav nav-pills nav-stacked subnav">}
+      html << %Q{<ul class="ng-cloak nav nav-pills nav-stacked subnav">}
       for subtab in tab.subtabs
         next unless subtab.visible?(@view)
         klass = (subtab.enabled?(@view) ? '' : 'disabled')

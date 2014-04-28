@@ -4,7 +4,7 @@ $reverse:               #fff;
 @import 'bootstrap';
 @import "flatify/flatify";
 @import "pages/*";
-
+@import "angular/angular-csp";
 @import 'tablesorter';
 
 body {
