@@ -1,23 +1,19 @@
-.row
-  .span6
-    %table.table
-      %caption
-        %h4= pluralize(registrations.size, "#{status} #{role} Registration")
-      %thead
-        %tr
-          %th.name Name
-          %th.qty Cost
-          %th.qty Paid
-          %th.qty Owes
-      %tbody
-        - registrations.by_first_name.each do |r|
-          %tr
-            %td.name= link_to_show(office_registration_payments_path(r), r.full_name)
-            %td.qty= local_currency r.cost
-            %td.qty= local_currency r.paid
-            %td.qty{class: r.owed && r.owed > 0 ? 'owes':''}= local_currency r.owed
-        %tr
-          %td Total
-          %td.qty= local_currency registrations.map(&:cost).compact.inject(&:+)
-          %td.qty= local_currency registrations.map(&:paid).compact.inject(&:+)
-          %td.qty= local_currency registrations.map(&:owed).compact.inject(&:+)
+%table.table
+  %thead
+    %tr
+      %th.name Name
+      %th.qty Cost
+      %th.qty Paid
+      %th.qty Owes
+  %tbody
+    - registrations.by_first_name.each do |r|
+      %tr
+        %td.name= link_to(r.full_name, office_registration_payments_path(r))
+        %td.qty= local_currency r.cost
+        %td.qty= local_currency r.paid
+        %td.qty{class: r.owed && r.owed > 0 ? 'owes':''}= local_currency r.owed
+    %tr
+      %td Total
+      %td.qty= local_currency registrations.map(&:cost).compact.inject(&:+)
+      %td.qty= local_currency registrations.map(&:paid).compact.inject(&:+)
+      %td.qty= local_currency registrations.map(&:owed).compact.inject(&:+)
