@@ -1,13 +1,14 @@
-%table.table.table-bordered
-  %thead
-    %tr.person
-      %th Name & Email
-      %th= t('enums.registration.roster.address')
-      %th= t('enums.registration.roster.phones')
-  %tbody
-    - if registrations.participants.size > 0
-      = render 'roster_block', role: t('enums.registration.roster.participant'), registrations: registrations.participants
-    - if registrations.team.size > 0
-      = render 'roster_block', role: t('enums.registration.roster.team'), registrations: registrations.team
-    - if registrations.facilitators.size > 0
-      = render 'roster_block', role: t('enums.registration.roster.facilitator'), registrations: registrations.facilitators
+.table-responsive
+  %table.table.table-bordered
+    %thead
+      %tr.person
+        %th Name & Email
+        %th= t('enums.registration.roster.address')
+        %th= t('enums.registration.roster.phones')
+    %tbody
+      - if registrations.participants.size > 0
+        = render 'roster_block', role: t('enums.registration.roster.participant'), registrations: registrations.participants
+      - if registrations.team.size > 0
+        = render 'roster_block', role: t('enums.registration.roster.team'), registrations: registrations.team
+      - if registrations.facilitators.size > 0
+        = render 'roster_block', role: t('enums.registration.roster.facilitator'), registrations: registrations.facilitators
