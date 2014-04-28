@@ -1,7 +1,6 @@
 class Office::MembershipsController < Office::ApplicationController
-  before_filter :select_members, only: [:index]
-
   def index
+    select_members
     respond_to do |format|
       format.html
       format.csv { send_data Membership.to_csv(@memberships), filename: "memberships.csv", type: :csv }
@@ -14,7 +13,7 @@ class Office::MembershipsController < Office::ApplicationController
   end
 
   def create
-    @membership = Membership.new(params[:membership])
+    @membership = Membership.new(membership_params)
     if @membership.save
       redirect_to([:office, @membership], :notice => 'Membership was successfully created.')
     else
@@ -32,7 +31,7 @@ class Office::MembershipsController < Office::ApplicationController
 
   def update
     @membership = Membership.find(params[:id])
-    if @membership.update_attributes(params[:membership])
+    if @membership.update(membership_params)
       redirect_to office_membership_path(@membership), notice: 'Membership was successfully updated'
     else
       render action: :edit
@@ -40,8 +39,8 @@ class Office::MembershipsController < Office::ApplicationController
   end
 
   def destroy
-    @membership = Membership.find(params[:id])
-    @membership.destroy
+    membership = Membership.find(params[:id])
+    membership.destroy
 
     redirect_to office_teams_path
   end
@@ -54,6 +53,10 @@ class Office::MembershipsController < Office::ApplicationController
   end
 
   private
+
+  def membership_params
+    params.require(:membership).permit(:angel_id, :status, :active_on, :retired_on, :participant_cost, :team_cost, :notes)
+  end
 
   def angels
     @memberships.map(&:angel).uniq
