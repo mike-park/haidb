@@ -1,18 +1,20 @@
 - r = registration
 
-%table.table.table-key-values
-  %caption
-    %h6 Contact Information
-  %tbody
-    %tr
-      %th Name
-      %td= r.angel ? link_to_angel(r.angel) : r.full_name
-    %tr
-      %th Email
-      %td= r.email
-    %tr
-      %th Phones
-      %td= simple_format(compact_phones(r), {}, sanitize: false)
-    %tr
-      %th Address
-      %td= simple_format(compact_address(r))
+.panel.panel-default
+  .panel-heading
+    %h4 Contact Information
+
+  %table.table.table-key-values
+    %tbody
+      %tr
+        %th Name
+        %td= r.angel ? link_to_angel(r.angel) : r.full_name
+      %tr
+        %th Email
+        %td= r.email
+      %tr
+        %th Phones
+        %td= simple_format(compact_phones(r), {}, sanitize: false)
+      %tr
+        %th Address
+        %td= simple_format(compact_address(r))

@@ -1,5 +1,5 @@
 .row
-  .col-sm-6
+  .col-lg-6
     %table.table.table-striped
       %caption
         %h5 Details
@@ -8,11 +8,9 @@
           %th Date
           %th Note
           %th.qty Amount
-          %th
       %tbody
         - payments.each do |p|
           %tr
-            %td.date= link_to_show(office_registration_payment_path(p.registration, p), l(p.paid_on))
+            %td.date= link_to(l(p.paid_on), office_registration_payment_path(p.registration, p))
             %td= p.note
             %td.qty= local_currency p.amount
-            %td.link= link_to_destroy office_registration_payment_path(p.registration, p)

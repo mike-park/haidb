@@ -1,39 +1,38 @@
 - r = registration
 
-= controls do |c|
-  - c << link_to(new_office_registration_payment_path(registration), class: 'btn') do
-    - icon('icon-plus-sign') + 'Add Payment'
+.panel.panel-default
+  .panel-heading
+    = controls do |c|
+      - c << link_to(new_office_registration_payment_path(registration), class: 'btn btn-default') do
+        - icon_label('plus-sign', 'Add Payment')
 
-.row
-  .span5
-    %table.table.table-key-values
-      %caption
-        %h6 Payment Information
-      %tbody
-        %tr
-          %th Method
-          %td= r.payment_method
-        %tr
-          %th Account Name
-          %td= [r.bank_account_name, r.bank_name].compact.join(' / ')
-        %tr
-          %th IBAN
-          %td= r.iban
-        %tr
-          %th BIC
-          %td= r.bic
-        %tr
-          %th Code
-          %td= r.registration_code
-        %tr
-          %th Cost
-          %td= local_currency r.cost
-        %tr
-          %th Paid
-          %td= local_currency r.paid
-        %tr
-          %th Owes
-          %td= local_currency r.owed
+    %h4 Payment Information
 
-= render 'office/payments/payments', payments: registration.payments if registration.payments.any?
+  %table.table.table-key-values
+    %tbody
+      %tr
+        %th Method
+        %td= r.payment_method
+      %tr
+        %th Account Name
+        %td= [r.bank_account_name, r.bank_name].compact.join(' / ')
+      %tr
+        %th IBAN
+        %td= r.iban
+      %tr
+        %th BIC
+        %td= r.bic
+      %tr
+        %th Code
+        %td= r.registration_code
+      %tr
+        %th Cost
+        %td= local_currency r.cost
+      %tr
+        %th Paid
+        %td= local_currency r.paid
+      %tr
+        %th Owes
+        %td= local_currency r.owed
 
+  = render 'office/payments/payments', payments: registration.payments if registration.payments.any?

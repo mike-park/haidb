@@ -1,36 +1,41 @@
-%table.table.table-key-values
-  %caption
-    %h6 Registration Information
-  %tbody
-    %tr
-      %th Role
-      %td= registration.role
-    %tr
-      %th Gender
-      %td= registration.gender
-    %tr
-      %th Special Requests
-      %td= registration_requests(registration)
-    %tr
-      %th Notes
-      %td= registration.notes
+.panel.panel-default
+  .panel-heading
+    %h4 Registration Information
 
-%table.table.table-key-values
-  %caption
-    %h6 Research
-  %tbody
-    %tr
-      %th How Hear
-      %td= registration.how_hear
-    %tr
-      %th Previous Event
-      %td= registration.previous_event
-    %tr
-      %th Highest Level
-      %td= registration.highest_level
-    %tr
-      %th Where
-      %td= registration.highest_location
-    %tr
-      %th When
-      %td= registration.highest_date
+  %table.table.table-key-values
+    %tbody
+      %tr
+        %th Role
+        %td= registration.role
+      %tr
+        %th Gender
+        %td= registration.gender
+      %tr
+        %th Special Requests
+        %td= registration_requests(registration)
+      %tr
+        %th Notes
+        %td= registration.notes
+
+- if [:how_hear, :previous_event, :highest_level, :highest_location, :highest_date].map {|field| registration.send(field).present? }.any?
+  .panel.panel-default
+    .panel-heading
+      %h4 Research
+
+    %table.table.table-key-values
+      %tbody
+        %tr
+          %th How Hear
+          %td= registration.how_hear
+        %tr
+          %th Previous Event
+          %td= registration.previous_event
+        %tr
+          %th Highest Level
+          %td= registration.highest_level
+        %tr
+          %th Where
+          %td= registration.highest_location
+        %tr
+          %th When
+          %td= registration.highest_date
