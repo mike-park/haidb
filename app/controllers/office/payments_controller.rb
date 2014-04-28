@@ -18,7 +18,7 @@ class Office::PaymentsController < Office::ApplicationController
   end
 
   def create
-    @payment = payments.build(params[:payment])
+    @payment = payments.build(payment_params)
     if @payment.save
       redirect_to office_registration_payments_path(registration), notice: 'Payment was successfully created.'
     else
@@ -29,7 +29,7 @@ class Office::PaymentsController < Office::ApplicationController
   def update
     @payment = payments.find(params[:id])
 
-    if @payment.update_attributes(params[:payment])
+    if @payment.update(payment_params)
       redirect_to office_registration_payments_path(registration), notice: 'Payment was successfully updated.'
     else
       render action: :edit
@@ -37,13 +37,17 @@ class Office::PaymentsController < Office::ApplicationController
   end
 
   def destroy
-    @payment = payments.find(params[:id])
-    @payment.destroy
+    payment = payments.find(params[:id])
+    payment.destroy
 
     redirect_to office_registration_payments_path(registration)
   end
 
   protected
+
+  def payment_params
+    params.require(:payment).permit(:paid_on, :note, :amount)
+  end
 
   def event
     @event ||= registration.event
