@@ -26,7 +26,7 @@ class Office::MembersController < Office::ApplicationController
   end
 
   def create
-    @member = team.members.build(params[:member])
+    @member = team.members.build(member_params)
     update_from_membership(@member)
     if @member.save
       redirect_to [:office, team], notice: 'Member was successfully created.'
@@ -38,7 +38,7 @@ class Office::MembersController < Office::ApplicationController
   def update
     @member = team.members.find(params[:id])
     update_from_membership(@member)
-    if @member.update_attributes(params[:member])
+    if @member.update(member_params)
       redirect_to [:office, team], notice: 'Member was successfully updated.'
     else
       render action: "edit"
@@ -46,13 +46,17 @@ class Office::MembersController < Office::ApplicationController
   end
 
   def destroy
-    @member = team.members.find(params[:id])
-    @member.destroy
+    member = team.members.find(params[:id])
+    member.destroy
 
     redirect_to [:office, team]
   end
 
   private
+
+  def member_params
+    params.require(:member).permit(:membership_id, :role, :notes)
+  end
 
   def update_from_membership(member)
     angel = member.membership.angel
