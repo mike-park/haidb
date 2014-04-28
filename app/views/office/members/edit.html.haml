@@ -1,8 +1,9 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << delete_button
 
-    %h2 Editing #{@member.full_name} team request for #{@team.name}
+    %h3 Edit #{@member.full_name} team request for #{@team.name}
 
+  .panel-body
     = render 'form'

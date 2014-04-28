@@ -1,10 +1,11 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << pdf_button
 
-    %h2= @roster.title
+    %h3= @roster.title
 
+  .panel-body
     %p
       Click PDF Format to generate a printable version.
 

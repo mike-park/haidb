@@ -1,8 +1,9 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << delete_button
 
-    %h2 Editing Membership
+    %h3 Edit Membership
 
+  .panel-body
     = render 'form'

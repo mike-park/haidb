@@ -1,9 +1,11 @@
-= vertical_form [:office, @angel, @registration] do |r|
-  -if @registration.errors.any?
-    #error_explanation
-      %h3= "#{pluralize(@registration.errors.count, "error")} prohibited this registration from being saved"
+.row
+  .col-lg-6
+    = vertical_form [:office, @angel, @registration] do |r|
+      -if @registration.errors.any?
+        #error_explanation
+          %h3= "#{pluralize(@registration.errors.count, "error")} prohibited this registration from being saved"
 
-  = r.association :event, options_for_signup_events_select(r)
-  = r.input :role, options_for_role(r)
-  = render 'office/registrations/fields', :form => r
-  = r.button :submit
+      = r.association :event, options_for_signup_events_select(r)
+      = r.input :role, options_for_role(r)
+      = render 'office/registrations/fields', :form => r
+      = r.button :submit

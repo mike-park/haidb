@@ -1,5 +1,6 @@
-.panel
-  .panel-body
-    %h2 New registration for #{@angel.display_name}
+.panel.panel-default
+  .panel-heading
+    %h3 New registration for #{@angel.display_name}
 
+  .panel-body
     = render 'form'

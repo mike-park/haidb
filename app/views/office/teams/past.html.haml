@@ -1,4 +1,6 @@
-.panel
+.panel.panel-default
+  .panel-heading
+    %h3= pluralize(@teams.size, 'Past Team')
+
   .panel-body
-    %h2= pluralize(@teams.size, 'Past Team')
     = render 'teams', teams: @teams

@@ -1,23 +1,27 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << edit_button
 
-    %h2 Membership
+    %h3 Membership
 
-    = render 'membership', membership: @membership
+  = render 'membership', membership: @membership
 
-    - if @membership.audits.any?
-      = render 'office/shared/audits', :audits => @membership.audits.descending
+  - if @membership.audits.any?
+    = render 'office/shared/audits', :audits => @membership.audits.descending
 
-  .panel-body
-    = controls do |c|
-      - c << new_button(label: 'New Registration', path: new_office_angel_registration_path(@membership.angel))
+  .panel.panel-default
+    .panel-heading
+      = controls do |c|
+        - c << new_button(label: 'New Registration', path: new_office_angel_registration_path(@membership.angel))
+      %h4 Team #{pluralize(@membership.on_team.length, 'registration')}
 
     - if @membership.on_team.any?
-      %h3 On team for #{pluralize(@membership.on_team.length, 'event')}
       = render 'registrations', :registrations => @membership.on_team
 
+  .panel.panel-default
+    .panel-heading
+      %h4 AWS/TWS #{pluralize(@membership.team_workshops.length, 'registration')}
+
     - if @membership.team_workshops.any?
-      %h3 AWS/TWS #{pluralize(@membership.team_workshops.length, 'event')}
       = render 'registrations', :registrations => @membership.team_workshops

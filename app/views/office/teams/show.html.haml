@@ -1,8 +1,12 @@
-.panel
-  .panel-body
+.panel.panel-default
+  .panel-heading
     = controls do |c|
       - c << new_button(label: 'Assign', path: assign_office_team_path(@team), html: {method: :post})
       - c << edit_button
       - c << button_with_options(:refresh, path: refresh_office_team_members_path(@team), html: {method: :post})
+    %h3
+      = @team.event ? link_to(@team.name, [:office, @team.event]) : @team.name
+      = '(Closed)' if @team.closed?
 
+  .panel-body
     = render @team
