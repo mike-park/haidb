@@ -18,7 +18,7 @@ class Office::PublicSignupsController < Office::ApplicationController
   end
 
   def update
-    if public_signup.update_attributes(params[:public_signup])
+    if public_signup.update(public_signup_params)
       redirect_to([:office, public_signup], :notice => 'Public signup was successfully updated.')
     else
       render :edit
@@ -43,6 +43,10 @@ class Office::PublicSignupsController < Office::ApplicationController
   end
   
   protected
+
+  def public_signup_params
+    params.require(:public_signup).permit!
+  end
 
   def find_signup
     unless public_signup
