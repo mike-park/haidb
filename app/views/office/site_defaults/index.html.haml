@@ -4,5 +4,4 @@
       - c << new_button
     %h3= pluralize(@site_defaults.size, 'Key')
 
-  .panel-body
-    = render 'site_defaults', site_defaults: @site_defaults
+  = render 'site_defaults', site_defaults: @site_defaults
