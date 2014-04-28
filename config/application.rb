@@ -45,5 +45,12 @@ module Haidb
 
     # heroku cant talk to database during precompile
     config.assets.initialize_on_precompile = false
+
+    # allow site to be embedded in an iframe
+    config.action_dispatch.default_headers = {
+        'X-Frame-Options' => 'ALLOWALL',
+        'X-XSS-Protection' => '1; mode=block',
+        'X-Content-Type-Options' => 'nosniff'
+    }
   end
 end
