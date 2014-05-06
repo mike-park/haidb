@@ -5,7 +5,7 @@ body
 { font-family: verdana, arial, sans-serif;
   padding: 0px;
   margin: 0px;
-  font-size: .68em;
+  /*font-size: .68em;*/
 }
 
 p
@@ -37,12 +37,12 @@ a{outline: none;}
 
 /* image positioning - left, right and center */
 .left
-{ float: left; 
+{ float: left;
   padding: 0px 8px 0px 0px;
 }
 
 .right
-{ float: right; 
+{ float: right;
   padding: 0px 0px 0px 8px;
 }
 
@@ -54,7 +54,7 @@ a{outline: none;}
 
 /* block quote */
 blockquote
-{ margin: 20px 0px 20px 0px; 
+{ margin: 20px 0px 20px 0px;
   padding: 10px 20px 0px 20px;
   border-left: 8px solid;
 }
@@ -67,7 +67,7 @@ ul
 
 ul li
 { list-style-type: square;
-  margin: 0px 0px 11px 0px; 
+  margin: 0px 0px 11px 0px;
   padding: 0px;
 }
 
@@ -78,20 +78,20 @@ ol
 }
 
 ol li
-{ margin: 0px 0px 11px 0px; 
+{ margin: 0px 0px 11px 0px;
   padding: 0px;
 }
 
 /* main container */
 #main
 { width: 780px;
-  margin-left: auto; 
+  margin-left: auto;
   margin-right: auto;
 }
 
 /* links above the logo / footer */
 #links, #footer
-{ margin-left: auto; 
+{ margin-left: auto;
   margin-right: auto;
   padding: 10px 21px 0px 19px;
   width: 720px;
@@ -110,7 +110,7 @@ ol li
 
 /* logo */
 #logo
-{ margin-left: auto; 
+{ margin-left: auto;
   margin-right: auto;
   width: 760px;
   height: 100px;
@@ -128,36 +128,36 @@ ol li
 #menu
 { height: 42px;
   width: 760px;
-  margin-left: auto; 
+  margin-left: auto;
   margin-right: auto;
 }
 
-#menu ul{margin: 0px auto;} 
+#menu ul{margin: 0px auto;}
 
 #menu li
-{ float: left; 
-  margin: 0px; 
+{ float: left;
+  margin: 0px;
   padding: 0px;
-} 
+}
 
-#menu li a 
-{ display: block; 
-  float: left; 
+#menu li a
+{ display: block;
+  float: left;
   height: 37px;
-  text-decoration: none; 
+  text-decoration: none;
   padding: 3px 19px 2px 19px;
   text-transform: uppercase;
-} 
+}
 
 /* main content */
 #content
-{ margin-left: auto; 
+{ margin-left: auto;
   margin-right: auto;
   width: 760px;
   height: auto;
   padding: 0px;
   overflow: hidden;
-} 
+}
 
 /* column 1 - contains sidebar items */
 /* AAAA - changed padding 16px to 0px, to remove spacing at top of column. */
@@ -183,8 +183,8 @@ ol li
 }
 
 .sbihead h1
-{ padding: 4px,0px,4px,0px; 
-  margin: 0px; 
+{ padding: 4px,0px,4px,0px;
+  margin: 0px;
   font-weight: bold;
   font-size: 112%;
 }
@@ -192,28 +192,28 @@ ol li
 .sbicontent{padding: 8px 8px 8px 19px;}
 
 .sbicontent p
-{ line-height: 14px; 
+{ line-height: 14px;
   padding: 0px 0px 8px 0px;
 }
 
 .sbilinks{padding: 0px;}
 
-.sbilinks ul{margin: 0px auto;} 
+.sbilinks ul{margin: 0px auto;}
 
-.sbilinks li 
-{ margin: 0px; 
-  float: left; 
-  list-style: none; 
-} 
+.sbilinks li
+{ margin: 0px;
+  float: left;
+  list-style: none;
+}
 
 .sbilinks li a , .sbilinks li a:hover
-{ float: left; 
+{ float: left;
   height: 16px;
-  text-decoration: none; 
+  text-decoration: none;
   padding: 5px 0px 4px 19px;
   width: 188px;
   border: 0px;
-} 
+}
 
 /* column 2 - page content */
 #column2
@@ -224,8 +224,8 @@ ol li
 }
 
 #column2 h1
-{ padding: 6px 0px 4px 0px; 
-  margin: 0px 0px 12px 0px; 
+{ padding: 6px 0px 4px 0px;
+  margin: 0px 0px 12px 0px;
   border-bottom: 1px solid;
   font-size: 150%;
   text-transform: uppercase;
@@ -251,7 +251,7 @@ div.row
   width: 448px;
 }
 
-div.row span.formlabel 
+div.row span.formlabel
 { float: left;
   width: 150px;
   text-align: left;
@@ -260,7 +260,7 @@ div.row span.formlabel
 div.row span.forminput
 { float: right;
   text-align: right;
-} 
+}
 
 div.spacer
 { clear: both;
@@ -268,7 +268,8 @@ div.spacer
 }
 
 input, textarea
-{ width: 259px; 
+{
+    /*width: 259px;*/
   font-family: verdana, arial, sans-serif;
   border: 1px solid;
   font-size: 100%;
