@@ -2,5 +2,6 @@
   .panel-heading
     %h3= pluralize(@public_signups.flatten.size, 'Wait list signup')
 
-  - @public_signups.each do |event_signups|
-    = render 'public_signups', public_signups: event_signups
+  .panel-body
+    - @public_signups.each do |event_signups|
+      = render 'public_signups', public_signups: event_signups

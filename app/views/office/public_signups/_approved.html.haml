@@ -1,17 +1,18 @@
-%table.table.table-striped
-  %thead
-    %tr
-      %th Name
-      %th Gender
-      %th Event
-      %th= sort_link @q, :approved_at, 'Approved'
-
-  %tbody
-    - approved.each do |p|
+.table-responsive
+  %table.table.table-striped
+    %thead
       %tr
-        %td= link_to(p.full_name, [:office, p])
-        %td= p.gender
-        %td= p.event_name
-        %td= time_ago_in_words(p.approved_at)
+        %th Name
+        %th Gender
+        %th Event
+        %th= sort_link @q, :approved_at, 'Approved'
+
+    %tbody
+      - approved.each do |p|
+        %tr
+          %td= link_to(p.full_name, [:office, p])
+          %td= p.gender
+          %td= p.event_name
+          %td= time_ago_in_words(p.approved_at)
 
 = render 'office/shared/table_options', :table => approved

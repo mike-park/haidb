@@ -46,7 +46,7 @@ module Office::ApplicationHelper
   end
 
   def page_navigation_links(pages)
-    will_paginate(pages, inner_window: 2, outer_window: 0,
+    will_paginate(pages, inner_window: 1, outer_window: 0,
                   renderer: BootstrapPagination::Rails,
                   previous_label: '&larr;'.html_safe, next_label: '&rarr;'.html_safe)
   end
