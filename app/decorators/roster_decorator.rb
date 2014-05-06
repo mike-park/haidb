@@ -71,7 +71,7 @@ class RosterDecorator < Draper::Decorator
       table << ["#{r.full_name}\n" +
                     r.email,
                 h.map_address(h.compact_address(r)),
-                h.compact_phones(r)
+                h.compact_phones(r, false)
       ]
     end
     table

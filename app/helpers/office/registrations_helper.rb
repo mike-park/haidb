@@ -145,13 +145,14 @@ module Office::RegistrationsHelper
     address.join("\n")
   end
 
-  def compact_phones(object)
+  def compact_phones(object, with_link = true)
     phones = []
     %w(home mobile work).each do |ph|
       number = object.read_attribute("#{ph}_phone")
       unless number.blank?
         label = t("enums.registration.roster.#{ph}")
-        phones << "#{label}: " + link_to(number, "tel:#{number}")
+        value = with_link ? link_to(number, "tel:#{number}") : number
+        phones << "#{label}: #{value}"
       end
     end
     phones.join("\n")
