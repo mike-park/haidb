@@ -1,3 +1,5 @@
-= vertical_form([:office, team], html: {class: 'form-inline'}) do |f|
-  = f.input :notes, label: false, input_html: { rows: 5, cols: 60, class: 'wide-textarea' }
-  = f.button :submit, 'Save notes'
+.row
+  .col-xs-12.col-lg-6
+    = vertical_form([:office, team]) do |f|
+      = f.input :notes, label: false, input_html: { rows: 5 }
+      = f.button :submit, 'Save notes'
