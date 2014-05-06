@@ -205,6 +205,14 @@ caption {
   }
 }
 
+// avoid Pending and Wait Listed moving down a row
+@media (max-width: $screen-xs-max) {
+  .navbar-brand { padding-right: 0; }
+  .nav > li > a { padding-right: 0; padding-left: 10px; }
+  .navbar-header { font-size: 80%; }
+}
+
+
 .devise {
   width: 300px;
 }
