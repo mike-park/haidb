@@ -5,7 +5,7 @@ body
 { font-family: verdana, arial, sans-serif;
   padding: 0px;
   margin: 0px;
-  /*font-size: .68em;*/
+  font-size: 11px;
 }
 
 p
@@ -176,7 +176,7 @@ ol li
 }
 
 .sbihead
-{ height: 14px;
+{
   width: 188px;
   padding: 5px 0px 5px 19px;
   text-transform: uppercase;
