@@ -117,7 +117,7 @@ Tabulous.setup do
     event_tab do
       text { @event.display_name }
       link_path {}
-      visible_when { @event }
+      visible_when { @event && @event.persisted? }
       enabled_when { true }
       active_when { a_subtab_is_active }
     end
