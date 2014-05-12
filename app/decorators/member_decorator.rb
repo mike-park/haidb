@@ -5,4 +5,8 @@ class MemberDecorator < Draper::Decorator
     value = object.status
     "[#{value}]" unless value == Membership::EXPERIENCED
   end
+
+  def highest_level
+    object.angel.highest_level
+  end
 end

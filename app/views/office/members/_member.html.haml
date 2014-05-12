@@ -1,6 +1,7 @@
 - member = member.decorate
 = link_to([:edit, :office, member.team, member], class: 'list-group-item') do
   %span.name= member.full_name
+  %span.highest-level= "[Highest Level: #{member.highest_level}]" if @team.event.level && member.highest_level < @team.event.level
   %span.role= "[#{member.role}]" if member.role.present?
   %span.status= member.status
   %span.notes= member.notes

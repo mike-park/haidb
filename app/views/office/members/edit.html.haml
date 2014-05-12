@@ -3,7 +3,7 @@
     = controls do |c|
       - c << delete_button
 
-    %h3 Edit #{@member.full_name} team request for #{@team.name}
+    %h3 Edit #{link_to(@member.full_name, [:office, @member.angel])} team request for #{@team.name}
 
   .panel-body
     = render 'form'
