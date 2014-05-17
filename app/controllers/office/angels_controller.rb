@@ -1,7 +1,7 @@
 class Office::AngelsController < Office::ApplicationController
   def index
     params[:rows] ||= 30
-    if params[:q]
+    if params[:q].present?
       order = 'display_name asc'
     else
       params[:q] = {}
@@ -19,7 +19,8 @@ class Office::AngelsController < Office::ApplicationController
   end
 
   def map
-    params[:q] ||= params[:id] ? {id_eq: params[:id]} : {}
+    params[:q] = {id_eq: params[:id]} if params[:id].present?
+    params[:q] = {} unless params[:q].present?
     @q = Angel.search(params[:q])
     @json = @q.result.to_gmaps4rails do |angel, marker|
       marker.infowindow render_to_string(:partial => '/office/angels/map_info',
