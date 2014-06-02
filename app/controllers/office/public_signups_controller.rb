@@ -10,10 +10,7 @@ class Office::PublicSignupsController < Office::ApplicationController
   end
 
   def approved
-    params[:rows] ||= 30
-    params[:q] ||= {}
-    @q = PublicSignup.approved.order('approved_at desc').search(params[:q])
-    @public_signups = @q.result.paginate :page => params[:page], :per_page => params[:rows]
+    @public_signups = PublicSignup.approved.order('approved_at desc').paginate :page => params[:page], :per_page => params[:rows]
   end
 
   def update
