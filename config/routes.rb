@@ -86,6 +86,7 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :messages, only: [:new, :create]
     resources :email_names
     resources :site_defaults
     resources :registrations do

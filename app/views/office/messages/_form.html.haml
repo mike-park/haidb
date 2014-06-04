@@ -1,0 +1,14 @@
+= vertical_form([:office, @message]) do |f|
+  = f.input :header, as: :hidden
+  = f.input :footer, as: :hidden
+  = f.input :subject
+  = f.input :from
+  = f.input :to_list
+  = f.input :cc_list
+  = f.input :bcc_list
+  - if @message.header.present?
+    .header= @message.header.to_s.html_safe
+  = f.input :message, as: :text, input_html: {class: 'ckeditor'}
+  - if @message.footer.present?
+    .footer= @message.footer.to_s.html_safe
+  = f.button :submit

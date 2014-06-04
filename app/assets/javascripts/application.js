@@ -15,4 +15,6 @@ $(document).ready(function () {
   var ts = $('.tablesorter');
   if (ts.length > 0)
     ts.tablesorter();
+
+  $('.ckeditor').ckeditor({});
 });
