@@ -182,6 +182,26 @@
       1:
         locale: de
         text: ''
+- :description: Prepended to all manually generated emails.
+  :translation_key_attributes:
+    :key: email.html.header
+    :translations_attributes:
+      0:
+        locale: en
+        text: ''
+      1:
+        locale: de
+        text: ''
+- :description: Appended to all manually generated emails.
+  :translation_key_attributes:
+    :key: email.html.footer
+    :translations_attributes:
+      0:
+        locale: en
+        text: ''
+      1:
+        locale: de
+        text: ''
 :uk:
 - :description: Title line of the public signup form.
   :translation_key_attributes:
