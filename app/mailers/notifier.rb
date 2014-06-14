@@ -22,7 +22,10 @@ class Notifier < ActionMailer::Base
         'person_name' => registration.full_name,
         'event_name' => registration.event_name,
         'registration_code' => registration.registration_code,
-        'cost' => registration.cost
+        'cost' => registration.cost,
+        'iban' => registration.iban,
+        'bic' => registration.bic,
+        'account_name' => registration.bank_account_name
     }
   end
 
