@@ -172,6 +172,16 @@
       1:
         locale: de
         text: registrations@haidb.info
+- :description: IBAN of the account that receives payments.
+  :translation_key_attributes:
+    :key: direct_debt.to_iban
+    :translations_attributes:
+      0:
+        locale: en
+        text: DE42ZZZ00001188821
+      1:
+        locale: de
+        text: ''
 :uk:
 - :description: Title line of the public signup form.
   :translation_key_attributes:

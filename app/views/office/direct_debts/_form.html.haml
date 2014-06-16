@@ -1,0 +1,31 @@
+= vertical_form([:office, @event, @direct_debt]) do |f|
+  = f.input :post_date, placeholder: 'dd.mm.yyyy'
+  = f.input :to_iban
+  = f.input :comment
+  %p
+    Registrations that have an outstanding balance.
+  %p
+    %a.btn.btn-default.btn-info(onclick='$(":checkbox").prop("checked", true)') Check All
+    %a.btn.btn-default.btn-info(onclick='$(":checkbox").prop("checked", false)') Uncheck All
+  .table-responsive
+    %table.table.table-striped.tablesorter
+      %thead
+        %tr
+          %th
+          %th Reg Name / Bank Acc Name
+          %th IBAN / BIC
+          %th Reg Code
+          %th Owed
+      %tbody
+        - @direct_debt.registrations.each do |reg|
+          %tr
+            %td= check_box_tag "direct_debt[checked][]", reg.id, @direct_debt.checked?(reg.id)
+            %td
+              = reg.full_name
+              - if reg.full_name.downcase.strip != reg.bank_account_name.downcase.strip
+                %br
+                = reg.bank_account_name
+            %td= "#{reg.iban} / #{reg.bic}"
+            %td= reg.registration_code
+            %td.amount= local_currency(reg.owed)
+  = f.button :submit

@@ -1,0 +1,16 @@
+.panel.panel-default
+  .panel-heading
+    %h3 Direct Debt
+
+  .panel-body
+    %p
+      #{pluralize(@direct_debt.checked_registrations.length, 'transaction')} selected for a value of
+      #{local_currency(@direct_debt.total)}.
+
+    = vertical_form([:office, @event, @direct_debt], format: :csv) do |f|
+      = f.input :post_date, as: :hidden
+      = f.input :to_iban, as: :hidden
+      = f.input :comment, as: :hidden
+      - @direct_debt.checked_registrations.each do |reg|
+        = hidden_field_tag "direct_debt[checked][]", reg.id
+      = f.button :submit, 'Download CSV'

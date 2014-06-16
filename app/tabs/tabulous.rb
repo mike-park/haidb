@@ -131,6 +131,7 @@ Tabulous.setup do
     end
 
     [[:list_icon, 'Bank', :bank_office_event_report_path],
+     [:list_icon, 'Direct Debt', :new_office_event_direct_debt_path],
      [:list_icon, 'Checklist', :checklist_office_event_report_path],
      [:list_icon, 'History', :client_history_office_event_report_path],
      [:map_icon,  'Map', :map_office_event_report_path],

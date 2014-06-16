@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     post '/similar_angels/email', to: 'similar_angels#merge'
 
     resources :events do
+      resources :direct_debts, only: [:new, :create]
       collection do
         get 'past'
       end
