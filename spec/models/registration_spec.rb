@@ -319,7 +319,7 @@ describe Registration do
       email_template = double('email_template')
       registration.event.should_receive(:email).with(EventEmail::SIGNUP, registration.lang).and_return(email_template)
       email_msg = double('email_msg').as_null_object
-      Notifier.should_receive(:registration_with_template).with(registration, email_template).and_return(email_msg)
+      Notifier.should_receive(:registration_with_template).with(registration, email_template, {}).and_return(email_msg)
       registration.send_email(EventEmail::SIGNUP)
     end
   end
