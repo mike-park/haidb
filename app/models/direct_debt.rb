@@ -7,7 +7,7 @@ class DirectDebt
     false
   end
 
-  ATTRIBUTES = [:event, :post_date, :comment, :to_iban, :checked]
+  ATTRIBUTES = [:event, :post_date, :comment, :to_iban, :checked, :send_emails]
   attr_accessor *ATTRIBUTES
 
   validates_presence_of :event, :post_date, :to_iban, :comment
@@ -45,6 +45,10 @@ class DirectDebt
 
   def checked_registrations
     event.registrations.find(checked)
+  end
+
+  def send_emails?
+    send_emails == 'Yes'
   end
 
   def to_csv

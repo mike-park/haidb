@@ -28,4 +28,8 @@
             %td= "#{reg.iban} / #{reg.bic}"
             %td= reg.registration_code
             %td.amount= local_currency(reg.owed)
+  - if @event.find_event_email(EventEmail::UPCOMING_DIRECT_DEBIT)
+    = f.input :send_emails, as: :radio_buttons, collection: ['Yes'], label: 'Send announcement email?'
+  - else
+    %p No direct debt announcement email assigned to event.
   = f.button :submit
