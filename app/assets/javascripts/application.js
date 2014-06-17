@@ -3,6 +3,7 @@
 //= require collapsible
 //= require gmaps4rails/googlemaps.js
 //= require jquery.tablesorter.min
+//= require ckeditor-jquery
 //= require angular
 //= require ./angular/app
 //= require_self
