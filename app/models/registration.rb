@@ -164,10 +164,10 @@ class Registration < ActiveRecord::Base
     read_attribute(:lang) || 'en'
   end
 
-  def send_email(type)
+  def send_email(type, options = {})
     template = event.email(type, lang)
     if template
-      Notifier.registration_with_template(self, template).deliver
+      Notifier.registration_with_template(self, template, options).deliver
     else
       logger.warn "no email template found: [#{event_name}, #{type}, #{lang}]"
     end

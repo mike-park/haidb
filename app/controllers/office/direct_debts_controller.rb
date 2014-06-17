@@ -24,7 +24,7 @@ class Office::DirectDebtsController < Office::ApplicationController
 
   def send_emails
     @direct_debt.checked_registrations.each do |reg|
-      reg.send_email(EventEmail::UPCOMING_DIRECT_DEBIT)
+      reg.send_email(EventEmail::UPCOMING_DIRECT_DEBIT, from: current_staff.email)
     end
     flash[:notice] = "#{@direct_debt.checked_registrations.length} emails sent"
   end
