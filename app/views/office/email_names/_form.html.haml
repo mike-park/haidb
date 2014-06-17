@@ -10,6 +10,12 @@
     %dd The auto-assigned registration code. This is only available in confirmation emails.
     %dt= "{{cost}}"
     %dd The cost assigned to this registration. ie 110.00 €
+    %dt= "{{account_name}}"
+    %dd Bank account name
+    %dt= "{{iban}}"
+    %dd IBAN
+    %dt= "{{bic}}"
+    %dd BIC
 
 = vertical_form([:office, @email_name]) do |f|
   = f.input :name
