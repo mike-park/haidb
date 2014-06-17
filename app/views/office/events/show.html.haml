@@ -9,5 +9,3 @@
   = render 'event', event: @event
   - if @event.audits.any?
     = render 'office/shared/audits', audits: @event.audits.descending
-
-  = render 'event_emails', event: @event

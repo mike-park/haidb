@@ -21,3 +21,9 @@
     %tr
       %th Team Cost
       %td= local_currency event.team_cost
+    - EventEmail::CATEGORIES.each do |category|
+      - event_email = event.find_event_email(category)
+      - if event_email && event_email.email_name
+        %tr
+          %th= category
+          %td= link_to(event_email.email_name.name, [:office, event_email.email_name])
