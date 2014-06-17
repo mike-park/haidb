@@ -21,7 +21,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: haidb_production
+  database: haidb_development
   pool: 5
   username:
   password:
