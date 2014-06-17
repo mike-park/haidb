@@ -1,8 +1,8 @@
 class EventEmail < ActiveRecord::Base
-  SIGNUP = "Signup"
-  PENDING = "Pending"
-  APPROVED = "Approved"
-  CATEGORIES = [SIGNUP, PENDING, APPROVED]
+  SIGNUP = 'Signup'
+  PENDING = 'Pending'
+  APPROVED = 'Approved'
+  CATEGORIES = [SIGNUP, PENDING, APPROVED, UPCOMING_DIRECT_DEBIT='Upcoming Direct Debit']
 
   belongs_to :email_name
   belongs_to :event
