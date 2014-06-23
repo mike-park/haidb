@@ -45,10 +45,12 @@ describe Notifier do
         ['de', '1,23 €'],
         ['uk', '£1.23']
     ].each do |(site, cost)|
-      it "should have #{site} #{cost}" do
-        Site.stub(:name).and_return(site)
-        expect(subject.subject).to eq(cost)
-        expect(subject.body).to eq(cost)
+      context "site #{site}" do
+        before do
+          Site.stub(:name).and_return(site)
+        end
+        its(:subject) { should eq cost}
+        its(:body) { should eq cost}
       end
     end
 
@@ -65,8 +67,16 @@ describe Notifier do
       context "#{name} interpolation" do
         let(:email) { FactoryGirl.build(:en_email, :subject => "subject {{#{liquid_name}}}", body: "body {{#{liquid_name}}}") }
         its(:subject) { should match("subject #{registration.send(name)}") }
-        its(:encoded) { should match("body #{registration.send(name)}") }
+        its(:body) { should match("body #{registration.send(name)}") }
       end
     end
+  end
+
+  context 'option interpolation' do
+    let(:foo) { 'foo' }
+    let(:options) { {foo: foo} }
+    let(:email) { FactoryGirl.build(:en_email, subject: '{{foo}}', body: '{{foo}}') }
+    its(:subject) { should eq foo}
+    its(:body) { should eq foo}
   end
 end
