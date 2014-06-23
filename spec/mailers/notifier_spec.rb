@@ -79,4 +79,12 @@ describe Notifier do
     its(:subject) { should eq foo}
     its(:body) { should eq foo}
   end
+
+  context 'empty bank account name' do
+    let(:registration) { FactoryGirl.build(:registration, first_name: 'Mike', last_name: 'Park',
+                                           bank_account_name: '') }
+    let(:email) { FactoryGirl.build(:en_email, subject: '{{account_name}}', body: '{{account_name}}') }
+    its(:subject) { should eq 'Mike Park'}
+    its(:body) { should eq 'Mike Park'}
+  end
 end
