@@ -1,5 +1,5 @@
 .row
-  .col-lg-8
+  .col-md-12
     - Registration::ROLES.each do |role|
       - Registration::STATUSES.reverse.each do |status|
         - registrations = event.registrations.where_role(role).where_status(status).by_first_name

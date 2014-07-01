@@ -8,16 +8,14 @@
         %th How Hear
         %th Prev. Event
         %th Highest Level:
-        %th Where
-        %th When
+        %th Where / When
     %tbody
       - registrations.by_first_name.each do |r|
         %tr
           %td.name= link_to(r.full_name, office_registration_path(r))
           %td.center= r.gender.first
-          %td= local_date(r.created_at.to_date)
+          %td= localize(r.created_at.to_date, format: :sortable)
           %td= r.how_hear
           %td= r.previous_event
           %td= r.highest_level
-          %td= r.highest_location
-          %td= r.highest_date
+          %td= [r.highest_location, r.highest_date].reject(&:blank?).join(" ")

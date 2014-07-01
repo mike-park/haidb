@@ -66,6 +66,7 @@ en:
   date:
     formats:
       default: "%d.%m.%Y"
+      sortable: "%Y-%m-%d"
   activerecord:
     errors:
       messages:
