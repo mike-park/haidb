@@ -67,8 +67,8 @@ gem 'liquid'
 gem 'audited', github: 'mike-park/audited', branch: 'rails4'
 gem 'audited-activerecord', github: 'mike-park/audited', branch: 'rails4'
 
-# hoptoad error reporting
-gem 'hoptoad_notifier'
+# error reporting
+gem 'airbrake'
 
 # pagination
 gem 'will_paginate-bootstrap'
