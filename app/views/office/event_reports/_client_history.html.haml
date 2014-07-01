@@ -1,9 +1,10 @@
 .table-responsive
-  %table.table.table-striped
+  %table.table.table-striped.tablesorter
     %thead
       %tr
         %th.name Name
         %th Gender
+        %th Reg Date
         %th How Hear
         %th Prev. Event
         %th Highest Level:
@@ -14,6 +15,7 @@
         %tr
           %td.name= link_to(r.full_name, office_registration_path(r))
           %td.center= r.gender.first
+          %td= local_date(r.created_at.to_date)
           %td= r.how_hear
           %td= r.previous_event
           %td= r.highest_level
