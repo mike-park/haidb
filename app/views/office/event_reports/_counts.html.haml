@@ -1,13 +1,14 @@
 - r = event.registrations
 .row
   .col-xs-12
-    = render 'gender_statistic', label: 'Approved', scope: r.approved
-    = render 'gender_statistic', label: 'Pending', scope: r.pending
-    = render 'gender_statistic', label: 'Wait Listed', scope: r.waitlisted
-    = render 'gender_statistic', label: 'Participants', scope: r.participants
-    = render 'gender_statistic', label: 'Team', scope: r.team
+    = render 'gender_statistic', label: 'Total Approved', scope: r.approved
+    = render 'gender_statistic', label: 'Approved Participants', scope: r.participants
+    = render 'gender_statistic', label: 'Pending Participants', scope: r.pending.where_role(Registration::PARTICIPANT)
+    = render 'gender_statistic', label: 'Wait Listed Participants', scope: r.waitlisted.where_role(Registration::PARTICIPANT)
+    = render 'gender_statistic', label: 'Approved Team', scope: r.team
 
-    = render 'statistic', label: 'Backjack Rentals', count: r.backjack_rentals.count
-    = render 'statistic', label: 'Sunday Stayovers', count: r.sunday_stayovers.count
-    = render 'statistic', label: 'Sunday Meals', count: r.sunday_meals.count
-    = render 'statistic', label: 'Special Diets', count: r.special_diets.count
+    .clearfix
+    = render 'statistic', label: 'Backjack Rentals', count: r.approved.backjack_rentals.count
+    = render 'statistic', label: 'Sunday Stayovers', count: r.approved.sunday_stayovers.count
+    = render 'statistic', label: 'Sunday Meals', count: r.approved.sunday_meals.count
+    = render 'statistic', label: 'Special Diets', count: r.approved.special_diets.count
