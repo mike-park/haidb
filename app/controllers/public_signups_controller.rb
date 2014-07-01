@@ -31,7 +31,7 @@ class PublicSignupsController < ApplicationController
   def public_signup_params
     params.require(:public_signup).
         permit(:terms_and_conditions,
-               registration_attributes: [:event_id, :backjack_rental, :sunday_stayover, :sunday_meal,
+               registration_attributes: [:event_id, :role, :backjack_rental, :sunday_stayover, :sunday_meal,
                                          :sunday_choice, :lift, :payment_method, :iban, :bank_account_name,
                                          :bank_name, :bic, :notes, :how_hear, :previous_event, :first_name,
                                          :last_name, :gender, :address, :postal_code, :city, :country,
