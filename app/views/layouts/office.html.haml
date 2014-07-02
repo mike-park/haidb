@@ -6,12 +6,12 @@
     - if (count = PublicSignup.pending.count) > 0
       %li
         = link_to(office_public_signups_path) do
-          Pending
+          %span.nav-label Pending
           %span.badge= count
     - if (count = PublicSignup.waitlisted.count) > 0
       %li
         = link_to(waitlisted_office_public_signups_path) do
-          Wait Listed
+          %span.nav-label Wait Listed
           %span.badge= count
 
 = render 'layouts/layout'
