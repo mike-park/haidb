@@ -16,7 +16,12 @@ namespace :haidb do
   namespace :audit do
     desc "Trim audit log"
     task trim: :environment do
-      Audit.where(action: %w(create update)).where('created_at < ?', Date.today - 6.months).delete_all
+      Audited::Adapters::ActiveRecord::Audit.where(action: %w(create update)).where('created_at < ?', Date.today - 6.months).delete_all
     end
+  end
+
+  namespace :background do
+    desc 'Perform daily cleanup'
+    task daily: %w(angels:merge memberships:recalc audit:trim)
   end
 end
