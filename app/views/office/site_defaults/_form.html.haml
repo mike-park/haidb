@@ -4,7 +4,7 @@
       = k.input :key
     = f.input :description
   - else
-    = site_default.description
+    = @site_default.description
 
   = f.simple_fields_for :translation_key do |k|
     = k.simple_fields_for :translations do |t|
