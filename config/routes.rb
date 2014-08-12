@@ -44,6 +44,7 @@ Rails.application.routes.draw do
           get 'site'
           get 'bank'
           get 'client_history'
+          get 'email'
           get 'status'
           get 'checklist'
           get 'roster'
@@ -86,7 +87,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :messages, only: [:new, :create]
+    resources :messages, only: [:index, :new, :create, :show]
     resources :email_names
     resources :site_defaults
     resources :registrations do

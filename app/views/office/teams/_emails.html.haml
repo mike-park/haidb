@@ -1,0 +1,9 @@
+.panel.panel-default
+  .panel-heading
+    = controls do |c|
+      - c << message_button(label: 'New Email', source: team, to: team.members.map {|m| m.angel.email })
+    %h4 #{pluralize(team.messages.size, 'Message')}
+
+  - if team.messages.size > 0
+    .panel-body
+      = render team.messages.by_most_recent

@@ -39,6 +39,20 @@ module ButtonHelper
     button_with_options(:registrations, options)
   end
 
+  def message_button(options = {})
+    to_list = Array(options[:to]).join(', ') if options[:to]
+    bcc_list = Array(options[:bcc]).join(', ') if options[:bcc]
+    if options[:source]
+      source_type = options[:source].class
+      source_id = options[:source].id
+    end
+    options[:label] ||= 'Email'
+    options[:icon] ||= 'glyphicon glyphicon-envelope'
+    options[:path] ||= new_office_message_path(to_list: to_list, bcc_list: bcc_list,
+                                               source_id: source_id, source_type: source_type)
+    button_with_options(:message, options)
+  end
+
   def csv_button(options = {})
     options[:label] ||= 'Spreadsheet'
     options[:icon] ||= 'glyphicon glyphicon-th-list'

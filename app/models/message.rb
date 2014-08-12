@@ -1,23 +1,12 @@
-class Message
-  extend ActiveModel::Naming
-  include ActiveModel::Conversion
-  include ActiveModel::Validations
-
-  def persisted?
-    false
-  end
-
+class Message < ActiveRecord::Base
   SEPARATOR = ','
-  ATTRIBUTES = [:subject, :message, :to_list, :cc_list, :bcc_list, :from, :header, :footer]
-  attr_accessor *ATTRIBUTES
+
+  belongs_to :source, polymorphic: true
+  belongs_to :staff
 
   validates_presence_of :subject, :message, :to_list, :from
 
-  def initialize(attrs = {})
-    ATTRIBUTES.each do |name|
-      send("#{name}=", attrs[name]) if attrs.has_key?(name)
-    end
-  end
+  scope :by_most_recent, -> { order("created_at desc") }
 
   def to
     to_list.to_s.split(SEPARATOR)
@@ -29,5 +18,9 @@ class Message
 
   def bcc
     bcc_list.to_s.split(SEPARATOR)
+  end
+
+  def recipients
+    to + cc + bcc
   end
 end

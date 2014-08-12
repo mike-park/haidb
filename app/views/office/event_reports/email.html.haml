@@ -1,0 +1,11 @@
+.panel.panel-default
+  .panel-heading
+    = controls do |c|
+      - c << message_button(source: @event, label: 'Email Team', to: @event.team.map(&:email))
+      - c << message_button(source: @event, label: 'Email Approved', bcc: @event.registrations.approved.map(&:email))
+
+    %h3 Email Messages
+
+  .panel-body
+    .list-group
+      = render @messages

@@ -1,4 +1,6 @@
 = vertical_form([:office, @message]) do |f|
+  = f.input :source_id, as: :hidden
+  = f.input :source_type, as: :hidden
   = f.input :header, as: :hidden
   = f.input :footer, as: :hidden
   = f.input :subject

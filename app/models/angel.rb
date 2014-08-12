@@ -16,6 +16,7 @@ class Angel < ActiveRecord::Base
   has_one :active_membership, -> { where('retired_on IS NULL') }, class_name: 'Membership'
   has_many :events, :through => :registrations
   has_many :users, inverse_of: :angel, dependent: :nullify
+  has_many :messages, as: :source
 
   scope :duplicates_of, ->(angel) {
     where("LOWER(email) = ?", angel.email.downcase).

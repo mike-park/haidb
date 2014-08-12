@@ -15,6 +15,7 @@ class Event < ActiveRecord::Base
   has_many :completed_registrations, -> { where(completed: true) }, class_name: 'Registration'
   has_many :angels, :through => :registrations
   has_many :completed_angels, through: :completed_registrations, source: :angel
+  has_many :messages, as: :source
 
   has_many :event_emails, :dependent => :destroy
   has_many :email_names, -> { distinct }, :through => :event_emails
@@ -78,6 +79,10 @@ class Event < ActiveRecord::Base
 
   def participants
     registrations.participants
+  end
+
+  def team
+    registrations.team
   end
 
   private

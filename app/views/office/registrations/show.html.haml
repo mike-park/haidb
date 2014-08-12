@@ -3,6 +3,7 @@
 .panel.panel-default
   .panel-heading
     = controls do |c|
+      - c << message_button(source: r.angel, to: r.angel.email)
       - c << edit_button
       - (c << map_button(path: map_office_event_report_path(r.event, q: {id_eq: r}))) if r.geocoded?
 

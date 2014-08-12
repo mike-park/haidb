@@ -12,6 +12,16 @@
   .panel.panel-default
     .panel-heading
       = controls do |c|
+        - c << message_button(label: 'New Email', source: @angel, to: @angel.email)
+      %h4 #{pluralize(@angel.messages.size, 'Message')}
+
+    - if @angel.messages.size > 0
+      .panel-body
+        = render @angel.messages.by_most_recent
+
+  .panel.panel-default
+    .panel-heading
+      = controls do |c|
         - c << new_button(label: 'New Membership', path: new_office_angel_membership_path(@angel))
       %h4 #{pluralize(@angel.memberships.size, 'Membership')}
 

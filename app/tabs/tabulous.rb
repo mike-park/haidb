@@ -90,6 +90,14 @@ Tabulous.setup do
       active_when { false }
     end
 
+    office_messages_tab do
+      text { 'Messages' }
+      link_path { office_messages_path }
+      visible_when { true }
+      enabled_when { true }
+      active_when { in_action('any').of_controller('office/messages') }
+    end
+
     office_events_tab do
       text { 'Events' }
       link_path {  }
@@ -133,6 +141,7 @@ Tabulous.setup do
     [[:list_icon, 'Bank', :bank_office_event_report_path],
      [:list_icon, 'Direct Debt', :new_office_event_direct_debt_path],
      [:list_icon, 'Checklist', :checklist_office_event_report_path],
+     [:list_icon, 'Email', :email_office_event_report_path],
      [:list_icon, 'History', :client_history_office_event_report_path],
      [:map_icon,  'Map', :map_office_event_report_path],
      [:list_icon, 'Payment', :payment_office_event_report_path],

@@ -1,0 +1,30 @@
+.panel.panel-default
+  .panel-heading
+    %h3= @message.subject
+
+  .panel-body
+    %table.table.table-key-values
+      %tbody
+        %tr
+          %th Creator
+          %td= @message.staff.email if @message.staff
+        %tr
+          %th Source
+          %td= link_to(@message.source.display_name, [:office, @message.source]) if @message.source
+        %tr
+          %th When
+          %td= time_ago_in_words(@message.created_at)
+        %tr
+          %th From
+          %td= @message.from
+        %tr
+          %th To
+          %td= @message.to_list
+        %tr
+          %th Cc
+          %td= @message.cc_list
+        %tr
+          %th Bcc
+          %td= @message.bcc_list
+        %tr
+          %td{colspan: 2}= raw @message.message

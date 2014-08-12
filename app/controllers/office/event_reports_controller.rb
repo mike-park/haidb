@@ -22,6 +22,10 @@ class Office::EventReportsController < Office::ApplicationController
     standard_response(csv_fields)
   end
 
+  def email
+    @messages = event.messages.by_most_recent
+  end
+
   def payment
     csv_fields = [:role, :status, :full_name, :email, :cost, :paid, :owed, :notes]
     standard_response(csv_fields)

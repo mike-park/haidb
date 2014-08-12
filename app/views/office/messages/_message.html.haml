@@ -1,0 +1,5 @@
+- text_body = strip_tags(message.message)
+= link_to([:office, message], class: 'list-group-item message', title: text_body) do
+  .when= time_ago_in_words(message.created_at)
+  .subject= message.subject
+  .to= message.recipients.join(', ')
