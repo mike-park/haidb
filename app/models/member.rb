@@ -10,17 +10,24 @@ class Member < ActiveRecord::Base
   scope :males, -> { where(gender: Registration::MALE).order('id asc') }
   scope :females, -> { where(gender: Registration::FEMALE).order('id asc') }
   scope :by_name, -> { order('full_name asc') }
+  scope :excluding_facilitators, -> { where("role IS NULL OR role <> '#{FACILITATOR}'")}
 
-  ROLES = [TEAMCO="TeamCo", TRANSLATOR="Translator"]
+  ROLES = [TEAMCO='TeamCo', TRANSLATOR='Translator',FACILITATOR=Registration::FACILITATOR]
 
   delegate :team_cost, to: :membership
 
   def assign_to(event)
     registration = Registration.new_from(angel)
     registration.update_attributes(event_id: event.id,
-                                   role: Registration::TEAM,
+                                   role: registration_role,
                                    status: Registration::APPROVED,
                                    cost: team_cost)
     registration
+  end
+
+  private
+
+  def registration_role
+    Registration::ROLES.include?(role) ? role : Registration::TEAM
   end
 end

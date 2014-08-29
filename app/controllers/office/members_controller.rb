@@ -64,6 +64,7 @@ class Office::MembersController < Office::ApplicationController
     member.full_name = angel.full_name
     member.gender = angel.gender
     member.status = member.membership.status
+    member.role = member.membership.default_role
   end
 
   def team
