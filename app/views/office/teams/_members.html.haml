@@ -7,3 +7,10 @@
     .team-member.list-group
       = render 'quick_add', team: @team, gender: Registration::MALE
       = render members.males
+.row
+  .col-xs-12
+    %h6{data: {collapsible: true}}  Names
+    %p
+      - members.by_name.each do |member|
+        = member.full_name
+        %br

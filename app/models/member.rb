@@ -9,6 +9,7 @@ class Member < ActiveRecord::Base
 
   scope :males, -> { where(gender: Registration::MALE).order('id asc') }
   scope :females, -> { where(gender: Registration::FEMALE).order('id asc') }
+  scope :by_name, -> { order('full_name asc') }
 
   ROLES = [TEAMCO="TeamCo", TRANSLATOR="Translator"]
 
