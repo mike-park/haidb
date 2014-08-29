@@ -1,6 +1,10 @@
 class MemberDecorator < Draper::Decorator
   delegate :full_name, :role, :notes, :team, :id
 
+  def summary
+    [status, notes].compact.join('. ')
+  end
+
   def status
     object.status unless object.status == Membership::EXPERIENCED
   end

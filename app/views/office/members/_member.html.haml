@@ -3,9 +3,9 @@
   %td.created-at= member.created_at
   %td.name
     = link_to(member.full_name, [:edit, :office, member.team, member])
-    - if member.notes.present?
+    - if member.summary
       %br
-      %span.notes= member.notes
+      %span.summary= member.summary
   %td= member.gender
   %td= member.last_team_date
   %td= member.total_on_team
