@@ -14,7 +14,6 @@
       = controls do |c|
         - c << message_button(label: 'New Email', source: @angel, to: @angel.email)
       %h4 #{pluralize(@angel.messages.size, 'Message')}
-
     - if @angel.messages.size > 0
       .panel-body
         = render @angel.messages.by_most_recent
@@ -24,17 +23,22 @@
       = controls do |c|
         - c << new_button(label: 'New Membership', path: new_office_angel_membership_path(@angel))
       %h4 #{pluralize(@angel.memberships.size, 'Membership')}
-
     - if @angel.memberships.size > 0
       .panel-body
         = render 'memberships', memberships: @angel.memberships
+
+  - if @angel.teams.upcoming.size > 0
+    .panel.panel-default
+      .panel-heading
+        %h4 #{pluralize(@angel.teams.upcoming.size, 'upcoming team signup')}
+      .panel-body
+        = render 'teams', teams: @angel.teams.upcoming.by_date
 
   .panel.panel-default
     .panel-heading
       = controls do |c|
         - c << new_button(label: 'New Registration', path: new_office_angel_registration_path(@angel))
-      %h4 #{pluralize(@angel.registrations.size, 'registration')}
-
+      %h4 #{pluralize(@angel.registrations.size, 'workshop registration')}
     - if @angel.registrations.size > 0
       .panel-body
         = render 'registrations', registrations: @angel.registrations

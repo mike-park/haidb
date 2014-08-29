@@ -13,6 +13,7 @@ class Angel < ActiveRecord::Base
   has_many :registrations, :inverse_of => :angel, dependent: :nullify
   has_many :memberships, inverse_of: :angel, dependent: :destroy
   has_many :members, inverse_of: :angel
+  has_many :teams, through: :members
   has_one :active_membership, -> { where('retired_on IS NULL') }, class_name: 'Membership'
   has_many :events, :through => :registrations
   has_many :users, inverse_of: :angel, dependent: :nullify

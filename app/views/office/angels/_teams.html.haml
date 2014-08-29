@@ -1,0 +1,5 @@
+.list-group
+  - teams.upcoming.each do |team|
+    = link_to(office_team_path(team), class: 'list-group-item') do
+      %p
+        %span.size-h4= team.name
