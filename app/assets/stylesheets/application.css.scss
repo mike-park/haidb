@@ -160,10 +160,10 @@ body {
 }
 
 .team-member {
-  .role {
-    font-weight: bold;
+  .created-at {
+    white-space: nowrap;
   }
-  .summary {
+  .notes {
     font-style: italic;
     font-size: smaller;
   }

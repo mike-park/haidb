@@ -2,11 +2,24 @@
   .col-md-6
     .team-member.list-group
       = render 'quick_add', team: @team, gender: Registration::FEMALE
-      = render members.females
   .col-md-6
     .team-member.list-group
       = render 'quick_add', team: @team, gender: Registration::MALE
-      = render members.males
+
+.table-responsive
+  %table.table.table-striped.tablesorter
+    %thead
+      %tr
+        %th Reg Date
+        %th.name Name
+        %th Gender
+        %th Last Team
+        %th Count Team
+        %th Role
+        %th Highest Level
+    %tbody
+      = render members.by_name
+
 .row
   .col-xs-12
     %h6{data: {collapsible: true}}  Names
