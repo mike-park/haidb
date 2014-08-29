@@ -21,7 +21,7 @@ class TeamStats
   end
 
   def team_totals
-    tt = total_for(@team.members)
+    tt = total_for(@team.members.excluding_facilitators)
     tt[:desired] = @team.desired_size || 0
     tt[:delta] = tt[:total] - tt[:desired]
     tt.merge!(word_counts(@team.members.map(&:status).compact))
