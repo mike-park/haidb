@@ -7,15 +7,14 @@ class Membership < ActiveRecord::Base
   belongs_to :angel
   has_many :members, inverse_of: :membership
 
-  store :options, accessors: []
+  store :options, accessors: [:default_role]
 
   # AWS = only AWS
   # Preliminary = Still in tryout phase
   # Novice = Accepted and less than X workshops
   # Experienced = >= X workshops
-  # TeamCo = duh
-  STATUSES = [AWS='AWS/TWS', PRELIMINARY='Preliminary', NOVICE='Novice', EXPERIENCED='Experienced', TEAMCO='TeamCo',
-              FACILITATOR='Facilitator']
+  STATUSES = [AWS='AWS/TWS', PRELIMINARY='Preliminary', NOVICE='Novice', EXPERIENCED='Experienced']
+  ROLES = Member::ROLES
 
   scope :active, lambda { where(retired_on: nil) }
   scope :retired, lambda { where('retired_on IS NOT NULL') }
@@ -26,6 +25,9 @@ class Membership < ActiveRecord::Base
   validates_presence_of :angel, :active_on
   validates_inclusion_of :status, {
       :in => STATUSES, :message => :select
+  }
+  validates_inclusion_of :default_role, {
+      :in => ROLES, :message => :select, allow_blank: true, allow_nil: true
   }
   validates_uniqueness_of :angel_id, scope: :retired_on, message: 'Already has an active membership',
                           if: lambda { |m| m.retired_on.nil? }
@@ -65,7 +67,7 @@ class Membership < ActiveRecord::Base
   end
 
   def on_team
-    registrations.completed.team.by_start_date
+    registrations.completed.hai_workshops.non_participants.by_start_date
   end
 
   def team_workshops

@@ -13,6 +13,10 @@ module Office::MembershipsHelper
     { :as => :radio_buttons, :collection => Membership::STATUSES }
   end
 
+  def options_for_membership_default_role(form)
+    { :collection => Membership::ROLES }
+  end
+
   def registration_counts_by_milestones(registrations, milestones)
     dates = registrations.map(&:start_date)
     today = Date.current

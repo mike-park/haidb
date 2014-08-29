@@ -1,6 +1,7 @@
 = vertical_form([:office, @membership]) do |f|
   = f.association :angel, options_for_angel_select(f)
   = f.input :status, options_for_membership_status(f)
+  = f.input :default_role, options_for_membership_default_role(f)
   = f.input :active_on, :as => :string, input_html: {class: 'date-pick'}, :format => '%d.%m.%Y'
   = f.input :retired_on, :as => :string, input_html: {class: 'date-pick'}, :format => '%d.%m.%Y' if @membership.persisted?
   = f.input :participant_cost

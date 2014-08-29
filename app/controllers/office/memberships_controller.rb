@@ -55,7 +55,7 @@ class Office::MembershipsController < Office::ApplicationController
   private
 
   def membership_params
-    params.require(:membership).permit(:angel_id, :status, :active_on, :retired_on, :participant_cost, :team_cost, :notes)
+    params.require(:membership).permit(:angel_id, :default_role, :status, :active_on, :retired_on, :participant_cost, :team_cost, :notes)
   end
 
   def angels
