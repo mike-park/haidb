@@ -7,7 +7,9 @@
       - c << edit_button
       - (c << map_button(path: map_office_event_report_path(r.event, q: {id_eq: r}))) if r.geocoded?
 
-    %h3= r.full_name
+    %h3
+      = r.full_name
+      = link_to(r.event.display_name, office_event_path(r.event))
 
   .panel-body
     = render r
