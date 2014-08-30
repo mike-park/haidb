@@ -18,13 +18,14 @@ module Office::MembershipsHelper
   end
 
   def registration_counts_by_milestones(registrations, milestones)
-    dates = registrations.map(&:start_date)
+    dates = registrations.map {|r| [r.start_date, r.event_name]}
     today = Date.current
     milestones = milestones.map {|m| today - m }
     milestones.map do |milestone|
-      found = dates.find_all { |d| d >= milestone }
+      found = dates.find_all { |d| d[0] >= milestone }
       dates -= found
-      td_colorize(found.length, 'center')
+      title = found.map(&:second).join(', ')
+      td_colorize(found.length, class: 'center', title: title)
     end.join("").html_safe
   end
 end

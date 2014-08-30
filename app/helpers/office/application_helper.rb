@@ -90,10 +90,11 @@ module Office::ApplicationHelper
     icon(name) + " #{label}"
   end
 
-  def td_colorize(count, extra_class = '')
-    color = count > 0 ? 'dot-green' : 'dot-red'
-    css_class = "#{extra_class} #{color}"
-    content_tag(:td, count, class: css_class)
+  def td_colorize(count, options = {})
+    color = count > 0 ? ' dot-green' : ' dot-red'
+    options[:class] ||= ''
+    options[:class] += color
+    content_tag(:td, count, options)
   end
 end
 
