@@ -9,11 +9,10 @@ class Membership < ActiveRecord::Base
 
   store :options, accessors: [:default_role]
 
-  # AWS = only AWS
-  # Preliminary = Still in tryout phase
+  # Provisional = Still in tryout phase
   # Novice = Accepted and less than X workshops
   # Experienced = >= X workshops
-  STATUSES = [AWS='AWS/TWS', PRELIMINARY='Preliminary', NOVICE='Novice', EXPERIENCED='Experienced']
+  STATUSES = [PROVISIONAL='Provisional', NOVICE='Novice', EXPERIENCED='Experienced']
   ROLES = Member::ROLES
 
   scope :active, lambda { where(retired_on: nil) }
@@ -50,12 +49,14 @@ class Membership < ActiveRecord::Base
     most_recent_membership.save!
   end
 
-  def self.recalc_status
-    active.select(&:recalc_status)
+  def self.upgrade_memberships
+    active.select(&:upgrade_membership)
   end
 
-  def recalc_status
-    UpgradeMembership.new(self).invoke
+  def upgrade_membership
+    if status == NOVICE && on_team > 4
+      update_attribute(:status, EXPERIENCED)
+    end
   end
 
   def full_name_with_context

@@ -65,15 +65,27 @@ describe Membership do
     end
   end
 
-  context "self.recalc_status" do
-    let(:membership1) { double("membership1", recalc_status: true) }
-    let(:membership2) { double("membership2", recalc_status: false) }
-    let(:memberships) { [membership1, membership2]}
-    before do
-      Membership.stub(:active).and_return(memberships)
+
+  context "upgrade_membership" do
+    it "should upgrade all active memberships" do
+      m = double('membership')
+      Membership.stub(:active).and_return([m, m])
+      m.should_receive(:upgrade_membership).exactly(2)
+      Membership.upgrade_memberships
     end
-    it "should return changed memberships" do
-      expect(Membership.recalc_status).to eq([membership1])
+
+    it "should not change provisional status" do
+      membership = FactoryGirl.build(:membership, status: Membership::PROVISIONAL)
+      expect { membership.upgrade_membership }.to_not change(membership, :status)
+    end
+
+    it "should upgrade novice to experienced after 4 events" do
+      membership = FactoryGirl.build(:membership, status: Membership::NOVICE)
+      membership.stub(:on_team).and_return(4)
+      expect { membership.upgrade_membership }.to_not change(membership, :status)
+      membership.stub(:on_team).and_return(5)
+      expect { membership.upgrade_membership }.to change(membership, :status)
+      expect(membership.status).to eq(Membership::EXPERIENCED)
     end
   end
 end

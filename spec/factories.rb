@@ -139,7 +139,7 @@ FactoryGirl.define do
 
   factory :membership do
     angel
-    status Membership::AWS
+    status Membership::NOVICE
     active_on { Date.yesterday }
   end
 
