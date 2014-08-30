@@ -9,7 +9,7 @@ namespace :haidb do
   namespace :memberships do
     desc 'Recalc membership status'
     task recalc: :environment do
-      Membership.recalc_status
+      Membership.upgrade_memberships
     end
   end
 
