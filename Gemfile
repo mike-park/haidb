@@ -17,6 +17,7 @@ gem 'uglifier', '>= 1.0.3'
 
 gem 'rails-assets-jquery'
 gem 'rails-assets-angular'
+gem 'rails-assets-bootstrap-datepicker'
 # problem with //= require angular-strap/angular-strap.tpl.min
 # config/initializers/angular_strap.rb fixes the problem
 # auto includes rails-assets-bootstrap & rails-assets-jquery

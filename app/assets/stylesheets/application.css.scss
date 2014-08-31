@@ -7,6 +7,7 @@ $font-size-base: 13px;
 @import "pages/*";
 @import "angular/angular-csp";
 @import 'tablesorter';
+@import 'bootstrap-datepicker';
 
 body {
   background-color: #eee;
