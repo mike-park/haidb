@@ -1,0 +1,7 @@
+.row
+  .col-sm-12
+    .form-filter
+      = search_form_for @q, url: url_for, html: {class: 'form form-inline'} do |f|
+        = f.input :category_cont, prompt: 'Category', label: false, required: false, collection: Event::CATEGORIES
+        = f.input :level_eq, placeholder: 'level', label: false, required: false
+        = f.button :submit, 'Filter'

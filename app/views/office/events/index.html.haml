@@ -5,4 +5,5 @@
     %h3 Upcoming #{pluralize(@events.size, 'Event')}
 
   .panel-body
+    = render 'filter'
     = render 'events', events: @events

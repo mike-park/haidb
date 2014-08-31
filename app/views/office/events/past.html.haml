@@ -3,4 +3,5 @@
     %h3 Past #{pluralize(@events.size, 'Event')}
 
   .panel-body
+    = render 'filter'
     = render 'events', events: @events

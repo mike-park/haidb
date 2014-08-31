@@ -1,10 +1,10 @@
 class Office::EventsController < Office::ApplicationController
   def index
-    @events = Event.upcoming
+    @events = filter(Event.upcoming)
   end
 
   def past
-    @events = Event.past
+    @events = filter(Event.past)
   end
 
   def new
@@ -51,6 +51,11 @@ class Office::EventsController < Office::ApplicationController
   end
 
   private
+
+  def filter(scope)
+    @q = scope.search(params[:q])
+    @q.result
+  end
 
   def event_params
     params.require(:event).permit!
