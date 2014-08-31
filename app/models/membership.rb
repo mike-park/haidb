@@ -54,7 +54,7 @@ class Membership < ActiveRecord::Base
   end
 
   def upgrade_membership
-    if status == NOVICE && on_team > 4
+    if status == NOVICE && hai_workshops_team_registrations.count > 4
       update_attribute(:status, EXPERIENCED)
     end
   end
@@ -67,15 +67,15 @@ class Membership < ActiveRecord::Base
     !!retired_on
   end
 
-  def on_team
+  def hai_workshops_team_registrations
     registrations.completed.hai_workshops.non_participants.by_start_date
   end
 
-  def team_workshops
+  def team_workshops_registrations
     registrations.completed.team_workshops.by_start_date
   end
 
-  def on_team_or_team_workshops
-    (on_team + team_workshops).sort.uniq
+  def team_registrations
+    (hai_workshops_team_registrations + team_workshops_registrations).sort.uniq
   end
 end

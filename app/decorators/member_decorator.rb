@@ -17,16 +17,16 @@ class MemberDecorator < Draper::Decorator
     object.gender.first
   end
 
-  def total_on_team
-    object.membership.on_team.count
+  def hai_workshops_on_team_count
+    object.membership.hai_workshops_team_registrations.count
   end
 
   def highest_level
     object.angel.highest_level if team.event.level && object.angel.highest_level < team.event.level
   end
 
-  def last_team_date
-    registration = object.membership.on_team.first
+  def most_recent_on_team_date
+    registration = object.membership.hai_workshops_team_registrations.first
     h.time_ago_in_words(registration.start_date) if registration
   end
 end

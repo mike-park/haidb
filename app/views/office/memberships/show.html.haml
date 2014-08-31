@@ -14,14 +14,14 @@
     .panel-heading
       = controls do |c|
         - c << new_button(label: 'New Registration', path: new_office_angel_registration_path(@membership.angel))
-      %h4 Team #{pluralize(@membership.on_team.length, 'registration')}
+      %h4 Team #{pluralize(@membership.hai_workshops_team_registrations.size, 'registration')}
 
-    - if @membership.on_team.any?
-      = render 'registrations', :registrations => @membership.on_team
+    - if @membership.hai_workshops_team_registrations.any?
+      = render 'registrations', :registrations => @membership.hai_workshops_team_registrations
 
   .panel.panel-default
     .panel-heading
-      %h4 AWS/TWS #{pluralize(@membership.team_workshops.length, 'registration')}
+      %h4 AWS/TWS #{pluralize(@membership.team_workshops_registrations.size, 'registration')}
 
-    - if @membership.team_workshops.any?
-      = render 'registrations', :registrations => @membership.team_workshops
+    - if @membership.team_workshops_registrations.any?
+      = render 'registrations', :registrations => @membership.team_workshops_registrations

@@ -5,14 +5,14 @@ describe Membership do
   context "validations" do
     it 'should not allow two active memberships' do
       I18n.locale = :en
-      membership = FactoryGirl.create(:membership)
-      membership = FactoryGirl.build(:membership, angel: membership.angel, status: Membership::STATUSES.first)
+      membership = create(:membership)
+      membership = build(:membership, angel: membership.angel, status: Membership::STATUSES.first)
       expect { membership.save! }.to raise_exception(ActiveRecord::RecordInvalid, /Already has an active membership/)
     end
 
     it 'should allow memberships with 1 active' do
-      membership = FactoryGirl.create(:membership, retired_on: Date.current)
-      membership = FactoryGirl.build(:membership, angel: membership.angel, status: Membership::STATUSES.first)
+      membership = create(:membership, retired_on: Date.current)
+      membership = build(:membership, angel: membership.angel, status: Membership::STATUSES.first)
       expect(membership.save!).to be_true
     end
   end
@@ -75,15 +75,15 @@ describe Membership do
     end
 
     it "should not change provisional status" do
-      membership = FactoryGirl.build(:membership, status: Membership::PROVISIONAL)
+      membership = build(:membership, status: Membership::PROVISIONAL)
       expect { membership.upgrade_membership }.to_not change(membership, :status)
     end
 
     it "should upgrade novice to experienced after 4 events" do
-      membership = FactoryGirl.build(:membership, status: Membership::NOVICE)
-      membership.stub(:on_team).and_return(4)
+      membership = build(:membership, status: Membership::NOVICE)
+      membership.stub(:hai_workshops_team_registrations).and_return(build_list(:registration, 4))
       expect { membership.upgrade_membership }.to_not change(membership, :status)
-      membership.stub(:on_team).and_return(5)
+      membership.stub(:hai_workshops_team_registrations).and_return(build_list(:registration, 5))
       expect { membership.upgrade_membership }.to change(membership, :status)
       expect(membership.status).to eq(Membership::EXPERIENCED)
     end

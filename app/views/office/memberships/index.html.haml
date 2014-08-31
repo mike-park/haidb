@@ -24,10 +24,10 @@
           -#%th Team Workshops
           -#%th
       %tbody
-        - @memberships.each do |member|
+        - @memberships.each do |membership|
           %tr
-            %td= link_to(member.full_name, office_membership_path(member))
-            %td= member.status
-            %td.center= member.highest_level
-            %td.qty= member.on_team.size
-            = registration_counts_by_milestones(member.on_team_or_team_workshops, [6.months, 12.months, 18.months, 2.years, 3.years, 4.years])
+            %td= link_to(membership.full_name, office_membership_path(membership))
+            %td= membership.status
+            %td.center= membership.highest_level
+            %td.qty= membership.hai_workshops_team_registrations.size
+            = registration_counts_by_milestones(membership.team_registrations, [6.months, 12.months, 18.months, 2.years, 3.years, 4.years])
