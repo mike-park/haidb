@@ -54,7 +54,7 @@ class Registration < ActiveRecord::Base
   belongs_to :event, :inverse_of => :registrations
   belongs_to :public_signup, :inverse_of => :registration
 
-  scope :hai_workshops, -> { includes(:event).where('events.level >= 1') }
+  scope :hai_workshops, -> { includes(:event).where('events.category = ?', Event::LIS) }
   scope :where_status, ->(status) { where(status: status) }
   scope :approved, -> { where_status(APPROVED) }
   scope :pending, -> { where_status(PENDING) }
