@@ -4,17 +4,9 @@
   .panel-heading
     %h4 Contact Information
 
-  %table.table.table-key-values
+  %table.detail
     %tbody
-      %tr
-        %th Name
-        %td= r.angel ? link_to_angel(r.angel) : r.full_name
-      %tr
-        %th Email
-        %td= r.email
-      %tr
-        %th Phones
-        %td= simple_format(compact_phones(r), {}, sanitize: false)
-      %tr
-        %th Address
-        %td= simple_format(compact_address(r))
+      = tr_field('Name', r.angel ? link_to_angel(r.angel) : r.full_name)
+      = tr_field('Email', r.email)
+      = tr_field('Phones', simple_format(compact_phones(r), {}, sanitize: false))
+      = tr_field('Address', simple_format(compact_address(r)))

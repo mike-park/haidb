@@ -2,20 +2,6 @@
   .panel-heading
     %h4 Staff Information
 
-  %table.table.table-key-values
+  %table.detail
     %tbody
-      %tr
-        %th Room
-        %td= registration.room
-      %tr
-        %th Clothing Conversation
-        %td= registration.clothing_conversation
-      %tr
-        %th Fee Received
-        %td= registration.reg_fee_received
-      %tr
-        %th Status
-        %td= registration.status
-      %tr
-        %th Completed
-        %td= registration.completed
+      = tr_fields(registration, :room, :clothing_conversation, :reg_fee_received, :status, :completed, :created_at, :updated_at)

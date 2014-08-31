@@ -8,31 +8,15 @@
 
     %h4 Payment Information
 
-  %table.table.table-key-values
+  %table.detail
     %tbody
-      %tr
-        %th Method
-        %td= r.payment_method
-      %tr
-        %th Account Name
-        %td= [r.bank_account_name, r.bank_name].compact.join(' / ')
-      %tr
-        %th IBAN
-        %td= r.iban
-      %tr
-        %th BIC
-        %td= r.bic
-      %tr
-        %th Code
-        %td= r.registration_code
-      %tr
-        %th Cost
-        %td= local_currency r.cost
-      %tr
-        %th Paid
-        %td= local_currency r.paid
-      %tr
-        %th Owes
-        %td= local_currency r.owed
+      = tr_field('Method', r.payment_method)
+      = tr_field('Account Name', [r.bank_account_name, r.bank_name].compact.join(' / '))
+      = tr_field('IBAN', r.iban)
+      = tr_field('BIC', r.bic)
+      = tr_field('Code', r.registration_code)
+      = tr_field('Cost', local_currency(r.cost))
+      = tr_field('Paid', local_currency(r.paid))
+      = tr_field('Owes', local_currency(r.owed))
 
   = render 'office/payments/payments', payments: registration.payments if registration.payments.any?
