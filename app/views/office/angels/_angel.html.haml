@@ -1,28 +1,8 @@
-%table.table.table-key-values
+%table.detail
   %tbody
-    %tr
-      %th Name
-      %td
-        = angel.full_name
-        = angel_icon(angel)
-    %tr
-      %th Gender
-      %td= angel.gender
-    %tr
-      %th Email
-      %td= angel.email
-    %tr
-      %th Phones
-      %td= simple_format(compact_phones(angel), {}, sanitize: false)
-    %tr
-      %th Address
-      %td= simple_format(compact_address(angel))
-    %tr
-      %th Payment
-      %td= compact_payment(angel)
-    %tr
-      %th Notes
-      %td= angel.notes
-    %tr
-      %th Highest Level
-      %td= angel.highest_level
+    = tr_field('Name', link_to_angel(angel))
+    = tr_fields(angel, :gender, :email)
+    = tr_field('Phones', simple_format(compact_phones(angel), {}, sanitize: false))
+    = tr_field('Address', simple_format(compact_address(angel)))
+    = tr_field('Payment', compact_payment(angel))
+    = tr_fields(angel, :notes, :highest_level, :created_at, :updated_at)

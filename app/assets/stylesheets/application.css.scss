@@ -38,6 +38,10 @@ body {
   }
 }
 
+.angel-icon {
+  vertical-align: top;
+}
+
 .detail {
   margin: 10px 10px;
 
@@ -46,12 +50,14 @@ body {
     padding-top: 6px;
     padding-right: 5px;
     width: 124px;
+    vertical-align: top;
   }
 
   .detail--sep {
     padding-top: 6px;
     padding-right: 5px;
     width: 5px;
+    vertical-align: top;
   }
 
   .detail--value {
