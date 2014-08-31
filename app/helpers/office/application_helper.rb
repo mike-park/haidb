@@ -96,5 +96,21 @@ module Office::ApplicationHelper
     options[:class] += color
     content_tag(:td, count, options)
   end
+
+  def tr_field(name, value)
+    content_tag(:tr) do
+      content_tag(:td, name, class: 'detail--label') +
+          content_tag(:td, ':', class: 'detail--sep') +
+          content_tag(:td, value, class: 'detail--value')
+    end
+  end
+
+  def tr_fields(object, *fields)
+    output = ''.html_safe
+    fields.each do |field|
+      output += tr_field(field.to_s.humanize, object.send(field))
+    end
+    output
+  end
 end
 

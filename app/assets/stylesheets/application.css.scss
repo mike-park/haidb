@@ -1,5 +1,6 @@
 $header_height: 50px;       // top header
 $reverse:               #fff;
+$font-size-base: 13px;
 
 @import 'bootstrap';
 @import "flatify/flatify";
@@ -34,6 +35,29 @@ body {
     float: none;
     width: 124px;
     margin-left: 0;
+  }
+}
+
+.detail {
+  margin: 10px 10px;
+
+  .detail--label {
+    color: #999;
+    padding-top: 6px;
+    padding-right: 5px;
+    width: 124px;
+  }
+
+  .detail--sep {
+    padding-top: 6px;
+    padding-right: 5px;
+    width: 5px;
+  }
+
+  .detail--value {
+    padding-top: 6px;
+    padding-right: 5px;
+    color: black;
   }
 }
 

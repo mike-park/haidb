@@ -7,26 +7,27 @@
       - c << refresh_button
     %h3= pluralize(@memberships.length, @header)
 
-  %table.table.tablesorter
-    %thead
-      %tr
-        %th Name
-        %th Status
-        %th.center Highest Level
-        %th.qty Total On Team
-        %th.center 6 months
-        %th.center 1 year
-        %th.center 1.5 years
-        %th.center 2 years
-        %th.center 3 years
-        %th.center 4 years
-        -#%th Team Workshops
-        -#%th
-    %tbody
-      - @memberships.each do |member|
+  .table-responsive
+    %table.table.tablesorter
+      %thead
         %tr
-          %td= link_to(member.full_name, office_membership_path(member))
-          %td= member.status
-          %td.center= member.highest_level
-          %td.qty= member.on_team.size
-          = registration_counts_by_milestones(member.on_team_or_team_workshops, [6.months, 12.months, 18.months, 2.years, 3.years, 4.years])
+          %th Name
+          %th Status
+          %th.center Highest Level
+          %th.qty Total On Team
+          %th.center 6 months
+          %th.center 1 year
+          %th.center 1.5 years
+          %th.center 2 years
+          %th.center 3 years
+          %th.center 4 years
+          -#%th Team Workshops
+          -#%th
+      %tbody
+        - @memberships.each do |member|
+          %tr
+            %td= link_to(member.full_name, office_membership_path(member))
+            %td= member.status
+            %td.center= member.highest_level
+            %td.qty= member.on_team.size
+            = registration_counts_by_milestones(member.on_team_or_team_workshops, [6.months, 12.months, 18.months, 2.years, 3.years, 4.years])

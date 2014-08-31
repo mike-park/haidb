@@ -1,26 +1,4 @@
-%table.table.table-key-values
+%table.detail
   %tbody
-    %tr
-      %th Name
-      %td= link_to_angel(membership.angel)
-    %tr
-      %th Default Role
-      %td= membership.default_role
-    %tr
-      %th Status
-      %td= membership.status
-    %tr
-      %th Active On
-      %td= membership.active_on
-    %tr
-      %th Retired On
-      %td= membership.retired_on
-    %tr
-      %th Participant Cost
-      %td= membership.participant_cost
-    %tr
-      %th Team Cost
-      %td= membership.team_cost
-    %tr
-      %th Notes
-      %td= membership.notes
+    = tr_field('Name', link_to_angel(membership.angel))
+    = tr_fields(membership, :default_role, :status, :active_on, :retired_on, :participant_cost, :team_cost, :notes)
