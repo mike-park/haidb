@@ -5,7 +5,9 @@
       - c << csv_button
       - c << vcard_button
       - c << refresh_button
-    %h3= pluralize(@memberships.length, @header)
+    %h3= pluralize(@memberships.length, 'Team Membership')
+
+  = render 'filter'
 
   .table-responsive
     %table.table.tablesorter

@@ -63,31 +63,7 @@ Tabulous.setup do
       link_path { office_memberships_path }
       visible_when { true }
       enabled_when { true }
-      active_when { a_subtab_is_active }
-    end
-
-    active_office_memberships_subtab do
-      text { list_icon('Active') }
-      link_path { office_memberships_path(status: 'active') }
-      visible_when { true }
-      enabled_when { true }
-      active_when { in_action('any').of_controller("office/memberships") }
-    end
-
-    retired_office_memberships_subtab do
-      text { list_icon('Retired') }
-      link_path { office_memberships_path(status: 'retired') }
-      visible_when { true }
-      enabled_when { true }
-      active_when { false }
-    end
-
-    all_office_memberships_subtab do
-      text { list_icon('All') }
-      link_path { office_memberships_path(status: 'all') }
-      visible_when { true }
-      enabled_when { true }
-      active_when { false }
+      active_when { in_action('any').of_controller('office/memberships') }
     end
 
     office_messages_tab do

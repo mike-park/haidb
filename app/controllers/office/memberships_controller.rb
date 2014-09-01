@@ -1,6 +1,6 @@
 class Office::MembershipsController < Office::ApplicationController
   def index
-    select_members
+    @memberships = filter(Membership).sort
     respond_to do |format|
       format.html
       format.csv { send_data Membership.to_csv(@memberships), filename: "memberships.csv", type: :csv }
@@ -62,20 +62,9 @@ class Office::MembershipsController < Office::ApplicationController
     @memberships.map(&:angel).uniq
   end
 
-  def select_members
-    status = if %w(active retired all).include?(params[:status])
-               params[:status]
-             else
-               'active'
-             end
-    @header = "#{status.humanize} Team Member"
-    @memberships = case status
-                     when 'retired'
-                       Membership.retired
-                     when 'all'
-                       Membership.all
-                     else
-                       Membership.active
-                   end.sort
+  def filter(scope)
+    q = params[:q] || { retired_on_null: true }
+    @q = scope.search(q)
+    @q.result
   end
 end
