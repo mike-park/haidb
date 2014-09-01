@@ -4,6 +4,6 @@
       = search_form_for @q, url: url_for(params), html: {class: 'form form-inline'} do |f|
         = f.input :retired_on_null, label: false, prompt: false, collection: [['All', ''], ['Active Only', 'true'], ['Retired Only', 'false']]
         = f.input :angel_first_name_or_angel_last_name_cont, placeholder: 'Name', label: false, required: false
-        = f.input :status_eq, prompt: 'Status', label: false, required: false, collection: [''] + Membership::STATUSES
+        = f.input :status_eq, prompt: false, label: false, required: false, collection: [['Any Status', '']] + Membership::STATUSES.map {|s| [s,s]}
         = f.input :angel_highest_level_eq, placeholder: 'Level', label: false, required: false
         = f.button :submit, 'Filter'
