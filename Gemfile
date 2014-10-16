@@ -85,6 +85,9 @@ gem 'figaro', '~> 0.7.0'
 # rich texteditor
 gem 'ckeditor_rails'
 
+# charting
+gem 'chartkick'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'

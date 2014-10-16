@@ -5,4 +5,5 @@
     %h3= pluralize(@teams.size, 'Upcoming Team')
 
   .panel-body
+    = render 'chart'
     = render 'teams', teams: @teams
