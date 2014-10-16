@@ -17,6 +17,15 @@
     %dt= "{{bic}}"
     %dd BIC
 
+%p
+  For direct debt emails, these additional special fields are available.
+  %dl.dl-horizontal(ng-non-bindable)
+    %dt= "{{post_date}}"
+    %dd Date of the direct debt
+    %dt= "{{debt_send_date}}"
+    %dd Date the transaction request is sent to the bank
+
+
 = vertical_form([:office, @email_name]) do |f|
   = f.input :name
   = f.simple_fields_for(:emails, f.options.slice(:wrapper_mappings)) do |l|

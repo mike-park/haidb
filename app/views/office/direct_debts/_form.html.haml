@@ -1,6 +1,7 @@
 = vertical_form([:office, @event, @direct_debt]) do |f|
   = f.input :post_date, placeholder: 'dd.mm.yyyy'
-  = f.input :to_iban
+  = f.input :debt_send_date, placeholder: 'dd.mm.yyyy'
+  = f.input :to_iban, label: 'Mandate Reference'
   = f.input :comment
   %p
     Registrations that have an outstanding balance.

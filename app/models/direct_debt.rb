@@ -7,16 +7,17 @@ class DirectDebt
     false
   end
 
-  ATTRIBUTES = [:event, :post_date, :comment, :to_iban, :checked, :send_emails]
+  ATTRIBUTES = [:event, :post_date, :debt_send_date, :comment, :to_iban, :checked, :send_emails]
   attr_accessor *ATTRIBUTES
 
-  validates_presence_of :event, :post_date, :to_iban, :comment
+  validates_presence_of :event, :post_date, :debt_send_date, :to_iban, :comment
 
   def self.new_from(event)
     to_iban = SiteDefault.get('direct_debt.to_iban')
     comment = "#{event.display_name} Workshopfee"
     post_date = I18n.localize(event.start_date - 4, locale: 'de')
-    new(event: event, to_iban: to_iban, comment: comment, post_date: post_date)
+    debt_send_date = I18n.localize(event.start_date - 7, locale: 'de')
+    new(event: event, to_iban: to_iban, comment: comment, post_date: post_date, debt_send_date: debt_send_date)
   end
 
   def initialize(attrs = {})

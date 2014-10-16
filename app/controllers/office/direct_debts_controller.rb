@@ -24,13 +24,14 @@ class Office::DirectDebtsController < Office::ApplicationController
 
   def send_emails
     @direct_debt.checked_registrations.each do |reg|
-      reg.send_email(EventEmail::UPCOMING_DIRECT_DEBIT, from: current_staff.email, post_date: @direct_debt.post_date)
+      reg.send_email(EventEmail::UPCOMING_DIRECT_DEBIT, from: current_staff.email,
+                     post_date: @direct_debt.post_date, debt_send_date: @direct_debt.debt_send_date)
     end
     flash[:notice] = "#{@direct_debt.checked_registrations.length} emails sent"
   end
 
   def direct_debt_params
-    params.require(:direct_debt).permit(:post_date, :to_iban, :comment, :send_emails, checked: [])
+    params.require(:direct_debt).permit(:post_date, :debt_send_date, :to_iban, :comment, :send_emails, checked: [])
   end
 
   def event
