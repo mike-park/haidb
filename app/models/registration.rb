@@ -54,7 +54,7 @@ class Registration < ActiveRecord::Base
   belongs_to :event, :inverse_of => :registrations
   belongs_to :public_signup, :inverse_of => :registration
 
-  scope :hai_workshops, -> { includes(:event).where('events.category = ?', Event::LIS) }
+  scope :hai_workshops, -> { joins(:event).where(events: {category: Event::LIS}) }
   scope :where_status, ->(status) { where(status: status) }
   scope :approved, -> { where_status(APPROVED) }
   scope :pending, -> { where_status(PENDING) }
@@ -71,9 +71,9 @@ class Registration < ActiveRecord::Base
 
   scope :where_email, ->(email) { where(email: email) }
 
-  scope :upcoming_events, lambda { includes(:event).where('events.start_date > ?', Date.current) }
-  scope :past_events, lambda { includes(:event).where('events.start_date <= ?', Date.current) }
-  scope :since, lambda { |date| includes(:event).where('events.start_date >= ?', date) }
+  scope :upcoming_events, lambda { joins(:event).where('events.start_date > ?', Date.current) }
+  scope :past_events, lambda { joins(:event).where('events.start_date <= ?', Date.current) }
+  scope :since, lambda { |date| joins(:event).where('events.start_date >= ?', date) }
   scope :team_workshops, lambda { where(events: {category: Event::TEAM}) }
 
   scope :special_diets, -> { where("special_diet IS NOT NULL AND TRIM(special_diet) <> ''") }
@@ -85,8 +85,8 @@ class Registration < ActiveRecord::Base
   scope :females, -> {where(:gender => FEMALE)}
   scope :males, -> {where(:gender => MALE)}
   scope :by_first_name, -> {order('LOWER(first_name) asc')}
-  scope :by_start_date, -> {includes(:event).order('events.start_date desc')}
-  scope :by_start_date_asc, -> {includes(:event).order('events.start_date asc')}
+  scope :by_start_date, -> {joins(:event).order('events.start_date desc')}
+  scope :by_start_date_asc, -> {joins(:event).order('events.start_date asc')}
   scope :completed, -> {where(:completed => true)}
   scope :located_at, lambda {|lat, lng| where(lat: lat, lng: lng)}
 

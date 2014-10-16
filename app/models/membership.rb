@@ -17,8 +17,8 @@ class Membership < ActiveRecord::Base
 
   scope :active, lambda { where(retired_on: nil) }
   scope :retired, lambda { where('retired_on IS NOT NULL') }
-  scope :with_gender, ->(gender) { includes(:angel).where(angels: {gender: gender}) }
-  scope :by_full_name, -> { includes(:angel).order('angels.first_name, angels.last_name asc') }
+  scope :with_gender, ->(gender) { joins(:angel).where(angels: {gender: gender}) }
+  scope :by_full_name, -> { joins(:angel).order('angels.first_name, angels.last_name asc') }
   scope :by_active_on_desc, -> { order('active_on desc') }
 
   validates_presence_of :angel, :active_on

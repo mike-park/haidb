@@ -11,7 +11,7 @@ class SiteDefault < ActiveRecord::Base
 
   validates_presence_of :description
 
-  scope :by_key, -> { includes(:translation_key).order('translation_keys.key asc') }
+  scope :by_key, -> { joins(:translation_key).order('translation_keys.key asc') }
 
   delegate :translations, :to => :translation_key
 
