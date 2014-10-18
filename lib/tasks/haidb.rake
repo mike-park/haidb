@@ -24,4 +24,17 @@ namespace :haidb do
     desc 'Perform daily cleanup'
     task daily: %w(angels:merge memberships:recalc audit:trim)
   end
+
+  namespace :db do
+    desc 'Pull live db to development'
+    task pull: [] do
+      %x(dropdb haidb_development)
+      %x(env -i PATH=$PATH HOME=$HOME /usr/bin/heroku pg:pull haidb::BLUE haidb_development)
+    end
+
+    desc 'Apply incognito the db'
+    task incognito: :environment do
+      Incognito.apply
+    end
+  end
 end
