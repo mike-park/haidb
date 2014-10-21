@@ -143,6 +143,25 @@ describe Registration do
     end
   end
 
+  context "iban_blurred" do
+    [
+        ['123 456 789 ', 'XXXXXX789'],
+        ['123', 'XXXXXX123'],
+        ['12', 'XXXXXXX12'],
+        ['1', 'XXXXXXXX1'],
+        [nil, 'XXXXXXXXX'],
+        ['9999 123 456 789 ', 'XXXXXX789'],
+    ].each do |iban, blurred|
+      context "#{iban}" do
+        let(:registration) { FactoryGirl.create(:registration, iban: iban) }
+        it "should return last 3 digits" do
+          expect(registration.iban_blurred).to eq(blurred)
+        end
+      end
+    end
+  end
+
+
   context "highest level" do
     it "should return the highest completed level" do
       e1 = FactoryGirl.build(:event1)

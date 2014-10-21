@@ -165,6 +165,10 @@ class Registration < ActiveRecord::Base
     read_attribute(:lang) || 'en'
   end
 
+  def iban_blurred
+    'XXXXXX' + "XXX#{iban.to_s.gsub(/[^0-9]/, '')}".slice(-3,3)
+  end
+
   def send_email(type, options = {})
     template = event.email(type, lang)
     if template

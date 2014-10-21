@@ -11,3 +11,4 @@ notes/
 .pow*
 config/application.yml
 config/applications
+fe/

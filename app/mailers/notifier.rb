@@ -23,9 +23,10 @@ class Notifier < ActionMailer::Base
   end
 
   def extract_fields(registration, options)
-    fields = [:event_name, :registration_code, :cost, :iban, :bic].inject({}) do |memo, field|
+    fields = [:event_name, :registration_code, :cost, :bic].inject({}) do |memo, field|
       memo.merge(field => registration.send(field))
     end
+    fields[:iban] = registration.iban_blurred
     fields[:person_name] = registration.full_name
     fields[:account_name] = registration.bank_account_name
     fields[:account_name] = registration.full_name if fields[:account_name].blank?

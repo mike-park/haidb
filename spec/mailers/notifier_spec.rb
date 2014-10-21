@@ -6,7 +6,7 @@ describe Notifier do
   let(:registration) { FactoryGirl.build(:registration, first_name: 'Mike', last_name: 'Park',
                                          email: 'somewhere@example.com', event: event, cost: 1.23,
                                          registration_code: 'reg_code', event: event,
-                                         iban: 'iban', bic: 'bic', bank_account_name: 'account name') }
+                                         iban: '123 456 789 ', bic: 'bic', bank_account_name: 'account name') }
   let(:email) { FactoryGirl.build(:en_email) }
   let(:options) { {} }
   subject { Notifier.registration_with_template(registration, email, options) }
@@ -53,7 +53,12 @@ describe Notifier do
         its(:body) { should eq cost}
       end
     end
+  end
 
+  context 'iban interpolation' do
+    let(:email) { FactoryGirl.build(:en_email, :subject => "{{iban}}", body: "{{iban}}") }
+    its(:subject) { should match("#{registration.iban_blurred}") }
+    its(:body) { should match("#{registration.iban_blurred}") }
   end
 
   context 'registration interpolation' do
@@ -61,7 +66,6 @@ describe Notifier do
      [:account_name, :bank_account_name],
      [:event_name, :event_name],
      [:registration_code, :registration_code],
-     [:iban, :iban],
      [:bic, :bic]
     ].each do |(liquid_name, name)|
       context "#{name} interpolation" do
